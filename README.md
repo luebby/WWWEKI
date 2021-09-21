@@ -1,6 +1,6 @@
 ## Projekt
 
-Entwicklung eines MOOC für den (KI-Campus)[https://ki-campus.org/] zum Einstieg in die Kausale Inferenz in Kooperation mit [Julia Rohrer](https://juliarohrer.com/) (Projektleitung), Universität Leipzig.
+Entwicklung eines MOOC` für den [KI-Campus](https://ki-campus.org/) zum Einstieg in die Kausale Inferenz in Kooperation mit [Julia Rohrer](https://juliarohrer.com/) (Projektleitung), Universität Leipzig.
 
 Details siehe z.B. [https://www.fom-blog.de/2021/07/einstiegskurs-kausale-inferenz-wird-gemeinsam-von-der-universitaet-leipzig-und-der-fom-hochschule-mit-einer-foerderung-durch-das-bmbf-entwickelt/](https://www.fom-blog.de/2021/07/einstiegskurs-kausale-inferenz-wird-gemeinsam-von-der-universitaet-leipzig-und-der-fom-hochschule-mit-einer-foerderung-durch-das-bmbf-entwickelt/).
 
@@ -12,4 +12,4 @@ Details siehe z.B. [https://www.fom-blog.de/2021/07/einstiegskurs-kausale-infere
 
 Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
 
-![Logo BMBF](csm_Logo-BMBF.jpg)
+![Logo BMBF](/img/csm_Logo-BMBF.jpg)
