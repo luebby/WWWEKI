@@ -3,6 +3,7 @@ title: "Modul 01: An der Weggabelung: Einen Weg gehen - und einen nicht"
 output: 
   learnr::tutorial:
     progressive: true
+    css: "css/style.css"
 runtime: shiny_prerendered
 ---
 
@@ -50,13 +51,13 @@ Stellen Sie sich folgende Situation vor: Am Ende der Ausbildungszeit wird eine f
 
 Würden Sie teilnehmen?
 
-Und wie würden Sie für sich den **Individuellen Kausalen Effekt** der Teilnahme an der Schulung auf Ihr Gehalt definieren. D.h., die Frage ist wie viel höher Ihr Gehalt aufgrund der Schulung ist.
+Und wie würden Sie für sich den **Individuellen Kausalen Effekt** der Teilnahme an der Schulung auf Ihr Gehalt definieren. D.&#8239;h., die Frage ist wie viel höher Ihr Gehalt aufgrund der Schulung ist.
 
 *Denken Sie bitte kurz darüber nach und klicken Sie erst dann auf `Next Topic`*
 
 ##
 
-Manche antworten hier vielleicht *Gehalt nach der Schulung minus Gehalt vor der Schulung*. Aber das ist es nicht wirklich. Vielleicht hätte sich ja auch ohne die Teilnahme an der Schulung Ihr Gehalt erhöht. So wie manche Krankheiten mit- oder ohne Behandlung verschwinden.
+Manche antworten hier vielleicht *Gehalt nach der Schulung minus Gehalt vor der Schulung*. Aber das ist es nicht wirklich. Vielleicht hätte sich ja auch ohne die Teilnahme an der Schulung Ihr Gehalt erhöht. So wie manche Krankheiten mit oder ohne Behandlung verschwinden.
 
 Eine andere Möglichkeit ist es, diesen Effekt als 
 
@@ -64,7 +65,7 @@ $$\text{Gehalt mit Schulung} - \text{Gehalt ohne Schulung} $$
 
 zu definieren.
 
-Wenn Sie vor der Entscheidung stehen: *Nehme ich an der Schulung teil?* gibt es für Ihr Gehalt zwei **potentielle Ergebnisse** (engl.: Potential Outcomes):
+Wenn Sie vor der Entscheidung stehen: *Nehme ich an der Schulung teil?* gibt es für Ihr Gehalt zwei **potenzielle Ergebnisse** (engl.: Potential Outcomes):
 
 - Gehalt mit Schulung
  
@@ -72,7 +73,7 @@ Wenn Sie vor der Entscheidung stehen: *Nehme ich an der Schulung teil?* gibt es 
 
 Mathematisch dargestellt:
 
-$$\color{purple}{Y}^{\color{olive}{X_=1}}_i - \color{purple}{Y}^{\color{olive}{X=0}}_i$$
+$$\color{purple}{Y}^{\color{olive}{X=1}}_i - \color{purple}{Y}^{\color{olive}{X=0}}_i$$
 
 Wobei
 
@@ -80,7 +81,7 @@ Wobei
 
 - $\color{purple}{Y}_i$ für das Gehalt von $i$
 
-- $\color{olive}{X}$ für die Teilnahme an der Schulung- Dabei ist $\color{olive}{X_i=1}$ wenn $i$ teilnimmt und  $\color{olive}{X_i=0}$ wenn $i$ nicht teilnimmt.
+- $\color{olive}{X}$ für die Teilnahme an der Schulung; dabei ist $\color{olive}{X_i=1}$ wenn $i$ teilnimmt und  $\color{olive}{X_i=0}$ wenn $i$ nicht teilnimmt.
 
 Damit ergibt sich der **individuelle kausale Effekt** $\color{blue}{\Delta}_i$ der Teilnahme als:
 
@@ -88,7 +89,7 @@ $$\color{blue}{\Delta}_i = \color{purple}{Y}^{\color{olive}{X=1}}_i - \color{pur
 
 ## Ein fiktives Beispiel
 
-Schauen wir uns einmal eine fiktive Gehaltstabelle von Potential Outcomes:
+Schauen wir uns einmal eine fiktive Gehaltstabelle von Potential Outcomes an:
 
 - `i`: Laufende Nummer der Beobachtung.
 
@@ -126,5 +127,5 @@ question("Lässt sich der individuelle kausale Effekt in der Praxis beobachten?"
          )
 ```
 
-## Das fundamentales Problem der kausalen Inferenz
+## Das fundamentale Problem der kausalen Inferenz
 

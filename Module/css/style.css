@@ -1,0 +1,25 @@
+/* (Text-)Farben definieren */
+p grey {
+  color: #5E6974;
+}
+p green {
+  color: #0F710B;
+}
+p red {
+  color: #F34213;
+}
+p blue {
+  color: #0000FF;
+}
+p orange {
+  color: #FF8811;
+}
+p violet {
+  color: #DA70D6;
+}
+p purple {
+  color: #7A378B;
+}
+p olive {
+  color: #808000;
+}
