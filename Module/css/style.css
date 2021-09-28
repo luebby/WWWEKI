@@ -23,3 +23,109 @@ p purple {
 p olive {
   color: #808000;
 }
+
+
+/* Überschriften */
+h2 {
+  color: #0077b3;
+  opacity: 0.8;
+  margin-top: 10px;
+  font-weight: bold; 
+}
+
+/* KIcampus-Farbe: dunkellila - #400080, helllila - #a64dff, lila - #8c1aff, blau - #0077b3  */
+
+/* Menü-Layout definieren */
+.panel, pre {
+  border-radius: 0;
+  border: solid 1px #400080;
+}
+.band{
+  margin-top: 8px;
+  padding: 0;
+  background-image: url("csm_Logo-BMBF.jpg");
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 12%;
+}
+.band .tutorialTitle {
+  display: block;
+  color: #fff;
+  background-color: #8c1aff;
+  border: 0;
+  opacity: 0.9;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin: 0;
+}
+.topics .tutorialTitle {
+  display: none;
+}
+.topics {
+  margin-top: 20px;
+  padding-right: 80px;
+  /*width: 75%;*/
+  overflow-x: auto;
+  padding-bottom: 600px;
+}
+.topicsList {
+  float: left;
+  position: relative;
+  width: 23%;
+  min-width: 270px;
+  overflow: auto;
+  scroll-behavior: smooth;
+  transform: translateZ(0); /* force repaint to work on older browser used in the IDE */
+  background-color: #e6ccff;
+  left: 2px;
+  opacity: 0.9;
+  margin: 0;
+  padding: 10px;
+  padding-left: 8px;
+  margin-left: 2px;
+  border: 0;
+}
+.topicsList .topic {
+  line-height: 1.5;
+  padding: 4px;
+  padding-left: 10px;
+  font-size: 16px;
+  border: 0;
+  margin: 0;
+  color: #fff;
+  background-color: #a64dff;
+}
+.topicsList .topic:hover {
+  background-color: #8c1aff;
+}
+.topicsList .topic.current {
+  background-color: #8c1aff;
+}
+.topicsFooter {
+  padding-top: 2px;
+  padding-bottom: 4px;
+  margin-top: 6px;
+  color: #dbf0ee;
+  background-color: #8c1aff;
+}
+
+.btn-default {
+  background-color: #e0e0e0;
+  background-image: none;
+  border: none; }
+.btn-default:hover {
+  background-color: #c8c8c8; }
+.btn-default:focus {
+  background-color: #e0e0e0; }
+
+.btn-primary, .btn-success, .btn-info {
+  background-color: #75aadb;
+  background-image: none;
+  border: none; }
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:focus:active, .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success:focus:active, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info:focus:active {
+    background-color: #0077b3; }
+.btn-primary:focus:hover, .btn-primary:active:hover, .btn-primary:focus:active:hover, .btn-success:focus:hover, .btn-success:active:hover, .btn-success:focus:active:hover, .btn-info:focus:hover, .btn-info:active:hover, .btn-info:focus:active:hover {
+    background-color: #4c83b6; }
+.btn-primary.disabled, .btn-primary:disabled, .btn-primary.disabled:hover, .btn-primary:disabled:hover, .btn-success.disabled, .btn-success:disabled, .btn-success.disabled:hover, .btn-success:disabled:hover, .btn-info.disabled, .btn-info:disabled, .btn-info.disabled:hover, .btn-info:disabled:hover {
+    background-color: #75aadb; }
