@@ -4,6 +4,10 @@ Entwicklung eines MOOC für den [KI-Campus](https://ki-campus.org/) zum Einstieg
 
 Details siehe z.B. [FOM forscht Wissenschaftsblog](https://www.fom-blog.de/2021/07/einstiegskurs-kausale-inferenz-wird-gemeinsam-von-der-universitaet-leipzig-und-der-fom-hochschule-mit-einer-foerderung-durch-das-bmbf-entwickelt/).
 
+**Dieser Kurs ist aktuell noch in der Entwicklung!**
+
+Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
+
 ## Lizenz
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />Dieses Werk ist lizenziert unter einer <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz</a>.
