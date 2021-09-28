@@ -76,13 +76,17 @@ zu definieren.
 
 Wenn Sie vor der Entscheidung stehen: *Nehme ich an der Schulung teil?* gibt es für Ihr Gehalt zwei **potenzielle Ergebnisse** (engl.: Potential Outcomes):
 
-- <purple> Gehalt </purple> mit <olive> Schulung <olive>
- 
-- <purple> Gehalt </purple> ohne <olive> Schulung <olive>
+- <purple> Gehalt </purple> ohne <olive> Schulung <olive>: $\color{purple}{Y}^{\color{olive}{X=0}}$
 
-Mathematisch dargestellt:
+- <purple> Gehalt </purple> mit <olive> Schulung <olive>: $\color{purple}{Y}^{\color{olive}{X=1}}$
 
-$$\color{purple}{Y}^{\color{olive}{X=1}}_i - \color{purple}{Y}^{\color{olive}{X=0}}_i$$
+![](images/Weggabel.png){width="65%"}
+
+##
+
+Mathematisch dargestellt ergibt sich dann der **individuelle kausale Effekt** $\color{blue}{\Delta}_i$ (gr.: Delta) der Schulung als:
+
+$$\color{blue}{\Delta}_i = \color{purple}{Y}^{\color{olive}{X=1}}_i - \color{purple}{Y}^{\color{olive}{X=0}}_i$$
 
 Wobei
 
@@ -92,9 +96,6 @@ Wobei
 
 - $\color{olive}{X}$ für die Teilnahme an der <olive> Schulung </olive>; dabei ist $\color{olive}{X_i=1}$ wenn $i$ teilnimmt und  $\color{olive}{X_i=0}$ wenn $i$ nicht teilnimmt.
 
-Damit ergibt sich der **individuelle kausale Effekt** $\color{blue}{\Delta}_i$ (gr.: Delta) der Teilnahme als:
-
-$$\color{blue}{\Delta}_i = \color{purple}{Y}^{\color{olive}{X=1}}_i - \color{purple}{Y}^{\color{olive}{X=0}}_i$$
 
 ## Ein fiktives Beispiel
 
