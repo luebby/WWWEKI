@@ -92,7 +92,7 @@ Wobei
 
 - $\color{olive}{X}$ für die Teilnahme an der <olive> Schulung </olive>; dabei ist $\color{olive}{X_i=1}$ wenn $i$ teilnimmt und  $\color{olive}{X_i=0}$ wenn $i$ nicht teilnimmt.
 
-Damit ergibt sich der **individuelle kausale Effekt** $\color{blue}{\Delta}_i$ (gr. *Delta*) der Teilnahme als:
+Damit ergibt sich der **individuelle kausale Effekt** $\color{blue}{\Delta}_i$ (gr.: Delta) der Teilnahme als:
 
 $$\color{blue}{\Delta}_i = \color{purple}{Y}^{\color{olive}{X=1}}_i - \color{purple}{Y}^{\color{olive}{X=0}}_i$$
 
@@ -157,9 +157,9 @@ question("Lässt sich der individuelle kausale Effekt in der Praxis beobachten?"
 
 Das fundamentale Problem der kausalen Inferenz ist, dass wir den individuelle kausale Effekt $\color{blue}{\Delta}_i = \color{purple}{Y}^{\color{olive}{X=1}}_i - \color{purple}{Y}^{\color{olive}{X=0}}_i$ **nicht** beobachten können. Es liegt je Beobachtung $i$ immer nur eines der beiden Potential Outcomes vor: Entweder $\color{purple}{Y}^{\color{olive}{X=1}}$ (<purple> Gehalt </purple> mit <olive> Schulung </olive>) **oder** $\color{purple}{Y}^{\color{olive}{X=0}}$ (<purple> Gehalt </purple> ohne <olive> Schulung </olive>).
 
-- Wenn Person $i$ an der Schulung teilnimmt liegt uns das Gehalt mit Schulung vor $(\color{purple}{Y}^{\color{olive}{X=1}}_i$), und nicht $\color{purple}{Y}^{\color{olive}{X=0}}_i$
+- Wenn Person $i$ an der Schulung teilnimmt liegt uns das Gehalt mit Schulung vor, $\color{purple}{Y}^{\color{olive}{X=1}}_i$, und nicht $\color{purple}{Y}^{\color{olive}{X=0}}_i$
 
-- Wenn $i$ nicht an der Schulung teilnimmt liegt uns das Gehalt ohne Schulung vor $(\color{purple}{Y}^{\color{olive}{X=0}}_i$), und nicht $\color{purple}{Y}^{\color{olive}{X=1}}_i$
+- Wenn $i$ nicht an der Schulung teilnimmt liegt uns das Gehalt ohne Schulung vor, $\color{purple}{Y}^{\color{olive}{X=0}}_i$, und nicht $\color{purple}{Y}^{\color{olive}{X=1}}_i$
 
 Der Wert der nicht vorliegt wird **Counterfactual** genannt. Für jemanden der nicht an der Schulung teilgenommen hat ist das Counterfactual die Antwort auf die Frage: *Wie hoch wäre mein Gehalt, wenn ich an der Schulung teilgenommen hätte?*. Für jemanden der teilgenommen hat ist das Counterfactual das Gehalt ohne Teilnahme.
 
@@ -249,7 +249,7 @@ $$\bar{\color{purple}{y}}^{\color{olive}{x=1}} - \bar{\color{purple}{y}}^{\color
 
 Dieser weist aber eine systematische Verzerrung, einen **Bias** zum zu schätzenden Wert $\bar{\color{blue}{\Delta}} =`r round(mean(~ effekt, data = Schulung),2)`$ auf.
 
-Der naive Vergleich der Mittelwerte überschätzt hier den wahren durchschnittlichen Effekt. Dies liegt daran, dass in diesem fiktiven Beispiel Personen mit einem höherem Gehaltsinteresse eher an der Schulung teilgenommen haben als die mit einem niedrigeren Interesse. Die Teilnehmer:innen hätten aber, aufgrund Ihres Gehaltsinteresses so oder so, also unabhängig von der Schulung, ein höheres Gehalt erwartet.
+Der naive Vergleich der Mittelwerte überschätzt hier den wahren durchschnittlichen Effekt. Dies liegt daran, dass in diesem fiktiven Beispiel Personen mit einem höherem Gehaltsinteresse eher an der Schulung teilgenommen haben als die mit einem niedrigeren Interesse. Erstere hätten aber, aufgrund Ihres Gehaltsinteresses so oder so, also unabhängig von der Schulung, ein höheres Gehalt erwartet.
 
 Kontrollieren Sie diese Aussage, indem Sie den Code so abändern, dass Sie den Mittelwert der Potential Outcomes berechnen:
 
@@ -272,12 +272,14 @@ Dies ist leider ein universelles Problem: Daten können viel erzählen und verbe
 
 ## Hinweis
 
-<red>Dieser Kurs ist aktuell noch in der Entwicklung!</red>
+<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
 
 Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
 
 Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
 
-![Logo BMBF](/img/csm_Logo-BMBF.jpg)
+
+![Logo BMBF](images/csm_Logo-BMBF.jpg)
+
 
 
