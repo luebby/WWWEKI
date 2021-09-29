@@ -154,7 +154,7 @@ question("Lässt sich der individuelle kausale Effekt in der Praxis beobachten?"
          )
 ```
 
-## Das fundamentale Problem der kausalen Inferenz
+## Das Problem
 
 Das fundamentale Problem der kausalen Inferenz ist, dass wir den individuelle kausale Effekt $\color{blue}{\Delta}_i = \color{purple}{Y}^{\color{olive}{X=1}}_i - \color{purple}{Y}^{\color{olive}{X=0}}_i$ **nicht** beobachten können. Es liegt je Beobachtung $i$ immer nur eines der beiden Potential Outcomes vor: Entweder $\color{purple}{Y}^{\color{olive}{X=1}}$ (<purple> Gehalt </purple> mit <olive> Schulung </olive>) **oder** $\color{purple}{Y}^{\color{olive}{X=0}}$ (<purple> Gehalt </purple> ohne <olive> Schulung </olive>).
 
@@ -182,6 +182,7 @@ question("Person $i$ nimmt an der Schulung teil. Was ist dann das Counterfactual
          )
 ```
 
+
 ## Durchschnittlicher kausaler Effekt
 
 Würden wir den individuelle kausale Effekt $\color{blue}{\Delta}_i$ kennen (Variable `effekt` in unserem `R` Beispiel), könnten wir u.a. den durchschnittlichen kausalen Effekt berechnen, indem wir alle $i$ individuellen kausalen Effekte addieren und diese Summe ($\sum$) durch die Anzahl der Beobachtungen ($n$) dividieren: 
@@ -205,7 +206,7 @@ $$\bar{\color{blue}{\Delta}}=\frac{\sum_{i=1}^n \color{blue}{\Delta}_i}{n}=`r me
 
 ## Fehlende Werte
 
-Wenn wir wissen wer teilgenommen hat, wissen wir auch welche der beiden Potential Outcomes wir kennen, und welche als Counterfactual fehlen. Fehlende Werte werden in `R` als `NA` (engl. not available, nicht verfügbar) dargestellt.
+Wenn wir wissen wer teilgenommen hat, wissen wir auch welche der beiden Potential Outcomes wir kennen, und welche als Counterfactual fehlen. Fehlende Werte werden in `R` als `NA` (engl.: not available, nicht verfügbar) dargestellt.
 
 ```{r teilnahme, echo=FALSE}
 Schulung %>%
@@ -254,18 +255,21 @@ Der naive Vergleich der Mittelwerte überschätzt hier den wahren durchschnittli
 
 Kontrollieren Sie diese Aussage, indem Sie den Code so abändern, dass Sie den Mittelwert der Potential Outcomes berechnen:
 
+*Tipp*: Einen Lösungshinweis erhalten Sie über `Hints`. Anschließend `Next Hint` und Sie sehen die Lösung.
+
 ```{r po, exercise = TRUE}
 mean(gehalt ~ teilnahme, data = Schulung)
-```
-
-```{r po-hint}
-"gehalt0 bzw. gehalt1 sind die Variablennamen. Ändern Sie gehalt entsprechend."
 ```
 
 ```{r po-solution}
 mean(gehalt0 ~ teilnahme, data = Schulung)
 mean(gehalt1 ~ teilnahme, data = Schulung)
 ```
+
+```{r po-hint}
+"gehalt0 bzw. gehalt1 sind die Variablennamen. Ändern Sie gehalt entsprechend."
+```
+
 
 ##
 
