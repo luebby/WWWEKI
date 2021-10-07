@@ -12,6 +12,9 @@ runtime: shiny_prerendered
 library(learnr)
 library(knitr)
 library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(emojifont)
 
 theme.fom <- theme_classic(22*1.04)
 theme.fom <- theme.fom
@@ -22,7 +25,7 @@ theme_set(
 
 library(ggdag)
 
-# DAG
+# DAG, ohne Fehlerterm
 co <- data.frame(x=c(0,1), y=c(0,0), name=c("X", "Y"))
 DAG1 <- dagify(Y~ X,
                    coords = co) %>% 
@@ -34,6 +37,67 @@ DAG1 <- dagify(Y~ X,
   geom_text(label = "X - Tablette\nY - Schmerzrückgang", 
             hjust = 1, vjust = 2,
             x = 1, y = 0, size = 7, color = "darkgrey") 
+
+# Beispiel rutschige Straße
+co <- data.frame(x = c(0,1,1,2,4), y = c(0.5,0,1,0.5,0.5), name = c("X1", "X2", "X3","X4","X5")) 
+DAG_Str <- dagify(X3 ~ X1,
+                  X2 ~ X1,
+                  X4 ~ X2,
+                  X4 ~ X3,
+                  X5 ~ X4,
+                  coords = co) %>%
+    ggdag() + 
+   geom_dag_point(colour = "#301a87") +
+  geom_dag_text(size = 5) +
+  theme_dag_blank() +
+  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
+  geom_text(label = "X1 - Jahreszeit\nX2 - Regen\nX3 - Wassersprenger\nX4 - Nass\nX5 - Rutschig", 
+            hjust = 1, vjust = 1,
+            x = 4, y = 1, size = 5, color = "darkgrey") 
+
+# DAG 2, mit Fehlerterm
+co <- data.frame(x=c(0,1,0,1), y=c(0,0,1,1), name=c("X", "Y", "U_X", "U_Y"))
+DAG2 <- dagify(Y~ X,
+               X ~ U_X,
+               Y ~ U_Y,
+                   coords = co) %>% 
+  ggdag() + 
+  geom_dag_point(colour = c( "darkgrey", "darkgrey","#0F710B", "#0000FF")) + 
+  geom_dag_text(size = 5) +
+  theme_dag_blank() +
+  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
+  geom_text(label = "X - Tablette\nY - Schmerzrückgang", 
+            hjust = 1, vjust = 2,
+            x = 1, y = 0, size = 7, color = "darkgrey")
+
+# Funktionen für Beispiel
+
+ux <- function() sample(c("Ja", "Nein"),1)
+fy <- function(x) ifelse(x == "Ja", sample(c("Ja", "Nein"), 1, prob = c(0.9,0.1)), sample(c("Ja", "Nein"), 1, prob = c(0.4,0.6)))
+
+# Verteilung Beispiel
+d <- crossing(x = 1:10,
+              y = 1:10) %>%
+  mutate(tablette = c(rep("Ja",50), rep("Nein", 50)),
+         heilung = c(rep(fontawesome('fa-check'), 50 * 0.9),
+                     rep(fontawesome('fa-close'), 50 * 0.1),
+                     rep(fontawesome('fa-check'), 50 * 0.4),
+                     rep(fontawesome('fa-close'), 50 * 0.6)))
+
+pd <- ggplot(d, aes(x = x, y = y, color = tablette)) +
+  geom_tile(color = "white", size = .5, aes(fill = tablette), alpha = .2) +
+  theme_void() +
+  geom_text(family='fontawesome-webfont', size = 8, aes(label = heilung)) +
+  scale_color_manual(values = c("#0F710B", "grey80"),
+                     name = "") +
+  scale_fill_manual( values = c("#0F710B", "grey80")) +
+  theme(legend.position = "none") +
+  guides(guide = "none") +
+  annotate(geom="text", x=3, y=5.5, label="Tablette genommen",
+             color="black", size = 10) +
+  annotate(geom="text", x=8, y=5.5, label="Tablette nicht genommen",
+           color="black", size = 10)
+
 ```
 
 ## Lernziele
@@ -79,7 +143,7 @@ question("Angenomen nach der Einnahme einer Tablette gehen die Schmerzen weg. Wi
 <!-- Quelle: https://github.com/TabeaG/Uebungsheft-Apps/blob/master/EinfuehrungWkeitInferenz/02_EinfuehrungWkeitInferenz.Rmd -->
 
 <span style="font-size: 13px; font-weight: bold; margin-top: 20px;">
-Gucken wir mal ob die Tablette hilft
+Gucken wir mal ob die Tablette hilft!
 </span>
 
 <img src="images/Pillen.jpg" alt="Pillenpackung" width="50%" height="50%">
@@ -148,7 +212,7 @@ Wenn Sie eben mehrfach die Tablette genommen haben - oder nicht genommen haben -
 
 - $Pr(\text{Schmerzrückgang wenn keine Tablette eingenommen})=0.4$ - und damit $Pr(\text{Kein Schmerzrückgang wenn keine Tablette eingenommen})=1-0.4=0.6$
 
-## Graphische Darstellung
+## Kausales Diagramm
 
 Dass die Verteilung von $Y$ auf $X$ *hört*, lässt sich auch graphisch darstellen:
 
@@ -169,6 +233,92 @@ question("Welches kausale Diagramm beschreibt den Zusammenhang zwischen Lichtsch
 		incorrect = "Leider falsch."
          )
 ```
+
+## Kinder und Eltern
+
+Manche glauben ja, dass Kinder auf Ihre Eltern hören. Das schöne an abstrakten, gedanklichen Welten ist, dass das dort realisiert werden kann. Variablen (Knoten) auf die eine Pfeilspitze zeigt werden **Kinder** der Variablen genannt von denen die Pfeile ausgehen. Diese Variablen werden entsprechend **Eltern** genannt: $\text{Eltern} \rightarrow \text{Kinder}$. Im Beispiel von oben ist <blue> Schmerzrückgang </blue> ein Kind von <green> Tabletteneinnahme </green> - und dementsprechend <green> Tabletteneinnahme </green> Eltern von <blue> Schmerzrückgang </blue>.
+
+Ein Beispiel für ein kausales Diagramm, wie eine Straße rutschig werden kann:
+
+```{r DAG_Str, echo=FALSE, fig.align='center', out.width='85%'}
+plot(DAG_Str)
+```
+
+Quelle: [Mohan und Pearl (2012)](https://ftp.cs.ucla.edu/pub/stat_ser/uai12-mohan-pearl.pdf)
+
+```{r eltern, echo=FALSE}
+question("Welche Variable ist bzw. welche Variablen sind Eltern von *Nass* (X4)?",
+         answer("Keine.", message = "Nass hängt ab von Wassersprenger und Regen."),
+         answer("Jahreszeit.", message = "Nass hängt ab von Wassersprenger und Regen."),
+         answer("Wassersprenger und Regen.", correct = TRUE,  message = "Nass hängt ab von Wassersprenger und Regen."),
+         answer("Rutschig.", message = "Nass hängt ab von Wassersprenger und Regen."),
+		correct = "Klasse!",
+		incorrect = "Leider falsch."
+         )
+```
+
+```{r kinder, echo=FALSE}
+question("Welche Variable ist bzw. welche Variablen sind Kinder von *Nass* (X4)?",
+         answer("Keine.", message = "Rutschig hängt ab von Nass."),
+         answer("Jahreszeit.", message = "Rutschig hängt ab von Nass."),
+         answer("Wassersprenger und Regen.", message = "Rutschig hängt ab von Nass."),
+         answer("Rutschig.", correct = TRUE , message = "Rutschig hängt ab von Nass."),
+		correct = "Schön!",
+		incorrect = "Leider falsch."
+         )
+```
+
+## Kausale Modelle
+
+Das **kausale Modell** eines Graphen $\color{green}{X} \rightarrow \color{blue}{Y}$ besteht aus zwei Zuweisungen:
+
+- $\color{green}{X} = U_{\color{green}{X}}$
+- $\color{blue}{Y} = f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$
+
+Dabei sind $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unbekannte Ursachen oder Fehler von $\color{green}{X}$ und $\color{blue}{Y}$, und $f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$ die Funktion, der Mechanismus wie $\color{blue}{Y}$ auf Basis von ´ zu seinem Wert kommt. 
+
+Im Beispiel
+$$\color{green}{\text{Tabletteneinnahme}} \rightarrow \color{blue}{\text{Schmerzrückgang}}$$ 
+beinhaltet $U_{\color{green}{\text{Tabletteneinnahme}}}$ die unbekannten, vielleicht zufälligen Gründe, die zur Entscheidung führen, ob eine Tablette genommen wird oder nicht und $U_{\color{blue}{\text{Schmerzrückgang}}}$ die unbekannten, vielleicht zufälligen Gründe, die den Schmerzrückgang mit oder ohne Tabletteneinahme zusätzlich beschreiben. Dabei gehen wir davon aus, dass $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unabhängig voneinander sind. 
+
+Diese könnten in den Graphen mit aufgenommen werden, werden aber häufig aus Gründen der Übersichtlichkeit weggelassen. 
+
+```{r DAG2, echo=FALSE, fig.align='center', out.width='60%'}
+plot(DAG2)
+```
+
+
+Angenommen Sie werfen eine Münze (`ux()`) ob Sie die Tablette nehmen oder nicht, und es gilt (`fy()`):
+
+- $Pr(\text{Schmerzrückgang wenn Tablette eingenommen})=0.9$ 
+
+- $Pr(\text{Kein Schmerzrückgang wenn Tablette eingenommen})=1-0.9=0.1$
+
+- $Pr(\text{Schmerzrückgang wenn keine Tablette eingenommen})=0.4$ 
+
+- $Pr(\text{Kein Schmerzrückgang wenn keine Tablette eingenommen})=1-0.4=0.6$
+
+Simulieren Sie diesen Fall mehrfach über `Run Code`:
+
+```{r sim, exercise=TRUE}
+x <- ux()
+cat("Tabletteneinnahme? ", x, "\n")
+y <- fy(x)
+cat("Schmerzreduktion? ", y, "\n")
+```
+
+##
+
+Wenn $100$ Menschen eine Münze werfen, ob sie die Tablette einnehmen oder nicht, erwarten wir im Mittelwert, dass $50$ von Ihnen die Tablette nehmen (grün hinterlegt), und von diesen $50 \times 0.9 = 45$ eine Schmerzreduktion erfahren (<i class="fa fa-check" aria-hidden="true"></i>) und die anderen $50-45=5$ nicht (<i class="fa fa-close" aria-hidden="true"></i>) . Von den $50$ ohne Tabletteneinnahme (grau hinterlegt) erfahren $50 \times 0.4 = 20$ eine Schmerzreduktion erfahren (<i class="fa fa-check" aria-hidden="true"></i>) und die anderen $50-20=30$ nicht (<i class="fa fa-close" aria-hidden="true"></i>):
+
+```{r pd, echo=FALSE, fig.align='center', out.width='85%'}
+plot(pd)
+```
+
+
+
+
+
 
 ## Hinweis
 
