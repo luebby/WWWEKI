@@ -92,6 +92,7 @@ pd <- ggplot(d, aes(x = x, y = y, color = tablette)) +
                      name = "") +
   scale_fill_manual( values = c("#0F710B", "grey80")) +
   theme(legend.position = "none") +
+  labs(title = "Schmerzrückgang") +
   guides(guide = "none") +
   annotate(geom="text", x=3, y=5.5, label="Tablette genommen",
              color="black", size = 10) +
@@ -220,7 +221,7 @@ Dass die Verteilung von $Y$ auf $X$ *hört*, lässt sich auch graphisch darstell
 plot(DAG1)
 ```
 
-In einem solchen **Graphen** sind die Variablen <green> Tabletteneinnahme </green> und <blue> Schmerzrückgang </blue> die sog. **Knoten**. Der **Pfeil** $\rightarrow$ zwischen $\color{green}{X}$ und $\color{blue}{Y}$ ist eine gerichtete **Kante** und stellt die kausale Abhängikeit dar.
+In einem solchen **Graphen** sind die Variablen <green> Tabletteneinnahme </green> und <blue> Schmerzrückgang </blue> die sog. **Knoten**. Der **Pfeil** $\rightarrow$ zwischen $\color{green}{X}$ und $\color{blue}{Y}$ ist eine gerichtete **Kante** und stellt die kausale Abhängigkeit dar.
 
 $\color{green}{X} \rightarrow \color{blue}{Y}$ bedeutet aber auch, dass der Wert von $\color{green}{X}$ nicht vom Wert von $\color{blue}{Y}$ kausal abhängt. Ein möglicher <blue> Schmerzrückgang </blue> ändert nicht rückwirkend die <green> Tabletteneinnahme </green>: $$\color{green}{\text{Tabletteneinnahme}} \not\leftarrow \color{blue}{\text{Schmerzrückgang}}.$$
 
@@ -315,10 +316,43 @@ Wenn $100$ Menschen eine Münze werfen, ob sie die Tablette einnehmen oder nicht
 plot(pd)
 ```
 
+Insgesamt erwarten wir im Mittelwert, dass bei $45 + 20= 65$ von $100$ Personen eine Verbesserung eintrifft, wenn $U_{\color{green}{\text{Tabletteneinnahme}}}$ zufällig Ja oder Nein ist und $P(\color{green}{\text{Tabletteneinnahme}})=0.5$ ist. Wir **beobachten** nur welchen Wert unsere Ursache $\color{green}{X}$ annimmt. 
 
+```{r handeln, echo=FALSE}
+question("Was passiert wenn wir **intervenieren**, d.h., die Tabletteneinnahme ist nicht zufällig Ja oder Nein, sondern wir legen fest, dass die Tablette eingenommen wird?",
+         answer("Die Anzahl der Menschen mit Schmerzreduktion ändert sich nicht.", message = "Druch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $90\\%$ der Fälle hilft erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.9 = 90$ von $100$ Personen."),
+         answer("Die Anzahl der Menschen mit Schmerzreduktion erhöht sich.", correct = TRUE, message = "Druch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $90\\%$ der Fälle hilft erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.9 = 90$ von $100$ Personen."),
+         answer("Die Anzahl der Menschen mit Schmerzreduktion reduzuiert sich.", message = "Druch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $90\\%$ der Fälle hilft erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.9 = 90$ von $100$ Personen."),
+		correct = "Schön!",
+		incorrect = "Leider falsch."
+         )
+```
 
+## Interventionen
 
+Durch eine **Intervention** handeln wir. Im kausalen Modell gilt nicht mehr:
 
+$$\color{green}{X} = U_{\color{green}{X}}$$
+sondern z.B.
+
+$$\color{green}{X} = 1$$
+
+mit $\color{green}{X} = \cases{1: \quad \text{Tablette wird eingenommen} \\ 0: \quad \text{Tablette wird nicht eingeommen}}$.
+
+Um den Unterschied zwischen Beobachtung und Intervention auch formal darzustellen wird für eine Intervention ein eigener Operator verwendet: $do(\cdot)$. Wenn wir die Tabletteneinnahme *erzwingen* kann dies durch $do(\color{green}{X} = 1)$ dargestellt werden.
+
+```{r do0, echo=FALSE}
+question("Welche Darstellung beschreibt die Intervention, die dazu führt, dass keine Tablette genommen wird?",
+         answer("$do(\\color{green}{X} = 0)$", correct = TRUE,  message = "$do(\\cdot)$ zeigt die Handlung, $\\color{green}{X} = 0$ symbolisiert keine Tabletteneinnahme."),         
+         answer("$do(\\color{green}{X} = 1)$",  message = "$do(\\cdot)$ zeigt die Handlung, $\\color{green}{X} = 0$ symbolisiert keine Tabletteneinnahme."),
+		correct = "Prima!",
+		incorrect = "Leider falsch."
+         )
+```
+
+##
+
+Kausale Inferenz hilft die Unterschiede in den Verteilungen der Wirkung $\color{blue}{Y}$ zu untersuchen, je nachdem ob $\color{green}{X}$ beobachtet wurde - oder der Wert durch eine Handlung festgelegt wird ($do(\color{green}{X})$).
 
 ## Hinweis
 
