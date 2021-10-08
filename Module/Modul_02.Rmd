@@ -250,9 +250,9 @@ Quelle: [Mohan und Pearl (2012)](https://ftp.cs.ucla.edu/pub/stat_ser/uai12-moha
 ```{r eltern, echo=FALSE}
 question("Welche Variable ist bzw. welche Variablen sind Eltern von *Nass* (X4)?",
          answer("Keine.", message = "Nass hängt ab von Wassersprenger und Regen."),
-         answer("Jahreszeit.", message = "Nass hängt ab von Wassersprenger und Regen."),
-         answer("Wassersprenger und Regen.", correct = TRUE,  message = "Nass hängt ab von Wassersprenger und Regen."),
-         answer("Rutschig.", message = "Nass hängt ab von Wassersprenger und Regen."),
+         answer("Jahreszeit (X1).", message = "Nass hängt ab von Wassersprenger und Regen."),
+         answer("Wassersprenger (X3) und Regen (X2).", correct = TRUE,  message = "Nass hängt ab von Wassersprenger und Regen."),
+         answer("Rutschig(X5).", message = "Nass hängt ab von Wassersprenger und Regen."),
 		correct = "Klasse!",
 		incorrect = "Leider falsch."
          )
@@ -261,9 +261,9 @@ question("Welche Variable ist bzw. welche Variablen sind Eltern von *Nass* (X4)?
 ```{r kinder, echo=FALSE}
 question("Welche Variable ist bzw. welche Variablen sind Kinder von *Nass* (X4)?",
          answer("Keine.", message = "Rutschig hängt ab von Nass."),
-         answer("Jahreszeit.", message = "Rutschig hängt ab von Nass."),
-         answer("Wassersprenger und Regen.", message = "Rutschig hängt ab von Nass."),
-         answer("Rutschig.", correct = TRUE , message = "Rutschig hängt ab von Nass."),
+         answer("Jahreszeit (X1).", message = "Rutschig hängt ab von Nass."),
+         answer("Wassersprenger (X3) und Regen (X2).", message = "Rutschig hängt ab von Nass."),
+         answer("Rutschig (X5).", correct = TRUE , message = "Rutschig hängt ab von Nass."),
 		correct = "Schön!",
 		incorrect = "Leider falsch."
          )
@@ -276,7 +276,7 @@ Das **kausale Modell** eines Graphen $\color{green}{X} \rightarrow \color{blue}{
 - $\color{green}{X} = U_{\color{green}{X}}$
 - $\color{blue}{Y} = f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$
 
-Dabei sind $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unbekannte Ursachen oder Fehler von $\color{green}{X}$ und $\color{blue}{Y}$, und $f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$ die Funktion, der Mechanismus wie $\color{blue}{Y}$ auf Basis von ´ zu seinem Wert kommt. 
+Dabei sind $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unbekannte Ursachen oder Fehler von $\color{green}{X}$ und $\color{blue}{Y}$, und $f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$ die Funktion, der Mechanismus wie $\color{blue}{Y}$ auf Basis von $\color{green}{X},U_{\color{blue}{Y}}$ zu seinem Wert kommt. 
 
 Im Beispiel
 $$\color{green}{\text{Tabletteneinnahme}} \rightarrow \color{blue}{\text{Schmerzrückgang}}$$ 
@@ -305,7 +305,7 @@ Simulieren Sie diesen Fall mehrfach über `Run Code`:
 x <- ux()
 cat("Tabletteneinnahme? ", x, "\n")
 y <- fy(x)
-cat("Schmerzreduktion? ", y, "\n")
+cat("Schmerzrückgang? ", y, "\n")
 ```
 
 ##
