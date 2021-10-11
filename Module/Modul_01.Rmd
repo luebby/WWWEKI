@@ -76,25 +76,25 @@ zu definieren.
 
 Wenn Sie vor der Entscheidung stehen: *Nehme ich an der Schulung teil?* gibt es für Ihr Gehalt zwei **potenzielle Ergebnisse** (engl.: Potential Outcomes):
 
-- <purple> Gehalt </purple> ohne <olive> Schulung <olive>: $\color{purple}{Y}^{\color{olive}{X=0}}$
+- <blue> Gehalt </blue> ohne <green> Schulung <green>: $\color{blue}{Y}^{\color{green}{X=0}}$
 
-- <purple> Gehalt </purple> mit <olive> Schulung <olive>: $\color{purple}{Y}^{\color{olive}{X=1}}$
+- <blue> Gehalt </blue> mit <green> Schulung <green>: $\color{blue}{Y}^{\color{green}{X=1}}$
 
 ![](images/Weggabel.png){width="65%"}
 
 ##
 
-Mathematisch dargestellt ergibt sich dann der **individuelle kausale Effekt** $\color{blue}{\Delta}_i$ (gr.: Delta) der Schulung als:
+Mathematisch dargestellt ergibt sich dann der **individuelle kausale Effekt** $\color{orange}{\Delta}_i$ (gr.: Delta) der Schulung als:
 
-$$\color{blue}{\Delta}_i = \color{purple}{Y}^{\color{olive}{X=1}}_i - \color{purple}{Y}^{\color{olive}{X=0}}_i$$
+$$\color{orange}{\Delta}_i = \color{blue}{Y}^{\color{green}{X=1}}_i - \color{blue}{Y}^{\color{green}{X=0}}_i$$
 
 Wobei
 
 - $i$ für die einzelne Beobachtung, hier die einzelne Person steht
 
-- $\color{purple}{Y}_i$ für das <purple> Gehalt </purple> von $i$
+- $\color{blue}{Y}_i$ für das <blue> Gehalt </blue> von $i$
 
-- $\color{olive}{X}$ für die Teilnahme an der <olive> Schulung </olive>; dabei ist $\color{olive}{X_i=1}$ wenn $i$ teilnimmt und  $\color{olive}{X_i=0}$ wenn $i$ nicht teilnimmt.
+- $\color{green}{X}$ für die Teilnahme an der <green> Schulung </green>; dabei ist $\color{green}{X_i=1}$ wenn $i$ teilnimmt und  $\color{green}{X_i=0}$ wenn $i$ nicht teilnimmt.
 
 
 ## Ein fiktives Beispiel
@@ -103,9 +103,9 @@ Schauen wir uns einmal eine fiktive Gehaltstabelle von Potential Outcomes an:
 
 - `i`: Laufende Nummer der Beobachtung.
 
-- `gehalt1`: $\color{purple}{Y}^{\color{olive}{X=1}}$, Gehalt mit Schulung
+- `gehalt1`: $\color{blue}{Y}^{\color{green}{X=1}}$, Gehalt mit Schulung
 
-- `gehalt0`: $\color{purple}{Y}^{\color{olive}{X=0}}$, Gehalt ohne Schulung
+- `gehalt0`: $\color{blue}{Y}^{\color{green}{X=0}}$, Gehalt ohne Schulung
 
 ```{r gehaltstabelle, echo=FALSE}
 Schulung %>%
@@ -114,7 +114,7 @@ Schulung %>%
 ```
 
 
-Der individuelle kausale Effekt $\color{blue}{\Delta}_i$ lässt sich dann in `R` innerhalb der Datentabelle `Schulung` berechnen als `gehalt1 - gehalt0`:
+Der individuelle kausale Effekt $\color{orange}{\Delta}_i$ lässt sich dann in `R` innerhalb der Datentabelle `Schulung` berechnen als `gehalt1 - gehalt0`:
 
 ```{r}
 Schulung <- Schulung %>%
@@ -156,11 +156,11 @@ question("Lässt sich der individuelle kausale Effekt in der Praxis beobachten?"
 
 ## Das Problem
 
-Das fundamentale Problem der kausalen Inferenz ist, dass wir den individuelle kausale Effekt $\color{blue}{\Delta}_i = \color{purple}{Y}^{\color{olive}{X=1}}_i - \color{purple}{Y}^{\color{olive}{X=0}}_i$ **nicht** beobachten können. Es liegt je Beobachtung $i$ immer nur eines der beiden Potential Outcomes vor: Entweder $\color{purple}{Y}^{\color{olive}{X=1}}$ (<purple> Gehalt </purple> mit <olive> Schulung </olive>) **oder** $\color{purple}{Y}^{\color{olive}{X=0}}$ (<purple> Gehalt </purple> ohne <olive> Schulung </olive>).
+Das fundamentale Problem der kausalen Inferenz ist, dass wir den individuelle kausale Effekt $\color{orange}{\Delta}_i = \color{blue}{Y}^{\color{green}{X=1}}_i - \color{blue}{Y}^{\color{green}{X=0}}_i$ **nicht** beobachten können. Es liegt je Beobachtung $i$ immer nur eines der beiden Potential Outcomes vor: Entweder $\color{blue}{Y}^{\color{green}{X=1}}$ (<blue> Gehalt </blue> mit <green> Schulung </green>) **oder** $\color{blue}{Y}^{\color{green}{X=0}}$ (<blue> Gehalt </blue> ohne <green> Schulung </green>).
 
-- Wenn Person $i$ an der Schulung teilnimmt liegt uns das Gehalt mit Schulung vor, $\color{purple}{Y}^{\color{olive}{X=1}}_i$, und nicht $\color{purple}{Y}^{\color{olive}{X=0}}_i$
+- Wenn Person $i$ an der Schulung teilnimmt liegt uns das Gehalt mit Schulung vor, $\color{blue}{Y}^{\color{green}{X=1}}_i$, und nicht $\color{blue}{Y}^{\color{green}{X=0}}_i$
 
-- Wenn $i$ nicht an der Schulung teilnimmt liegt uns das Gehalt ohne Schulung vor, $\color{purple}{Y}^{\color{olive}{X=0}}_i$, und nicht $\color{purple}{Y}^{\color{olive}{X=1}}_i$
+- Wenn $i$ nicht an der Schulung teilnimmt liegt uns das Gehalt ohne Schulung vor, $\color{blue}{Y}^{\color{green}{X=0}}_i$, und nicht $\color{blue}{Y}^{\color{green}{X=1}}_i$
 
 Der Wert der nicht vorliegt wird **Counterfactual** genannt. Für jemanden der nicht an der Schulung teilgenommen hat ist das Counterfactual die Antwort auf die Frage: *Wie hoch wäre mein Gehalt, wenn ich an der Schulung teilgenommen hätte?*. Für jemanden der teilgenommen hat ist das Counterfactual das Gehalt ohne Teilnahme.
 
@@ -175,8 +175,8 @@ question("Kann das Counterfactual beobachtet werden?",
 
 ```{r cfi, echo=FALSE}
 question("Person $i$ nimmt an der Schulung teil. Was ist dann das Counterfactual?",
-         answer("$\\color{purple}{Y}^{\\color{olive}{X=0}}_i$", correct = TRUE, message = "Teilnahme an der Schulung bedeutet $X=1$."),
-         answer("$\\color{purple}{Y}^{\\color{olive}{X=1}}_i$", message = "Teilnahme an der Schulung bedeutet $X=1$."),
+         answer("$\\color{blue}{Y}^{\\color{green}{X=0}}_i$", correct = TRUE, message = "Teilnahme an der Schulung bedeutet $X=1$."),
+         answer("$\\color{blue}{Y}^{\\color{green}{X=1}}_i$", message = "Teilnahme an der Schulung bedeutet $X=1$."),
 		correct = "Klasse!",
 		incorrect = "Leider falsch."
          )
@@ -185,9 +185,9 @@ question("Person $i$ nimmt an der Schulung teil. Was ist dann das Counterfactual
 
 ## Durchschnittlicher kausaler Effekt
 
-Würden wir den individuelle kausale Effekt $\color{blue}{\Delta}_i$ kennen (Variable `effekt` in unserem `R` Beispiel), könnten wir u.a. den durchschnittlichen kausalen Effekt berechnen, indem wir alle $i$ individuellen kausalen Effekte addieren und diese Summe ($\sum$) durch die Anzahl der Beobachtungen ($n$) dividieren: 
+Würden wir den individuelle kausale Effekt $\color{orange}{\Delta}_i$ kennen (Variable `effekt` in unserem `R` Beispiel), könnten wir u.a. den durchschnittlichen kausalen Effekt berechnen, indem wir alle $i$ individuellen kausalen Effekte addieren und diese Summe ($\sum$) durch die Anzahl der Beobachtungen ($n$) dividieren: 
 
-$$\bar{\color{blue}{\Delta}}=\frac{\sum_{i=1}^n \color{blue}{\Delta}_i}{n}=\frac{\sum_{i=1}^n\color{purple}{Y}^{\color{olive}{X=1}}_i - \sum_{i=1}^n\color{purple}{Y}^{\color{olive}{X=0}}_i}{n}=\overline{\color{purple}{Y}}^{\color{olive}{X=1}}-\overline{\color{purple}{Y}}^{\color{olive}{X=0}}.$$
+$$\bar{\color{orange}{\Delta}}=\frac{\sum_{i=1}^n \color{orange}{\Delta}_i}{n}=\frac{\sum_{i=1}^n\color{blue}{Y}^{\color{green}{X=1}}_i - \sum_{i=1}^n\color{blue}{Y}^{\color{green}{X=0}}_i}{n}=\overline{\color{blue}{Y}}^{\color{green}{X=1}}-\overline{\color{blue}{Y}}^{\color{green}{X=0}}.$$
 
 Die `R` Funktion die diesen arithmetischen Mittelwert berechnet lautet `mean()`.
 
@@ -202,7 +202,7 @@ mean(~ effekt, data = Schulung)
 Das fundamentalen Problems der kausalen Inferenz ist, dass nur eines der Potential Outcomes vorliegt, und das nicht vorliegende ein Counterfactual ist. Daher kennen wir in der Praxis weder den individuellen noch den durchschnittlichen kausalen Effekt. Letzterer läge hier bei
 
 
-$$\bar{\color{blue}{\Delta}}=\frac{\sum_{i=1}^n \color{blue}{\Delta}_i}{n}=`r mean(~ effekt, data = Schulung)`.$$
+$$\bar{\color{orange}{\Delta}}=\frac{\sum_{i=1}^n \color{orange}{\Delta}_i}{n}=`r mean(~ effekt, data = Schulung)`.$$
 
 ## Fehlende Werte
 
@@ -241,15 +241,15 @@ Anhand der beobachteten Daten kann das durchschnittliche Gehalt sowohl für diej
 mean(gehalt ~ teilnahme, data = Schulung)
 ```
 
-- $\bar{\color{purple}{y}}^{\color{olive}{x=1}} = `r round(mean(gehalt ~ teilnahme, data = Schulung)[1],2)`$
+- $\bar{\color{blue}{y}}^{\color{green}{x=1}} = `r round(mean(gehalt ~ teilnahme, data = Schulung)[1],2)`$
 
-- $\bar{\color{purple}{y}}^{\color{olive}{x=0}} = `r round(mean(gehalt ~ teilnahme, data = Schulung)[2],2)`$
+- $\bar{\color{blue}{y}}^{\color{green}{x=0}} = `r round(mean(gehalt ~ teilnahme, data = Schulung)[2],2)`$
 
 Ein Schätzer für den durchschnittlichen kausalen Effekt auf Basis der beobachteten Werte wäre damit:
 
-$$\bar{\color{purple}{y}}^{\color{olive}{x=1}} - \bar{\color{purple}{y}}^{\color{olive}{x=0}} = `r round(mean(gehalt ~ teilnahme, data = Schulung)[1],2)` - `r round(mean(gehalt ~ teilnahme, data = Schulung)[2],2)` = `r round(-diffmean(gehalt ~ teilnahme, data = Schulung),2)`$$
+$$\bar{\color{blue}{y}}^{\color{green}{x=1}} - \bar{\color{blue}{y}}^{\color{green}{x=0}} = `r round(mean(gehalt ~ teilnahme, data = Schulung)[1],2)` - `r round(mean(gehalt ~ teilnahme, data = Schulung)[2],2)` = `r round(-diffmean(gehalt ~ teilnahme, data = Schulung),2)`$$
 
-Dieser weist aber eine systematische Verzerrung, einen **Bias** zum zu schätzenden Wert $\bar{\color{blue}{\Delta}} =`r round(mean(~ effekt, data = Schulung),2)`$ auf.
+Dieser weist aber eine systematische Verzerrung, einen **Bias** zum zu schätzenden Wert $\bar{\color{orange}{\Delta}} =`r round(mean(~ effekt, data = Schulung),2)`$ auf.
 
 Der naive Vergleich der Mittelwerte überschätzt hier den wahren durchschnittlichen Effekt. Dies liegt daran, dass in diesem fiktiven Beispiel Personen mit einem höherem Gehaltsinteresse eher an der Schulung teilgenommen haben als die mit einem niedrigeren Interesse. Erstere hätten aber, aufgrund Ihres Gehaltsinteresses so oder so, also unabhängig von der Schulung, ein höheres Gehalt erwartet.
 
