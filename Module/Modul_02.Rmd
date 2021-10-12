@@ -314,6 +314,16 @@ y <- f_Y(x)
 cat("Schmerzrückgang? ", y, "\n")
 ```
 
+```{r sim-hint}
+# Hier der R Code der zugrundeliegenden Funktionen:
+U_X <- function() sample(c("Ja", "Nein"),1)
+
+f_Y <- function(x) ifelse(x == "Ja", 
+                          sample(c("Ja", "Nein"), 1, prob = c(0.9,0.1)), 
+                          sample(c("Ja", "Nein"), 1, prob = c(0.4,0.6)))
+```
+
+
 ##
 
 Wenn $100$ Menschen eine Münze werfen, ob sie die Tablette einnehmen oder nicht, erwarten wir im Mittelwert, dass $50$ von Ihnen die Tablette nehmen (grün hinterlegt), und von diesen $50 \times 0.9 = 45$ eine Schmerzreduktion erfahren (<i class="fa fa-check" aria-hidden="true"></i>) und die anderen $50-45=5$ nicht (<i class="fa fa-close" aria-hidden="true"></i>). Von den $50$ ohne Tabletteneinnahme (grau hinterlegt) erfahren $50 \times 0.4 = 20$ eine Schmerzreduktion (<i class="fa fa-check" aria-hidden="true"></i>) und die anderen $50-20=30$ nicht (<i class="fa fa-close" aria-hidden="true"></i>):
