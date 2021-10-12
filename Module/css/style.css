@@ -27,13 +27,12 @@ p olive {
 
 /* Überschriften */
 h2 {
-  color: #0077b3;
-  opacity: 0.8;
+  color: #1AA469;
   margin-top: 10px;
   font-weight: bold; 
 }
 
-/* KIcampus-Farbe: dunkellila - #210e36, helllila - #e6ccff, lila - #30144d, blau - #0077b3  */
+/* KIcampus-Farbe: aubergine - #3A2A78, blau10% - #EAF4F8, grün - #1AA469 */
 
 /* Menü-Layout definieren */
 .panel, pre {
@@ -43,15 +42,16 @@ h2 {
 .band{
   margin-top: 8px;
   padding: 0;
-  background-image: url("csm_Logo-BMBF.jpg");
+  background-image: url("KIcampusLogo.png");
   background-repeat: no-repeat;
   background-position: right top;
-  background-size: 8%;
+  background-size: 10%;
+  background-color: #fff;
 }
 .band .tutorialTitle {
   display: block;
-  color: #e6ccff; 
-  background-color: #301a87;
+  color: #fff;
+  background-color: #3A2A78;
   border: 0;
   padding-left: 10px;
   padding-bottom: 10px;
@@ -76,14 +76,14 @@ h2 {
   overflow: auto;
   scroll-behavior: smooth;
   transform: translateZ(0); /* force repaint to work on older browser used in the IDE */
-  background-color: #301a87;
+  /*background-color: #301a87;*/
+  background-color: #3A2A78;
   left: 2px;
   margin: 0;
   padding: 10px;
   padding-left: 8px;
   margin-left: 2px;
   border: 0;
-  opacity: 0.7;
 }
 .topicsList .topic {
   line-height: 1.5;
@@ -93,22 +93,23 @@ h2 {
   border: 0;
   margin: 0;
   color: #fff;
-  background-color: #301a87;
+  background-color: #3A2A78;
+  background-size: 0.2px 80px;
 }
 .topicsList .topic:hover {
-  color: #30144d;
-  background-color: #e6ccff;
+  color: #EAF4F8; 
+  background-color: rgb(174, 130, 185);
 }
 .topicsList .topic.current {
-  color: #30144d;
-  background-color: #e6ccff;
+  color: #EAF4F8; 
+  background-color: rgb(174, 130, 185);
 }
 .topicsFooter {
   padding-top: 2px;
   padding-bottom: 4px;
   margin-top: 6px;
   color: #e6ccff; /*#dbf0ee;*/
-  background-color: #301a87;
+  background-color: #3A2A78; /*#301a87;*/
   font-size: 18px;
 }
 
@@ -117,21 +118,23 @@ h2 {
   background-image: none;
   border: none; }
 .btn-default:hover {
-  background-color: #c8c8c8; }
+  background-color: #c8c8c8; 
+  color: #fff; }
 .btn-default:focus {
   background-color: #e0e0e0; }
 
 .btn-primary, .btn-success, .btn-info {
-  background-color: #75aadb;
+  background-color: #1AA469;
   background-image: none;
-  border: none; }
+  border: none; 
+}
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:focus:active, .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success:focus:active, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info:focus:active {
-    background-color: #0077b3; }
+    background-color: #3A2A78; } 
 .btn-primary:focus:hover, .btn-primary:active:hover, .btn-primary:focus:active:hover, .btn-success:focus:hover, .btn-success:active:hover, .btn-success:focus:active:hover, .btn-info:focus:hover, .btn-info:active:hover, .btn-info:focus:active:hover {
-    background-color: #4c83b6; }
+    background-color: #3A2A78; }
 .btn-primary.disabled, .btn-primary:disabled, .btn-primary.disabled:hover, .btn-primary:disabled:hover, .btn-success.disabled, .btn-success:disabled, .btn-success.disabled:hover, .btn-success:disabled:hover, .btn-info.disabled, .btn-info:disabled, .btn-info.disabled:hover, .btn-info:disabled:hover {
-    background-color: #75aadb; }
-    
+    background-color: #1AA469; }
+
     
 div.box {
   background-color: #f2f2f2;;
