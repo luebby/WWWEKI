@@ -72,8 +72,8 @@ DAG2 <- dagify(Y~ X,
 
 # Funktionen für Beispiel
 
-ux <- function() sample(c("Ja", "Nein"),1)
-fy <- function(x) ifelse(x == "Ja", sample(c("Ja", "Nein"), 1, prob = c(0.9,0.1)), sample(c("Ja", "Nein"), 1, prob = c(0.4,0.6)))
+U_X <- function() sample(c("Ja", "Nein"),1)
+f_Y <- function(x) ifelse(x == "Ja", sample(c("Ja", "Nein"), 1, prob = c(0.9,0.1)), sample(c("Ja", "Nein"), 1, prob = c(0.4,0.6)))
 
 # Verteilung Beispiel
 d <- crossing(x = 1:10,
@@ -302,9 +302,9 @@ Angenommen Sie werfen eine Münze (`ux()`) ob Sie die Tablette nehmen oder nicht
 Simulieren Sie diesen Fall mehrfach über `Run Code`:
 
 ```{r sim, exercise=TRUE}
-x <- ux()
+x <- U_X()
 cat("Tabletteneinnahme? ", x, "\n")
-y <- fy(x)
+y <- f_Y(x)
 cat("Schmerzrückgang? ", y, "\n")
 ```
 
