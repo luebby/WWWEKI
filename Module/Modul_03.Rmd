@@ -110,7 +110,7 @@ question("Ein Unternehmen möchte diejenigen Kund:innen ermitteln, von denen es 
 
 ## Kausale Inferenz
 
-In den Anwendungen "Beschreibung" und "Vorhersage" wurden die Daten (zunächst) *nur* beobachtet. Es erfolgte zunächst keine Handlung - auch wenn wie in der Übung (wie häufig bei Algorithmischen Entscheidungssystemen) aus der Vorhersage häufig eine Handlung folgt. 
+In den Anwendungen "Beschreibung" und "Vorhersage" wurden die Daten (zunächst) *nur* beobachtet. Es erfolgte zunächst keine Handlung &ndash; auch wenn wie in der Übung (wie häufig bei Algorithmischen Entscheidungssystemen) aus der Vorhersage häufig eine Handlung folgt. 
 
 ```{r dox, echo=FALSE}
 question("Kann es einen Unterschied in der Verteilung von $Y$ geben, je nach dem ob $X$ beobachtet wird ($X=x$) oder auf Grund einer Handlung $X$ gesetzt wird ($do(X=x)$)?",
@@ -128,6 +128,7 @@ Kann die Gabe von Cholesterinsenkern das durchschnittliche Risiko eines Schlagan
 :::
 
 Grundlegende Überlegungen und Verfahren, die helfen können solche Fragen zu beantworten, sind Bestandteil dieses Kurses.
+
 
 ##
 
@@ -152,5 +153,3 @@ Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit
 
 
 ![](images/csm_Logo-BMBF.jpg)
-
-

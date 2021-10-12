@@ -130,6 +130,7 @@ Dabei können wir entweder die Tablette nehmen &ndash; oder nicht. Und die Schme
 
 Es sind jeweils unterschiedliche Werte möglich, z. B. Ja oder Nein, oder $0$ &euro; oder $100$ &euro; &ndash; und für diese gibt es unterschiedliche *Wahrscheinlichkeiten*, $Pr$ als engl. Abkürzung von probability. $Pr(\text{Tablette})$ bezeichnet also die Wahrscheinlichkeit, dass eine Tablette genommen wird, $Pr(\text{Schmerzrückgang})$ die Wahrscheinlichkeit, dass die Schmerzen zurückgehen.
 
+
 ```{r ursache, echo=FALSE}
 question("Angenomen nach der Einnahme einer Tablette gehen die Schmerzen weg. Wie würden Sie hier Ursache und Wirkung zuordnen?",
          answer("Die Einnahme der Tablette ist die Ursache, der Schmerzrückgang die Wirkung.", correct = TRUE, message = "Die Tablette wurde zuerst eingenommen, danach folgte der Schmerzrückgang."),
@@ -216,6 +217,7 @@ Wenn Sie eben mehrfach die Tablette genommen haben - oder nicht genommen haben -
 - $Pr(\text{Schmerzrückgang wenn keine Tablette eingenommen})=0.4$ <br>
   und damit:
   $Pr(\text{Kein Schmerzrückgang wenn keine Tablette eingenommen})=1-0.4=0.6$
+
 
 ## Kausales Diagramm
 
@@ -368,5 +370,3 @@ Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit
 
 
 ![](images/csm_Logo-BMBF.jpg)
-
-
