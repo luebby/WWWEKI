@@ -1,0 +1,138 @@
+---
+title: "Modul 04: Es steht was zwischen uns"
+output: 
+  learnr::tutorial:
+    progressive: true
+    css: "css/style.css"
+runtime: shiny_prerendered
+---
+
+
+```{r setup, include=FALSE}
+library(learnr)
+library(knitr)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(emojifont)
+
+theme.fom <- theme_classic(22*1.04)
+theme.fom <- theme.fom
+theme_set(
+  theme.fom  
+)
+
+library(ggdag)
+# DAG
+co <- data.frame(x=c(0,1,2), y=c(0,0,0), name=c("X", "Z", "Y"))
+DAG_Chain <- dagify(Z ~ X,
+                    Y ~ Z,
+                   coords = co) %>% 
+  ggdag() + 
+  geom_dag_point(colour = c("#0F710B", "#DA70D6", "#0000FF")) + 
+  geom_dag_text(size = 8) +
+  theme_dag_blank() +
+  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
+  geom_text(label = "X - Lernen\nZ - Wissen\nY - Verstehen", 
+            hjust = 1, vjust = 2,
+            x = 2, y = 0, size = 7, color = "darkgrey") 
+
+
+U_X <- function(n = 1) rnorm(n)
+f_Z <- function(x) 5*x+rnorm(length(x))
+f_Y <- function(z) 3*z+rnorm(length(z))
+
+# Daten und Funktion
+set.seed(1896)
+n <- 1000
+SimData <- tibble(x = U_X(n)) %>%
+  mutate(z = f_Z(x)) %>%
+  mutate(y = f_Y(z))
+```
+
+## Lernziele
+
+In diesem Modul lernen Sie:
+
+- Was eine kausale Kette ist.
+
+- Was ein Mediator ist.
+
+- Das es manchmal besser ist etwas nicht zu berücksichtigen.
+
+## Eins führt zum anderen
+
+Auch komplexe kausale Diagramme^[Siehe Modul 2] bestehen aus relativ einfachen Grundelementen. Eines davon ist die sog. **Kette** (engl.: chain). Zur Erinnerung: Der kausle Fluss folgt den Pfeilen. $$A \rightarrow B$$ sagt aus, dass $B$ auf $A$ *hört*, aber nicht umgekehrt. Wenn ich den Rasen gieße ($A$) wird dieser nass ($B$), aber der Rasen kann auch nass sein, ohne dass ich ihn gegossen habe. Bei einer Kette kommt einfach eine dritte Variable dazu: $$A \rightarrow B \rightarrow C$$. Das Drehen am Thermostat ($A$) führt zum Erwärmen der Heizung ($B$) und diese wiederum zu einem warmen Wohnraum ($C$).
+
+## Lernen und Verstehen
+
+Das folgende Beispiel ist fiktiv - und eine sehr starke Vereinfachung. Außerdem werden die wichtigen Fragen wie die Variablen jeweils gemessen werden nicht behandelt.^[Siehe hierzu z.B. "Welche Information steckt in Daten?" aus dem KI-Campus Kurs [Stadt | Land | DatenFluss](https://ki-campus.org/datenfluss)]
+
+Angenommen <green> Lernen </green> ($\color{green}{X}$) führt zu <violet> Wissen </violet> ($\color{violet}{Z}$), d.h. durch Lernen erwerben Sie Wissen. Außerdem führt <violet> Wissen </violet> ($\color{violet}{Z}$) zu <blue> Verstehen </blue> ($\color{blue}{Y}$), d.h. über Ihr Wissen kommen Sie zum Verstehen.
+
+Wenn dieses stark verinfachte Modell stimmt, dann lässt sich diese Annahme in einem kausalen Diagramm darstellen:
+
+```{r DAG_Chain, echo=FALSE, fig.align='center', out.width='85%'}
+plot(DAG_Chain)
+```
+
+##
+
+Das stukturelle kausale Modell besteht aus folgenden Zuweisungen:
+
+\begin{eqnarray*}
+\color{green}{X} &=& U_{\color{green}{X}}\\
+\color{violet}{Z} &=& f_{\color{violet}{Z}}(\color{green}{X}, U_{\color{violet}{Z}})\\
+\color{blue}{Y} &=& f_{\color{blue}{Y}}(\color{violet}{Z},U_{\color{blue}{Y}}).
+\end{eqnarray*}
+
+Der Wert von <green> Lernen </green> ($\color{green}{X}$) kommt außerhalb des Modells zu Stande ($U_{\color{green}{X}}$). Der Wert von <violet> Wissen </violet> ($\color{violet}{Z}$) hängt ab vom Wert von <green> Lernen </green> ($\color{green}{X}$) - und weiteren Faktoren ($U_{\color{violet}{Z}}$). Letzlich hängt <blue> Verstehen </blue> ($\color{blue}{Y}$) von <violet> Wissen </violet> ($\color{violet}{Z}$) ab -  und $U_{\color{blue}{Y}}$. Dabei sind die zufälligen Einflüsse $U_{\color{green}{X}}, U_{\color{violet}{Z}}, U_{\color{blue}{Y}}$ unabhängig voneinander.
+
+```{r kind, echo=FALSE}
+question("In der Sprache der Diagramme: Ist Verstehen ($Z$) ein Kind von Lernen ($X$)?",
+         answer("Ja", message = "Eltern von Verstehen ist Wissen ($Y$). Wissen ist ein Kind von Lernen. Verstehen *hört* unmittelbar nur auf Wissen, d.h. der Wert von Verstehen hängt direkt nur von Wissen ab - und nur über dieses von Lernen."),
+         answer("Nein", correct = TRUE, message = "Eltern von Verstehen ist Wissen ($Y$). Wissen ist ein Kind von Lernen. Verstehen *hört* unmittelbar nur auf Wissen, d.h. der Wert von Verstehen hängt direkt nur von Wissen ab - und nur über dieses von Lernen."),
+		correct = "Prima, Richtig!",
+		incorrect = "Leider falsch. Vielleicht gucken Sie noch einmal im Modul 2 nach."
+         )
+```
+
+## Mediator
+
+In Fällen wie diesen, $$\color{green}{X} \rightarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$ wird die Variable in der Mitte, hier $\color{violet}{Z}$, **Mediator** genannt.
+
+```{r mediator, echo=FALSE}
+question("Angenommen eine Beförderung hängt diskriminierenderweise ab vom Geschlecht der Kandidat:in, und das Gehalt von der Beförderung. Welche Variable ist hier ein Mediator?",
+         answer("Geschlecht", message = "Das beschriebene Kausalmodell lautet $\\text{Geschlecht} \\rightarrow \\text{Beförderung} \\rightarrow \\text{Gehalt}$."),
+         answer("Beförderung", correct = TRUE, message = "Das beschriebene Kausalmodell lautet $\\text{Geschlecht} \\rightarrow \\text{Beförderung} \\rightarrow \\text{Gehalt}$."),
+         answer("Gehalt", message = "Das beschriebene Kausalmodell lautet $\\text{Geschlecht} \\rightarrow \\text{Beförderung} \\rightarrow \\text{Gehalt}$."),
+		correct = "Super!",
+		incorrect = "Leider falsch."
+         )
+```
+
+Um den (totalen^[Wir können sogenannte *totale*, *direkte* und *indirekte* Effekte unterscheiden]) kausalen Effekt der Ursache ($\color{green}{X}$) auf die Wirkung ($\color{blue}{Y}$) zu untersuchen müssen wir den Wert des Mediators ($\color{violet}{Z}$) nicht wissen. Wenn z.B. <green> Frauen </green> weniger <violet> befördert </violet> werden, habe ich ein falsches Bild von der Diskrimnierung im <blue> Gehalt </blue> aufgrund des <green> Geschlechts </green>. Die (mögliche) Benachteiligung beginnt schon bei der <violet> Beförderung </violet>.
+
+## Simulierte Daten
+
+
+
+
+\begin{eqnarray*}
+\color{green}{X} &=& U_{\color{green}{X}}, \quad U_{\color{green}{X}} \sim \mathcal{N}(0,\,1), \\
+\color{violet}{Z} &=& 5 \cdot \color{green}{X} +  U_{\color{violet}{Z}}, \quad U_{\color{violet}{Z}} \sim \mathcal{N}(0,\,1), \\
+\color{blue}{Y} &=& 3 \cdot \color{violet}{Z} + U_{\color{blue}{Y}}, \quad U_{\color{blue}{Y}} \sim \mathcal{N}(0,\,1).
+\end{eqnarray*}
+
+## Hinweis
+
+<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
+
+Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
+
+Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
+
+
+![Logo BMBF](images/csm_Logo-BMBF.jpg)
+
+
