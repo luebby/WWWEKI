@@ -284,6 +284,6 @@ Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https:
 Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
 
 
-![Logo BMBF](images/csm_Logo-BMBF.jpg)
+![](images/csm_Logo-BMBF.jpg)
 
 

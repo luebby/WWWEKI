@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400&display=swap');
+
 /* (Text-)Farben definieren */
 p grey {
   color: #5E6974;
@@ -24,6 +26,16 @@ p olive {
   color: #808000;
 }
 
+
+/* Body  */
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Links */
+a { 
+  color: #1AA469;
+}
 
 /* Überschriften */
 h2 {
@@ -57,14 +69,16 @@ h2 {
   padding-bottom: 10px;
   padding-top: 10px;
   margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
 }
+
 .topics .tutorialTitle {
   display: none;
 }
 .topics {
   margin-top: 20px;
   padding-right: 80px;
-  /*width: 75%;*/
   overflow-x: auto;
   padding-bottom: 600px;
 }
@@ -76,7 +90,6 @@ h2 {
   overflow: auto;
   scroll-behavior: smooth;
   transform: translateZ(0); /* force repaint to work on older browser used in the IDE */
-  /*background-color: #301a87;*/
   background-color: #3A2A78;
   left: 2px;
   margin: 0;
