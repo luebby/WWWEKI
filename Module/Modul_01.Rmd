@@ -46,27 +46,33 @@ Schulung <- tibble(finteresse = rnorm(n)) %>%
 
 In diesem Modul lernen Sie:
 
-- was ein *Potential Outcome* ist;
+- was ein **potenzielles Ergebnis (Potential Outcome)** ist;
 
-- was ein *Counterfactual* ist;
+- was ein **Counterfactual** ist;
 
-- wie *Kausale Effekte* definiert werden können;
+- wie **kausale Effekte** definiert werden können;
 
 - warum die Bestimmung von kausalen Effekten so herausfordernd ist.
 
 ## Individueller kausaler Effekt
 
-Stellen Sie sich folgende Situation vor: Am Ende der Ausbildungszeit wird eine freiwillige Schulung zum Thema Gehaltsverhandlungen angeboten.
+Stellen Sie sich folgende Situation vor: Am Ende Ihrer Ausbildungszeit wird Ihnen die Teilnahme an einer freiwillige Schulung zum Thema Gehaltsverhandlungen angeboten.
 
 Würden Sie teilnehmen?
 
-Und wie würden Sie für sich den **Individuellen Kausalen Effekt** der Teilnahme an der Schulung auf Ihr Gehalt definieren. D.h., die Frage ist, wie viel höher ist Ihr Gehalt aufgrund der Schulung?
+Für Ihre Entscheidung ist vermutlich relevant, ob Sie davon ausgehen, dass die Teilnahme Ihr zukünftiges Gehalt tatsächlich verbessern wird.
+
+Wie würden Sie für sich diesen **individuellen kausalen Effekt** der Teilnahme an der Schulung auf Ihr Gehalt definieren?
 
 *Denken Sie bitte kurz darüber nach und klicken Sie erst dann auf `Next Topic`*
 
 ##
 
-Manche antworten hier vielleicht *Gehalt nach der Schulung minus Gehalt vor der Schulung*. Aber das ist es nicht wirklich. Vielleicht hätte sich ja auch ohne die Teilnahme an der Schulung Ihr Gehalt erhöht. So wie manche Krankheiten mit oder ohne Behandlung verschwinden.
+Eine mögliche Idee wäre es, einfach die Differenz des Gehaltes vor und nach der Schulung zu bilden: *Gehalt nach der Schulung minus Gehalt vor der Schulung*.
+Hier ergibt sich aber ein Problem, denn es ist natürlich gut möglich, dass unabhängig von der Schulung Ihr Gehalt mit der Zeit angestiegen wäre. 
+
+(Eine ganz ähnliche Situation ergibt sich, wenn man zum Beispiel rausfinden möchte, ob ein bestimmtes Medikament gegen eine Krankheit hilft: Einige Erkrankungen werden von alleine mit der Zeit besser und es wäre ein Fehler, diese Verbesserung spezifischen Maßnahmen zuzuschreiben. Daher spielen Kontrollgruppen in klinischen Studien eine so zentrale Rolle.)
+
 
 Eine andere Möglichkeit ist es, diesen Effekt als 
 
@@ -74,7 +80,7 @@ $$\text{Gehalt mit Schulung} - \text{Gehalt ohne Schulung} $$
 
 zu definieren.
 
-Wenn Sie vor der Entscheidung stehen: *Nehme ich an der Schulung teil?* gibt es für Ihr Gehalt zwei **potenzielle Ergebnisse** (engl.: Potential Outcomes):
+Wenn Sie vor der Entscheidung stehen: *Nehme ich an der Schulung teil?* gibt es für Ihr Gehalt zwei **potenzielle Ergebnisse (englisch: Potential Outcomes)**:
 
 - <blue> Gehalt </blue> ohne <green> Schulung <green>: $\color{blue}{Y}^{\color{green}{X=0}}$
 
@@ -84,7 +90,7 @@ Wenn Sie vor der Entscheidung stehen: *Nehme ich an der Schulung teil?* gibt es 
 
 ##
 
-Mathematisch dargestellt ergibt sich dann der **individuelle kausale Effekt** $\color{orange}{\Delta}_i$ (gr.: Delta) der Schulung als:
+Der **individuelle kausale Effekt** $\color{orange}{\Delta}_i$ (griechisch: Delta) der Schulung ergibt sich dann als die Differenz zwischen diesen beiden potenziellen Ergebnissen:
 
 $$\color{orange}{\Delta}_i = \color{blue}{Y}^{\color{green}{X=1}}_i - \color{blue}{Y}^{\color{green}{X=0}}_i$$
 
@@ -99,9 +105,9 @@ Wobei
 
 ## Ein fiktives Beispiel
 
-Schauen wir uns einmal eine fiktive Gehaltstabelle von Potential Outcomes an:
+Schauen wir uns einmal eine fiktive Gehaltstabelle mit potenziellen Ergebnissen an:
 
-- `i`: Laufende Nummer der Beobachtung;
+- `i`: Nummer der Person;
 
 - `gehalt1`: $\color{blue}{Y}^{\color{green}{X=1}}$, Gehalt mit Schulung;
 
@@ -119,7 +125,7 @@ Der individuelle kausale Effekt $\color{orange}{\Delta}_i$ lässt sich dann in `
 ```{r}
 # Paket laden
 library(mosaic)
-# Datentabelle Schulung um neue Variable effekt ergänzen
+# Datentabelle Schulung um neue Variable "effekt" ergänzen
 Schulung <- Schulung %>%
   mutate(effekt = gehalt1 - gehalt0)
 ```
@@ -149,15 +155,15 @@ gf_point(Gehalt ~ Schulung, data = Schulung_Long,
 
 
 ```{r ike, echo=FALSE}
-question("Lässt sich der individuelle kausale Effekt in der Praxis beobachten?",
-         answer("Ja", message = "Je Beobachtung $i$ liegt nur ein Wert vor: der mit Schulung oder der ohne Schulung, nicht beide gleichzeitig. $\\Delta_i$ kann nicht beobachtet werden."),
-         answer("Nein", correct = TRUE, message = "Je Beobachtung $i$ liegt nur ein Wert vor: der mit Schulung oder der ohne Schulung, nicht beide gleichzeitig. $\\Delta_i$ kann nicht beobachtet werden."),
-		correct = "Prima, Richtig!",
+question("Können Sie diese individuellen kausalen Effekte in der Realität beobachten?",
+         answer("Ja", message = "Für jede Beobachtung $i$ liegt nur ein Gehaltswert vor: der mit Schulung oder der ohne Schulung, aber niemals beide gleichzeitig, da Personen entweder teilnehmen oder nicht. $\\Delta_i$ kann daher nicht beobachtet werden."),
+         answer("Nein", correct = TRUE, message = "Für jede Beobachtung $i$ liegt nur ein Gehaltswert vor: der mit Schulung oder der ohne Schulung, aber niemals beide gleichzeitig, da Personen entweder teilnehmen oder nicht. $\\Delta_i$ kann daher nicht beobachtet werden."),
+		correct = "Prima, richtig!",
 		incorrect = "Leider falsch."
          )
 ```
 
-## Das Problem
+## Das fundamentale Problem der kausalen Inferenz
 
 Das fundamentale Problem der kausalen Inferenz ist, dass wir den individuelle kausale Effekt $\color{orange}{\Delta}_i = \color{blue}{Y}^{\color{green}{X=1}}_i - \color{blue}{Y}^{\color{green}{X=0}}_i$ **nicht** beobachten können. Es liegt je Beobachtung $i$ immer nur eines der beiden Potential Outcomes vor: Entweder $\color{blue}{Y}^{\color{green}{X=1}}$ (<blue>Gehalt</blue> mit <green>Schulung</green>) **oder** $\color{blue}{Y}^{\color{green}{X=0}}$ (<blue>Gehalt</blue> ohne <green>Schulung</green>).
 
@@ -165,7 +171,9 @@ Das fundamentale Problem der kausalen Inferenz ist, dass wir den individuelle ka
 
 - Wenn $i$ nicht an der Schulung teilnimmt, liegt uns das Gehalt ohne Schulung vor, $\color{blue}{Y}^{\color{green}{X=0}}_i$, und nicht $\color{blue}{Y}^{\color{green}{X=1}}_i$
 
-Der Wert, der nicht vorliegt, wird **Counterfactual** genannt. Für jemanden, der nicht an der Schulung teilgenommen hat, ist das Counterfactual die Antwort auf die Frage: *Wie hoch wäre mein Gehalt, wenn ich an der Schulung teilgenommen hätte?* Für jemanden der teilgenommen hat, ist das Counterfactual das Gehalt ohne Teilnahme.
+Der Wert, der nicht beobachtet wird, wird jeweils als **Counterfactual** bezeichnet; er ist kontrafaktisch in dem Sinne, dass er in der Realität nicht vorliegt. 
+
+Für jemanden, der nicht an der Schulung teilgenommen hat, ist das Counterfactual die Antwort auf die Frage: *Wie hoch wäre mein Gehalt, wenn ich an der Schulung teilgenommen hätte?* Für jemanden der teilgenommen hat, ist das Counterfactual die Antwort auf die Frage: *Wie hoch wäre mein Gehalt, wenn ich nicht an der Schulung teilgenommen hätte?*
 
 ```{r cf, echo=FALSE}
 question("Kann das Counterfactual beobachtet werden?",
@@ -188,13 +196,14 @@ question("Person $i$ nimmt an der Schulung teil. Was ist dann das Counterfactual
 
 ## Durchschnittlicher kausaler Effekt
 
-Würden wir den individuellen kausalen Effekt $\color{orange}{\Delta}_i$ kennen (Variable `effekt` in unserem `R`-Beispiel), könnten wir u.a. den durchschnittlichen kausalen Effekt $\bar{\color{orange}{\Delta}}$ berechnen, indem wir alle $i$ individuellen kausalen Effekte addieren und diese Summe ($\sum$) durch die Anzahl der Beobachtungen ($n$) dividieren: 
+Mal angenommen, wir würden die individuellen kausalen Effekte $\color{orange}{\Delta}_i$ aber doch kennen (Variable `effekt` in unserem `R`-Beispiel).
+Dann könnten wir aus ihnen weitere Größen ableiten, beispielsweise den *durchschnittlichen* kausalen Effekt $\bar{\color{orange}{\Delta}}$, indem wir alle $i$ individuellen kausalen Effekte addieren und diese Summe ($\sum$) durch die Anzahl der Beobachtungen ($n$) dividieren: 
 
 $$\bar{\color{orange}{\Delta}}=\frac{\sum_{i=1}^n \color{orange}{\Delta}_i}{n}=\frac{\sum_{i=1}^n\color{blue}{Y}^{\color{green}{X=1}}_i - \sum_{i=1}^n\color{blue}{Y}^{\color{green}{X=0}}_i}{n}=\overline{\color{blue}{Y}}^{\color{green}{X=1}}-\overline{\color{blue}{Y}}^{\color{green}{X=0}}.$$
 
 Die `R`-Funktion, die diesen arithmetischen Mittelwert berechnet, lautet `mean()`.
 
-Berechnen Sie den durchschnittlichen kausalen Effekt, wenn beide Potential Outcomes vorliegen würden, indem Sie auf `Run Code` klicken. 
+Klicken Sie auf `Run Code` um den durchschnittlichen kausalen Effekt in unserem fiktiven Beispiel zu berechnen, in dem beide Potential Outcomes vorliegen.
 
 ```{r ate, exercise=TRUE}
 mean(~ effekt, data = Schulung)
@@ -202,14 +211,16 @@ mean(~ effekt, data = Schulung)
 
 ##
 
-Das fundamentale Problem der kausalen Inferenz ist, dass nur eines der Potential Outcomes vorliegt und das nicht vorliegende ein Counterfactual ist. Daher kennen wir in der Praxis weder den individuellen noch den durchschnittlichen kausalen Effekt. Letzterer läge hier bei
+Das fundamentale Problem der kausalen Inferenz ist, dass nur eines der Potential Outcomes vorliegt und das nicht vorliegende ein Counterfactual ist. Daher kennen wir in der Praxis weder den individuellen noch den durchschnittlichen kausalen Effekt. Letzterer liegt in unserem Beispiel bei
 
 
 $$\bar{\color{orange}{\Delta}}=\frac{\sum_{i=1}^n \color{orange}{\Delta}_i}{n}=`r mean(~ effekt, data = Schulung)`.$$
 
 ## Fehlende Werte
 
-Wenn wir wissen, wer teilgenommen hat, wissen wir auch, welche der beiden Potential Outcomes wir kennen und welche als Counterfactual fehlen. Fehlende Werte werden in `R` als `NA` (engl.: not available, nicht verfügbar) dargestellt.
+In der Praxis kennen wir zwar nicht beide Potential Outcomes, aber wir wissen, wer an der Schulung teilgenommen hat und wer nicht. Daraus ergibt sich, welches der beiden Potential Outcomes beobachtet ist und welches uns fehlt (das Counterfactual). Somit können wir unsere fiktive Gehaltstabelle aktualisieren, damit sie eine realistische Datensituation widerspiegelt.
+
+Fehlende Werte werden in `R` als `NA` (engl.: not available, nicht verfügbar) dargestellt.
 
 ```{r teilnahme, echo=FALSE}
 Schulung %>%
@@ -219,7 +230,7 @@ Schulung %>%
   kable()
 ```
 
-Was wir also sehen ist das `gehalt` und, ob am Seminar teilgenommen wurde (`teilnahme`).
+Was wir in unseren Daten also sehen ist das tatsächlich beobachtete `gehalt` und, ob am Seminar teilgenommen wurde (`teilnahme`).
 
 ```{r gehalt, echo=FALSE}
 Schulung %>%
@@ -228,9 +239,9 @@ Schulung %>%
 ```
 
 ```{r bias, echo=FALSE}
-question("Die Teilnahme an der Schulung war freiwillig. Sind Sie sicher, dass diejenigen die teilgenommen haben und diejenigen die nicht teilgenommen haben, die gleiche Gehaltsentwicklung gehabt hätten, unabhängig von der Schulung?",
-         answer("Eher Ja", message = "Es gibt vermutlich Unterschiede in der individuellen Einschätzung der Wichtigkeit der Höhe des Gehalts. Dies kann sowohl die Teilnahmebereitschaft an der Schulung beeinflussen als auch &ndash; unabhängig von der Schulung &ndash; das Vorgehen in Gehaltsverhandlungen."),
-         answer("Eher Nein", correct = TRUE, message = "Es gibt vermutlich Unterschiede in der individuellen Einschätzung der Wichtigkeit der Höhe des Gehalts. Dies kann sowohl die Teilnahmebereitschaft an der Schulung beeinflussen als auch &ndash; unabhängig von der Schulung &ndash; das Vorgehen in Gehaltsverhandlungen."),
+question("Die Teilnahme an der Schulung war freiwillig. Können Sie davon ausgehen, dass, unabhängig von der Schulung, Teilnehmende und Nichtteilehmende eine ähnliche Gehaltsentwicklung erlebt hätten?",
+         answer("Ja", message = "Teilnehmende und Nichtteilnehmende könnten sich in vielerlei Hinsicht unterscheiden. Um nur ein Beispiel zu nennen: Personen, denen ihr Gehalt besonders wichtig ist, werden eher an der Schulung teilnehmen. Diese Personen werden aber vielleicht auch ohne Schulung anders in Gehaltsverhandlungen auftreten."),
+         answer("Nein", correct = TRUE, message = "Teilnehmende und Nichtteilnehmende könnten sich in vielerlei Hinsicht unterscheiden. Um nur ein Beispiel zu nennen: Personen, denen ihr Gehalt besonders wichtig ist, werden eher an der Schulung teilnehmen. Diese Personen werden aber vielleicht auch ohne Schulung anders in Gehaltsverhandlungen auftreten."),
 		correct = "Klasse!",
 		incorrect = "Leider falsch."
          )
@@ -238,7 +249,7 @@ question("Die Teilnahme an der Schulung war freiwillig. Sind Sie sicher, dass di
 
 ## Schätzung des kausalen Effektes
 
-Anhand der beobachteten Daten kann das durchschnittliche Gehalt sowohl für diejenigen, die teilgenommen haben, als auch für die, die nicht teilgenommen haben, berechnet werden:
+Anhand der tatsächlich beobachteten Daten können wir zwei Durchschnittsgehälter berechnen: Das Durchschnittsgehalt derjenigen, die teilgenommen haben, und das Durchschnittsgehalt derjenigen, die nicht teilgenommen haben.
 
 ```{r gehaltteilnahme}
 mean(gehalt ~ teilnahme, data = Schulung)
@@ -248,13 +259,15 @@ mean(gehalt ~ teilnahme, data = Schulung)
 
 - $\bar{\color{blue}{y}}^{\color{green}{x=0}} = `r round(mean(gehalt ~ teilnahme, data = Schulung)[2],2)`$
 
-Ein Schätzer für den durchschnittlichen kausalen Effekt auf Basis der beobachteten Werte wäre damit:
+Nun könnte man versuchen, den durchschnittlichen kausalen Effekt mithilfe dieser beobachteten Werte zu schätzen:
 
 $$\bar{\color{blue}{y}}^{\color{green}{x=1}} - \bar{\color{blue}{y}}^{\color{green}{x=0}} = `r round(mean(gehalt ~ teilnahme, data = Schulung)[1],2)` - `r round(mean(gehalt ~ teilnahme, data = Schulung)[2],2)` = `r round(-diffmean(gehalt ~ teilnahme, data = Schulung),2)`$$
 
-Dieser weist aber eine systematische Verzerrung, einen **Bias**, zum zu schätzenden Wert $\bar{\color{orange}{\Delta}} =`r round(mean(~ effekt, data = Schulung),2)`$ auf.
+Dieser Wert weicht aber substanziell vom wahren durchschnittlichen kausalen Effekt ab, den wir zuvor mithilfe der Potential Outcomes berechnet hatten: $\bar{\color{orange}{\Delta}} =`r round(mean(~ effekt, data = Schulung),2)`$ auf.
+Bei dieser Abweichung handelt es sich um eine systamtische Verzerrung, die auch als **Bias** bezeichnet wird.
 
-Der naive Vergleich der Mittelwerte überschätzt hier den wahren durchschnittlichen Effekt. Dies liegt daran, dass in diesem fiktiven Beispiel Personen mit einem höherem Gehaltsinteresse eher an der Schulung teilgenommen haben als die mit einem niedrigeren Interesse. Erstere hätten aber, aufgrund Ihres Gehaltsinteresses so oder so, also unabhängig von der Schulung, ein höheres Gehalt erwartet.
+
+Der naive Vergleich der Mittelwerte überschätzt hier den wahren durchschnittlichen Effekt. In unserem fiktiven Beispiel liegt das daran, dass Personen mit einem höherem Gehaltsinteresse eher an der Schulung teilgenommen haben als die mit einem niedrigeren Interesse. Erstere hätten aber, aufgrund Ihres Gehaltsinteresses, so oder so, also unabhängig von der Schulung, ein höheres Gehalt erwartet. Natürlich sind hier auch andere inhaltliche Erklärungen denkbar.
 
 Kontrollieren Sie diese Aussage, indem Sie den Code so abändern, dass Sie den Mittelwert der Potential Outcomes berechnen:
 
@@ -276,7 +289,11 @@ mean(gehalt1 ~ teilnahme, data = Schulung)
 
 ##
 
-Dies ist leider ein universelles Problem: Daten können viel erzählen und verbergen. Wir können Zusammenhänge und Unterschiede sehen, wo keine sind, wir können welche übersehen, die da sind. Daten können in die Irre führen. Um die richtigen Schlussfolgerungen aus ihnen zu ziehen, müssen wir die Entstehungsgeschichte der Daten berücksichtigen. 
+Das fundamentale Problem der kausalen Inferenz ist universell. In vielen Situationen kann es dazu führen, dass die Daten uns in die Irre führe: Vielleicht vermuten wir einen kausalen Effekte wo es nicht wirklich einen gibt, oder wir erkennen real existierende Effekte nicht. 
+
+Die Gefahr solcher Fehlschlüsse verringert sich aber, wenn wir uns darüber Gedanken machen, wie unsere Daten überhaupt entstanden sind. In unserem fiktiven Beispiel kann man die zusätzliche Information heranziehen, dass Personen sich frei auswählen konnten, ob sie teilnehmen oder nicht. Dann erkennt man schnell, dass der naive Mittelwertvergleich kein angemessener Weg ist, den durchschnittlichen kausalen Effekt zu schätzen. 
+
+In den folgenden Modulen werden werden Sie verschiedene datengenerierende Mechanismen auf abstrakter Ebene kennenlernen und erfahren, wie sie kausale Schlüsse beeinflussen.
 
 ## Hinweis
 
