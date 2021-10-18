@@ -52,9 +52,9 @@ SimData <- tibble(x = rnorm(n)) %>%
 
 In diesem Modul lernen Sie:
 
-- Zwischen Beschreibung, Vorhersage und Kausaler Inferenz zu unterscheiden.
+- zwischen Beschreibung, Vorhersage und Kausaler Inferenz zu unterscheiden;
 
-- Warum diese Unterscheidung wichtig ist.
+- warum diese Unterscheidung wichtig ist.
 
 ## Data Literacy
 
@@ -78,12 +78,12 @@ Häufig werden Daten genutzt mit dem Ziel, ein Phänomen zu beschreiben. Ein Bei
 Wie können Frauen mit Schlaganfall zwischen 60 und 80 charakterisiert und gruppiert werden?
 :::
 
-Hier können graphische Verfahren, Kennzahlen &ndash; je nach Fragestellung und Datenbasis auch Verfahren der Inferenzstatistik (p-Werte, Konfidenzintervalle, Bayes-Statistik) &ndash; verwendet werden, um z. B. zu untersuchen wie hoch der Anteil der Raucherinnen unter den Frauen war, die leider einen Schlaganfall erlitten haben. Aber auch Verfahren wie Clusteranalyse oder Hauptkomponentenanalyse können hierfür verwendet werden. 
+Hier können graphische Verfahren, Kennzahlen &ndash; je nach Fragestellung und Datenbasis auch Verfahren der Inferenzstatistik (p&#8209;Werte, Konfidenzintervalle, Bayes-Statistik) &ndash; verwendet werden, um z. B. zu untersuchen, wie hoch der Anteil der Raucherinnen unter den Frauen war, die leider einen Schlaganfall erlitten haben. Aber auch Verfahren wie Clusteranalyse oder Hauptkomponentenanalyse können hierfür verwendet werden. 
 
 ```{r beschreibung, echo=FALSE}
-question("Ist das Ergebnis einer Datenanalyse immer geeignet das zu untersuchende Phänomen zu beschreiben?",
-         answer("Ja", message = "Daten sind i. d. R. nur ein Teil der komplexen und dynamischen Realität. Z. B. Messfehler, nicht-repräsentative Stichproben oder fehlende Werte können zu einem verzerrten Ergebnis führen so dass die Datenbeschreibung in die Irre führt. Auch für diese Aufgabenstellung muss die Datenentstehung immer kritisch hinterfragt werden."),
-         answer("Nein", correct = TRUE, message = "Daten sind i. d. R. nur ein Teil der komplexen und dynamischen Realität. Z. B. Messfehler, nicht-repräsentative Stichproben oder fehlende Werte können zu einem verzerrten Ergebnis führen so dass die Datenbeschreibung in die Irre führt. Auch für diese Aufgabenstellung muss die Datenentstehung immer kritisch hinterfragt werden."),
+question("Ist das Ergebnis einer Datenanalyse immer geeignet, das zu untersuchende Phänomen zu beschreiben?",
+         answer("Ja", message = "Daten sind i. d. R. nur ein Teil der komplexen und dynamischen Realität. Z. B. Messfehler, nicht-repräsentative Stichproben oder fehlende Werte können zu einem verzerrten Ergebnis führen, so dass die Datenbeschreibung in die Irre führt. Auch für diese Aufgabenstellung muss die Datenentstehung immer kritisch hinterfragt werden."),
+         answer("Nein", correct = TRUE, message = "Daten sind i. d. R. nur ein Teil der komplexen und dynamischen Realität. Z. B. Messfehler, nicht-repräsentative Stichproben oder fehlende Werte können zu einem verzerrten Ergebnis führen, so dass die Datenbeschreibung in die Irre führt. Auch für diese Aufgabenstellung muss die Datenentstehung immer kritisch hinterfragt werden."),
 		correct = "Prima, Richtig!",
 		incorrect = "Leider falsch."
          )
@@ -113,10 +113,10 @@ question("Ein Unternehmen möchte diejenigen Kund:innen ermitteln, von denen es 
 In den Anwendungen "Beschreibung" und "Vorhersage" wurden die Daten (zunächst) *nur* beobachtet. Es erfolgte zunächst keine Handlung &ndash; auch wenn wie in der Übung (wie häufig bei Algorithmischen Entscheidungssystemen) aus der Vorhersage häufig eine Handlung folgt. 
 
 ```{r dox, echo=FALSE}
-question("Kann es einen Unterschied in der Verteilung von $Y$ geben, je nach dem ob $X$ beobachtet wird ($X=x$) oder auf Grund einer Handlung $X$ gesetzt wird ($do(X=x)$)?",
+question("Kann es einen Unterschied in der Verteilung von $Y$ geben, je nach dem, ob $X$ beobachtet wird ($X=x$) oder auf Grund einer Handlung $X$ gesetzt wird ($do(X=x)$)?",
          answer("Ja", correct = TRUE, message = "Es kann sein, dass eine weitere Variable ($Z$) Ursache für $X$ und $Y$ ist. Ich sehe einen Zusammenhang zwischen $X$ und $Y$, aber dieser liegt an $Z$. Wenn ich $X$ ändere, ändert sich $Y$ nicht. Wenn ich $Z$ ändere, beobachte ich einen anderen Wert von $X$ und $Y$."),
          answer("Nein", message = "Es kann sein, dass eine weitere Variable ($Z$) Ursache für $X$ und $Y$ ist. Ich sehe einen Zusammenhang zwischen $X$ und $Y$, aber dieser liegt an $Z$. Wenn ich $X$ ändere, ändert sich $Y$ nicht. Wenn ich $Z$ ändere, beobachte ich einen anderen Wert von $X$ und $Y$."),
-		correct = "Klasse! Sie können sich gut an das 2. Modul dieses Kurses erinnern",
+		correct = "Klasse! Sie können sich gut an das 2. Modul dieses Kurses erinnern.",
 		incorrect = "Leider falsch. Vielleicht schauen Sie sich noch einmal das 2. Modul (Ein Pfeil zeigt die Richtung) an."
          )
 ```
@@ -127,7 +127,7 @@ Eine Fragestellung der kausalen Inferenz lautet:
 Kann die Gabe von Cholesterinsenkern das durchschnittliche Risiko eines Schlaganfalls bei Frauen mit bestimmten Eigenschaften reduzieren?
 :::
 
-Grundlegende Überlegungen und Verfahren, die helfen können solche Fragen zu beantworten, sind Bestandteil dieses Kurses.
+Grundlegende Überlegungen und Verfahren, die helfen können, solche Fragen zu beantworten, sind Bestandteil dieses Kurses.
 
 
 ##
