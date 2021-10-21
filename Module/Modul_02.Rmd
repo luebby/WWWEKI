@@ -112,28 +112,30 @@ In diesem Modul lernen Sie:
 
 - was unter Ursache und Wirkung verstanden werden kann;
 
-- was ein Pfeil aussagt;
+- die Grundlagen von kausalen Graphen: was ein Pfeil aussagt;
 
-- was in einem Graphen Eltern und Kinder sind;
+- was Eltern und Kinder sind;
 
 - was unter einem Kausalen Modell verstanden werden kann;
 
-- dass es einen Unterschied zwischen Beobachten und Handeln gibt.
+- den Unterschied zwischen Beobachten und Handeln im Kontext kausaler Inferenz gibt.
 
 
 ## Ursache und Wirkung
 
-Seit Urzeiten machen wir uns Gedanken über Ursache und Wirkung. Nicht nur in der Philosophie, sondern auch ganz praktisch, im täglichen Leben:
+Seit Urzeiten machen Menschen sich Gedanken über Ursache und Wirkung. Nicht nur in der Philosophie, sondern auch ganz praktisch, im täglichen Leben:
 
 - Wenn ich die Tablette nehme, gehen die Schmerzen dann weg?
 
-- Führt die Werbung zu mehr Umsatz?
+- Führt Werbung zu mehr Umsatz?
 
-- Lohnt es sich finanziell an der Fortbildung teilzunehmen?
+- Lohnt es sich finanziell, an einer Fortbildung teilzunehmen?
 
-Dabei können wir entweder die Tablette nehmen &ndash; oder nicht. Und die Schmerzen können weggehen, oder nicht. Unternehmen können z. B. den Werbeetat steuern, d. h., entscheiden wie viel Geld sie für Werbung ausgeben. Aber auch der Umsatz *variiert*: mal ist er hoch, mal ist er niedrig &ndash; und wird i. d. R. in &euro; gemessen. Sie können an der Fortbildung teilnehmen oder nicht. Und Ihr Gehalt kann steigen &ndash; oder (leider) nicht.
+Dabei können wir entweder die Tablette nehmen &ndash; oder nicht; die Schmerzen können weggehen, oder nicht. Unternehmen können den Werbeetat erhöhen oder verringern; der Umsatz kann um beliebige Beträge steigen oder sinken. Sie nehmen an der Fortbildung teil oder nicht; Ihr Gehalt kann steigen &ndash; oder (leider) nicht.
 
-Es sind jeweils unterschiedliche Werte möglich, z. B. Ja oder Nein, oder $0$ &euro; oder $100$ &euro; &ndash; und für diese gibt es unterschiedliche *Wahrscheinlichkeiten*, $Pr$ als engl. Abkürzung von probability. $Pr(\text{Tablette})$ bezeichnet also die Wahrscheinlichkeit, dass eine Tablette genommen wird, $Pr(\text{Schmerzrückgang})$ die Wahrscheinlichkeit, dass die Schmerzen zurückgehen.
+Hier können also unterschiedliche Werte vorliegen, beispielsweise Ja oder Nein (z.B. Einnahme von Tabletten, Schmerzrückgang) oder $0$ &euro; oder $1000$ &euro; (z.B. Umsatzänderung, Gehaltsanstieg). 
+
+Diese Werte können mit unterschiedlichen *Wahrscheinlichkeiten* auftreten, welche mit $Pr$ abgekürzt werden (englisch für probability, Wahrscheinlichkeit). $Pr(\text{Tablette})$ bezeichnet also die Wahrscheinlichkeit, dass eine Tablette genommen wird, $Pr(\text{Schmerzrückgang})$ die Wahrscheinlichkeit, dass die Schmerzen zurückgehen.
 
 
 ```{r ursache, echo=FALSE}
@@ -211,7 +213,7 @@ Auf einer abstrakteren Ebene können die untersuchten Eigenschaften von oben als
 
 Die sogenannte *Verteilung* der Variablen beschreibt die Wahrscheinlichkeit, mit der die jeweiligen Werte auftreten. 
 
-Eine Variable $X$ heißt hier **Ursache** von $Y$, wenn der Wert der **Wirkung** $Y$ von $X$ verändert wird, d. h., $Y$ von $X$ abhängt.
+Eine Variable $X$ heißt hier **Ursache** von $Y$, wenn der Wert der **Wirkung** $Y$ von $X$ verändert wird, also wenn $Y$ von $X$ abhängt.
 
 Wenn Sie eben mehrfach die Tablette genommen haben &ndash; oder nicht genommen haben &ndash; dann konnten Sie beobachten, dass die Tablette häufig zu einer Schmerzreduktion führte, aber nicht immer. Und manchmal sind die Schmerzen zurückgegangen, obwohl Sie keine Tablette genommen haben. Die (hinterlegten) Wahrscheinlichkeiten dabei waren:
 
@@ -226,13 +228,13 @@ Wenn Sie eben mehrfach die Tablette genommen haben &ndash; oder nicht genommen h
 
 ## Kausales Diagramm
 
-Dass die Verteilung von $Y$ auf $X$ *hört*, lässt sich auch graphisch darstellen:
+Man könnte auch sagen, dass die Verteilung von $Y$ (Schmerzrückgang) auf $X$ (Tabletteneinnahme) *hört*. Dieser Umstand lässt sich auch graphisch darstellen:
 
 ```{r DAG1, echo=FALSE, fig.align='center', out.width='60%'}
 plot(DAG1)
 ```
 
-In einem solchen **Graphen** sind die Variablen <green> Tabletteneinnahme </green> und <blue> Schmerzrückgang </blue> die sog. **Knoten**. Der **Pfeil** $\rightarrow$ zwischen $\color{green}{X}$ und $\color{blue}{Y}$ ist eine gerichtete **Kante** und stellt die kausale Abhängigkeit dar.
+In einem solchen **Graphen** sind die Variablen <green> Tabletteneinnahme </green> und <blue> Schmerzrückgang </blue> die sog. **Knoten**. Der **Pfeil** $\rightarrow$ zwischen $\color{green}{X}$ und $\color{blue}{Y}$ ist eine sogenannte gerichtete **Kante** und stellt die kausale Abhängigkeit dar.
 
 $\color{green}{X} \rightarrow \color{blue}{Y}$ bedeutet aber auch, dass der Wert von $\color{green}{X}$ nicht kausal vom Wert von $\color{blue}{Y}$ abhängt. Ein möglicher <blue> Schmerzrückgang </blue> ändert nicht rückwirkend die <green> Tabletteneinnahme </green>: $$\color{green}{\text{Tabletteneinnahme}} \not\leftarrow \color{blue}{\text{Schmerzrückgang}}.$$
 
@@ -248,9 +250,11 @@ question("Welches kausale Diagramm beschreibt den Zusammenhang zwischen Lichtsch
 
 ## Kinder und Eltern
 
-Manche glauben ja, dass Kinder auf Ihre Eltern hören. Das schöne an abstrakten, gedanklichen Welten ist, dass das dort realisiert werden kann. Variablen (Knoten), auf die eine Pfeilspitze zeigt, werden **Kinder** derjenigen Variablen genannt, von welchen die Pfeile ausgehen. Diese Variablen werden entsprechend **Eltern** genannt: $\text{Eltern} \rightarrow \text{Kinder}$. Im Beispiel von oben ist <blue> Schmerzrückgang </blue> ein Kind von <green> Tabletteneinnahme </green> &ndash; und dementsprechend <green> Tabletteneinnahme </green> Eltern von <blue> Schmerzrückgang </blue>.
+Manche glauben ja, dass Kinder auf Ihre Eltern hören. Das schöne an abstrakten, gedanklichen Welten ist, dass das dort realisiert werden kann. 
 
-Ein Beispiel für ein kausales Diagramm, wie eine Straße rutschig werden kann:
+Variablen (Knoten), auf die eine Pfeilspitze zeigt, werden **Kinder** derjenigen Variablen genannt, von welchen die Pfeile ausgehen. Diese Variablen werden entsprechend **Eltern** genannt: $\text{Eltern} \rightarrow \text{Kinder}$. Im Beispiel von oben ist <blue> Schmerzrückgang </blue> ein Kind von <green> Tabletteneinnahme </green> &ndash; und dementsprechend <green> Tabletteneinnahme </green> Eltern von <blue> Schmerzrückgang</blue>. In kausalen Graphen höre Kinder also auf ihre Eltern.
+
+Ein Beispiel für ein kausales Diagramm das beschreibt, wie eine Straße rutschig werden kann:
 
 ```{r DAG_Str, echo=FALSE, fig.align='center', out.width='85%'}
 plot(DAG_Str)
@@ -264,7 +268,7 @@ question("Welche Variable ist bzw. welche Variablen sind Eltern von *Nass* (X4)?
          answer("Jahreszeit (X1).", message = "Nass hängt ab von Wassersprenger und Regen."),
          answer("Wassersprenger (X3) und Regen (X2).", correct = TRUE,  message = "Nass hängt ab von Wassersprenger und Regen."),
          answer("Rutschig(X5).", message = "Nass hängt ab von Wassersprenger und Regen."),
-		correct = "Klasse!",
+		correct = "Richtig",
 		incorrect = "Leider falsch."
          )
 ```
@@ -282,25 +286,25 @@ question("Welche Variable ist bzw. welche Variablen sind Kinder von *Nass* (X4)?
 
 ## Kausale Modelle
 
-Das **kausale Modell** eines Graphen $\color{green}{X} \rightarrow \color{blue}{Y}$ besteht aus zwei Zuweisungen:
+Das **kausale Modell** des simplen Graphen $\color{green}{X} \rightarrow \color{blue}{Y}$ besteht aus zwei Zuweisungen:
 
 - $\color{green}{X} = U_{\color{green}{X}}$
 - $\color{blue}{Y} = f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$
 
-Dabei sind $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unbekannte Ursachen oder Fehler von $\color{green}{X}$ und $\color{blue}{Y}$, und $f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$ die Funktion, der Mechanismus, wie $\color{blue}{Y}$ auf Basis von $\color{green}{X},U_{\color{blue}{Y}}$ zu seinem Wert kommt. 
+Dabei sind $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unbekannte Ursachen oder Fehler von $\color{green}{X}$ und $\color{blue}{Y}$, und $f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$ die Funktion, der Mechanismus, durch den $\color{blue}{Y}$ auf Basis von $\color{green}{X},U_{\color{blue}{Y}}$ zu seinem Wert kommt. 
 
 Im Beispiel
 $$\color{green}{\text{Tabletteneinnahme}} \rightarrow \color{blue}{\text{Schmerzrückgang}}$$ 
-beinhaltet $U_{\color{green}{\text{Tabletteneinnahme}}}$ die unbekannten, vielleicht zufälligen Gründe, die zur Entscheidung führen, ob eine Tablette genommen wird oder nicht, und $U_{\color{blue}{\text{Schmerzrückgang}}}$ die unbekannten, vielleicht zufälligen Gründe, die den Schmerzrückgang mit oder ohne Tabletteneinahme zusätzlich beschreiben. Dabei gehen wir davon aus, dass $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unabhängig voneinander sind. 
+beinhaltet $U_{\color{green}{\text{Tabletteneinnahme}}}$ die unbekannten, vielleicht zufälligen Gründe, die zur Entscheidung führen, ob eine Tablette genommen wird oder nicht, und $U_{\color{blue}{\text{Schmerzrückgang}}}$ die unbekannten, vielleicht zufälligen Gründe, die den Schmerzrückgang mit oder ohne Tabletteneinahme zusätzlich beschreiben. Dabei gehen wir hier davon aus, dass $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unabhängig voneinander sind. 
 
-Diese könnten in den Graphen mit aufgenommen werden, werden aber häufig aus Gründen der Übersichtlichkeit weggelassen. 
+Diese sogenannten Fehler könnten in den Graphen mit aufgenommen werden, werden aber häufig aus Gründen der Übersichtlichkeit weggelassen. 
 
 ```{r DAG2, echo=FALSE, fig.align='center', out.width='60%'}
 plot(DAG2)
 ```
 
 
-Angenommen Sie werfen eine Münze (`ux()`), ob Sie die Tablette nehmen oder nicht, und es gilt (`fy()`):
+Angenommen Sie werfen eine Münze (`ux()`), ob Sie die Tablette nehmen oder nicht, und es gilt für den Schmerzrückgang (`fy()`):
 
 - $Pr(\text{Schmerzrückgang, wenn Tablette eingenommen})=0.9$ 
 
@@ -310,7 +314,7 @@ Angenommen Sie werfen eine Münze (`ux()`), ob Sie die Tablette nehmen oder nich
 
 - $Pr(\text{Kein Schmerzrückgang, wenn keine Tablette eingenommen})=1-0.4=0.6$
 
-Simulieren Sie diesen Fall mehrfach über `Run Code`:
+Simulieren Sie diesen Fall mehrfach über `Run Code` und beobachten Sie, welche Werte die beiden Variablen annehmen:
 
 ```{r sim, exercise=TRUE}
 x <- U_X()
@@ -340,10 +344,10 @@ plot(pd)
 Insgesamt erwarten wir im Mittelwert, dass bei $45 + 20= 65$ von $100$ Personen eine Verbesserung eintrifft, wenn $U_{\color{green}{\text{Tabletteneinnahme}}}$ zufällig Ja oder Nein ist und $P(\color{green}{\text{Tabletteneinnahme}})=0.5$ ist. Wir **beobachten** nur, welchen Wert unsere Ursache $\color{green}{X}$ annimmt. 
 
 ```{r handeln, echo=FALSE}
-question("Was passiert, wenn wir **intervenieren**, d. h., die Tabletteneinnahme ist nicht zufällig, sondern wir legen fest, dass die Tablette eingenommen wird?",
+question("Was passiert, wenn wir **intervenieren**, d. h., die Tabletteneinnahme ist nicht zufällig, sondern wir legen fest, dass alle die Tablette einnehmen müssen?",
          answer("Die Anzahl der Menschen mit Schmerzreduktion ändert sich nicht.", message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $90\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.9 = 90$ von $100$ Personen."),
          answer("Die Anzahl der Menschen mit Schmerzreduktion erhöht sich.", correct = TRUE, message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $90\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.9 = 90$ von $100$ Personen."),
-         answer("Die Anzahl der Menschen mit Schmerzreduktion reduzuiert sich.", message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $90\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.9 = 90$ von $100$ Personen."),
+         answer("Die Anzahl der Menschen mit Schmerzreduktion reduziert sich.", message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $90\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.9 = 90$ von $100$ Personen."),
 		correct = "Genau!",
 		incorrect = "Leider falsch."
          )
@@ -351,16 +355,16 @@ question("Was passiert, wenn wir **intervenieren**, d. h., die Tabletteneinnahme
 
 ## Interventionen
 
-Durch eine **Intervention** handeln wir. Im kausalen Modell gilt nicht mehr:
+Bei einer **Intervention** handeln wir und greifen ein. Im kausalen Modell gilt nicht mehr:
 
 $$\color{green}{X} = U_{\color{green}{X}}$$
-sondern z. B.
+sondern zum Beispiel, wenn wir dafür sorgen, dass alle die Tablette nehmen:
 
 $$\color{green}{X} = 1$$
 
 mit $\color{green}{X} = \cases{1: \quad \text{Tablette wird eingenommen} \\ 0: \quad \text{Tablette wird nicht eingeommen}}$.
 
-Um den Unterschied zwischen Beobachtung und Intervention auch formal darzustellen, wird für eine Intervention ein eigener Operator verwendet: $do(\cdot)$. Wenn wir die Tabletteneinnahme *erzwingen*, kann dies durch $do(\color{green}{X} = 1)$ dargestellt werden.
+Um den Unterschied zwischen Beobachtung und Intervention auch formal darzustellen, wird für eine Intervention ein eigener Operator verwendet: $do(\cdot)$ (englisch: to do sth., etwas machen). Wenn wir die Tabletteneinnahme *erzwingen*, kann dies durch $do(\color{green}{X} = 1)$ dargestellt werden.
 
 ```{r do0, echo=FALSE}
 question("Welche Darstellung beschreibt die Intervention, die dazu führt, dass keine Tablette genommen wird?",

@@ -58,9 +58,9 @@ SimData <- tibble(x = rnorm(n)) %>%
 
 In diesem Modul lernen Sie:
 
-- Zwischen Beschreibung, Vorhersage und Kausaler Inferenz zu unterscheiden.
+- zwischen Beschreibung, Vorhersage und Kausaler Inferenz zu unterscheiden und
 
-- Warum diese Unterscheidung wichtig ist.
+- warum diese Unterscheidung wichtig ist.
 
 ## Data Literacy
 
@@ -72,7 +72,7 @@ In der [Data-Literacy-Charta](https://www.stifterverband.org/charta-data-literac
 - Was darf ich mit Daten machen? 
 - Was soll ich mit Daten machen?
 
-In diesem Modul behandeln wir die Frage: ***Was will ich mich mit Daten machen?*** Welches Ziel verfolge ich mit der Datenanalyse? Nutze ich die Daten um ein Phänomen zu beschreiben? Oder nutze ich die Daten um etwas vorherzusagen? Oder geht es um kausale Inferenz? Je nach dem Ziel der Datenanalyse sind unterschiedliche Methoden angemessen.
+In diesem Modul behandeln wir die Frage: ***Was will ich mich mit Daten machen?*** Welches Ziel verfolge ich mit der Datenanalyse? Nutze ich die Daten um ein Phänomen zu beschreiben? Oder nutze ich die Daten um etwas vorherzusagen? Geht es am Ende um kausale Inferenz? Je nach Ziel der Datenanalyse sind unterschiedliche Methoden angemessen.
 
 Die folgenden Beispiele stammen aus [Hernán et al. (2019)](https://doi.org/10.1080/09332480.2019.1579578).
 
@@ -81,15 +81,17 @@ Die folgenden Beispiele stammen aus [Hernán et al. (2019)](https://doi.org/10.1
 Häufig werden Daten genutzt mit dem Ziel, ein Phänomen zu beschreiben. Ein Beispiel im Gesundheitswesen:
 
 :::{.box}
-Wie können Frauen mit Schlaganfall zwischen 60 und 80 charakterisiert und gruppiert werden?
+Wie können Frauen mit Schlaganfall im Alter von 60 bis 80 Jahren charakterisiert und gruppiert werden?
 :::
 
-Hier können graphische Verfahren, Kennzahlen &ndash; je nach Fragestellung und Datenbasis auch Verfahren der Inferenzstatistik (p-Werte, Konfidenzintervalle, Bayes-Statistik) &ndash; verwendet werden, um z. B. zu untersuchen wie hoch der Anteil der Raucherinnen unter den Frauen war, die leider einen Schlaganfall erlitten haben. Aber auch Verfahren wie Clusteranalyse oder Hauptkomponentenanalyse können hierfür verwendet werden. 
+Um zum Beispiel zu untersuchen, wie hoch der Anteil der Raucherinnen in dieser Gruppe ist, lassen sich graphische Verfahren nutzen (z.B. simple Balkendiagramme); statistische Kennzahlen (z.B. Prozentsatz der Raucherinnen); je nach Fragestellung und Datenbasis auch Verfahren der Inferenzstatistik (p&#8209;Werte, Konfidenzintervalle, Bayes-Statistik). 
+
+Aber auch Verfahren wie Clusteranalyse oder Hauptkomponentenanalyse können hier verwendet werden, um die Gruppe genauer zu charakterisieren. 
 
 ```{r beschreibung, echo=FALSE}
-question("Ist das Ergebnis einer Datenanalyse immer geeignet das zu untersuchende Phänomen zu beschreiben?",
-         answer("Ja", message = "Daten sind i. d. R. nur ein Teil der komplexen und dynamischen Realität. Z. B. Messfehler, nicht-repräsentative Stichproben oder fehlende Werte können zu einem verzerrten Ergebnis führen so dass die Datenbeschreibung in die Irre führt. Auch für diese Aufgabenstellung muss die Datenentstehung immer kritisch hinterfragt werden."),
-         answer("Nein", correct = TRUE, message = "Daten sind i. d. R. nur ein Teil der komplexen und dynamischen Realität. Z. B. Messfehler, nicht-repräsentative Stichproben oder fehlende Werte können zu einem verzerrten Ergebnis führen so dass die Datenbeschreibung in die Irre führt. Auch für diese Aufgabenstellung muss die Datenentstehung immer kritisch hinterfragt werden."),
+question("Führen solche Datenanalysen automatisch zu adäquaten Beschreibungen des zu untersuchenden Phänomens?",
+         answer("Ja", message = "Daten sind in der Regel nur ein Teil der komplexen und dynamischen Realität. Beispielsweise könnten die Daten mit Messfehler behaftet sein, wenn beispielsweise das Rauchverhalten in der Vergangenheit nicht korrekt erinnert oder berichtet wird. Auch nicht-repräsentative Stichproben können ein Problem sein, wenn zum Beispiel gerade gesundheitsbewusste Frauen eher an Erhebungen teilnehmen. Weiterhin können fehlende Werte zu verzerrte Ergebnissen führen, wenn beispielsweise bestimmte Frauen auf einige der Fragen die Antwort verweigern. Auch bei der reinen Beschreibung können also Daten in die Irre führen, und wir müssen uns Gedanken darüber machen, wie die Daten entstanden sind."),
+         answer("Nein", correct = TRUE, message = "Daten sind in der Regel nur ein Teil der komplexen und dynamischen Realität. Beispielsweise könnten die Daten mit Messfehler behaftet sein, wenn beispielsweise das Rauchverhalten in der Vergangenheit nicht korrekt erinnert oder berichtet wird. Auch nicht-repräsentative Stichproben können ein Problem sein, wenn zum Beispiel gerade gesundheitsbewusste Frauen eher an Erhebungen teilnehmen. Weiterhin können fehlende Werte zu verzerrte Ergebnissen führen, wenn beispielsweise bestimmte Frauen auf einige der Fragen die Antwort verweigern. Auch bei der reinen Beschreibung können also Daten in die Irre führen, und wir müssen uns Gedanken darüber machen, wie die Daten entstanden sind."),
 		correct = "Prima, Richtig!",
 		incorrect = "Leider falsch."
          )
@@ -97,13 +99,20 @@ question("Ist das Ergebnis einer Datenanalyse immer geeignet das zu untersuchend
 
 ## Vorhersage
 
-Eine weitere Datenanwendung, ein weiteres Ziel der Datenanalyse kann die Vorhersage sein:
+Ein weiteres Ziel der Datenanalyse kann die Vorhersage sein:
 
 :::{.box}
 Wie hoch ist die Wahrscheinlichkeit, dass eine Frau mit bestimmten Eigenschaften im nächsten Jahr einen Schlaganfall erleidet?
 :::
 
-Es gibt ein konkretes Ereignis, hier z. B. der Schlaganfall, das auf Basis anderer Eigenschaften (z. B. des Rauchverhaltens, $\color{green}{X}$) vorhergesagt werden soll. Viele Verfahren der künstlichen Intelligenz versuchen diese Aufgabe zu lösen. Gebräuchliche Verfahren sind z.B. Regressionsverfahren, aber auch künstliche neuronale Netze kommen dabei zur Anwendung. Es geht abstrakt darum, den Wert einer Zielvariable $\color{blue}{Y}$ (hier: Schlaganfall ja oder nein) auf Basis von vorliegenden Daten anderer Variablen $\color{green}{X}$ (hier z. B. Rauchverhalten, aber auch Medikamenteneinnahme) zu modellieren ($\color{blue}{Y} = f(\color{green}{X})$) und auf Basis des geschätzten Modells wird dann der Wert von $\color{blue}{Y}$ vorhergesagt. Eine solche Vorhersage ist häufig Bestandteil Algorithmischer Entscheidungssysteme.^[Dies beinhaltet besondere ethische Verantwortung. Siehe dazu u. a. den KI-Campus Kurs [Daten- und Algorithmenethik](https://ki-campus.org/courses/daethik2020).]
+Es gibt also ein konkretes Ereignis das auf Basis anderer Eigenschaften vorhergesagt werden soll. 
+Viele Verfahren der künstlichen Intelligenz und des maschinellen Lernens versuchen diese Aufgabe zu lösen. 
+Gebräuchliche Verfahren sind hier Regressionsverfahren, aber auch künstliche neuronale Netze kommen zur Anwendung. 
+Eine solche Vorhersage ist häufig Bestandteil Algorithmischer Entscheidungssysteme.^[Dies beinhaltet besondere ethische Verantwortung. Siehe dazu u. a. den KI-Campus Kurs [Daten- und Algorithmenethik](https://ki-campus.org/courses/daethik2020).]
+
+Abstrakt geht es darum, den Wert einer Zielvariable $\color{blue}{Y}$ (hier: Schlaganfall ja oder nein) auf Basis von vorliegenden Daten anderer Variablen $\color{green}{X}$ (hier z. B. Rauchverhalten, aber auch Medikamenteneinnahme) zu modellieren ($\color{blue}{Y} = f(\color{green}{X})$).
+Das so geschätzte Modell kann dann genutzt werden, um Werte von $\color{blue}{Y}$ vorherzusagen.
+
 
 ```{r vorhersage, echo=FALSE}
 question("Ein Unternehmen möchte diejenigen Kund:innen ermitteln, von denen es vermutet, dass diese sich für ein neues Angebot des Unternehmens interessieren. Handelt es sich hier um eine Datenanwendung mit dem Ziel der Vorhersage?",
@@ -116,13 +125,15 @@ question("Ein Unternehmen möchte diejenigen Kund:innen ermitteln, von denen es 
 
 ## Kausale Inferenz
 
-In den Anwendungen "Beschreibung" und "Vorhersage" wurden die Daten (zunächst) *nur* beobachtet. Es erfolgte zunächst keine Handlung &ndash; auch wenn wie in der Übung (wie häufig bei Algorithmischen Entscheidungssystemen) aus der Vorhersage häufig eine Handlung folgt. 
+In den Anwendungen "Beschreibung" und "Vorhersage" wurden die Daten zunächst *nur* beobachtet. 
+Es erfolgt also  keine Intervention, selbst wenn im nächsten Schritt die Vorhersage als Grundlage für konkrete Handlungen genutzt wird.
+
 
 ```{r dox, echo=FALSE}
-question("Kann es einen Unterschied in der Verteilung von $Y$ geben, je nach dem ob $X$ beobachtet wird ($X=x$) oder auf Grund einer Handlung $X$ gesetzt wird ($do(X=x)$)?",
-         answer("Ja", correct = TRUE, message = "Es kann sein, dass eine weitere Variable ($Z$) Ursache für $X$ und $Y$ ist. Ich sehe einen Zusammenhang zwischen $X$ und $Y$, aber dieser liegt an $Z$. Wenn ich $X$ ändere, ändert sich $Y$ nicht. Wenn ich $Z$ ändere, beobachte ich einen anderen Wert von $X$ und $Y$."),
-         answer("Nein", message = "Es kann sein, dass eine weitere Variable ($Z$) Ursache für $X$ und $Y$ ist. Ich sehe einen Zusammenhang zwischen $X$ und $Y$, aber dieser liegt an $Z$. Wenn ich $X$ ändere, ändert sich $Y$ nicht. Wenn ich $Z$ ändere, beobachte ich einen anderen Wert von $X$ und $Y$."),
-		correct = "Klasse! Sie können sich gut an das 2. Modul dieses Kurses erinnern",
+question("Kann es einen Unterschied in der Verteilung von $Y$ geben, je nach dem, ob $X$ beobachtet wird ($X=x$) oder auf Grund einer Handlung $X$ gesetzt wird ($do(X=x)$)?",
+         answer("Ja", correct = TRUE, message = "Es kann sein, dass eine weitere Variable ($Z$) Ursache für $X$ und $Y$ ist. Der beobachtete Zusammenhang zwischen $X$ und $Y$ liegt dann an $Z$. Wenn $X$ verändert wird, ändert sich $Y$ aber nicht. Würde $Z$ sich ändern, würde man andere Werte von $X$ und $Z$ beobachten."),
+         answer("Nein", message = "Es kann sein, dass eine weitere Variable ($Z$) Ursache für $X$ und $Y$ ist. Der beobachtete Zusammenhang zwischen $X$ und $Y$ liegt dann an $Z$. Wenn $X$ verändert wird, ändert sich $Y$ aber nicht. Würde $Z$ sich ändern, würde man andere Werte von $X$ und $Z$ beobachten."),
+		correct = "Klasse! Sie können sich gut an das 2. Modul dieses Kurses erinnern.",
 		incorrect = "Leider falsch. Vielleicht schauen Sie sich noch einmal das 2. Modul (Ein Pfeil zeigt die Richtung) an."
          )
 ```
@@ -130,10 +141,10 @@ question("Kann es einen Unterschied in der Verteilung von $Y$ geben, je nach dem
 Eine Fragestellung der kausalen Inferenz lautet:
 
 :::{.box}
-Kann die Gabe von Cholesterinsenkern das durchschnittliche Risiko eines Schlaganfalls bei Frauen mit bestimmten Eigenschaften reduzieren?
+Kann die Gabe von cholesterinsenkenden Medikamenten das durchschnittliche Risiko eines Schlaganfalls bei Frauen mit bestimmten Eigenschaften reduzieren?
 :::
 
-Grundlegende Überlegungen und Verfahren, die helfen können solche Fragen zu beantworten, sind Bestandteil dieses Kurses.
+Grundlegende Überlegungen und Verfahren, die helfen können, solche Fragen zu beantworten, lernen Sie im Rahmen dieses Kurses.
 
 
 ##
