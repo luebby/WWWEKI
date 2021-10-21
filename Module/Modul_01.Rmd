@@ -2,6 +2,8 @@
 title: "Modul 01: An der Weggabelung: Einen Weg gehen &ndash; und einen nicht"
 output: 
   learnr::tutorial:
+    language: 
+      de: js/tutorial_de.json
     progressive: true
     css: "css/style.css"
 runtime: shiny_prerendered
@@ -20,6 +22,9 @@ theme.fom <- theme.fom
 theme_set(
   theme.fom  
 )
+
+# deutsche Version von random_praise
+source("random-praise_de/translation_random-praise_de.R")
 
 
 # Daten simulieren

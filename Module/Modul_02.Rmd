@@ -2,6 +2,8 @@
 title: "Modul 02: Ein Pfeil zeigt die Richtung"
 output: 
   learnr::tutorial:
+    language: 
+      de: js/tutorial_de.json
     progressive: true
     css: "css/style.css"
 runtime: shiny_prerendered
@@ -21,6 +23,9 @@ theme.fom <- theme.fom
 theme_set(
   theme.fom  
 )
+
+# deutsche Version von random_praise
+source("random-praise_de/translation_random-praise_de.R")
 
 
 library(ggdag)
