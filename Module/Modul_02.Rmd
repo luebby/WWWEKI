@@ -142,8 +142,8 @@ Diese Werte können mit unterschiedlichen *Wahrscheinlichkeiten* auftreten, welc
 question("Angenomen nach der Einnahme einer Tablette gehen die Schmerzen weg. Wie würden Sie hier Ursache und Wirkung zuordnen?",
          answer("Die Einnahme der Tablette ist die Ursache, der Schmerzrückgang die Wirkung.", correct = TRUE, message = "Die Tablette wurde zuerst eingenommen, danach folgte der Schmerzrückgang."),
          answer("Der Schmerzrückgang ist die Ursache, die Einnahme der Tablette die Wirkung.", message = "Die Tablette wurde zuerst eingenommen, danach folgte der Schmerzrückgang."),
-		correct = "Prima, Richtig!",
-		incorrect = "Leider falsch."
+		correct = random_praise(),
+		incorrect = random_encouragement()
          )
 ```
 
@@ -243,8 +243,8 @@ $\color{green}{X} \rightarrow \color{blue}{Y}$ bedeutet aber auch, dass der Wert
 question("Welches kausale Diagramm beschreibt den Zusammenhang zwischen Lichtschalter und Glühlampe?",
          answer("$\\text{Glühlampe} \\rightarrow \\text{Lichtschalter}$", message = "Lichtschalter an oder aus ist die Ursache für die Wirkung, ob die Glühlampe an oder aus ist. Bei kaputter Leitung oder Lampe ist diese nicht an, obwohl der Schalter an ist. Aber ohne Rückkopplung geht der Schalter nicht aus, wenn die Lampe aufgrund eines Schadens nicht an ist."),
          answer("$\\text{Lichtschalter} \\rightarrow \\text{Glühlampe}$", correct = TRUE, message = "Lichtschalter an oder aus ist die Ursache für die Wirkung, ob die Glühlampe an oder aus ist. Bei kaputter Leitung oder Lampe ist diese nicht an, obwohl der Schalter an ist. Aber ohne Rückkopplung geht der Schalter nicht aus, wenn die Lampe aufgrund eines Schadens nicht an ist."),
-		correct = "Stimmt!",
-		incorrect = "Leider falsch."
+		correct = random_praise(),
+		incorrect = random_encouragement()
          )
 ```
 
@@ -268,8 +268,8 @@ question("Welche Variable ist bzw. welche Variablen sind Eltern von *Nass* (X4)?
          answer("Jahreszeit (X1).", message = "Nass hängt ab von Wassersprenger und Regen."),
          answer("Wassersprenger (X3) und Regen (X2).", correct = TRUE,  message = "Nass hängt ab von Wassersprenger und Regen."),
          answer("Rutschig(X5).", message = "Nass hängt ab von Wassersprenger und Regen."),
-		correct = "Richtig",
-		incorrect = "Leider falsch."
+		correct = random_praise(),
+		incorrect = random_encouragement()
          )
 ```
 
@@ -279,8 +279,8 @@ question("Welche Variable ist bzw. welche Variablen sind Kinder von *Nass* (X4)?
          answer("Jahreszeit (X1).", message = "Rutschig hängt ab von Nass."),
          answer("Wassersprenger (X3) und Regen (X2).", message = "Rutschig hängt ab von Nass."),
          answer("Rutschig (X5).", correct = TRUE , message = "Rutschig hängt ab von Nass."),
-		correct = "Schön!",
-		incorrect = "Leider falsch."
+		correct = random_praise(),
+		incorrect = random_encouragement()
          )
 ```
 
@@ -314,7 +314,7 @@ Angenommen Sie werfen eine Münze (`ux()`), ob Sie die Tablette nehmen oder nich
 
 - $Pr(\text{Kein Schmerzrückgang, wenn keine Tablette eingenommen})=1-0.4=0.6$
 
-Simulieren Sie diesen Fall mehrfach über `Run Code` und beobachten Sie, welche Werte die beiden Variablen annehmen:
+Simulieren Sie diesen Fall mehrfach über `Ausführen` und beobachten Sie, welche Werte die beiden Variablen annehmen:
 
 ```{r sim, exercise=TRUE}
 x <- U_X()
@@ -348,8 +348,8 @@ question("Was passiert, wenn wir **intervenieren**, d. h., die Tabletteneinnahme
          answer("Die Anzahl der Menschen mit Schmerzreduktion ändert sich nicht.", message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $90\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.9 = 90$ von $100$ Personen."),
          answer("Die Anzahl der Menschen mit Schmerzreduktion erhöht sich.", correct = TRUE, message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $90\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.9 = 90$ von $100$ Personen."),
          answer("Die Anzahl der Menschen mit Schmerzreduktion reduziert sich.", message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $90\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.9 = 90$ von $100$ Personen."),
-		correct = "Genau!",
-		incorrect = "Leider falsch."
+		correct = random_praise(),
+		incorrect = random_encouragement()
          )
 ```
 
@@ -370,8 +370,8 @@ Um den Unterschied zwischen Beobachtung und Intervention auch formal darzustelle
 question("Welche Darstellung beschreibt die Intervention, die dazu führt, dass keine Tablette genommen wird?",
          answer("$do(\\color{green}{X} = 0)$", correct = TRUE,  message = "$do(\\cdot)$ zeigt die Handlung, $\\color{green}{X} = 0$ symbolisiert keine Tabletteneinnahme."),         
          answer("$do(\\color{green}{X} = 1)$",  message = "$do(\\cdot)$ zeigt die Handlung, $\\color{green}{X} = 0$ symbolisiert keine Tabletteneinnahme."),
-		correct = "Prima!",
-		incorrect = "Leider falsch."
+		correct = random_praise(),
+		incorrect = random_encouragement()
          )
 ```
 
