@@ -25,7 +25,15 @@ p purple {
 p olive {
   color: #808000;
 }
-
+p ft {
+  font-size: 10px;
+  opacity: 0.8;
+}
+p ftnum {
+  vertical-align:super;
+  font-size: 8px;
+  color: blue;
+}
 
 /* Body  */
 body {
@@ -110,11 +118,11 @@ h2 {
   background-size: 0.2px 80px;
 }
 .topicsList .topic:hover {
-  color: #EAF4F8; 
+  color: black; /*#EAF4F8;*/
   background-color: rgb(174, 130, 185);
 }
 .topicsList .topic.current {
-  color: #EAF4F8; 
+  color: black; /*#EAF4F8;*/
   background-color: rgb(174, 130, 185);
 }
 .topicsFooter {
