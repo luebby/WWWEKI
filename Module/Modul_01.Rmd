@@ -69,7 +69,7 @@ Für Ihre Entscheidung ist vermutlich relevant, ob Sie davon ausgehen, dass die 
 
 Wie würden Sie für sich diesen **individuellen kausalen Effekt** der Teilnahme an der Schulung auf Ihr Gehalt definieren?
 
-*Denken Sie bitte kurz darüber nach und klicken Sie erst dann auf `Next Topic`*
+*Denken Sie bitte kurz darüber nach und klicken Sie erst dann auf `Nächstes Thema`*
 
 ##
 
@@ -125,7 +125,14 @@ Schulung %>%
 ```
 
 
-Der individuelle kausale Effekt $\color{orange}{\Delta}_i$ lässt sich dann in `R`^[`R` ist eine freie Software für die Datenanalyse. Sie kann von der Seite [https://cran.r-project.org/](https://cran.r-project.org/) für gängige Betriebssysteme heruntergeladen werden. Ergänzend ist die Nutzung des `RStudio Desktop` empfehlenswert ([https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)). Im Rahmen dieser Module für außerdem u.a. das Paket `mosaic` ([https://cran.r-project.org/package=mosaic)](https://cran.r-project.org/package=mosaic)) verwendet.] innerhalb der Datentabelle `Schulung` berechnen als `gehalt1 - gehalt0`:
+Der individuelle kausale Effekt $\color{orange}{\Delta}_i$ lässt sich dann in `R` innerhalb der Datentabelle `Schulung` berechnen als `gehalt1 - gehalt0`:
+
+***
+
+*Anmerkung:* `R` ist eine freie Software für die Datenanalyse. Sie kann von der Seite [https://cran.r-project.org/](https://cran.r-project.org/) für gängige Betriebssysteme heruntergeladen werden. Ergänzend ist die Nutzung des `RStudio Desktop` empfehlenswert ([https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)). Im Rahmen dieser Module für außerdem u.a. das Paket `mosaic` ([https://cran.r-project.org/package=mosaic)](https://cran.r-project.org/package=mosaic)) verwendet.
+
+***
+
 
 ```{r}
 # Paket laden
@@ -163,8 +170,8 @@ gf_point(Gehalt ~ Schulung, data = Schulung_Long,
 question("Können Sie diese individuellen kausalen Effekte in der Realität beobachten?",
          answer("Ja", message = "Für jede Beobachtung $i$ liegt nur ein Gehaltswert vor: der mit Schulung oder der ohne Schulung, aber niemals beide gleichzeitig, da Personen entweder teilnehmen oder nicht. $\\Delta_i$ kann daher nicht beobachtet werden."),
          answer("Nein", correct = TRUE, message = "Für jede Beobachtung $i$ liegt nur ein Gehaltswert vor: der mit Schulung oder der ohne Schulung, aber niemals beide gleichzeitig, da Personen entweder teilnehmen oder nicht. $\\Delta_i$ kann daher nicht beobachtet werden."),
-		correct = "Prima, richtig!",
-		incorrect = "Leider falsch."
+		correct = random_praise(),
+		incorrect = random_encouragement()
          )
 ```
 
@@ -184,8 +191,8 @@ Für jemanden, der nicht an der Schulung teilgenommen hat, ist das Counterfactua
 question("Kann das Counterfactual beobachtet werden?",
          answer("Ja", message = "Je Beobachtung $i$ liegt nur ein Wert vor: der mit Schulung oder der ohne Schulung, nicht beide gleichzeitig. Das Counterfactual ist das nicht beobachtete der Potential Outcomes."),
          answer("Nein", correct = TRUE, message = "Das Counterfactual ist das nicht beobachtete der Potential Outcomes."),
-		correct = "Richtig!",
-		incorrect = "Leider falsch."
+		correct = random_praise(),
+		incorrect = random_encouragement()
          )
 ```
 
@@ -193,8 +200,8 @@ question("Kann das Counterfactual beobachtet werden?",
 question("Person $i$ nimmt an der Schulung teil. Was ist dann das Counterfactual?",
          answer("$\\color{blue}{Y}^{\\color{green}{X=0}}_i$", correct = TRUE, message = "Teilnahme an der Schulung bedeutet $X=1$."),
          answer("$\\color{blue}{Y}^{\\color{green}{X=1}}_i$", message = "Teilnahme an der Schulung bedeutet $X=1$."),
-		correct = "Klasse!",
-		incorrect = "Leider falsch."
+		correct = random_praise(),
+		incorrect = random_encouragement()
          )
 ```
 
@@ -208,7 +215,7 @@ $$\bar{\color{orange}{\Delta}}=\frac{\sum_{i=1}^n \color{orange}{\Delta}_i}{n}=\
 
 Die `R`-Funktion, die diesen arithmetischen Mittelwert berechnet, lautet `mean()`.
 
-Klicken Sie auf `Run Code` um den durchschnittlichen kausalen Effekt in unserem fiktiven Beispiel zu berechnen, in dem beide Potential Outcomes vorliegen.
+Klicken Sie auf `Ausführen` um den durchschnittlichen kausalen Effekt in unserem fiktiven Beispiel zu berechnen, in dem beide Potential Outcomes vorliegen.
 
 ```{r ate, exercise=TRUE}
 mean(~ effekt, data = Schulung)
@@ -247,8 +254,8 @@ Schulung %>%
 question("Die Teilnahme an der Schulung war freiwillig. Können Sie davon ausgehen, dass, unabhängig von der Schulung, Teilnehmende und Nichtteilehmende eine ähnliche Gehaltsentwicklung erlebt hätten?",
          answer("Ja", message = "Teilnehmende und Nichtteilnehmende könnten sich in vielerlei Hinsicht unterscheiden. Um nur ein Beispiel zu nennen: Personen, denen ihr Gehalt besonders wichtig ist, werden eher an der Schulung teilnehmen. Diese Personen werden aber vielleicht auch ohne Schulung anders in Gehaltsverhandlungen auftreten."),
          answer("Nein", correct = TRUE, message = "Teilnehmende und Nichtteilnehmende könnten sich in vielerlei Hinsicht unterscheiden. Um nur ein Beispiel zu nennen: Personen, denen ihr Gehalt besonders wichtig ist, werden eher an der Schulung teilnehmen. Diese Personen werden aber vielleicht auch ohne Schulung anders in Gehaltsverhandlungen auftreten."),
-		correct = "Klasse!",
-		incorrect = "Leider falsch."
+		correct = random_praise(),
+		incorrect = random_encouragement()
          )
 ```
 
@@ -276,7 +283,7 @@ Der naive Vergleich der Mittelwerte überschätzt hier den wahren durchschnittli
 
 Kontrollieren Sie diese Aussage, indem Sie den Code so abändern, dass Sie den Mittelwert der Potential Outcomes berechnen:
 
-*Tipp*: Einen Lösungshinweis erhalten Sie über `Hints`. Anschließend `Next Hint` und Sie sehen die Lösung.
+*Tipp*: Einen Lösungshinweis erhalten Sie über `Hinweise`. Anschließend `Nächster Tipp` und Sie sehen die Lösung.
 
 ```{r po, exercise = TRUE}
 mean(gehalt ~ teilnahme, data = Schulung)
