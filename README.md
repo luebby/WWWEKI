@@ -21,7 +21,7 @@ Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https:
 
 2. [Ein Pfeil zeigt die Richtung](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_02/) (SCM und Graph)
 
-3. [Daten analysieren - mit welchem Ziel?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_03/) (Data Science Tasks)
+3. [Daten analysieren - mit welchem Ziel?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_03/) (Data Science Tasks, Kausale Leiter)
 
 4. [Es steht was zwischen uns](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_04/) (Chain)
 

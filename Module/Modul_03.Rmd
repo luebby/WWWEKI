@@ -62,6 +62,8 @@ In diesem Modul lernen Sie:
 
 - warum diese Unterscheidung wichtig ist.
 
+- Was die Kausale Leiter ist.
+
 ## Data Literacy
 
 In der [Data-Literacy-Charta](https://www.stifterverband.org/charta-data-literacy) steht über **Data Literacy**:
@@ -161,6 +163,32 @@ question("Im Rahmen des Kundenbeziehungsmangements ist Kundenabwanderung ein wic
          answer("Beschreibung", correct = TRUE, message = "Auf Basis der vorhandenen Daten werden die abgewanderten Kund:innen beschrieben. Beispiel siehe [Bojinov et al. (2020)](https://hdsr.mitpress.mit.edu/pub/wjhth9tr/release/1)"),
          answer("Vorhersage", message = "Auf Basis der vorhandenen Daten werden die abgewanderten Kund:innen beschrieben. Beispiel siehe [Bojinov et al. (2020)](https://hdsr.mitpress.mit.edu/pub/wjhth9tr/release/1)"),
          answer("Kausale Inferenz", message = "Auf Basis der vorhandenen Daten werden die abgewanderten Kund:innen beschrieben. Beispiel siehe [Bojinov et al. (2020)](https://hdsr.mitpress.mit.edu/pub/wjhth9tr/release/1)"),         
+		correct = random_praise(),
+		incorrect = random_encouragement()
+         )
+```
+
+## Kausale Leiter
+
+[Judea Pearl](https://doi.org/10.1145/3241036) unterscheidet 3 Stufen der kausalen Modellierung:
+
+1.  **Assoziation**: $Pr(y|x)$: Beobachtung: *Was ist*? Wie wahrscheinlich ist $Y=y$, wenn ich $X=x$ beobachte? 
+
+2.  **Interventionen**: $Pr(y|do(x))$: Tun: *Was wäre*? Wie wahrscheinlich ist $Y=y$, wenn ich $X=x$ setze, d.h. manipuliere?
+
+3.  **Counterfactuals**: $Pr(y_x|x',y')$: Vorstellung: *Was wäre gewesen*? Wie sieht $Pr(Y=y)$ aus, wenn ich nicht $X=x'$ und damit $Y=y'$ beobachtet hätte, sondern $X=x$ gesetzt hätte?
+
+***
+
+*Anmerkung*: $Pr(y|x)$ ist das Symbol für die bedingte Wahrscheinlichkeit (englisch: *Pr*obability) für $y$ gegeben $x$. Dies ist die Wahrscheinlichkeit für $y$, wenn $x$ eingetreten ist. 
+Diese unterscheidet sich i.d.R. von der unbedingten Wahrscheinlichkeit $Pr(y)$.
+
+***
+
+```{r do, echo=FALSE}
+question("Sind die Wahrscheinlichkeiten für $y$ bei Assoziation $Pr(y|x)$ und Intervention $Pr(y|do(x))$ immer identisch?",
+         answer("Ja",  message = "Die Wahrscheinlichkeit, dass jemand gesund ist ($y$), der eine Schwimmbrille hat ($x$), ist realtiv hoch (Assoziation). Vermutlich würde eine Verteilung von Schwimmbrillen (Intervention, $do(x)$), zu einer niedrigeren Wahrscheinlichkeit führen. Es sei denn die Menschen gingen dann auch alle Schwimmen."),         
+         answer("Nein", correct = TRUE,  message = "Die Wahrscheinlichkeit, dass jemand gesund ist ($y$), der eine Schwimmbrille hat ($x$), ist realtiv hoch (Assoziation). Vermutlich würde eine Verteilung von Schwimmbrillen (Intervention, $do(x)$), zu einer niedrigeren Wahrscheinlichkeit führen. Es sei denn die Menschen gingen dann auch alle Schwimmen."),
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
