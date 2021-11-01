@@ -96,7 +96,7 @@ Das strukturelle kausale Modell besteht aus folgenden Zuweisungen:
 
 \begin{eqnarray*}
 \color{green}{X} &=& U_{\color{green}{X}}\\
-\color{green}{Y} &=& U_{\color{blue}{Y}}\\
+\color{blau}{Y} &=& U_{\color{blue}{Y}}\\
 \color{violet}{Z} &=& f_{\color{violet}{Z}}(\color{green}{X}, \color{blue}{Y}, U_{\color{violet}{Z}})
 \end{eqnarray*}
 
