@@ -8,6 +8,38 @@ Details siehe z.B. [FOM forscht Wissenschaftsblog](https://www.fom-blog.de/2021/
 
 Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
 
+**Literatur**:
+
+- Rohrer, J. M. (2018). Thinking clearly about correlations and causation: Graphical causal models for observational data. *Advances in Methods and Practices in Psychological Science*, 1(1), 27-42. [https://doi.org/10.1177%2F2515245917745629](https://doi.org/10.1177%2F2515245917745629)
+
+- Lübke, K., Gehrke, M., Horst, J., & Szepannek, G. (2020). Why we should teach causal inference: Examples in linear regression with simulated data. *Journal of Statistics Education*, 28(2), 133-139. [https://doi.org/10.1080/10691898.2020.1752859](https://doi.org/10.1080/10691898.2020.1752859)
+
+
+## Vorläufige Modulübersicht
+
+1. [An der Weggabelung: Einen Weg gehen - und einen nicht](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_01/) (Potential Outcome und Counterfactual)
+
+2. [Ein Pfeil zeigt die Richtung](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_02/) (SCM und Graph)
+
+3. [Daten analysieren - mit welchem Ziel?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_03/) (Data Science Tasks)
+
+4. [Es steht was zwischen uns](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_04/) (Chain)
+
+5. Von Störchen und Geburten (Fork)
+
+6. Nett oder schön, warum nicht und? (Inverted-Fork)
+
+7. Warum Raumteilung keine gute Investition ist (Unterschied (do(x) vs. X=x am Beispiel)
+
+8. Let’s do it - durch die Vorder- oder durch die Hintertür? (Basic do-calculus, Front-/ Backdoor)
+
+9. Magie durch Zufall (Random Sampling/ Allocation)
+
+10. Wissen kann alles verändern (Unbedingte vs. Bedingte (Un-)Abhängigkeit)
+
+11. Praktisches Daten hinterfragen (DAGs in der Anwendung, Ausblick)
+
+
 ## Lizenz
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />Dieses Werk ist lizenziert unter einer <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz</a>.
