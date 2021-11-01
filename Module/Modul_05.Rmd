@@ -137,8 +137,8 @@ plot(DAG_SG)
 
 ```{r pfeil, echo=FALSE}
 question("Welche kausale Annahme ist in dem Diagram dargestellt?",
-         answer("Störche sind die Ursachen, Geburten der Effekt.", correct = TRUE, message = "Der Pfeil sagt, dass der Wert der Variable an der Pfeilspitze hängt ab vom Wert der Variable am Pfeilende - und nicht umgekehrt. Siehe Modul 2."),
-         answer("Störche sind der Effekt, Geburten die Ursache.", message = "Der Pfeil sagt, dass der Wert der Variable an der Pfeilspitze hängt ab vom Wert der Variable am Pfeilende - und nicht umgekehrt. Siehe Modul 2."),
+         answer("Störche sind die Ursachen, Geburten die Wirkung.", correct = TRUE, message = "Der Pfeil sagt, dass der Wert der Variable an der Pfeilspitze hängt ab vom Wert der Variable am Pfeilende - und nicht umgekehrt. Siehe Modul 2."),
+         answer("Störche sind die Wirkung, Geburten die Ursache.", message = "Der Pfeil sagt, dass der Wert der Variable an der Pfeilspitze hängt ab vom Wert der Variable am Pfeilende - und nicht umgekehrt. Siehe Modul 2."),
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
