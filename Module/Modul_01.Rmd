@@ -218,8 +218,26 @@ Die `R`-Funktion, die diesen arithmetischen Mittelwert berechnet, lautet `mean()
 Klicken Sie auf `Ausführen` um den durchschnittlichen kausalen Effekt in unserem fiktiven Beispiel zu berechnen, in dem beide Potential Outcomes vorliegen.
 
 ```{r ate, exercise=TRUE}
-mean(~ effekt, data = Schulung)
+mean( ~ effekt, data = Schulung)
 ```
+
+***
+
+*Anmerkung:* In `mosaic` ist der `R` Syntax vereinheitlicht:
+
+```{r mosaic1, eval=FALSE}
+analyse(y ~ x, data = Daten)
+```
+
+Analysiere die Variable `y` in Abhängigkeit der Variable `x` aus der Datentabelle `Daten`. Welche Funktion `analyse()` zur Anwendung kommt, hängt vom Ziel unser Analyse ab. 
+
+Sollte es, wie im vorliegenden Fall, keine erklärende Variable geben, kann auch kurz geschrieben werden:
+
+```{r mosaic2, eval=FALSE}
+analyse( ~ y, data = Daten)
+```
+
+***
 
 ##
 
@@ -271,6 +289,20 @@ mean(gehalt ~ teilnahme, data = Schulung)
 
 - $\bar{\color{blue}{y}}^{\color{green}{x=0}} = `r round(mean(gehalt ~ teilnahme, data = Schulung)[2],2)`$
 
+***
+
+*Anmerkung*: 
+
+```{r pseudo, eval=FALSE}
+mean(gehalt ~ teilnahme, data = Schulung)
+```
+
+Bedeutet aus `R mosaic` *übersetzt*:
+
+Berechne den arithmetischen Mittelwert (Funktion `mean()`) der Variable `gehalt` ($y$) in Abhängigkeit der Variable `teilnahme` ($x$). Die dazugehörigen Daten sind in der Datentabelle `Schulung`.
+
+***
+
 Nun könnte man versuchen, den durchschnittlichen kausalen Effekt mithilfe dieser beobachteten Werte zu schätzen:
 
 $$\bar{\color{blue}{y}}^{\color{green}{x=1}} - \bar{\color{blue}{y}}^{\color{green}{x=0}} = `r round(mean(gehalt ~ teilnahme, data = Schulung)[1],2)` - `r round(mean(gehalt ~ teilnahme, data = Schulung)[2],2)` = `r round(-diffmean(gehalt ~ teilnahme, data = Schulung),2)`$$
@@ -281,7 +313,7 @@ Bei dieser Abweichung handelt es sich um eine systamtische Verzerrung, die auch 
 
 Der naive Vergleich der Mittelwerte überschätzt hier den wahren durchschnittlichen Effekt. In unserem fiktiven Beispiel liegt das daran, dass Personen mit einem höherem Gehaltsinteresse eher an der Schulung teilgenommen haben als die mit einem niedrigeren Interesse. Erstere hätten aber, aufgrund Ihres Gehaltsinteresses, so oder so, also unabhängig von der Schulung, ein höheres Gehalt erwartet. Natürlich sind hier auch andere inhaltliche Erklärungen denkbar.
 
-Kontrollieren Sie diese Aussage, indem Sie den Code so abändern, dass Sie den Mittelwert der Potential Outcomes berechnen:
+Kontrollieren Sie diese Aussage, indem Sie den Code so abändern, dass Sie den Mittelwert der Potential Outcomes, `gehalt0` und `gehalt1`, berechnen:
 
 *Tipp*: Einen Lösungshinweis erhalten Sie über `Hinweise`. Anschließend `Nächster Tipp` und Sie sehen die Lösung.
 
@@ -295,7 +327,7 @@ mean(gehalt1 ~ teilnahme, data = Schulung)
 ```
 
 ```{r po-hint}
-"gehalt0 bzw. gehalt1 sind die Variablennamen. Ändern Sie gehalt entsprechend."
+"gehalt0 bzw. gehalt1 sind die Variablennamen. Ändern Sie die Variable gehalt entsprechend."
 ```
 
 
