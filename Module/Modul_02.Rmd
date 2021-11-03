@@ -78,14 +78,14 @@ DAG2 <- dagify(Y~ X,
 # Funktionen für Beispiel
 
 U_X <- function() sample(c("Ja", "Nein"),1)
-f_Y <- function(x) ifelse(x == "Ja", sample(c("Ja", "Nein"), 1, prob = c(0.9,0.1)), sample(c("Ja", "Nein"), 1, prob = c(0.4,0.6)))
+f_Y <- function(x) ifelse(x == "Ja", sample(c("Ja", "Nein"), 1, prob = c(0.8,0.2)), sample(c("Ja", "Nein"), 1, prob = c(0.4,0.6)))
 
 # Verteilung Beispiel
 d <- crossing(x = 1:10,
               y = 1:10) %>%
   mutate(tablette = c(rep("Ja",50), rep("Nein", 50)),
-         heilung = c(rep(fontawesome('fa-check'), 50 * 0.9),
-                     rep(fontawesome('fa-close'), 50 * 0.1),
+         heilung = c(rep(fontawesome('fa-check'), 50 * 0.8),
+                     rep(fontawesome('fa-close'), 50 * 0.2),
                      rep(fontawesome('fa-check'), 50 * 0.4),
                      rep(fontawesome('fa-close'), 50 * 0.6)))
 
@@ -183,7 +183,7 @@ htmlOutput("ergebnis")
 values <- reactiveValues()
 values$text <- ""
 p.tablette <- observeEvent(input$Tablette, {
-  heilung <- sample(c("Ja", "Nein"), 1, prob = c(0.9,0.1))
+  heilung <- sample(c("Ja", "Nein"), 1, prob = c(0.8,0.2))
   ergebnis <- ifelse(heilung == "Ja", "Sie haben die Tablette genommen und die Schmerzen sind zurückgegangen!", "Sie haben die Tablette genommen und die Schmerzen sind leider nicht zurückgegangen!")
   output$ergebnis <- renderText({
     ergebnis
@@ -217,9 +217,9 @@ Eine Variable $X$ heißt hier **Ursache** von $Y$, wenn der Wert der **Wirkung**
 
 Wenn Sie eben mehrfach die Tablette genommen haben &ndash; oder nicht genommen haben &ndash; dann konnten Sie beobachten, dass die Tablette häufig zu einer Schmerzreduktion führte, aber nicht immer. Und manchmal sind die Schmerzen zurückgegangen, obwohl Sie keine Tablette genommen haben. Die (hinterlegten) Wahrscheinlichkeiten dabei waren:
 
-- $Pr(\text{Schmerzrückgang, wenn Tablette eingenommen})=0.9$<br>
+- $Pr(\text{Schmerzrückgang, wenn Tablette eingenommen})=0.8$<br>
   und damit:
-  $Pr(\text{Kein Schmerzrückgang, wenn Tablette eingenommen})=1-0.9=0.1$
+  $Pr(\text{Kein Schmerzrückgang, wenn Tablette eingenommen})=1-0.8=0.2$
 
 - $Pr(\text{Schmerzrückgang, wenn keine Tablette eingenommen})=0.4$ <br>
   und damit:
@@ -238,6 +238,13 @@ In einem solchen **Graphen** sind die Variablen <green> Tabletteneinnahme </gree
 
 $\color{green}{X} \rightarrow \color{blue}{Y}$ bedeutet aber auch, dass der Wert von $\color{green}{X}$ nicht kausal vom Wert von $\color{blue}{Y}$ abhängt. Ein möglicher <blue> Schmerzrückgang </blue> ändert nicht rückwirkend die <green> Tabletteneinnahme </green>: $$\color{green}{\text{Tabletteneinnahme}} \not\leftarrow \color{blue}{\text{Schmerzrückgang}}.$$
 
+<br>
+
+<img src="images/LichtSchalter.jpg" alt="Lichtschalter" width="50%" height="50%">
+<!-- style="padding-left:50px;" -->
+<span style="font-size: 10px;"><br>
+Quelle: [https://pixabay.com/illustrations/switch-lightbulb-idea-inspiration-4539115/](Quelle: https://pixabay.com/illustrations/switch-lightbulb-idea-inspiration-4539115/)
+</span>
 
 ```{r modell, echo=FALSE}
 question("Welches kausale Diagramm beschreibt den Zusammenhang zwischen Lichtschalter und Glühlampe?",
@@ -291,7 +298,7 @@ Das **kausale Modell** des simplen Graphen $\color{green}{X} \rightarrow \color{
 - $\color{green}{X} = U_{\color{green}{X}}$
 - $\color{blue}{Y} = f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$
 
-Dabei sind $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unbekannte Ursachen oder Fehler von $\color{green}{X}$ und $\color{blue}{Y}$, und $f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$ die Funktion, der Mechanismus, durch den $\color{blue}{Y}$ auf Basis von $\color{green}{X},U_{\color{blue}{Y}}$ zu seinem Wert kommt. 
+Dabei sind $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unbekannte Ursachen (in der Statistik häufig auch Fehler genannt, engl.: error) von $\color{green}{X}$ und $\color{blue}{Y}$, und $f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$ die Funktion, der Mechanismus, durch den $\color{blue}{Y}$ auf Basis von $\color{green}{X},U_{\color{blue}{Y}}$ zu seinem Wert kommt. 
 
 Im Beispiel
 $$\color{green}{\text{Tabletteneinnahme}} \rightarrow \color{blue}{\text{Schmerzrückgang}}$$ 
@@ -306,9 +313,9 @@ plot(DAG2)
 
 Angenommen Sie werfen eine Münze (`ux()`), ob Sie die Tablette nehmen oder nicht, und es gilt für den Schmerzrückgang (`fy()`):
 
-- $Pr(\text{Schmerzrückgang, wenn Tablette eingenommen})=0.9$ 
+- $Pr(\text{Schmerzrückgang, wenn Tablette eingenommen})=0.8$ 
 
-- $Pr(\text{Kein Schmerzrückgang, wenn Tablette eingenommen})=1-0.9=0.1$
+- $Pr(\text{Kein Schmerzrückgang, wenn Tablette eingenommen})=1-0.8=0.2$
 
 - $Pr(\text{Schmerzrückgang, wenn keine Tablette eingenommen})=0.4$ 
 
@@ -328,26 +335,26 @@ cat("Schmerzrückgang? ", y, "\n")
 U_X <- function() sample(c("Ja", "Nein"),1)
 
 f_Y <- function(x) ifelse(x == "Ja", 
-                          sample(c("Ja", "Nein"), 1, prob = c(0.9,0.1)), 
-                          sample(c("Ja", "Nein"), 1, prob = c(0.4,0.6)))
+                          sample(c("Ja", "Nein"), 1, prob = c(0.8, 0.2)), 
+                          sample(c("Ja", "Nein"), 1, prob = c(0.4, 0.6)))
 ```
 
 
 ##
 
-Wenn $100$ Menschen eine Münze werfen, ob sie die Tablette einnehmen oder nicht, erwarten wir im Mittelwert, dass $50$ von Ihnen die Tablette nehmen (grün hinterlegt) und von diesen $50 \times 0.9 = 45$ eine Schmerzreduktion erfahren (<i class="fa fa-check" aria-hidden="true"></i>) und die anderen $50-45=5$ nicht (<i class="fa fa-close" aria-hidden="true"></i>). Von den $50$ ohne Tabletteneinnahme (grau hinterlegt) erfahren $50 \times 0.4 = 20$ eine Schmerzreduktion (<i class="fa fa-check" aria-hidden="true"></i>) und die anderen $50-20=30$ nicht (<i class="fa fa-close" aria-hidden="true"></i>):
+Wenn $100$ Menschen eine Münze werfen, ob sie die Tablette einnehmen oder nicht, erwarten wir im Mittelwert, dass $50$ von Ihnen die Tablette nehmen (grün hinterlegt) und von diesen $50 \times 0.8 = 40$ eine Schmerzreduktion erfahren (<i class="fa fa-check" aria-hidden="true"></i>) und die anderen $50-40=10$ nicht (<i class="fa fa-close" aria-hidden="true"></i>). Von den $50$ ohne Tabletteneinnahme (grau hinterlegt) erfahren $50 \times 0.4 = 20$ eine Schmerzreduktion (<i class="fa fa-check" aria-hidden="true"></i>) und die anderen $50-20=30$ nicht (<i class="fa fa-close" aria-hidden="true"></i>):
 
 ```{r pd, echo=FALSE, fig.align='center', out.width='85%'}
 plot(pd)
 ```
 
-Insgesamt erwarten wir im Mittelwert, dass bei $45 + 20= 65$ von $100$ Personen eine Verbesserung eintrifft, wenn $U_{\color{green}{\text{Tabletteneinnahme}}}$ zufällig Ja oder Nein ist und $P(\color{green}{\text{Tabletteneinnahme}})=0.5$ ist. Wir **beobachten** nur, welchen Wert unsere Ursache $\color{green}{X}$ annimmt. 
+Insgesamt erwarten wir im Mittelwert, dass bei $40 + 20 = 60$ von $100$ Personen eine Verbesserung eintrifft, wenn $U_{\color{green}{\text{Tabletteneinnahme}}}$ zufällig Ja oder Nein ist und $P(\color{green}{\text{Tabletteneinnahme}})=0.5$ ist. Wir **beobachten** nur, welchen Wert unsere Ursache $\color{green}{X}$ annimmt. 
 
 ```{r handeln, echo=FALSE}
 question("Was passiert, wenn wir **intervenieren**, d. h., die Tabletteneinnahme ist nicht zufällig, sondern wir legen fest, dass alle die Tablette einnehmen müssen?",
-         answer("Die Anzahl der Menschen mit Schmerzreduktion ändert sich nicht.", message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $90\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.9 = 90$ von $100$ Personen."),
-         answer("Die Anzahl der Menschen mit Schmerzreduktion erhöht sich.", correct = TRUE, message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $90\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.9 = 90$ von $100$ Personen."),
-         answer("Die Anzahl der Menschen mit Schmerzreduktion reduziert sich.", message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $90\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.9 = 90$ von $100$ Personen."),
+         answer("Die Anzahl der Menschen mit Schmerzreduktion ändert sich nicht.", message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $80\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.8 = 80$ von $100$ Personen."),
+         answer("Die Anzahl der Menschen mit Schmerzreduktion erhöht sich.", correct = TRUE, message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $80\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.8 = 80$ von $100$ Personen."),
+         answer("Die Anzahl der Menschen mit Schmerzreduktion reduziert sich.", message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $80\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.8 = 80$ von $80$ Personen."),
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
@@ -378,6 +385,14 @@ question("Welche Darstellung beschreibt die Intervention, die dazu führt, dass 
 ##
 
 Kausale Inferenz hilft die Unterschiede in den Verteilungen der Wirkung $\color{blue}{Y}$ zu untersuchen, je nachdem ob $\color{green}{X}$ beobachtet wurde &ndash; oder der Wert durch eine Handlung festgelegt wird ($do(\color{green}{X})$).
+
+Diese *Kausale Leiter* ist Teil des folgenden Moduls.
+
+<img src="images/Leiter.png" alt="Lichtschalter" width="50%" height="50%">
+<!-- style="padding-left:50px;" -->
+<span style="font-size: 10px;"><br>
+Quelle: [https://pixabay.com/vectors/good-girls-cloud-star-ladder-2204244/](Quelle: https://pixabay.com/vectors/good-girls-cloud-star-ladder-2204244/)
+</span>
 
 ## Hinweis
 
