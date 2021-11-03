@@ -64,6 +64,9 @@ StoercheGeburten <- tibble(
   stoerche = c(100, 300, 1, 5000, 9, 140, 3300, 2500, 4, 5000, 5, 30000, 1500, 5000, 8000, 150, 25000),
   geburten = c(83, 87, 118, 117, 59, 774, 901, 106, 188, 124, 551, 610, 120, 367, 439, 82, 1576)
 )
+
+lm_oA <- lm(geburten ~ stoerche, data = StoercheGeburten)
+lm_mA <- lm(geburten ~ stoerche + flaeche, data = StoercheGeburten)
 ```
 
 ## Lernziele
@@ -203,7 +206,7 @@ gf_point(stoerche ~ flaeche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
 Auch wenn es viele weitere Ursachen für die <green>Anzahl Störche</green> ($\color{green}{X}$) und die <blue>Anzahl Geburten</blue> ($\color{blue}{Y}$) gibt, so ist die Größe eines Landes, die <violet>Fläche</violet> ($\color{violet}{Z}$), sicherlich eine gemeinsame Ursache. 
 Das kausale Diagramm sieht sieht dann wie folgt aus:
 
-```{r DAG_Chain, echo=FALSE, fig.align='center', out.width='85%'}
+```{r DAG_Fork, echo=FALSE, fig.align='center', out.width='85%'}
 plot(DAG_Fork)
 ```
 
@@ -248,7 +251,8 @@ question("Ändert sich der Wert von $\\color{blue}{Y}$, wenn eine Intervention a
 
 Was ist zu tun, um einen möglichen (totalen) kausalen Effekt von $\color{green}{X}$ auf $\color{blue}{Y}$ in einer Gabel ($\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$) zu bestimmen?
 
-Der Wert des Confounders $\color{violet}{Z}$ muss berücksichtigt werden. Im Beispiel der <green>Störche</green> und <blue>Geburten</blue> sollten also z.B. nur Länder mit gleicher <violet>Fläche</violet> verglichen werden. In einem linearen Regressionsmodell sollte anstelle des Modells `y ~ x` das Modell `y ~ x + z` verwendet werden.
+Der Wert des Confounders $\color{violet}{Z}$ muss berücksichtigt werden. Im Beispiel der <green>Störche</green> und <blue>Geburten</blue> sollten also z.B. nur Länder mit gleicher <violet>Fläche</violet> verglichen werden. 
+In einem linearen Regressionsmodell sollte anstelle des Modells `y ~ x` das Modell `y ~ x + z` verwendet werden.
 
 Die Variable <violet>Fläche</violet> heißt in der vorliegenden Datentabelle `flaeche`. Ändern Sie den Code entsprechend und gucken Sie, ob und wie sich der geschätzte Zusammenhang von `stoerchen` und `geburten` im Modell ändert.
 
@@ -260,11 +264,18 @@ lm(geburten ~ stoerche, data = StoercheGeburten)
 lm(geburten ~ stoerche + flaeche, data = StoercheGeburten)
 ```
 
+##
+
+Während ohne Berücksichtigung der <violet>Fläche</violet> die geschätzte Steigung der <blue>Anzahl Geburten</blue> in Richtung der <green>Anzahl Störche</green> bei $`r round(coef(lm_oA)[2],4)`$ liegt, liegt der Wert nach Berücksichtung der Fläche nur noch bei $`r round(coef(lm_mA)[2],4)`$. 
+Der im linearen Modell der Stichprobe geschätze Effekt ist also viel kleiner.
+
+
 ## Zusammenfassung
 
 :::{.box}
 Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer Gabel $$X \leftarrow Z \rightarrow Y$$ zu bestimmen, sollte ein Confounder $Z$ berücksichtigt werden. 
 Wird $Z$ nicht berücksichtigt, ist ein nicht-kausaler Zusammenhang zwischen $X$ und $Y$ *offen*, d.h. fließt in die Analyse mit ein.
+Die Berücksichtigung kann z.B. erfolgen durch einen stratifizierten Vergleich oder durch Aufnahme der Variable in ein lineares Modell. 
 ::: 
 
 ## Hinweis
