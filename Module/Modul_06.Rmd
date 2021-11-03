@@ -65,7 +65,7 @@ In diesem Modul lernen Sie:
 
 - was ein Collider ist;
 
-- das wir Zusammenhänge sehen, die wir ungewollt erzeugen.
+- dass wir Zusammenhänge sehen, die wir ungewollt erzeugen.
 
 ## Aller guten Dinge sind drei
 
@@ -75,16 +75,16 @@ Zur Erinnerung: $$A \rightarrow B$$ sagt aus, dass $B$ auf $A$ *hört*, aber nic
 
 ## Dating
 
-Wieder stark vereinfacht: Fürs Daten sei Nettigkeit und Aussehen wichtig. 
+Wieder stark vereinfacht: Fürs Daten seien Nettigkeit und Aussehen wichtig. 
 
-Würden Sie jemanden Daten, der weder nett ist noch gut aussieht? Vielleicht, aber eigentlich eher nicht.
+Würden Sie jemanden daten, der weder nett ist noch gut aussieht? Vielleicht, aber eigentlich eher nicht.
 
 
 Angenommen <green>Nettigkeit</green> ($\color{green}{X}$) führt zu <violet>Date</violet> ($\color{violet}{Z}$). Außerdem führt (gutes) <blue>Aussehen</blue> ($\color{blue}{Y}$) zu einem <violet>Date</violet> ($\color{violet}{Z}$). 
 
-Sie Daten also jemanden, der nett ist *oder* gut aussieht.
+Sie daten also jemanden, der nett ist *oder* gut aussieht.
 
-Dieses angenommene Modell lässt sich als kausales Diagramm wie folg darstellen:
+Dieses angenommene Modell lässt sich als kausales Diagramm wie folgt darstellen:
 
 ```{r DAG_Chain, echo=FALSE, fig.align='center', out.width='85%'}
 plot(DAG_Collider)
@@ -102,9 +102,10 @@ Das strukturelle kausale Modell besteht aus folgenden Zuweisungen:
 
 
 ```{r abhaengigkleit, echo=FALSE}
+message <- "Nach Konstruktion sind $X$ und $Y$ unabhängig voneinander. Kein kausaler Pfad führt von $X$ zu $Y$ &ndash; oder umgekehrt."
 question("Hängt Aussehen ($Y$) von Nettigkeit ($X$) ab?",
-         answer("Ja", message = "Nach Konstruktion sind $X$ und $Y$ unabhängig voneinander. Kein kausaler Pfad führt von $X$ zu $Y$ - oder umgekehrt."),
-         answer("Nein", correct = TRUE, message = "Nach Konstruktion sind $X$ und $Y$ unabhängig voneinander. Kein kausaler Pfad führt von $X$ zu $Y$ - oder umgekehrt."),
+         answer("Ja", message = message),
+         answer("Nein", correct = TRUE, message = message),
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
@@ -112,12 +113,13 @@ question("Hängt Aussehen ($Y$) von Nettigkeit ($X$) ab?",
 
 ## Collider
 
-In Fällen wie diesen: $$\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$$ wird die Variable in der Mitte - hier $\color{violet}{Z}$ - **Collider** genannt. $\color{violet}{Z}$ ist eine  Wirkung von $\color{green}{X}$ und $\color{blue}{Y}$.
+In Fällen wie diesen: $$\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$$ wird die Variable in der Mitte &ndash; hier $\color{violet}{Z}$ &ndash; **Collider** genannt. $\color{violet}{Z}$ ist eine  Wirkung von $\color{green}{X}$ und $\color{blue}{Y}$.
 
 ```{r collider, echo=FALSE}
+message <- "Wenn es kein Glück oder Pech ($U_Z$) war, dann ist die nicht-nette Person eher hübsch. Es gibt ja einen Grund dafür, dass Sie sie daten. Wenn es nicht die Nettigkeit ist, dann das Aussehen."
 question("Angenommen Sie haben jemanden gedatet ($Z$), der nicht besonders nett ($X$) ist. Wissen Sie dann etwas über das Aussehen ($Y$)?",
-         answer("Ja", correct = TRUE, message = "Wenn es kein Glück oder Pech ($U_Z$) war, dann ist nicht-nette Person eher hübsch. Es gibt ja einen Grund dafür, dass Sie sie daten. Wenn es nicht die Nettigkeit ist, dann das Aussehen."),
-         answer("Nein", message = "Wenn es kein Glück oder Pech ($U_Z$) war, dann ist nicht-nette Person eher hübsch. Es gibt ja einen Grund dafür, dass Sie sie daten. Wenn es nicht die Nettigkeit ist, dann das Aussehen."),
+         answer("Ja", correct = TRUE, message = message),
+         answer("Nein", message = message),
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
@@ -151,7 +153,7 @@ SimData <- tibble(x = rnorm(n),                               # X
   mutate(z = ifelse(z, "Ja", "Nein"))
 ```
 
-Ok, sowohl die mathematische Darstellung als auch der `R` Code sind anspruchsvoll. Worauf es in diesem Modul viel mehr ankommt sind die Daten, die dabei rauskommen:
+Ok, sowohl die mathematische Darstellung als auch der `R` Code sind anspruchsvoll. Worauf es in diesem Modul viel mehr ankommt, sind die Daten, die dabei rauskommen:
 
 ```{r scatter, echo=FALSE, fig.align='center', out.width='85%'}
 gf_point(y ~ x, data = SimData, color = ~z) +
@@ -169,9 +171,10 @@ gf_point(y ~ x, data = SimData, color = ~z) %>%
 ```
 
 ```{r corb, echo=FALSE}
-question("Für die, Sie gedatet haben (`z = Ja`): Sehen Sie einen Zusammenhang zwischen Nettigkeit `x` und Aussehen `x`?", 
-         answer("Ja", correct = TRUE, message = "Die Regressionsgerade geht von links oben nach rechts unten. Dies zeigt eine negative Korrelation an. Tendenziell sind die Dates, die hübsch sind nicht besonders nett - und umgekehrt."),
-         answer("Nein", message = "Die Regressionsgerade geht von links oben nach rechts unten. Dies zeigt eine negative Korrelation an. Tendenziell sind die Dates, die hübsch sind nicht besonders nett - und umgekehrt."),
+message <- "Die Regressionsgerade geht von links oben nach rechts unten. Dies zeigt eine negative Korrelation an. Tendenziell sind die Dates, die hübsch sind, nicht besonders nett &ndash; und umgekehrt."
+question("Für die, die Sie gedatet haben (`z = Ja`): Sehen Sie einen Zusammenhang zwischen Nettigkeit `x` und Aussehen `y`?", 
+         answer("Ja", correct = TRUE, message = message),
+         answer("Nein", message = message),
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
@@ -208,7 +211,7 @@ Und diese liefert ein verzerrtes Ergebnis.
 
 :::{.box}
 Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer umgedrehten Gabel $$X \rightarrow Z \leftarrow Y$$ zu bestimmen, sollte ein Collider $Z$ nicht berücksichtigt werden. (Und auch keine Nachfahren von $Z$.)
-Wird $Z$ berücksichtigt wird ein scheinbarer Zusammenhang zwischen $X$ und $Y$ erzeugt, d.h. fließt in die Analyse mit ein.
+Wird $Z$ berücksichtigt, wird ein scheinbarer Zusammenhang zwischen $X$ und $Y$ erzeugt, d.h. fließt in die Analyse mit ein.
 ::: 
 
 ## Hinweis

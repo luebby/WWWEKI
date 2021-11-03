@@ -3,11 +3,11 @@ random_praises <- c(
   "Herausragend!",
   "Sehr schön!",
   "Bravo!",
-  "Exzellent",
-  "Cool",
-  "Gut gemacht",
-  "Fantastisch",
-  "Beeindruckend",
+  "Exzellent!",
+  "Cool!",
+  "Gut gemacht!",
+  "Fantastisch!",
+  "Beeindruckend!",
   "Super!",
   "Da weiß jemand was er tut!",
   "Da kennt sich jemand aus!",
@@ -22,16 +22,16 @@ random_praises <- c(
   "Das ist eine Eins-a-Antwort!",
   "Das ist glorreich!",
   "Das ist ein Ass!",
-  "Sie können stolz auf sich sein",
-  "Besser geht's nicht",
+  "Sie können stolz auf sich sein!",
+  "Besser geht's nicht!",
   "Perfekt!",
   ":-)")
 
 random_encouragements <- c(
-  "Versuchen Sie nochmal",
-  "Geben Sie nicht auf, versuchen Sie nochmal",
-  "Versuchen Sie es nochmal. Ausdauer ist der Schlüssel zum Erfolg",
-  "Kein Ding: wir lernen mehr aus Fehlern als aus Erfolgen. Lassen Sie es uns nochmal versuchen",
+  "Versuchen Sie es noch einmal!",
+  "Geben Sie nicht auf, versuchen Sie es noch einmal!",
+  "Versuchen Sie es noch einmal. Ausdauer ist der Schlüssel zum Erfolg!",
+  "Kein Ding: Wir lernen mehr aus Fehlern als aus Erfolgen. Lassen Sie es uns noch einmal versuchen!",
   "Nicht verzagen! Übung macht den Meister!")
 
 random_praise <- function() {

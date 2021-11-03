@@ -58,11 +58,11 @@ SimData <- tibble(x = rnorm(n)) %>%
 
 In diesem Modul lernen Sie:
 
-- zwischen Beschreibung, Vorhersage und Kausaler Inferenz zu unterscheiden und
+- zwischen Beschreibung, Vorhersage und Kausaler Inferenz zu unterscheiden;
 
-- warum diese Unterscheidung wichtig ist.
+- warum diese Unterscheidung wichtig ist und
 
-- Was die Kausale Leiter ist.
+- was die Kausale Leiter ist.
 
 ## Data Literacy
 
@@ -172,11 +172,11 @@ question("Im Rahmen des Kundenbeziehungsmangements ist Kundenabwanderung ein wic
 
 [Judea Pearl](https://doi.org/10.1145/3241036) unterscheidet 3 Stufen der kausalen Modellierung:
 
-1.  **Assoziation**: $Pr(y|x)$: Beobachtung: *Was ist*? Wie wahrscheinlich ist $Y=y$, wenn ich $X=x$ beobachte? 
+1.  **Assoziation**: $Pr(y|x)$ &ndash; Beobachtung: *Was ist*? Wie wahrscheinlich ist $Y=y$, wenn ich $X=x$ beobachte? 
 
-2.  **Interventionen**: $Pr(y|do(x))$: Tun: *Was wäre*? Wie wahrscheinlich ist $Y=y$, wenn ich $X=x$ setze, d.h. manipuliere?
+2.  **Interventionen**: $Pr(y|do(x))$ &ndash; Tun: *Was wäre*? Wie wahrscheinlich ist $Y=y$, wenn ich $X=x$ setze, d.h. manipuliere?
 
-3.  **Counterfactuals**: $Pr(y_x|x',y')$: Vorstellung: *Was wäre gewesen*? Wie sieht $Pr(Y=y)$ aus, wenn ich nicht $X=x'$ und damit $Y=y'$ beobachtet hätte, sondern $X=x$ gesetzt hätte?
+3.  **Counterfactuals**: $Pr(y_x|x',y')$ &ndash; Vorstellung: *Was wäre gewesen*? Wie sieht $Pr(Y=y)$ aus, wenn ich nicht $X=x'$ und damit $Y=y'$ beobachtet hätte, sondern $X=x$ gesetzt hätte?
 
 ***
 
@@ -187,8 +187,8 @@ Diese unterscheidet sich i.d.R. von der unbedingten Wahrscheinlichkeit $Pr(y)$.
 
 ```{r do, echo=FALSE}
 question("Sind die Wahrscheinlichkeiten für $y$ bei Assoziation $Pr(y|x)$ und Intervention $Pr(y|do(x))$ immer identisch?",
-         answer("Ja",  message = "Die Wahrscheinlichkeit, dass jemand gesund ist ($y$), der eine Schwimmbrille hat ($x$), ist realtiv hoch (Assoziation). Vermutlich würde eine Verteilung von Schwimmbrillen (Intervention, $do(x)$), zu einer niedrigeren Wahrscheinlichkeit führen. Es sei denn die Menschen gingen dann auch alle Schwimmen."),         
-         answer("Nein", correct = TRUE,  message = "Die Wahrscheinlichkeit, dass jemand gesund ist ($y$), der eine Schwimmbrille hat ($x$), ist realtiv hoch (Assoziation). Vermutlich würde eine Verteilung von Schwimmbrillen (Intervention, $do(x)$), zu einer niedrigeren Wahrscheinlichkeit führen. Es sei denn die Menschen gingen dann auch alle Schwimmen."),
+         answer("Ja",  message = "Die Wahrscheinlichkeit, dass jemand gesund ist ($y$), der eine Schwimmbrille hat ($x$), ist realtiv hoch (Assoziation). Vermutlich würde eine Verteilung von Schwimmbrillen (Intervention, $do(x)$), zu einer niedrigeren Wahrscheinlichkeit führen. Es sei denn, die Menschen gingen dann auch alle Schwimmen."),         
+         answer("Nein", correct = TRUE,  message = "Die Wahrscheinlichkeit, dass jemand gesund ist ($y$), der eine Schwimmbrille hat ($x$), ist realtiv hoch (Assoziation). Vermutlich würde eine Verteilung von Schwimmbrillen (Intervention, $do(x)$), zu einer niedrigeren Wahrscheinlichkeit führen. Es sei denn, die Menschen gingen dann auch alle Schwimmen."),
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )

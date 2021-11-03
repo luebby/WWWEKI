@@ -107,7 +107,7 @@ gf_point(geburten ~ stoerche, data = StoercheGeburten, size = 2, alpha = 0.7) %>
 ```
 
 
-Sie sehen: Es gibt Länder mit vielen Störchen - und gleichzeitig mit vielen Geburten. Und Länder mit vergleichsweise wenigen Störchen - und gleichzeitig wenigen Geburten.
+Sie sehen: Es gibt Länder mit vielen Störchen &ndash; und gleichzeitig mit vielen Geburten. Und Länder mit vergleichsweise wenigen Störchen &ndash; und gleichzeitig wenigen Geburten.
 
 ```{r zusammenhang, echo=FALSE}
 question("Wie ist wird der Zusammenhang zwischen der Anzahl der Störche und der Anzahl der Geburten über die $17$ abgebildeten Länder eingeordnet?",
@@ -136,19 +136,21 @@ plot(DAG_SG)
 ```
 
 ```{r pfeil, echo=FALSE}
+message <- "Der Pfeil sagt, dass der Wert der Variable an der Pfeilspitze abhängt vom Wert der Variable am Pfeilende &ndash; und nicht umgekehrt. Siehe Modul 2."
 question("Welche kausale Annahme ist in dem Diagram dargestellt?",
-         answer("Störche sind die Ursachen, Geburten die Wirkung.", correct = TRUE, message = "Der Pfeil sagt, dass der Wert der Variable an der Pfeilspitze hängt ab vom Wert der Variable am Pfeilende - und nicht umgekehrt. Siehe Modul 2."),
-         answer("Störche sind die Wirkung, Geburten die Ursache.", message = "Der Pfeil sagt, dass der Wert der Variable an der Pfeilspitze hängt ab vom Wert der Variable am Pfeilende - und nicht umgekehrt. Siehe Modul 2."),
+         answer("Störche sind die Ursachen, Geburten die Wirkung.", correct = TRUE, message = message),
+         answer("Störche sind die Wirkung, Geburten die Ursache.", message = message),
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
 ```
 
 ```{r korrelation, echo=FALSE}
+message <- "Der Korrelationskoeffizient ist symmetrisch, d.h., $r_{x,y} = r_{y,x}$."
 question("Der Korrelationskoeffizient zwischen der Anzahl Störche und der Anzahl Geburten liegt bei $r_{\\color{green}{x},\\color{blue}{y}} = +0.62$. Was gilt dann für den Korrelationskoeffizient zwischen der Anzahl Geburten und der Anzahl Störche?",
-         answer("$r_{\\color{blue}{y}, \\color{green}{x},} = -0.62$.", message = "Der Korrelationskoeffizient ist symmetrisch, d.h. $r_{x,y} = r_{y,x}$."),
-         answer("$r_{\\color{blue}{y}, \\color{green}{x},} = 1/0.62 = 0.62^{-1}$.", message = "Der Korrelationskoeffizient ist symmetrisch, d.h. $r_{x,y} = r_{y,x}$."),
-         answer("$r_{\\color{blue}{y}, \\color{green}{x},} = +0.62$.", correct = TRUE, message = "Der Korrelationskoeffizient ist symmetrisch, d.h. $r_{x,y} = r_{y,x}$. Vielleicht bringen also die Kinder die Störche?"),
+         answer("$r_{\\color{blue}{y}, \\color{green}{x}} = -0.62$.", message = message),
+         answer("$r_{\\color{blue}{y}, \\color{green}{x}} = 1/0.62 = 0.62^{-1}$.", message = message),
+         answer("$r_{\\color{blue}{y}, \\color{green}{x}} = +0.62$.", correct = TRUE, message = paste(message, "Vielleicht bringen also die Kinder die Störche?")),
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
@@ -156,10 +158,10 @@ question("Der Korrelationskoeffizient zwischen der Anzahl Störche und der Anzah
 
 ***
 
-*Ergänzung*: Mit einem p-Wert von $0.008$ wird eine Korrelation wie die gefundene *signifikant* genannt - zum üblichen Signifikanzniveau $\alpha = 5\%$. 
-D.h., die Wahrscheinlichkeit in einer zufälligen Stichprobe einen mindestens so großen Korrelationskoeffizient wie den beobachten von $|r_{\color{green}{x},\color{blue}{y}}| = `r round(cor(geburten ~ stoerche, data = StoercheGeburten),2)`$ zu erhalten, ist, wenn in der Grundgesamtheit keine Korrelation vorliegt ($H_0: \rho =0$), klein. 
-Das bedeutet nicht, dass die Wahrscheinlichkeit dafür, dass kein Zusammenhang vorliegt bei $0.008$ liegt. 
-Es bedeutet auch nicht, dass die Wahrscheinlichkeit dafür, dass Störche nicht die Ursache der Geburten sind bei $0.008$ liegt.
+*Ergänzung*: Mit einem p-Wert von $0.008$ wird eine Korrelation wie die gefundene *signifikant* genannt &ndash; zum üblichen Signifikanzniveau $\alpha = 5\%$. 
+D.h., die Wahrscheinlichkeit in einer zufälligen Stichprobe einen mindestens so großen Korrelationskoeffizient wie den beobachteten von $|r_{\color{green}{x},\color{blue}{y}}| = `r round(cor(geburten ~ stoerche, data = StoercheGeburten),2)`$ zu erhalten, ist, wenn in der Grundgesamtheit keine Korrelation vorliegt ($H_0: \rho =0$), klein. 
+Das bedeutet nicht, dass die Wahrscheinlichkeit dafür, dass kein Zusammenhang vorliegt, bei $0.008$ liegt. 
+Es bedeutet auch nicht, dass die Wahrscheinlichkeit dafür, dass Störche nicht die Ursache der Geburten sind, bei $0.008$ liegt.
 
 ***
 
@@ -183,7 +185,7 @@ Anscheinend gibt es auch einen Zusammenhang zwischen der Größe eines Landes, d
 
 ##
 
-Aber nicht nur die Anzahl der Geburten steht mit der Fläche im Zusammenhang, auch die Anzahl der Störche:
+Aber nicht nur die Anzahl der Geburten steht mit der Fläche im Zusammenhang, sondern auch die Anzahl der Störche:
 
 ```{r scatterstoerche, echo=FALSE, fig.align='center', out.width='85%', warning=FALSE}
 gf_point(stoerche ~ flaeche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
@@ -198,7 +200,7 @@ gf_point(stoerche ~ flaeche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
 
 ## Confounder
 
-Auch wenn es viele weitere Ursachen für die <green>Anzahl Störche</green> ($\color{green}{X}$) und die <blue>Anzahl Geburten</blue> ($\color{blue}{Y}$) gibt, so ist die Größe eines Landes, die <violet>Fläche</violet> ($\color{violet}{Z}$) eine sicherlich eine gemeinsame Ursache. 
+Auch wenn es viele weitere Ursachen für die <green>Anzahl Störche</green> ($\color{green}{X}$) und die <blue>Anzahl Geburten</blue> ($\color{blue}{Y}$) gibt, so ist die Größe eines Landes, die <violet>Fläche</violet> ($\color{violet}{Z}$), sicherlich eine gemeinsame Ursache. 
 Das kausale Diagramm sieht sieht dann wie folgt aus:
 
 ```{r DAG_Chain, echo=FALSE, fig.align='center', out.width='85%'}
@@ -224,8 +226,8 @@ Auch komplexe kausale Diagramme bestehen aus relativ einfachen Grundelementen. N
 $$\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
 Sowohl der Wert von $\color{green}{X}$ als auch der Wert von $\color{blue}{Y}$ hängen kausal ab von $\color{violet}{Z}$, das strukturelle kausale Modell sieht wie folgt aus:
 \begin{eqnarray*}
-\color{violet}{Z} &=& U_{\color{violet}{Z}}\\
-\color{green}{X} &=& f_{\color{blue}{X}}(\color{violet}{Z},U_{\color{green}{X}})\\
+\color{violet}{Z} &=& U_{\color{violet}{Z}},\\
+\color{green}{X} &=& f_{\color{blue}{X}}(\color{violet}{Z},U_{\color{green}{X}}),\\
 \color{blue}{Y} &=& f_{\color{blue}{Y}}(\color{violet}{Z},U_{\color{blue}{Y}}).
 \end{eqnarray*}
 
@@ -233,9 +235,10 @@ Sowohl der Wert von $\color{green}{X}$ als auch der Wert von $\color{blue}{Y}$ h
 Wird der Wert von $\color{violet}{Z}$ geändert ($do(z)$), ändert sich die Wert von $\color{green}{X}$ und $\color{blue}{Y}$.
 
 ```{r fork, echo=FALSE}
+message <- "Änderungen werden in Pfeilrichtung weitergegeben, eine Intervention von $\\color{green}{X}$ ändert *nicht* den Wert von $\\color{violet}{Z}$ &ndash; und als Folge auch nicht den von $\\color{blue}{Y}$."
 question("Ändert sich der Wert von $\\color{blue}{Y}$, wenn eine Intervention auf $\\color{green}{X}$ erfolgt ($do(x)$)? ",
-         answer("Ja", message = "Änderungen werden in Pfeilrichtung weitergegeben, eine Intervention von $\\color{green}{X}$ ändert *nicht* den Wert von $\\color{violet}{Z}$ - und als Folge auch nicht den von $\\color{blue}{Y}$."),
-         answer("Nein", correct = TRUE, message = "Änderungen werden in Pfeilrichtung weitergegeben, eine Intervention von $\\color{green}{X}$ ändert *nicht* den Wert von $\\color{violet}{Z}$ - und als Folge auch nicht den von $\\color{blue}{Y}$."),
+         answer("Ja", message = message),
+         answer("Nein", correct = TRUE, message = message),
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
@@ -261,7 +264,7 @@ lm(geburten ~ stoerche + flaeche, data = StoercheGeburten)
 
 :::{.box}
 Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer Gabel $$X \leftarrow Z \rightarrow Y$$ zu bestimmen, sollte ein Confounder $Z$ berücksichtigt werden. 
-Wird $Z$ nicht berücksichtigt ist ein nicht-kausaler Zusammenhang zwischen $X$ und $Y$ *offen*, d.h. fließt in die Analyse mit ein.
+Wird $Z$ nicht berücksichtigt, ist ein nicht-kausaler Zusammenhang zwischen $X$ und $Y$ *offen*, d.h. fließt in die Analyse mit ein.
 ::: 
 
 ## Hinweis
