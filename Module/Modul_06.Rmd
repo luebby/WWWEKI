@@ -48,7 +48,7 @@ DAG_Collider <- dagify(Z ~ Y,
 library(mosaic)
 
 # Daten und Funktion
-set.seed(1996)
+set.seed(1896)
 n <- 100
 
 SimData <- tibble(x = rnorm(n), y = rnorm(n), u_z = rbinom(n, size = 1, prob = 0.05)) %>%
@@ -142,7 +142,7 @@ Folgender `R` Code simuliert diesen datengenerierenden Prozess:
 
 ```{r sim, eval=FALSE}
 library(mosaic) # Paket laden
-set.seed(1996) # Zufallszahlengenerator setzen
+set.seed(1896) # Zufallszahlengenerator setzen
 n <- 100 # Anzahl Beobachtungen
 
 SimData <- tibble(x = rnorm(n),                               # X 
