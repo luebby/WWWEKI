@@ -211,7 +211,8 @@ Und diese liefert ein verzerrtes Ergebnis.
 
 :::{.box}
 Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer umgedrehten Gabel $$X \rightarrow Z \leftarrow Y$$ zu bestimmen, sollte ein Collider $Z$ nicht berücksichtigt werden. (Und auch keine Nachfahren von $Z$.)
-Wird $Z$ berücksichtigt, wird ein scheinbarer Zusammenhang zwischen $X$ und $Y$ erzeugt, d.h. fließt in die Analyse mit ein.
+Wird $Z$ berücksichtigt, wird ein scheinbarer Zusammenhang zwischen $X$ und $Y$ erzeugt, d.h. fließt in die Analyse mit ein. 
+Die Variable sollte z.B. nicht als erklärende Variable in ein lineares Modell aufgenommen werden.
 ::: 
 
 ## Hinweis
