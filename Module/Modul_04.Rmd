@@ -274,7 +274,7 @@ Ein Verfahren, um Zusammenhänge zwischen Variablen $\color{green}{X}$ und $\col
 
 ***
 
-Dabei wird angenommen, dass der Zusammenhang zwischen $\color{blue}{Y}$ und den weiteren Variablen im Modell linear ist, d. h., es müssen *nur* die jeweiligen Steigungen geschätzt werden, die den Zusammenhang beschreiben:
+Dabei wird angenommen, dass der Zusammenhang zwischen $\color{blue}{Y}$ und den weiteren Variablen im Modell linear ist, d. h., es müssen *nur* die jeweiligen Steigungen geschätzt werden, um den Zusammenhang zu beschreiben:
 
 ```{r streu, out.width='80%', fig.align='center', echo = FALSE}
 gf_point(y ~ x, data = SimData) %>% # Streudiagramm
