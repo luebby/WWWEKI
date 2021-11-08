@@ -1,5 +1,5 @@
 ---
-title: "Modul 06: Nett oder schön, warum nicht und?"
+title: "Modul 06: Nett oder schön? &ndash; Warum nicht beides?"
 output: 
   learnr::tutorial:
     language: 
