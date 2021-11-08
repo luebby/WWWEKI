@@ -42,7 +42,7 @@ body {
 
 /* Links */
 a { 
-  color: #1AA469;
+  color: #1AA469 !important;
 }
 
 /* Überschriften */
@@ -107,27 +107,33 @@ h2 {
   border: 0;
 }
 .topicsList .topic {
-  line-height: 1.5;
+  line-height: 1.5 !important;
+  height: auto;
   padding: 4px;
   padding-left: 10px;
   font-size: 16px;
-  border: 0;
-  margin: 0;
+  border: 0 !important;
+  margin: 0 !important;
   color: #fff;
   background-color: #3A2A78;
-  background-size: 0.2px 80px;
+  background-image: none !important;
+  /*background-size: 0.2px 80px;*/
 }
 .topicsList .topic:hover {
-  color: black; /*#EAF4F8;*/
-  background-color: rgb(174, 130, 185);
+  color: rgb(174, 130, 185) !important;
+  background-color: #3A2A78 !important;
+  font-weight: bold !important;
 }
 .topicsList .topic.current {
-  color: black; /*#EAF4F8;*/
-  background-color: rgb(174, 130, 185);
+  /*color: #3A2A78 !important;
+  background-color: rgb(174, 130, 185) !important;*/
+  color: rgb(174, 130, 185) !important;
+  background-color: #3A2A78 !important;
+  font-weight: bold !important;
 }
 .topicsFooter {
   padding-top: 2px;
-  padding-bottom: 4px;
+  padding-bottom: 2px;
   margin-top: 6px;
   color: #e6ccff; /*#dbf0ee;*/
   background-color: #3A2A78; /*#301a87;*/
@@ -135,27 +141,39 @@ h2 {
 }
 
 .btn-default {
-  background-color: #e0e0e0;
+  background-color: #e0e0e0 !important;
   background-image: none;
   border: none; }
 .btn-default:hover {
-  background-color: #c8c8c8; 
+  background-color: #c8c8c8 !important; 
   color: #fff; }
 .btn-default:focus {
-  background-color: #e0e0e0; }
+  background-color: #e0e0e0 !important; }
 
 .btn-primary, .btn-success, .btn-info {
-  background-color: #1AA469;
+  background-color: #1AA469 !important;
+  opacity: 0.8;
+  color: #fff !important;
   background-image: none;
   border: none; 
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:focus:active, .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success:focus:active, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info:focus:active {
-    background-color: #3A2A78; } 
+    background-color: #3A2A78 !important; } 
 .btn-primary:focus:hover, .btn-primary:active:hover, .btn-primary:focus:active:hover, .btn-success:focus:hover, .btn-success:active:hover, .btn-success:focus:active:hover, .btn-info:focus:hover, .btn-info:active:hover, .btn-info:focus:active:hover {
-    background-color: #3A2A78; }
+    background-color: #3A2A78 !important; }
 .btn-primary.disabled, .btn-primary:disabled, .btn-primary.disabled:hover, .btn-primary:disabled:hover, .btn-success.disabled, .btn-success:disabled, .btn-success.disabled:hover, .btn-success:disabled:hover, .btn-info.disabled, .btn-info:disabled, .btn-info.disabled:hover, .btn-info:disabled:hover {
-    background-color: #1AA469; }
+    background-color: #1AA469 !important; }
 
+.tutorial-exercise-input .btn-tutorial-solution {
+  color: #ababab !important;
+  opacity: 0.8;
+  width: 80px;
+  height: 20px;
+}
+.btn-tutorial-solution:hover {
+  opacity: 0.8;
+  color: #3A2A78 !important;
+}
     
 div.box {
   background-color: #f2f2f2;;
