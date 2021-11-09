@@ -77,7 +77,7 @@ In diesem Modul lernen Sie:
 
 - was ein Confounder ist;
 
-- dass gemeinsame Ursachen eine häufige Quelle der Verwirrung sind.
+- dass gemeinsame Ursachen häufig zu Verwirrung führen.
 
 
 ## Herzlichen Glückwunsch!
@@ -128,11 +128,12 @@ Der Korrelationskoeffizient zwischen der <green>Anzahl Störche</green> ($\color
 
 $$r_{\color{green}{x},\color{blue}{y}} = `r round(cor(geburten ~ stoerche, data = StoercheGeburten),2)`.$$
 
-Der Korrelationskoeffizient liegt immer zwischen $-1$ und $+1$, ist kleiner als Null bei negativen Zusammenhängen (z.B. zwischen Preis und Absatzmenge) und größer als Null bei positiven Zusammenhängen (z.B. zwischen Einkommen und Ausgaben).
+Der Korrelationskoeffizient liegt immer zwischen $-1$ und $+1$. Bei negativen Zusammenhängen (z.B. zwischen Preis und Absatzmenge) wird er kleiner als Null; bei positiven Zusammenhängen (z.B. zwischen Einkommen und Ausgaben) wird er größer als Null.
+
 
 $r_{\color{green}{x},\color{blue}{y}} = `r round(cor(geburten ~ stoerche, data = StoercheGeburten),2)`$ ist also ein relativ großer, positiver Zusammenhang. 
 
-Gilt also doch?
+Gilt also doch folgender Graph?
 
 ```{r DAG_SG, echo=FALSE, fig.align='center', out.width='85%'}
 plot(DAG_SG)
@@ -163,7 +164,7 @@ question("Der Korrelationskoeffizient zwischen der Anzahl Störche und der Anzah
 
 *Ergänzung*: Mit einem p-Wert von $0.008$ wird eine Korrelation wie die gefundene *signifikant* genannt &ndash; zum üblichen Signifikanzniveau $\alpha = 5\%$. 
 D.h., die Wahrscheinlichkeit in einer zufälligen Stichprobe einen mindestens so großen Korrelationskoeffizient wie den beobachteten von $|r_{\color{green}{x},\color{blue}{y}}| = `r round(cor(geburten ~ stoerche, data = StoercheGeburten),2)`$ zu erhalten, ist, wenn in der Grundgesamtheit keine Korrelation vorliegt ($H_0: \rho =0$), klein. 
-Das bedeutet nicht, dass die Wahrscheinlichkeit dafür, dass kein Zusammenhang vorliegt, bei $0.008$ liegt. 
+Das bedeutet jedoch nicht, dass die Wahrscheinlichkeit dafür, dass kein Zusammenhang vorliegt, bei $0.008$ liegt. 
 Es bedeutet auch nicht, dass die Wahrscheinlichkeit dafür, dass Störche nicht die Ursache der Geburten sind, bei $0.008$ liegt.
 
 ***
@@ -184,7 +185,7 @@ gf_point(geburten ~ flaeche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
   gf_labs(x=parse(text = paste0("'Fläche in '",'~ km^2')), y="Geburten in 1000", caption="Datenquelle: Robert Matthews")
 ```
 
-Anscheinend gibt es auch einen Zusammenhang zwischen der Größe eines Landes, der Fläche, und der Anzahl Geburten.
+Anscheinend gibt es auch einen Zusammenhang zwischen der Größe eines Landes und der Anzahl Geburten.
 
 ##
 
@@ -203,8 +204,8 @@ gf_point(stoerche ~ flaeche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
 
 ## Confounder
 
-Auch wenn es viele weitere Ursachen für die <green>Anzahl Störche</green> ($\color{green}{X}$) und die <blue>Anzahl Geburten</blue> ($\color{blue}{Y}$) gibt, so ist die Größe eines Landes, die <violet>Fläche</violet> ($\color{violet}{Z}$), sicherlich eine gemeinsame Ursache. 
-Das kausale Diagramm sieht sieht dann wie folgt aus:
+Die Größe eines Landes, die <violet>Fläche</violet> ($\color{violet}{Z}$), ist eine gemeinsame Ursache für die <green>Anzahl Störche</green> ($\color{green}{X}$) und die <blue>Anzahl Geburten</blue> ($\color{blue}{Y}$).
+Das kausale Diagramm sieht dann wie folgt aus:
 
 ```{r DAG_Fork, echo=FALSE, fig.align='center', out.width='85%'}
 plot(DAG_Fork)
@@ -212,6 +213,8 @@ plot(DAG_Fork)
 
 Die <green>Anzahl Störche</green> ($\color{green}{X}$) und die <blue>Anzahl Geburten</blue> ($\color{blue}{Y}$) korrelieren in den Daten deswegen, weil beide eine gemeinsame Ursache, die <violet>Fläche</violet> ($\color{violet}{Z}$) haben. 
 Eine solche gemeinsame Ursache wird **Confounder** genannt.
+
+(Natürlich gibt es potentiell noch zahlreiche weitere gemeinsame Ursachen der <green>Anzahl Störche</green> ($\color{green}{X}$) und der <blue>Anzahl Geburten</blue> ($\color{blue}{Y}$).)
 
 ```{r confounder, echo=FALSE}
 question("Hängt der Wert von Fläche ($\\color{violet}{Z}$) kausal von der Anzahl Störche ($\\color{green}{X}$) ab?",
@@ -273,9 +276,10 @@ Der im linearen Modell der Stichprobe geschätze Effekt ist also viel kleiner.
 ## Zusammenfassung
 
 :::{.box}
-Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer Gabel $$X \leftarrow Z \rightarrow Y$$ zu bestimmen, sollte ein Confounder $Z$ berücksichtigt werden. 
-Wird $Z$ nicht berücksichtigt, ist ein nicht-kausaler Zusammenhang zwischen $X$ und $Y$ *offen*, d.h. fließt in die Analyse mit ein.
-Die Berücksichtigung kann z.B. erfolgen durch einen stratifizierten Vergleich oder durch Aufnahme der Variable in ein lineares Modell. 
+Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer Gabel $$X \leftarrow Z \rightarrow Y$$ zu bestimmen, muss der Confounder $Z$ berücksichtigt werden. 
+Wird $Z$ nicht berücksichtigt, bleibt die Gabel offen und ein nicht-kausaler Zusammenhang zwischen $X$ und $Y$ fließt in die Analyse ein.
+Die Berücksichtigung kann beispielsweise erfolgen durch einen stratifizierten Vergleich oder durch Aufnahme der Variable in ein lineares Modell.
+Wird so korrekt adjustiert, dann ist die Gabel geschlossen und beeinträchtigt nicht mehr die Interpretierbarkeit der Analyse.
 ::: 
 
 ## Hinweis
