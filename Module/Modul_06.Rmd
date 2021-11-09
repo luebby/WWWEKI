@@ -65,7 +65,7 @@ In diesem Modul lernen Sie:
 
 - was ein Collider ist;
 
-- dass wir Zusammenhänge sehen, die wir ungewollt erzeugen.
+- dass wir manchmal ungewollt selber Zusammenhänge schaffen.
 
 ## Aller guten Dinge sind drei
 
@@ -75,14 +75,14 @@ Zur Erinnerung: $$A \rightarrow B$$ sagt aus, dass $B$ auf $A$ *hört*, aber nic
 
 ## Dating
 
-Wieder stark vereinfacht: Fürs Daten seien Nettigkeit und Aussehen wichtig. 
+Wieder stark vereinfacht: Nehmen wir an, dass beim Dating Nettigkeit und Aussehen eine Rolle spielen.
 
-Würden Sie jemanden daten, der weder nett ist noch gut aussieht? Vielleicht, aber eigentlich eher nicht.
+Würden Sie jemanden daten, der weder nett ist noch gut aussieht? Vielleicht, aber wahrscheinlich eher nicht.
 
 
 Angenommen <green>Nettigkeit</green> ($\color{green}{X}$) führt zu <violet>Date</violet> ($\color{violet}{Z}$). Außerdem führt (gutes) <blue>Aussehen</blue> ($\color{blue}{Y}$) zu einem <violet>Date</violet> ($\color{violet}{Z}$). 
 
-Sie daten also jemanden, der nett ist *oder* gut aussieht.
+Sie daten also jemanden, der nett ist *und/oder* gut aussieht.
 
 Dieses angenommene Modell lässt sich als kausales Diagramm wie folgt darstellen:
 
@@ -116,7 +116,7 @@ question("Hängt Aussehen ($Y$) von Nettigkeit ($X$) ab?",
 In Fällen wie diesen: $$\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$$ wird die Variable in der Mitte &ndash; hier $\color{violet}{Z}$ &ndash; **Collider** genannt. $\color{violet}{Z}$ ist eine  Wirkung von $\color{green}{X}$ und $\color{blue}{Y}$.
 
 ```{r collider, echo=FALSE}
-message <- "Wenn es kein Glück oder Pech ($U_Z$) war, dann ist die nicht-nette Person eher hübsch. Es gibt ja einen Grund dafür, dass Sie sie daten. Wenn es nicht die Nettigkeit ist, dann das Aussehen."
+message <- "Wenn es kein Glück oder Pech ($U_Z$) war, dann sieht die nicht-nette Person eher gut aus. Es gibt ja einen Grund dafür, dass Sie sie daten. Wenn es nicht die Nettigkeit ist, dann das Aussehen."
 question("Angenommen Sie haben jemanden gedatet ($Z$), der nicht besonders nett ($X$) ist. Wissen Sie dann etwas über das Aussehen ($Y$)?",
          answer("Ja", correct = TRUE, message = message),
          answer("Nein", message = message),
@@ -127,7 +127,7 @@ question("Angenommen Sie haben jemanden gedatet ($Z$), der nicht besonders nett 
 
 ## Modell und Simulierte Daten
 
-Das strukturelle kausale Modell
+Betrachten wir das folgende strukturelle kausale Modell:
 
 \begin{eqnarray*}
 \color{green}{X} &=& U_{\color{green}{X}}, \quad U_{\color{green}{X}} \sim \mathcal{N}(0,\,1), \\
@@ -136,7 +136,9 @@ Das strukturelle kausale Modell
 \color{violet}{Z} &=& (1-U_{\color{violet}{Z}}) \cdot \tilde{\color{violet}{Z}} + U_{\color{violet}{Z}} \cdot (1- \tilde{\color{violet}{Z}}), \quad U_{\color{violet}{Z}} \sim \mathcal{B}(0.05),
 \end{eqnarray*}
 
-$\mathcal{N}(0,\,1)$ steht für eine eine Standardnormalverteilung, $\mathcal{B}(0.05)$ für eine Bernoulliverteilung mit $\pi=0.05$. $\vee$ ist das logische *oder* (`|` in `R`). 
+$\mathcal{N}(0,\,1)$ steht für eine eine Standardnormalverteilung, $\mathcal{B}(0.05)$ für eine Bernoulliverteilung mit $\pi=0.05$. 
+
+$\vee$ ist das logische *oder* (`|` in `R`). 
 
 Folgender `R` Code simuliert diesen datengenerierenden Prozess:
 
@@ -153,7 +155,8 @@ SimData <- tibble(x = rnorm(n),                               # X
   mutate(z = ifelse(z, "Ja", "Nein"))
 ```
 
-Ok, sowohl die mathematische Darstellung als auch der `R` Code sind anspruchsvoll. Worauf es in diesem Modul viel mehr ankommt, sind die Daten, die dabei rauskommen:
+Sowohl die mathematische Darstellung als auch der `R` Code sind hier anspruchsvoll. 
+Worauf es in diesem Modul aber ankommt, sind die Daten, die dabei rauskommen:
 
 ```{r scatter, echo=FALSE, fig.align='center', out.width='85%'}
 gf_point(y ~ x, data = SimData, color = ~z) +
@@ -182,8 +185,8 @@ question("Für die, die Sie gedatet haben (`z = Ja`): Sehen Sie einen Zusammenha
 
 ##
 
-Wenn wir <violet>Date</violet> ($\color{violet}{Z}$) berücksichtigen, sehen wir einen Zusammenhang zwischen <blue>Aussehen</blue> ($\color{blue}{Y}$) auf <green>Nettigkeit</green> ($\color{green}{X}$), obwohl nach Konstruktion gar keiner da ist.
-Das sehen wir auch, wenn wir uns den Zusammenhang zwischen $\color{green}{X}$ und $\color{blue}{Y}$ ohne Berücksichtigung von $\color{violet}{Z}$ angucken:
+Wenn wir <violet>Date</violet> ($\color{violet}{Z}$) berücksichtigen, sehen wir einen Zusammenhang zwischen <blue>Aussehen</blue> ($\color{blue}{Y}$) und <green>Nettigkeit</green> ($\color{green}{X}$), obwohl nach Konstruktion gar keiner da ist.
+Wenn wir uns hingegen den Zusammenhang zwischen $\color{green}{X}$ und $\color{blue}{Y}$ ohne Berücksichtigung von $\color{violet}{Z}$ angucken, erkennen wir, dass die Variablen eigentlich unabhängig sind:
 
 ```{r scatterlmub, echo=FALSE, fig.align='center', out.width='85%'}
 gf_point(y ~ x, data = SimData) %>%
@@ -205,14 +208,14 @@ Wenn wir als Stichprobe für die Analyse eines möglichen Zusammenhangs zwischen
 > Ich traue auch keiner Statistik, die ich selbst gefälscht habe.
 
 Natürlich sind unsere Dates nicht *gefälscht*, aber wir haben eine selbst gewählte Stichprobe als Grundlage. 
-Und diese liefert ein verzerrtes Ergebnis.
+Diese liefert ein verzerrtes Ergebnis mit Zusammenhängen an Stellen, an denen es eigentlich keine gibt.
 
 ## Zusammenfassung
 
 :::{.box}
-Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer umgedrehten Gabel $$X \rightarrow Z \leftarrow Y$$ zu bestimmen, sollte ein Collider $Z$ nicht berücksichtigt werden. (Und auch keine Nachfahren von $Z$.)
-Wird $Z$ berücksichtigt, wird ein scheinbarer Zusammenhang zwischen $X$ und $Y$ erzeugt, d.h. fließt in die Analyse mit ein. 
-Die Variable sollte z.B. nicht als erklärende Variable in ein lineares Modell aufgenommen werden.
+Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer umgedrehten Gabel $$X \rightarrow Z \leftarrow Y$$ zu bestimmen, darf der Collider $Z$ nicht berücksichtigt werden. (Dies gilt auch für alle Nachfahren von $Z$.)
+Wird $Z$ berücksichtigt, wird ein scheinbarer Zusammenhang zwischen $X$ und $Y$ erzeugt und fließt in die Analyse ein. 
+Die Variable $Z$ sollte beispielsweise nicht als erklärende Variable in ein lineares Modell aufgenommen werden.
 ::: 
 
 ## Hinweis
