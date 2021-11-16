@@ -25,9 +25,9 @@ Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https:
 
 4. [Es steht was zwischen uns](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_04/) (Chain)
 
-5. Von Störchen und Geburten (Fork)
+5. [Von Störchen und Geburten](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_05/) (Fork)
 
-6. Nett oder schön, warum nicht und? (Inverted-Fork)
+6. [Modul 06: Nett oder schön? &ndash; Warum nicht beides?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_06/) (Inverted-Fork)
 
 7. Warum Raumteilung keine gute Investition ist (Unterschied (do(x) vs. X=x am Beispiel)
 
