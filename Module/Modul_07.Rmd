@@ -135,7 +135,7 @@ $$\hat{\color{blue}{y}} = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]
 Quelle: [https://pixabay.com/de/vectors/idee-erfindung-erfinder-denken-152213/](Quelle: https://pixabay.com/de/vectors/idee-erfindung-erfinder-denken-152213/)
 </span>
 
-Ich teile einfach mein Wohnzimmer auf. Aus Eins mach Zwei, aus $4$ Zimmern werden $5$, $\color{green}{do(x)}=\color{green}{5}$. Dann gilt gemäß des Modells:
+Ich teile einfach mein Wohnzimmer auf. Aus Eins mach Zwei, aus $4$ Zimmern werden $5$, $do(\color{green}{x}=\color{green}{5})$. Dann gilt gemäß des Modells:
 
 $$\hat{\color{blue}{y}} = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]` \cdot \color{green}{5}= \color{blue}{`r round(coef(erglm1))[1]+  round(coef(erglm1))[2]*5`}.$$
 
@@ -166,7 +166,9 @@ In den Module 4, 5 und 6 haben Sie die Grundelemente kausaler Diagramme kennenge
 **Grundidee**: Um die Änderung von $\color{blue}{y}$ zu schätzen, wenn $\color{green}{x}$ verändert wird, sollten nicht-kausale Pfade unterbrochen werden (*Gabel*), kausale Pfade nicht (*Kette*). Auch sollten keine Schein-Pfade aufgemacht werden (*Umgedrehte-Gabel*). Während also in einer Kette und Umgedrehten-Gabel für $\color{violet}{Z}$ nicht adjustiert werden sollte, sollte es in einer Gabel erfolgen.
 
 <br>
+<br>
 
+Für den Zusammenhang zwischen <green>Anzahl Zimmer</green> und <blue>Preis</blue>:
 Überlegen Sie, welcher *Confounder* hier vorliegen könnte?
 
 *Denken Sie bitte kurz darüber nach und klicken Sie erst dann auf `Nächstes Thema`*
