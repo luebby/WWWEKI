@@ -59,7 +59,7 @@ options(scipen = 999)
 
 In diesem Modul lernen Sie:
 
-- das aus einer Beobachtung nicht immer eine Handlung abgeleitet werden kann.
+- dass aus einer Beobachtung nicht immer eine Handlung abgeleitet werden kann.
 
 ## Immobilienpreis
 
@@ -74,9 +74,9 @@ Quelle: [https://pixabay.com/de/photos/bauplan-grundriss-architektenplan-354233/
 
 Vielleicht am einfachsten zu zählen: Die Anzahl Zimmer.
 
-Im `R` Paket `mosaicData` gibt es einen Immobiliendatensatz, `SaratogaHouses`.
+Im `R` Paket `mosaicData` gibt es einen Immobiliendatensatz: `SaratogaHouses`.
 
-Schauen wir uns dort den Zusammenhang zwischen Anzahl Zimmer (`rooms`) und Preis ( `price`) einmal an:
+Schauen wir uns dort den Zusammenhang zwischen Anzahl Zimmer (`rooms`) und Preis (`price`) einmal an:
 
 ```{r desi}
 # Vorbereitungen: Paket und Daten laden
@@ -88,11 +88,11 @@ gf_point(price ~ rooms, data = SaratogaHouses) %>%
   gf_lm() # Regressionsgerade ergänzt
 ```
 
-Wir sehen: Je mehr Zimmer, desto höher der Preis - &ndash; im Mittelwert.
+Wir sehen: Je mehr Zimmer, desto höher der Preis &ndash; im Mittelwert.
 
 ## Lineare Regression - 1. Versuch
 
-Gehen wir von einem linearen Zusammenhang zwischen <green>Anzahl Zimmer</green>, `rooms`, $\color{green}{x}$ und <blue>Preis</blue>, `price`, $\color{blue}{y}$ aus:
+Gehen wir von einem linearen Zusammenhang zwischen <green>Anzahl Zimmer</green> (`rooms`), $\color{green}{x}$, und <blue>Preis</blue> (`price`), $\color{blue}{y}$, aus:
 
 $$\color{blue}{y}_i = \beta_0 + \beta_1 \cdot \color{green}{x}_i + \epsilon_i$$
 Dabei ist $\beta_1$ die Steigung, die den (linearen) Zusammenhang beschreibt, $\beta_0$ der $y$-Achsenabschnitt.
@@ -109,10 +109,11 @@ Also:
 $$\hat{\color{blue}{y}}_i = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]` \cdot \color{green}{x}_i $$
 
 ```{r Steigung, echo=FALSE}
-message <- "Die anhand der Stichprobe im linearen Modell geschätzte Steigung liegt bei $\\hat{\\beta}_1= 22573$, der geschätzte Achsenabschnitt, also der Mittelwert des Preises bei $x=0$ Räumen, $\\hat{\\beta}_0=53016$."
+message <- "Die anhand der Stichprobe im linearen Modell geschätzte Steigung liegt bei $\\hat{\\beta}_1= 22573$, der geschätzte Achsenabschnitt, also der Mittelwert des Preises bei $x=0$ Räumen, bei $\\hat{\\beta}_0=53016$."
 question("Im linearen Modell der Stichprobe: Um wieviel erhöht sich der Preis pro Raum?",
-         answer("53016", message = message),
+         answer("53016"),
          answer("22573", correct = TRUE, message = message),
+		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
@@ -120,7 +121,7 @@ question("Im linearen Modell der Stichprobe: Um wieviel erhöht sich der Preis p
 
 ##
 
-Aktuell hat meine Wohnung gemäß Grundriss 4 abgetrennte Räume, also  <green>Anzahl Zimmer</green>, `rooms`, $\color{green}{x}=\color{green}{4}$
+Aktuell hat meine Wohnung gemäß Grundriss 4 abgetrennte Räume, also  <green>Anzahl Zimmer</green> (`rooms`), $\color{green}{x}=\color{green}{4}$.
 
 Damit liegt der Mittelwert des Preises für meine Wohnung bei
 
@@ -139,18 +140,19 @@ Ich teile einfach mein Wohnzimmer auf. Aus Eins mach Zwei, aus $4$ Zimmern werde
 $$\hat{\color{blue}{y}} = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]` \cdot \color{green}{5}= \color{blue}{`r round(coef(erglm1))[1]+  round(coef(erglm1))[2]*5`}.$$
 
 ```{r Wertsteigerung, echo=FALSE}
-message <- "Das geschätzte lineare Modell der Stichprobe bezieht sich auf die Beobachtungsdaten ($X=x$), d.h. die Steigung beschreibt die beobachtete Änderung des Mittelwertes, nicht den Effekt einer Handlung ($do(X=x)$."
+message <- "Das geschätzte lineare Modell der Stichprobe bezieht sich auf die Beobachtungsdaten ($X=x$), d. h. die Steigung beschreibt die beobachtete Änderung des Mittelwertes, nicht den Effekt einer Handlung $do(X=x)$."
 question("Erhöht die Raumteilung den Preis meiner Immobilie im Mittelwert um $22573$?",
-         answer("Ja", message = message),
+         answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
+		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
 ```
 
-## Wiederholung Elemente Kausaler Diagramme
+## Wiederholung: Elemente Kausaler Diagramme
 
-In den Module 4,5 und 6 haben Sie die Grundelemente kausaler Diagramme kennengelernt:
+In den Module 4, 5 und 6 haben Sie die Grundelemente kausaler Diagramme kennengelernt:
 
 
 | Pfad                       | $\color{green}{X} \rightarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$ | $\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$  | $\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$ 
@@ -179,22 +181,24 @@ plot(DAG_Fork)
 
 
 ```{r graph1, echo=FALSE}
-message <- "Neben den direkten Effekt über $Z \\rightarrow Y$ gibt es auch den indirekten $Z \\rightarrow X \\rightarrow Y$. Hierbei ist die Anzahl Räume ein Mediator."
+message <- "Neben dem direkten Effekt über $Z \\rightarrow Y$ gibt es auch den indirekten $Z \\rightarrow X \\rightarrow Y$. Hierbei ist die **Anzahl Räume** ein **Mediator**."
 question("Welcher Teilgraph liegt vor, wenn die Beziehung zwischen Fläche und Preis im Zusammenhang mit der Anzahl Räume analysiert wird?",
          answer("Kette", correct = TRUE, message = message),
-         answer("Gabel", message = message),
-         answer("Umgedrehte-Gabel", message = message),
+         answer("Gabel"),
+         answer("Umgedrehte-Gabel"),
+		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
 ```
 
 ```{r graph2, echo=FALSE}
-message <- "Neben den direkten Effekt über $X \\rightarrow Y$ gibt es auch den nicht-kausalen $X \\leftarrow Z \\rightarrow Y$. Hier ist die Fläche ein Confounder."
+message <- "Neben dem direkten Effekt über $X \\rightarrow Y$ gibt es auch den nicht-kausalen $X \\leftarrow Z \\rightarrow Y$. Hier ist die **Fläche** ein **Confounder**."
 question("Welcher Teilgraph liegt vor, wenn die Beziehung zwischen der Anzahl Zimmer und Preis im Zusammenhang mit der Fläche analysiert wird?",
-         answer("Kette", message = message),
+         answer("Kette"),
          answer("Gabel", correct = TRUE, message = message),
-         answer("Umgedrehte-Gabel", message = message),
+         answer("Umgedrehte-Gabel"),
+		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
@@ -211,6 +215,8 @@ lm(price ~ rooms + ___, data = SaratogaHouses)
 ```{r lm-solution}
 lm(price ~ rooms + livingArea, data = SaratogaHouses)
 ```
+
+Was fällt Ihnen auf?
 
 ##
 
@@ -232,10 +238,11 @@ plot(DAG_Fork)
 ```
 
 ```{r adjustierung, echo=FALSE}
-message <- "Welche Variablen ins Modell aufgenommen werden sollen hängt davon ab welcher kausale Effekt bestimmt werden soll. Hier würde das Modell `price ~ livingArea + rooms` den (indirekten) kausalen Pfad von Fläche über Zimmer zu Preis unterbrechen. Das korrekte Modell wäre daher  `price ~ livingArea`."
-question("Wenn die erwartete Änderung des Preises, wenn die Fläche erhöht wird, analysiert werden soll. Sollte dann für die Anzahl Zimmer adjustiert werden.",
-         answer("Ja", message = message),
+message <- "Welche Variablen ins Modell aufgenommen werden sollen, hängt davon ab welcher kausale Effekt bestimmt werden soll. Hier würde das Modell `price ~ livingArea + rooms` den (indirekten) kausalen Pfad von Fläche über Zimmer zu Preis unterbrechen. Das korrekte Modell wäre daher  `price ~ livingArea`."
+question("Wenn die erwartete Änderung des Preises, wenn die Fläche erhöht wird, analysiert werden soll. Sollte dann für die Anzahl Zimmer adjustiert werden?",
+         answer("Ja", message = "Welche Variablen ins Modell aufgenommen werden sollen, hängt davon ab welcher kausale Effekt bestimmt werden soll."),
          answer("Nein",correct = TRUE, message = message),
+		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
