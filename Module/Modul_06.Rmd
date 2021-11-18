@@ -86,7 +86,7 @@ Sie daten also jemanden, der nett ist *und/oder* gut aussieht.
 
 Dieses angenommene Modell lässt sich als kausales Diagramm wie folgt darstellen:
 
-```{r DAG_Chain, echo=FALSE, fig.align='center', out.width='85%'}
+```{r DAG_Collider, echo=FALSE, fig.align='center', out.width='85%'}
 plot(DAG_Collider)
 ```
 
