@@ -29,11 +29,11 @@ Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https:
 
 6. [Nett oder schön? &ndash; Warum nicht beides?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_06/) (Inverted-Fork)
 
-7. Warum Raumteilung keine gute Investition ist (Unterschied (do(x) vs. X=x am Beispiel)
+7. [Warum Raumteilung keine gute Investition ist](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_07/) (Unterschied (do(x) vs. X=x am Beispiel)
 
-8. Let’s do it - durch die Vorder- oder durch die Hintertür? (Basic do-calculus, Front-/ Backdoor)
+8. Magie durch Zufall (Random Sampling/ Allocation)
 
-9. Magie durch Zufall (Random Sampling/ Allocation)
+9. Let’s do it - durch die Vorder- oder durch die Hintertür? (Basic do-calculus, Front-/ Backdoor)
 
 10. Wissen kann alles verändern (Unbedingte vs. Bedingte (Un-)Abhängigkeit)
 
