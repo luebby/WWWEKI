@@ -1,0 +1,491 @@
+---
+title: "Modul 08: Magie durch Zufall"
+output: 
+  learnr::tutorial:
+    language: 
+      de: js/tutorial_de.json
+    progressive: true
+    css: "css/style.css"
+runtime: shiny_prerendered
+---
+
+
+```{r setup, include=FALSE}
+library(learnr)
+library(knitr)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(emojifont)
+library(ggthemes)
+library(ggdag)
+
+theme.fom <- theme_classic(22*1.04)
+theme.fom <- theme.fom
+theme_set(
+  theme.fom  
+)
+
+# deutsche Version von random_praise
+source("random-praise_de/translation_random-praise_de.R")
+
+# DAGs
+co <- data.frame(x=c(0,1,2), y=c(0,1,0), name=c("X", "Z", "Y"))
+DAG_Modell <- dagify(X ~ Z,
+                     Y ~ Z,
+                     Y ~ X,
+                     coords = co) %>% 
+  ggdag() + 
+  geom_dag_point(colour = c("#0F710B", "#DA70D6", "#0000FF")) + 
+  geom_dag_text(size = 8) +
+  theme_dag_blank() +
+  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
+  geom_text(label = "X - Kauf Bio\nY - Lebenserwartung\nZ - Geschlecht", 
+            hjust = 1, vjust = 1,
+            x = 2, y = 1, size = 7, color = "darkgrey") 
+
+co <- data.frame(x=c(0,1,2,0), y=c(0,1,0,1), name=c("X", "Z", "Y", "S"))
+DAG_ModellG <- dagify(X ~ Z,
+                     Y ~ Z,
+                     Y ~ X,
+                     S ~ Z,
+                     coords = co) %>% 
+  ggdag() + 
+  geom_dag_point(colour = c("#0F710B", "#DA70D6", "#0000FF", "Black")) + 
+  geom_dag_text(size = 8) +
+  theme_dag_blank() +
+  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
+  geom_text(label = "X - Kauf Bio\nY - Lebenserwartung\nZ - Geschlecht\nS - Stichprobe", 
+            hjust = 1, vjust = 1,
+            x = 2, y = 1, size = 7, color = "darkgrey") 
+
+co <- data.frame(x=c(0,1,2,0,-1), y=c(0,1,0,1,1), name=c("X", "Z", "Y", "S", "D"))
+DAG_ModellS <- dagify(X ~ Z,
+                     Y ~ Z,
+                     Y ~ X,
+                     S ~ D,
+                     coords = co) %>% 
+  ggdag() + 
+  geom_dag_point(colour = c( "#808000", "#0F710B", "#DA70D6","Black","#0000FF")) + 
+  geom_dag_text(size = 8) +
+  theme_dag_blank() +
+  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
+  geom_text(label = "X - Kauf Bio\nY - Lebenserwartung\nZ - Geschlecht\nS - Stichprobe\nD - Zufall", 
+            hjust = 1, vjust = 1,
+            x = 2, y = 1, size = 7, color = "darkgrey") 
+
+co <- data.frame(x=c(0,1,2,0), y=c(0,1,0,1), name=c("X", "Z", "Y", "D"))
+DAG_ModellE <- dagify(X ~ D,
+                      Y ~ Z,
+                      Y ~ X,
+                      coords = co) %>% 
+  ggdag() + 
+  geom_dag_point(colour = c( "#808000","#0F710B", "#DA70D6", "#0000FF")) + 
+  geom_dag_text(size = 8) +
+  theme_dag_blank() +
+  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
+  geom_text(label = "X - Kauf Bio\nY - Lebenserwartung\nZ - Geschlecht\nD - Zufall", 
+            hjust = 1, vjust = 1,
+            x = 2, y = 1, size = 7, color = "darkgrey") 
+library(mosaic)
+
+options(scipen = 999)
+```
+
+## Lernziele
+
+In diesem Modul lernen Sie:
+
+- welche Vorteile eine zufällige Stichprobe hat;
+
+- welche Vorteile eine zufällige Zuordnung im Rahmen eines Experiments hat;
+
+
+## Gesund durch Bio?
+
+Eine <red>fiktive</red> Studie präsentiert Ihnen dieses Ergebnis:
+
+```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
+geschlecht <- c(rep(0, 50), rep(1, 50))
+set.seed(1896)
+kauf <- numeric(100)
+plang <- numeric(100)
+lang <- numeric(100)
+for(i in 1:100) 
+  {
+  kauf[i] <- ifelse(geschlecht[i], 
+                    sample(c(0,1),1, prob = c(0.2, 0.8)), 
+                    sample(c(0,1),1, prob = c(0.8, 0.2)))
+  plang[i] <- ifelse(geschlecht[i], 0.65, 0.35)
+  plang[i] <- plang[i] + ifelse(kauf[i], 0.2, 0)
+  lang[i] <- sample(c(0,1),1, prob = c(1-plang[i], plang[i]))
+}
+
+d <- crossing(x = 1:10,
+              y = 1:10) %>%
+  mutate(lang = lang,
+         geschlecht = geschlecht,
+         kauf = kauf) %>%
+  mutate(lebenserwartung = ifelse(lang == 1, "lang","kurz"))
+
+d2 <- d %>%
+  mutate(kauf = ifelse(kauf, "Bio", "Nicht Bio")) %>%
+  mutate(geschlecht = ifelse(geschlecht, "Frau", "Mann")) %>%
+  select(kauf, geschlecht, lebenserwartung)
+
+
+gf_bar(~ lebenserwartung | kauf , data = d2, 
+       fill = ~ lebenserwartung ) + 
+  scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
+  labs(title = "Studienergebnis", y="Häufigkeit") +
+  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
+```
+
+Was Sie sehen: <green>Kaufer:innen von Bio-Lebensmitteln</green> haben viel öfter eine hohe <blue>Lebenserwartung</blue> als diejenigen, die keine Bio-Lebensmittel kaufen &ndash; in dieser fiktiven Studie.
+
+Dies ist die Ebene **Beschreibung** (siehe Modul 3). Um die Ebenen *Vorhersage* und *Kausale Inferenz* zu erreichen brauchen wir mehr. Und Methoden dafür kennen Statistiker:innen schon lange.
+
+##
+
+Erstellen wir zunächst ein stark vereinfachtes Modell, indem wir die folgenden kausalen Zusammenhänge annehmen:
+
+
+- <blue>Lebenserwartung</blue> hängt evtl. ab vom <green>Kauf von Bio-Lebensmitteln</green> (<purple>Ja</purple>, <orange>Nein</orange>).
+
+- <blue>Lebenserwartung</blue> hängt evtl. zusätzlich ab vom <violet>Geschlecht</violet>.
+
+- <green>Kauf von Bio-Lebensmitteln</green> ( <purple>Ja</purple>, <orange>Nein</orange>) hängt evtl. vom <violet>Geschlecht</violet> ab.
+
+Das kausale Diagramm sind dann wie folgt aus:
+
+```{r DAG_Modell, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
+plot(DAG_Modell)
+```
+
+```{r graph1, echo=FALSE}
+message <- "Beim Teilgraph Kauf von Bio-Lebensmittel $\\leftarrow$ Geschlecht $\\rightarrow$ Lebenserwartung handelt es sich im eine Gabel."
+question("Welche Rolle spielt hier das Geschlecht zwischen den Kauf von Bio-Lebensmittel und Lebenserwartung?",
+         answer("Mediator"),
+         answer("Confounder", correct = TRUE, message = message),
+         answer("Collider"),
+		allow_retry = TRUE,
+		correct = random_praise(),
+		incorrect = random_encouragement()
+         )
+```
+
+##
+
+Angenommen in einer fiktiven Population ordnet sich eine Hälfte dem männlichen Geschlecht, und die andere Hälfte dem weiblichen Geschlecht zu. 
+Symbolisch hier ohne weitere Geschlechtsidentitäten.
+
+Der Kauf von Bio-Lebensmittel ist farblich durch <purple>Ja (lila)</purple> und <orange>Nein (orange)</orange> gekennzeichnet:
+
+```{r population, fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
+set.seed(1896)
+stipro <- rep(1,100)
+geschlecht <- c(rep(0, 50), rep(1, 50))
+set.seed(1896)
+kauf <- numeric(100)
+for(i in 1:100) kauf[i] <- ifelse(geschlecht[i], sample(c(0,1),1, prob = c(0.2, 0.8)), sample(c(0,1),1, prob = c(0.8, 0.2)))
+
+geschlecht <- fontawesome(ifelse(geschlecht, "fa-female", "fa-male"))
+kauf <- ifelse(kauf, "#7A378B", "#FF8811")
+
+d <- crossing(x = 1:10,
+              y = 1:10) %>%
+  mutate(stipro = stipro,
+         geschlecht = geschlecht,
+         kauf = kauf)  %>%
+  mutate(stichprobe = ifelse(stipro == 1, "Ja","Nein"))
+
+pdp <- prop( ~ kauf, data = d, success = "#7A378B")
+
+ppop <- ggplot(d, aes(x = x, y = y)) +
+  geom_tile(color = "white", size = .5, alpha = .2) +
+  theme_void() +
+  geom_text(family='fontawesome-webfont', size = 8, aes(label = geschlecht), colour = kauf) +
+  labs(title = "Population") +
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5)) +
+  guides(fill = "none")
+ppop
+```
+
+In dieser Ziel-Population liegt der Anteil <purple>Bio-Käufer:innen</purple> bei $`r pdp`$.
+
+##
+
+In der Regel kennen wir die *Population* gar nicht, sondern nur eine *Stichprobe*. Nur die Daten der Stichprobe können wir nutzen.
+
+<br>
+
+Nehmen wir an, bei der Datenerhebung gibt es einen Zusammenhang zwischen dem Geschlecht und der Stichprobe. Z. B. hier, dass Frauen eine höhrere Wahrscheinlichkeit haben Teil der Stichprobe zu sein, wie es das folgende kausale Diagramm verdeutlicht:
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
+plot(DAG_ModellG)
+```
+
+Eine mögliche Stichprobe sieht dann wie folgt aus:
+
+```{r gsti, fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
+set.seed(1896)
+stipro <- c(sample(c(rep(1,5), rep(0,45))),sample(c(rep(1,15), rep(0,35))))
+geschlecht <- c(rep(0, 50), rep(1, 50))
+set.seed(1896)
+kauf <- numeric(100)
+for(i in 1:100) kauf[i] <- ifelse(geschlecht[i], sample(c(0,1),1, prob = c(0.2, 0.8)), sample(c(0,1),1, prob = c(0.8, 0.2)))
+
+geschlecht <- fontawesome(ifelse(geschlecht, "fa-female", "fa-male"))
+kauf <- ifelse(kauf, "#7A378B", "#FF8811")
+
+d <- crossing(x = 1:10,
+              y = 1:10) %>%
+  mutate(stipro = stipro,
+         geschlecht = geschlecht,
+         kauf = kauf) %>%
+  mutate(stichprobe = ifelse(stipro ==1, "Ja","Nein"))
+dd <- d %>%
+  filter(stipro == 1)
+pdgs <- prop( ~ kauf, data = dd, success = "#7A378B")
+
+pgsti <- ggplot(d, aes(x = x, y = y, color = stichprobe)) +
+  geom_tile(color = "white", size = .5, aes(fill = stichprobe), alpha = .2) +
+  theme_void() +
+  geom_text(family='fontawesome-webfont', size = 8, aes(label = geschlecht), colour = kauf) +
+  scale_fill_manual(values = c("#00998A","grey80")) +
+  labs(title = "Gelegenheitsstichprobe") +
+  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5)) 
+pgsti
+```
+
+```{r stipro, echo=FALSE}
+message <- "Frauen sind in der Stichprobe über-repräsentiert."
+question("Ist diese Stichprobe *repräsentativ*, d. h., können gültige Schlüsse auf die Population getroffen werden?",
+         answer("Ja"),
+         answer("Nein", correct = TRUE, message = message),
+		allow_retry = TRUE,
+		correct = random_praise(),
+		incorrect = random_encouragement()
+         )
+```
+
+##
+
+In dieser *Gelegenheitsstichprobe* liegt der Anteil <purple>Bio-Käufer:innen</purple> bei $`r pdgs`$ &ndash; und ist damit systematisch zu hoch.
+
+Wir können zwar das Ergebnis der Stichprobe zur *Beschreibung* dieser verwenden, aber können das Ergebnis weder verallgemeinern noch zur *Vorhersage* verwenden.
+Wenn wir das Ergebnis verwenden würden, um z. B. vorherzusagen ob ein Kunde Bio kauft oder nicht, wäre eine Kaufswahrscheinlichkeit von  $Pr(\color{purple}{\text{Bio}}) = `r pdgs`$ zu hoch.
+
+<br>
+
+Wir brauchen also *mehr* als nur die Daten ...
+
+## Zufällige Stichprobe
+
+Das Problem ist, dass unsere Stichprobe von einer Variable abhängt, dem <violet>Geschlecht</violet> von dem wiederum die untersuchte Variable <green>Kauf Bio-Lebendmittel</green> abhängt.
+Dadurch dass hier Frauen eine höhrere Wahrscheibnlichkeit haben Teil der Stichprobe zu sein und häufiger Bio-Lebensmittel kaufen überschätze ich in Folge mit meiner Stichprobe den Anteil der Käufer:innen von Bio-Lebensmittel.
+
+Ein Problem das ganz viele Umfragen u.ä. haben: Wie kann ich sicherstellen, dass meine Stichprobe mich nicht täuscht?
+
+Hier hilft der Zufall!
+
+<img src="images/Wuerfel.jpg" alt="Wuerfel" width="50%" height="50%">
+<!-- style="padding-left:50px;" -->
+<span style="font-size: 10px;"><br>
+Quelle: [https://pixabay.com/de/photos/w%c3%bcrfel-rot-fallen-zufall-635353/](Quelle: https://pixabay.com/de/photos/w%c3%bcrfel-rot-fallen-zufall-635353/)
+</span>
+
+Durch zufällige Auswahl der Stichprobe wird die Abhängigkeit der Stichprobe vom Geschlecht gelöscht. 
+Die Stichprobe hängt dann vom Zufall ab.
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
+plot(DAG_ModellS)
+```
+
+<br>
+
+```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
+set.seed(1896)
+stipro <- as.factor(sample(c(rep(1,20), rep(0,80))))
+geschlecht <- c(rep(0, 50), rep(1, 50))
+set.seed(1896)
+kauf <- numeric(100)
+for(i in 1:100) kauf[i] <- ifelse(geschlecht[i], sample(c(0,1),1, prob = c(0.2, 0.8)), sample(c(0,1),1, prob = c(0.8, 0.2)))
+
+geschlecht <- fontawesome(ifelse(geschlecht, "fa-female", "fa-male"))
+kauf <- ifelse(kauf, "#7A378B", "#FF8811")
+
+d <- crossing(x = 1:10,
+              y = 1:10) %>%
+  mutate(stipro = stipro,
+         geschlecht = geschlecht,
+         kauf = kauf) %>%
+    mutate(stichprobe = ifelse(stipro ==1, "Ja","Nein"))
+
+dd <- d %>%
+  filter(stipro == 1)
+pdz <- prop( ~ kauf, data = dd, success = "#7A378B")
+
+pzsti <- ggplot(d, aes(x = x, y = y, color = stichprobe)) +
+  geom_tile(color = "white", size = .5, aes(fill = stichprobe), alpha = .2) +
+  theme_void() +
+  geom_text(family='fontawesome-webfont', size = 8, aes(label = geschlecht), colour = kauf) +
+  scale_fill_manual(values = c("#00998A", "grey80")) +
+  labs(title = "Zufällige Stichprobe") +
+  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
+pzsti
+```
+
+In dieser zufälligen Stichprobe weicht der Anteil <purple>Bio-Käufer:innen</purple> bei $`r pdz`$ nicht mehr systematisch vom *wahren* Anteil in der Ziel-Population ab &ndash; nur noch zufällig. 
+Und je größer die Stichrobe desto weniger schwankt der Anteil bei unterschiedlichen Stichproben.
+
+<br> 
+
+Eine plausible **Vorhersage** ist jetzt möglich. Aber *Kausale Inferenz*? 
+
+
+```{r ki, echo=FALSE}
+message <- "Geschlecht ist hier ein Confounder und liegt auf einen nicht-kausalen Pfad von Bio-Lebensmittel zu Lebenserwartung."
+question("Kann der kausale Effekt von Bio-Lebensmitteln auf die Lebenserwartung durch einen Vergleich der mittleren Lebenserwartung der Bio-Käufer:innen und nicht-Bio-Käufer:innen geschätzt werden?",
+         answer("Ja"),
+         answer("Nein", correct = TRUE, message = message),
+		allow_retry = TRUE,
+		correct = random_praise(),
+		incorrect = random_encouragement()
+         )
+```
+
+## Zufällige Zuordnung
+
+Beobachtungsstudie
+
+```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
+geschlecht <- c(rep(0, 50), rep(1, 50))
+set.seed(1896)
+kauf <- numeric(100)
+plang <- numeric(100)
+lang <- numeric(100)
+for(i in 1:100) 
+  {
+  kauf[i] <- ifelse(geschlecht[i], 
+                    sample(c(0,1),1, prob = c(0.2, 0.8)), 
+                    sample(c(0,1),1, prob = c(0.8, 0.2)))
+  plang[i] <- ifelse(geschlecht[i], 0.65, 0.35)
+  plang[i] <- plang[i] + ifelse(kauf[i], 0.2, 0)
+  lang[i] <- sample(c(0,1),1, prob = c(1-plang[i], plang[i]))
+}
+geschlechts <- fontawesome(ifelse(geschlecht, "fa-female", "fa-male"))
+kaufs <- ifelse(kauf, "#7A378B", "#FF8811")
+
+d <- crossing(x = 1:10,
+              y = 1:10) %>%
+  mutate(lang = lang,
+         geschlecht = geschlecht,
+         geschlechts = geschlechts,
+         kauf = kauf,
+         kaufs = kaufs) %>%
+  mutate(lebenserwartung = ifelse(lang == 1, "lang","kurz"))
+
+d2 <- d %>%
+  mutate(kauf = ifelse(kauf, "Bio", "Nicht Bio")) %>%
+  mutate(geschlecht = ifelse(geschlecht, "Frau", "Mann")) %>%
+  select(kauf, geschlecht, lebenserwartung)
+
+pbeob <- ggplot(d, aes(x = x, y = y, color = lebenserwartung)) +
+  geom_tile(color = "white", size = .5, aes(fill = lebenserwartung), alpha = .2) +
+  theme_void() +
+  geom_text(family='fontawesome-webfont', size = 8, aes(label = geschlechts), colour = kaufs) +
+  scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
+  labs(title = "Beobachtungsstudie") +
+  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
+pbeob
+```
+
+```{r out.width="80%", echo = FALSE, fig.asp = .7, fig.align="center"}
+gf_bar(~ lebenserwartung | kauf , data = d2, 
+       fill = ~ lebenserwartung ) + 
+  scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
+  labs(title = "Beobachtungsstudie") +
+  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
+```
+
+<purple>Bio Käufer:innen</purple> haben häufiger eine hohe Lebenserwartung als <orange>Nicht-Bio Käufer:innen</orange>.
+
+##
+
+```{r out.width="65%", echo = FALSE, fig.asp = .7, fig.align="center"}
+gf_bar(~ kauf | geschlecht , data = d2, 
+       fill = ~ kauf ) + 
+  scale_fill_manual(values = c( "#7A378B", "#FF8811")) +
+  labs(title = "Beobachtungsstudie") +
+  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
+```
+
+Frauen kaufen häufiger <purple>Bio</purple> als Männer - und haben öfter eine hohe Lebenserwartung.
+
+##
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
+plot(DAG_ModellE)
+```
+
+
+```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
+geschlecht <- c(rep(0, 50), rep(1, 50))
+set.seed(1896)
+kauf <- numeric(100)
+plang <- numeric(100)
+lang <- numeric(100)
+for(i in 1:100) 
+  {
+  kauf[i] <- sample(c(0,1), 1)
+  plang[i] <- ifelse(geschlecht[i], 0.65, 0.35)
+  plang[i] <- plang[i] + ifelse(kauf[i], 0.2, 0)
+  lang[i] <- sample(c(0,1),1, prob = c(1-plang[i], plang[i]))
+}
+geschlechts <- fontawesome(ifelse(geschlecht, "fa-female", "fa-male"))
+kaufs <- ifelse(kauf, "#7A378B", "#FF8811")
+
+d <- crossing(x = 1:10,
+              y = 1:10) %>%
+  mutate(lang = lang,
+         geschlecht = geschlecht,
+         geschlechts = geschlechts,
+         kauf = kauf,
+         kaufs = kaufs) %>%
+  mutate(lebenserwartung = ifelse(lang == 1, "lang","kurz"))
+
+d2 <- d %>%
+  mutate(kauf = ifelse(kauf, "Bio", "Nicht Bio")) %>%
+  mutate(geschlecht = ifelse(geschlecht, "Frau", "Mann")) %>%
+  select(kauf, geschlecht, lebenserwartung)
+
+pexp <- ggplot(d, aes(x = x, y = y, color = lebenserwartung)) +
+  geom_tile(color = "white", size = .5, aes(fill = lebenserwartung), alpha = .2) +
+  theme_void() +
+  geom_text(family='fontawesome-webfont', size = 8, aes(label = geschlechts), colour = kaufs) +
+  scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
+  labs(title = "Randomisiertes Experiment") +
+  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
+pexp
+```
+
+```{r out.width="80%", echo = FALSE, fig.asp = .7, fig.align="center"}
+gf_bar(~ lebenserwartung | kauf , data = d2, 
+       fill = ~ lebenserwartung ) + 
+  scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
+  labs(title = "Randomisiertes Experiment") +
+  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
+```
+
+## Hinweis
+
+<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
+
+Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
+
+Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
+
+
+![](images/csm_Logo-BMBF.jpg)
+
+
