@@ -63,7 +63,7 @@ In diesem Modul lernen Sie:
 
 ## Immobilienpreis
 
-Wie viel ist meine Immobilie Wert?
+Von was hängt der Wert einer Immobilie ab?
 
 <img src="images/Grundriss.jpg" alt="Grundriss" width="50%" height="50%">
 <!-- style="padding-left:50px;" -->
@@ -72,9 +72,10 @@ Quelle: [https://pixabay.com/de/photos/bauplan-grundriss-architektenplan-354233/
 </span>
 
 
-Vielleicht am einfachsten zu zählen: Die Anzahl Zimmer.
+Ein Faktor, der besonders leicht zu bestimmen ist, ist die Anzahl der Zimmer.
 
 Im `R` Paket `mosaicData` gibt es einen Immobiliendatensatz: `SaratogaHouses`.
+Er enthält Daten zu Häusern in Saratoga County, New York, USA, im Jahr 2006.
 
 Schauen wir uns dort den Zusammenhang zwischen Anzahl Zimmer (`rooms`) und Preis (`price`) einmal an:
 
@@ -88,7 +89,7 @@ gf_point(price ~ rooms, data = SaratogaHouses) %>%
   gf_lm() # Regressionsgerade ergänzt
 ```
 
-Wir sehen: Je mehr Zimmer, desto höher der Preis &ndash; im Mittelwert.
+Wir sehen: Je mehr Zimmer, desto höher der Preis im Mittel.
 
 ## Lineare Regression - 1. Versuch
 
@@ -121,9 +122,9 @@ question("Im linearen Modell der Stichprobe: Um wieviel erhöht sich der Preis p
 
 ##
 
-Aktuell hat meine Wohnung gemäß Grundriss 4 abgetrennte Räume, also  <green>Anzahl Zimmer</green> (`rooms`), $\color{green}{x}=\color{green}{4}$.
+Angenommen, ein Haus hat gemäß Grundriss 4 abgetrennte Räume, also  <green>Anzahl Zimmer</green> (`rooms`), $\color{green}{x}=\color{green}{4}$.
 
-Damit liegt der Mittelwert des Preises für meine Wohnung bei
+Damit liegt der geschätzte Mittelwert des Preise bei
 
 $$\hat{\color{blue}{y}} = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]` \cdot \color{green}{4}= \color{blue}{`r round(coef(erglm1))[1]+  round(coef(erglm1))[2]*4`}.$$
 
@@ -135,13 +136,15 @@ $$\hat{\color{blue}{y}} = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]
 Quelle: [https://pixabay.com/de/vectors/idee-erfindung-erfinder-denken-152213/](Quelle: https://pixabay.com/de/vectors/idee-erfindung-erfinder-denken-152213/)
 </span>
 
-Ich teile einfach mein Wohnzimmer auf. Aus Eins mach Zwei, aus $4$ Zimmern werden $5$, $do(\color{green}{x}=\color{green}{5})$. Dann gilt gemäß des Modells:
+Nun könnte man einen genialen Einfall haben: Man teilt das Wohnzimmer einfach auf.
+Aus Eins mach Zwei, aus $4$ Zimmern werden $5$, $do(\color{green}{x}=\color{green}{5})$. 
+Dann gilt gemäß des Modells:
 
 $$\hat{\color{blue}{y}} = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]` \cdot \color{green}{5}= \color{blue}{`r round(coef(erglm1))[1]+  round(coef(erglm1))[2]*5`}.$$
 
 ```{r Wertsteigerung, echo=FALSE}
 message <- "Das geschätzte lineare Modell der Stichprobe bezieht sich auf die Beobachtungsdaten ($X=x$), d. h. die Steigung beschreibt die beobachtete Änderung des Mittelwertes, nicht den Effekt einer Handlung $do(X=x)$."
-question("Erhöht die Raumteilung den Preis meiner Immobilie im Mittelwert um $22573$?",
+question("Erhöht diese Raumteilung den Preis der Immobilie im Mittel um $22573$?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -157,13 +160,14 @@ In den Module 4, 5 und 6 haben Sie die Grundelemente kausaler Diagramme kennenge
 
 | Pfad                       | $\color{green}{X} \rightarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$ | $\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$  | $\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$ 
 | ---------------------------|---------------------------------|---------------------------------|------------------------------|
-| Name                       | Kette                           | Gabel                           | Umgedrehte-Gabel         
-| Verbindung $\color{green}{X}$ und $\color{blue}{Y}$     | Kausal                          | Nicht-kausal                    | Keine                       
+| Name                       | Kette                           | Gabel                           | Umgedrehte Gabel         
+| Verbindung $\color{green}{X}$ und $\color{blue}{Y}$     | Kausal                          | Nicht kausal                    | Keine                       
 | Rolle von $\color{violet}{Z}$              | Mediator                        | Confounder                      | Collider
-| Adjustierung $\color{violet}{Z}$           | Unterbricht kausalen Pfad       | Unterbricht nicht-kausalen Pfad | Öffnet Schein-Pfad
+| Adjustierung $\color{violet}{Z}$           | Unterbricht kausalen Pfad       | Unterbricht nicht kausalen Pfad | Öffnet nicht-kausalen Pfad
 
 
-**Grundidee**: Um die Änderung von $\color{blue}{y}$ zu schätzen, wenn $\color{green}{x}$ verändert wird, sollten nicht-kausale Pfade unterbrochen werden (*Gabel*), kausale Pfade nicht (*Kette*). Auch sollten keine Schein-Pfade aufgemacht werden (*Umgedrehte-Gabel*). Während also in einer Kette und Umgedrehten-Gabel für $\color{violet}{Z}$ nicht adjustiert werden sollte, sollte es in einer Gabel erfolgen.
+**Grundidee**: Um die Änderung von $\color{blue}{y}$ zu schätzen, wenn $\color{green}{x}$ verändert wird, sollten nicht-kausale Pfade (*Gabeln*) unterbrochen werden, kausale Pfade(*Ketten*) aber nicht. Gleichzeitig sollten keine nicht-kausalen Pfade (*umgedrehte Gabeln*) aufgemacht werden. 
+Während also ein einer Gabel für $\color{violet}{Z}$ adjustiert werden sollte, sollte dies in einer Ketter oder umgedrehten Gabel nicht passieren.
 
 <br>
 <br>
@@ -176,18 +180,20 @@ Für den Zusammenhang zwischen <green>Anzahl Zimmer</green> und <blue>Preis</blu
 ##
 
 <violet>Wohnfläche</violet> könnte eine gemeinsame Ursache von <green>Anzahl Zimmer</green> und <blue>Preis</blue> sein.
+Größere Häuser haben in der Regel mehr Zimmer und kosten auch mehr.
 
 ```{r DAG_Fork, echo=FALSE, fig.align='center', out.width='85%'}
 plot(DAG_Fork)
 ```
 
+In diesem simplen Graphen können wir uns jetzt auf spezifische Aspekte konzentrieren.
 
 ```{r graph1, echo=FALSE}
 message <- "Neben dem direkten Effekt über $Z \\rightarrow Y$ gibt es auch den indirekten $Z \\rightarrow X \\rightarrow Y$. Hierbei ist die **Anzahl Räume** ein **Mediator**."
-question("Welcher Teilgraph liegt vor, wenn die Beziehung zwischen Fläche und Preis im Zusammenhang mit der Anzahl Räume analysiert wird?",
+question("Angenommen, uns interessiert der Zusammenhang zwischen Fläche und Preis, der über die Anzahl Räume vermittelt wird. Welcher Struktur enstpricht der Teilgraph?",
          answer("Kette", correct = TRUE, message = message),
          answer("Gabel"),
-         answer("Umgedrehte-Gabel"),
+         answer("Umgedrehte Gabel"),
 		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
@@ -196,10 +202,11 @@ question("Welcher Teilgraph liegt vor, wenn die Beziehung zwischen Fläche und P
 
 ```{r graph2, echo=FALSE}
 message <- "Neben dem direkten Effekt über $X \\rightarrow Y$ gibt es auch den nicht-kausalen $X \\leftarrow Z \\rightarrow Y$. Hier ist die **Fläche** ein **Confounder**."
-question("Welcher Teilgraph liegt vor, wenn die Beziehung zwischen der Anzahl Zimmer und Preis im Zusammenhang mit der Fläche analysiert wird?",
+question("Angenommen, uns interessiert der Zusammenhang zwischen der Anzahl der Zimmer und dem Preis, unter Berücksichtigung der Fläche.
+Welcher Struktur enstpricht der Teilgraph?",
          answer("Kette"),
          answer("Gabel", correct = TRUE, message = message),
-         answer("Umgedrehte-Gabel"),
+         answer("Umgedrehte Gabel"),
 		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
@@ -207,6 +214,9 @@ question("Welcher Teilgraph liegt vor, wenn die Beziehung zwischen der Anzahl Zi
 ```
 
 ## Lineare Regression - 2. Versuch
+
+Wenn die Wohnfläche ein Confounder ist, so sollten wir für diese Variable adjustieren, um den kausalen Effekt der Anzahl der Zimmer zu schätzen.
+
 
 <violet>Wohnfläche</violet> liegt in der Datentabelle als Variable `livingArea` vor. Ergänzen Sie das Modell entsprechend.
 
@@ -231,7 +241,7 @@ lm(price ~ rooms + livingArea, data = SaratogaHouses)
 
 Gegeben die <violet>Wohnfläche</violet> ist der Effekt der <green>Anzahl Räume</green> auf den <blue>Preis</blue> viel kleiner. Statt einer geschätzten Steigung von $\hat{\beta}_1=`r round(coef(erglm1))[2]`$ im Modell *ohne* Berücksichtigung der <violet>Wohnfläche</violet> haben wir *mit* Berücksichtigung nur noch eine Steigung von $\hat{\beta}_1=`r round(coef(erglm2))[2]`$.
 
-Auch wenn dies immer noch ein stark vereinfachtes Modell ist: Der kausale Effekt der Anzahl Räume auf den Preis ist im Modell mit der Wohnfläche (`price ~ rooms + livingArea`) realistischer als der ohne (`price ~ rooms`).
+Auch wenn dies immer noch ein stark vereinfachtes Modell ist: Der geschätzte kausale Effekt der Anzahl Räume auf den Preis ist im Modell mit der Wohnfläche (`price ~ rooms + livingArea`) realistischer als der ohne (`price ~ rooms`).
 
 ##
 
@@ -241,7 +251,7 @@ plot(DAG_Fork)
 
 ```{r adjustierung, echo=FALSE}
 message <- "Welche Variablen ins Modell aufgenommen werden sollen, hängt davon ab welcher kausale Effekt bestimmt werden soll. Hier würde das Modell `price ~ livingArea + rooms` den (indirekten) kausalen Pfad von Fläche über Zimmer zu Preis unterbrechen. Das korrekte Modell wäre daher  `price ~ livingArea`."
-question("Wenn die erwartete Änderung des Preises, wenn die Fläche erhöht wird, analysiert werden soll. Sollte dann für die Anzahl Zimmer adjustiert werden?",
+question("Angenommen, wir wollen die erwartete Änderung des Preises, wenn die Fläche erhöht wird, analysieren. Sollte dann für die Anzahl Zimmer adjustiert werden?",
          answer("Ja", message = "Welche Variablen ins Modell aufgenommen werden sollen, hängt davon ab welcher kausale Effekt bestimmt werden soll."),
          answer("Nein",correct = TRUE, message = message),
 		allow_retry = TRUE,
