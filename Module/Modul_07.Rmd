@@ -72,7 +72,8 @@ Quelle: [https://pixabay.com/de/photos/bauplan-grundriss-architektenplan-354233/
 </span>
 
 
-Ein Faktor, der besonders leicht zu bestimmen ist, ist die Anzahl der Zimmer.
+Ein Faktor, der besonders leicht zu bestimmen ist, ist die Anzahl der Zimmer. 
+Dieses Kriterium wird in den USA auch häufig zur Vermarktung verwendet.
 
 Im `R` Paket `mosaicData` gibt es einen Immobiliendatensatz: `SaratogaHouses`.
 Er enthält Daten zu Häusern in Saratoga County, New York, USA, im Jahr 2006.
@@ -111,7 +112,7 @@ $$\hat{\color{blue}{y}}_i = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[
 
 ```{r Steigung, echo=FALSE}
 message <- "Die anhand der Stichprobe im linearen Modell geschätzte Steigung liegt bei $\\hat{\\beta}_1= 22573$, der geschätzte Achsenabschnitt, also der Mittelwert des Preises bei $x=0$ Räumen, bei $\\hat{\\beta}_0=53016$."
-question("Im linearen Modell der Stichprobe: Um wie viel erhöht sich der Preis pro Raum?",
+question("Im linearen Modell der Stichprobe: Um wie viel erhöht sich im Mittel der Preis pro Raum?",
          answer("53016"),
          answer("22573", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -143,7 +144,7 @@ Dann gilt gemäß des Modells:
 $$\hat{\color{blue}{y}} = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]` \cdot \color{green}{5}= \color{blue}{`r round(coef(erglm1))[1]+  round(coef(erglm1))[2]*5`}.$$
 
 ```{r Wertsteigerung, echo=FALSE}
-message <- "Das geschätzte lineare Modell der Stichprobe bezieht sich auf die Beobachtungsdaten ($X=x$), d. h., die Steigung beschreibt die beobachtete Änderung des Mittelwertes, nicht den Effekt einer Handlung $do(X=x)$."
+message <- "Das geschätzte lineare Modell der Stichprobe bezieht sich auf die Beobachtungsdaten ($X=x$), d. h., die Steigung beschreibt die beobachtete Änderung des Mittelwertes, nicht den Effekt einer Handlung $do(X=x)$ (vgl. Modul 2)."
 question("Erhöht diese Raumteilung den Preis der Immobilie im Mittel um $22573$?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
@@ -159,7 +160,7 @@ In den Module 4, 5 und 6 haben Sie die Grundelemente kausaler Diagramme kennenge
 
 
 | Pfad                       | $\color{green}{X} \rightarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$ | $\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$  | $\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$ 
-| ---------------------------|---------------------------------|---------------------------------|------------------------------|
+| :--------------------------|:--------------------------------|:--------------------------------|:-----------------------------|
 | Name                       | Kette                           | Gabel                           | Umgedrehte Gabel         
 | Verbindung $\color{green}{X}$ und $\color{blue}{Y}$     | Kausal                          | Nicht kausal                    | Keine                       
 | Rolle von $\color{violet}{Z}$              | Mediator                        | Confounder                      | Collider
@@ -188,18 +189,6 @@ plot(DAG_Fork)
 
 In diesem simplen Graphen können wir uns jetzt auf spezifische Aspekte konzentrieren.
 
-```{r graph1, echo=FALSE}
-message <- "Neben dem direkten Effekt über $Z \\rightarrow Y$ gibt es auch den indirekten $Z \\rightarrow X \\rightarrow Y$. Hierbei ist die **Anzahl Räume** ein **Mediator**."
-question("Angenommen, uns interessiert der Zusammenhang zwischen Fläche und Preis, der über die Anzahl Räume vermittelt wird. Welcher Struktur enstpricht der Teilgraph?",
-         answer("Kette", correct = TRUE, message = message),
-         answer("Gabel"),
-         answer("Umgedrehte Gabel"),
-		allow_retry = TRUE,
-		correct = random_praise(),
-		incorrect = random_encouragement()
-         )
-```
-
 ```{r graph2, echo=FALSE}
 message <- "Neben dem direkten Effekt über $X \\rightarrow Y$ gibt es auch den nicht-kausalen $X \\leftarrow Z \\rightarrow Y$. Hier ist die **Fläche** ein **Confounder**."
 question("Angenommen, uns interessiert der Zusammenhang zwischen der Anzahl der Zimmer und dem Preis, unter Berücksichtigung der Fläche.
@@ -212,6 +201,20 @@ Welcher Struktur enstpricht der Teilgraph?",
 		incorrect = random_encouragement()
          )
 ```
+
+
+```{r graph1, echo=FALSE}
+message <- "Neben dem direkten Effekt über $Z \\rightarrow Y$ gibt es auch den indirekten $Z \\rightarrow X \\rightarrow Y$. Hierbei ist die **Anzahl Räume** ein **Mediator**."
+question("Angenommen, uns interessiert der Zusammenhang zwischen Fläche und Preis, der über die Anzahl Räume vermittelt wird. Welcher Struktur enstpricht der Teilgraph?",
+         answer("Kette", correct = TRUE, message = message),
+         answer("Gabel"),
+         answer("Umgedrehte Gabel"),
+		allow_retry = TRUE,
+		correct = random_praise(),
+		incorrect = random_encouragement()
+         )
+```
+
 
 ## Lineare Regression - 2. Versuch
 

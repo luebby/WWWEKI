@@ -344,7 +344,7 @@ Eine plausible **Vorhersage** ist jetzt möglich. Aber *Kausale Inferenz*?
 
 
 ```{r ki, echo=FALSE}
-message <- "Geschlecht ist hier ein Confounder und liegt auf einen nicht-kausalen Pfad von Bio-Lebensmittel zu Lebenserwartung."
+message <- "Geschlecht ist hier ein Confounder und liegt auf einen nicht-kausalen Pfad von Bio-Lebensmittel zu Lebenserwartung und verzerrt somit die Schätzung des kausalen Effekts."
 question("Kann der kausale Effekt von Bio-Lebensmitteln auf die Lebenserwartung durch einen Vergleich der mittleren Lebenserwartung der Bio-Käufer:innen und nicht-Bio-Käufer:innen geschätzt werden?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
@@ -460,11 +460,11 @@ pbeob
 
 <purple>Bio-Käufer:innen</purple> haben häufiger eine hohe Lebenserwartung als <orange>Nicht-Bio-Käufer:innen</orange>.
 
-Aber: Frauen kaufen auch häufiger <purple>Bio</purple> als Männer &ndash; und haben öfter eine hohe Lebenserwartung.
+Aber: Frauen kaufen auch häufiger <purple>Bio</purple> als Männer &ndash; und haben im Mittel eine höhere Lebenserwartung als Männer
 
 ##
 
-Ein klassischer Lösungsansatz zur Bestimmung von durchschnittlichen kausalen Effekten sind **randomisierte Experimente** (engl. randomized controlled trial, RCT). Dabei werden Pfeile, die in die Variable $\color{green}{X}$ zeigen eliminiert, und die Zuweisung $do(\color{green}{X}=\color{green}{x})$ erfolgt zufällig.
+Ein klassischer Lösungsansatz zur Bestimmung von durchschnittlichen kausalen Effekten sind **randomisierte Experimente** (engl. randomized controlled trial, RCT). Dabei werden Pfeile, die auf die Variable $\color{green}{X}$ zeigen eliminiert, und die Zuweisung $do(\color{green}{X}=\color{green}{x})$ erfolgt zufällig.
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_ModellE)
