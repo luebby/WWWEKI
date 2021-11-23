@@ -105,7 +105,7 @@ In diesem Modul lernen Sie:
 
 Eine <red>fiktive</red> Studie präsentiert Ihnen dieses Ergebnis:
 
-```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
+```{r, out.width="90%", echo = FALSE}
 geschlecht <- c(rep(0, 50), rep(1, 50))
 set.seed(1896)
 kauf <- numeric(100)
@@ -141,7 +141,7 @@ gf_bar(~ lebenserwartung | kauf , data = d2,
   theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
 ```
 
-Was Sie sehen: <green>Kaufer:innen von Bio-Lebensmitteln</green> haben viel öfter eine hohe <blue>Lebenserwartung</blue> als diejenigen, die keine Bio-Lebensmittel kaufen &ndash; in dieser fiktiven Studie.
+Was Sie sehen: <green>Käufer:innen von Bio-Lebensmitteln</green> haben viel öfter eine hohe <blue>Lebenserwartung</blue> als diejenigen, die keine Bio-Lebensmittel kaufen &ndash; in dieser fiktiven Studie.
 
 Dies ist die Ebene **Beschreibung** (siehe Modul 3). Um die Ebenen *Vorhersage* und *Kausale Inferenz* zu erreichen brauchen wir mehr. Und Methoden dafür kennen Statistiker:innen schon lange.
 
@@ -219,7 +219,7 @@ In der Regel kennen wir die *Population* gar nicht, sondern nur eine *Stichprobe
 
 <br>
 
-Nehmen wir an, bei der Datenerhebung gibt es einen Zusammenhang zwischen dem Geschlecht und der Stichprobe. Z. B. hier, dass Frauen eine höhrere Wahrscheinlichkeit haben Teil der Stichprobe zu sein, wie es das folgende kausale Diagramm verdeutlicht:
+Nehmen wir an, bei der Datenerhebung gibt es einen Zusammenhang zwischen dem Geschlecht und der Stichprobe. Z. B. hier, dass Frauen eine höhere Wahrscheinlichkeit haben Teil der Stichprobe zu sein, wie es das folgende kausale Diagramm verdeutlicht:
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_ModellG)
@@ -274,7 +274,7 @@ question("Ist diese Stichprobe *repräsentativ*, d. h., können gültige Schlüs
 In dieser *Gelegenheitsstichprobe* liegt der Anteil <purple>Bio-Käufer:innen</purple> bei $`r pdgs`$ &ndash; und ist damit systematisch zu hoch.
 
 Wir können zwar das Ergebnis der Stichprobe zur *Beschreibung* dieser verwenden, aber können das Ergebnis weder verallgemeinern noch zur *Vorhersage* verwenden.
-Wenn wir das Ergebnis verwenden würden, um z. B. vorherzusagen ob ein Kunde Bio kauft oder nicht, wäre eine Kaufswahrscheinlichkeit von  $Pr(\color{purple}{\text{Bio}}) = `r pdgs`$ zu hoch.
+Wenn wir das Ergebnis verwenden würden, um z. B. vorherzusagen ob ein Kunde Bio kauft oder nicht, wäre eine Kaufwahrscheinlichkeit von  $Pr(\color{purple}{\text{Bio}}) = `r pdgs`$ zu hoch.
 
 <br>
 
@@ -282,10 +282,10 @@ Wir brauchen also *mehr* als nur die Daten ...
 
 ## Zufällige Stichprobe
 
-Das Problem ist, dass unsere Stichprobe von einer Variable abhängt, dem <violet>Geschlecht</violet> von dem wiederum die untersuchte Variable <green>Kauf Bio-Lebendmittel</green> abhängt.
-Dadurch dass hier Frauen eine höhrere Wahrscheibnlichkeit haben Teil der Stichprobe zu sein und häufiger Bio-Lebensmittel kaufen überschätze ich in Folge mit meiner Stichprobe den Anteil der Käufer:innen von Bio-Lebensmittel.
+Das Problem ist, dass unsere Stichprobe von einer Variable abhängt, dem <violet>Geschlecht</violet> von dem wiederum die untersuchte Variable <green>Kauf Bio-Lebensmittel</green> abhängt.
+Dadurch dass hier Frauen eine höhere Wahrscheinlichkeit haben Teil der Stichprobe zu sein und häufiger Bio-Lebensmittel kaufen überschätze ich in Folge mit meiner Stichprobe den Anteil der Käufer:innen von Bio-Lebensmittel.
 
-Ein Problem das ganz viele Umfragen u.ä. haben: Wie kann ich sicherstellen, dass meine Stichprobe mich nicht täuscht?
+Ein Problem das ganz viele Umfragen u. ä. haben: Wie kann ich sicherstellen, dass meine Stichprobe mich nicht täuscht?
 
 Hier hilft der Zufall!
 
@@ -336,7 +336,7 @@ pzsti
 ```
 
 In dieser zufälligen Stichprobe weicht der Anteil <purple>Bio-Käufer:innen</purple> bei $`r pdz`$ nicht mehr systematisch vom *wahren* Anteil in der Ziel-Population ab &ndash; nur noch zufällig. 
-Und je größer die Stichrobe desto weniger schwankt der Anteil bei unterschiedlichen Stichproben.
+Und je größer die Stichprobe desto weniger schwankt der Anteil bei unterschiedlichen Stichproben.
 
 <br> 
 
@@ -356,9 +356,7 @@ question("Kann der kausale Effekt von Bio-Lebensmitteln auf die Lebenserwartung 
 
 ## Zufällige Zuordnung
 
-Beobachtungsstudie
-
-```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
+```{r simbeob, include=FALSE}
 geschlecht <- c(rep(0, 50), rep(1, 50))
 set.seed(1896)
 kauf <- numeric(100)
@@ -390,6 +388,65 @@ d2 <- d %>%
   mutate(geschlecht = ifelse(geschlecht, "Frau", "Mann")) %>%
   select(kauf, geschlecht, lebenserwartung)
 
+plangbio <- d2 %>%
+  filter(kauf == "Bio") %>%
+  prop( ~ lebenserwartung, success = "lang", .) %>% 
+  round(., digits = 2)
+plangkeinbio <- d2 %>%
+  filter(kauf == "Nicht Bio") %>%
+  prop( ~ lebenserwartung, success = "lang", .) %>%
+  round(., digits = 2)
+```
+
+Über unsere fiktive Studie wird in den Medien berichtet. Eine mögliche Schlagzeile lautet:
+
+> Gesunde Wirkung von Bio-Lebensmitteln bewiesen: `r plangbio*100`-% der Bio-Lebensmittel Kund:innen haben eine hohe Lebenserwartung.
+
+```{r beob1, echo=FALSE}
+message <- "Ohne Variation keine Korrelation. Es fehlt die Information wie viele der Nicht-Bio-Lebensmittel Kund:innen eine hohe Lebenserwartung haben."
+question("Lassen die Daten der Schlagzeile den Schluss zu, dass Bio-Lebensmittel mit einer höheren Lebenserwartung zusammenhängen?",
+         answer("Ja"),
+         answer("Nein", correct = TRUE, message = message),
+		allow_retry = TRUE,
+		correct = random_praise(),
+		incorrect = random_encouragement()
+         )
+```
+
+##
+
+Zu wissen, wie viele der <purple>Bio-Lebensmittel</purple> Kund:innen ein hohe Lebenserwartung haben ist zwar schön, es fehlt aber mindestens noch der Vergleich zu den <orange>Nicht-Bio-Lebensmittel</orange> Kund:innen.
+
+Während in der fiktiven Studie dieser Anteil, wie in der Schlagzeile berichtet, bei <purple>Bio-Lebensmittel</purple> bei $\color{purple}{`r plangbio`}$ liegt, liegt er bei <orange>Nicht-Bio-Lebensmittel</orange> Kund:innen bei $\color{orange}{`r plangkeinbio`}$.
+
+Die Daten wurden im Rahmen einer **Beobachtungsstudie** erhoben, d. h., es wurde geguckt, ob die Teilnehmer:innen <green>Bio-Lebensmittel</green> <purple>kaufen</purple> oder <orange>nicht kaufen</orange>. Und es wurde die <blue>Lebenserwartung</blue> erhoben.
+
+Ein Vergleich des Anteils <blue>hohe Lebenserwartung</blue> je nach <green>Bio-Lebensmittel</green> ergibt:
+
+$$\color{purple}{`r plangbio`}-\color{orange}{`r plangkeinbio`}=`r (plangbio-plangkeinbio)`.$$
+
+```{r beob2, echo=FALSE}
+message <- "Geschlecht ist hier ein Confounder und liegt auf einen nicht-kausalen Pfad von Bio-Lebensmittel zu Lebenserwartung."
+question("Lassen die Daten der Beobachtungsstudie den Schluss zu, dass der durchschnittliche kausale Effekt von Bio-Lebensmittel auf die Wahrscheinlichkeit einer hohen Lebenserwartung bei $0.35$ liegt?",
+         answer("Ja"),
+         answer("Nein", correct = TRUE, message = message),
+		allow_retry = TRUE,
+		correct = random_praise(),
+		incorrect = random_encouragement()
+         )
+```
+
+##
+
+Das angenommene Modell war folgendes:
+
+```{r DAG_Modell2, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
+plot(DAG_Modell)
+```
+
+Dies führt zu folgender fiktiver Verteilung in der Population:
+
+```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
 pbeob <- ggplot(d, aes(x = x, y = y, color = lebenserwartung)) +
   geom_tile(color = "white", size = .5, aes(fill = lebenserwartung), alpha = .2) +
   theme_void() +
@@ -400,34 +457,20 @@ pbeob <- ggplot(d, aes(x = x, y = y, color = lebenserwartung)) +
 pbeob
 ```
 
-```{r out.width="80%", echo = FALSE, fig.asp = .7, fig.align="center"}
-gf_bar(~ lebenserwartung | kauf , data = d2, 
-       fill = ~ lebenserwartung ) + 
-  scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
-  labs(title = "Beobachtungsstudie") +
-  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
-```
 
 <purple>Bio Käufer:innen</purple> haben häufiger eine hohe Lebenserwartung als <orange>Nicht-Bio Käufer:innen</orange>.
 
-##
-
-```{r out.width="65%", echo = FALSE, fig.asp = .7, fig.align="center"}
-gf_bar(~ kauf | geschlecht , data = d2, 
-       fill = ~ kauf ) + 
-  scale_fill_manual(values = c( "#7A378B", "#FF8811")) +
-  labs(title = "Beobachtungsstudie") +
-  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
-```
-
-Frauen kaufen häufiger <purple>Bio</purple> als Männer - und haben öfter eine hohe Lebenserwartung.
+Aber: Frauen kaufen auch häufiger <purple>Bio</purple> als Männer - und haben öfter eine hohe Lebenserwartung.
 
 ##
+
+Ein klassischer Lösungsansatz zur Bestimmung von durchschnittlichen kausalen Effekten sind **randomisierte Experimente** (engl. randomized controlled trial, RCT). Dabei werden Pfeile, die in die Variable $\color{green}{X}$ zeigen eliminiert, und die Zuweisung $do(\color{green}{X}=\color{green}{x})$ erfolgt zufällig.
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_ModellE)
 ```
 
+Mit einem möglichen Ergebnis wie folgt:
 
 ```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
 geschlecht <- c(rep(0, 50), rep(1, 50))
@@ -467,15 +510,24 @@ pexp <- ggplot(d, aes(x = x, y = y, color = lebenserwartung)) +
   labs(title = "Randomisiertes Experiment") +
   theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
 pexp
+
+plangbioe <- d2 %>%
+  filter(kauf == "Bio") %>%
+  prop( ~ lebenserwartung, success = "lang", .) %>% 
+  round(., digits = 2)
+plangkeinbioe <- d2 %>%
+  filter(kauf == "Nicht Bio") %>%
+  prop( ~ lebenserwartung, success = "lang", .) %>%
+  round(., digits = 2)
 ```
 
-```{r out.width="80%", echo = FALSE, fig.asp = .7, fig.align="center"}
-gf_bar(~ lebenserwartung | kauf , data = d2, 
-       fill = ~ lebenserwartung ) + 
-  scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
-  labs(title = "Randomisiertes Experiment") +
-  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
-```
+Ein Vergleich des Anteils <blue>hohe Lebenserwartung</blue> je nach <green>Bio-Lebensmittel</green> ergibt jetzt als Schätzer für den durchschnittlichen kausalen Effekt:
+
+$$\color{purple}{`r plangbioe`}-\color{orange}{`r plangkeinbioe`}=`r (plangbioe-plangkeinbioe)`.$$
+
+Der Zusammenhang mit dem <violet>Geschlecht</violet> lieferte in der Beobachtungsstudie ein verzerrtes Ergebnis bei der Schätzung der Wirkung von <green>Bio-Lebensmittel</green> auf die <blue>Lebenserwartung</blue> &ndash; in unser <red>fiktiven</red> Studie.
+
+Im Vergleich zur Vorhersage brauchen wir bei der **kausalen Inferenz** noch mehr Wissen über die Datenentstehung.
 
 ## Hinweis
 
