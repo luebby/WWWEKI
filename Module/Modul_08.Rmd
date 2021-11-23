@@ -98,7 +98,7 @@ In diesem Modul lernen Sie:
 
 - welche Vorteile eine zufällige Stichprobe hat;
 
-- welche Vorteile eine zufällige Zuordnung im Rahmen eines Experiments hat;
+- welche Vorteile eine zufällige Zuordnung im Rahmen eines Experiments hat.
 
 
 ## Gesund durch Bio?
@@ -147,7 +147,7 @@ Dies ist die Ebene **Beschreibung** (siehe Modul 3). Um die Ebenen *Vorhersage* 
 
 ##
 
-Erstellen wir zunächst ein stark vereinfachtes Modell, indem wir die folgenden kausalen Zusammenhänge annehmen:
+Erstellen wir zunächst ein stark vereinfachtes Modell, in dem wir die folgenden kausalen Zusammenhänge annehmen:
 
 
 - <blue>Lebenserwartung</blue> hängt evtl. ab vom <green>Kauf von Bio-Lebensmitteln</green> (<purple>Ja</purple>, <orange>Nein</orange>).
@@ -163,8 +163,8 @@ plot(DAG_Modell)
 ```
 
 ```{r graph1, echo=FALSE}
-message <- "Beim Teilgraph Kauf von Bio-Lebensmittel $\\leftarrow$ Geschlecht $\\rightarrow$ Lebenserwartung handelt es sich im eine Gabel."
-question("Welche Rolle spielt hier das Geschlecht zwischen den Kauf von Bio-Lebensmittel und Lebenserwartung?",
+message <- "Beim Teilgraph Kauf von Bio-Lebensmittel $\\leftarrow$ Geschlecht $\\rightarrow$ Lebenserwartung handelt es sich um eine Gabel."
+question("Welche Rolle spielt hier das Geschlecht zwischen Kauf von Bio-Lebensmitteln und Lebenserwartung?",
          answer("Mediator"),
          answer("Confounder", correct = TRUE, message = message),
          answer("Collider"),
@@ -176,10 +176,10 @@ question("Welche Rolle spielt hier das Geschlecht zwischen den Kauf von Bio-Lebe
 
 ##
 
-Angenommen in einer fiktiven Population ordnet sich eine Hälfte dem männlichen Geschlecht, und die andere Hälfte dem weiblichen Geschlecht zu. 
+Angenommen in einer fiktiven Population ordnet sich eine Hälfte dem männlichen Geschlecht und die andere Hälfte dem weiblichen Geschlecht zu. 
 Symbolisch hier ohne weitere Geschlechtsidentitäten.
 
-Der Kauf von Bio-Lebensmittel ist farblich durch <purple>Ja (lila)</purple> und <orange>Nein (orange)</orange> gekennzeichnet:
+Der Kauf von Bio-Lebensmitteln ist farblich durch <purple>Ja (lila)</purple> und <orange>Nein (orange)</orange> gekennzeichnet:
 
 ```{r population, fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
 set.seed(1896)
@@ -219,7 +219,7 @@ In der Regel kennen wir die *Population* gar nicht, sondern nur eine *Stichprobe
 
 <br>
 
-Nehmen wir an, bei der Datenerhebung gibt es einen Zusammenhang zwischen dem Geschlecht und der Stichprobe. Z. B. hier, dass Frauen eine höhere Wahrscheinlichkeit haben Teil der Stichprobe zu sein, wie es das folgende kausale Diagramm verdeutlicht:
+Nehmen wir an, bei der Datenerhebung gibt es einen Zusammenhang zwischen dem Geschlecht und der Stichprobe. Z. B. hier, dass Frauen eine höhere Wahrscheinlichkeit haben, Teil der Stichprobe zu sein, wie es das folgende kausale Diagramm verdeutlicht:
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_ModellG)
@@ -259,7 +259,7 @@ pgsti
 ```
 
 ```{r stipro, echo=FALSE}
-message <- "Frauen sind in der Stichprobe über-repräsentiert."
+message <- "Frauen sind in der Stichprobe überrepräsentiert."
 question("Ist diese Stichprobe *repräsentativ*, d. h., können gültige Schlüsse auf die Population getroffen werden?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
@@ -274,7 +274,7 @@ question("Ist diese Stichprobe *repräsentativ*, d. h., können gültige Schlüs
 In dieser *Gelegenheitsstichprobe* liegt der Anteil <purple>Bio-Käufer:innen</purple> bei $`r pdgs`$ &ndash; und ist damit systematisch zu hoch.
 
 Wir können zwar das Ergebnis der Stichprobe zur *Beschreibung* dieser verwenden, aber können das Ergebnis weder verallgemeinern noch zur *Vorhersage* verwenden.
-Wenn wir das Ergebnis verwenden würden, um z. B. vorherzusagen ob ein Kunde Bio kauft oder nicht, wäre eine Kaufwahrscheinlichkeit von  $Pr(\color{purple}{\text{Bio}}) = `r pdgs`$ zu hoch.
+Wenn wir das Ergebnis verwenden würden, um z. B. vorherzusagen, ob ein Kunde Bio kauft oder nicht, wäre eine Kaufwahrscheinlichkeit von  $Pr(\color{purple}{\text{Bio}}) = `r pdgs`$ zu hoch.
 
 <br>
 
@@ -282,10 +282,10 @@ Wir brauchen also *mehr* als nur die Daten ...
 
 ## Zufällige Stichprobe
 
-Das Problem ist, dass unsere Stichprobe von einer Variable abhängt, dem <violet>Geschlecht</violet> von dem wiederum die untersuchte Variable <green>Kauf Bio-Lebensmittel</green> abhängt.
-Dadurch dass hier Frauen eine höhere Wahrscheinlichkeit haben Teil der Stichprobe zu sein und häufiger Bio-Lebensmittel kaufen überschätze ich in Folge mit meiner Stichprobe den Anteil der Käufer:innen von Bio-Lebensmittel.
+Das Problem ist, dass unsere Stichprobe von einer Variable abhängt, dem <violet>Geschlecht</violet>, von dem wiederum die untersuchte Variable <green>Kauf Bio-Lebensmittel</green> abhängt.
+Dadurch, dass hier Frauen eine höhere Wahrscheinlichkeit haben, Teil der Stichprobe zu sein, und häufiger Bio-Lebensmittel kaufen, überschätze ich in Folge mit meiner Stichprobe den Anteil der Käufer:innen von Bio-Lebensmitteln.
 
-Ein Problem das ganz viele Umfragen u. ä. haben: Wie kann ich sicherstellen, dass meine Stichprobe mich nicht täuscht?
+Ein Problem, das ganz viele Umfragen u. ä. haben: Wie kann ich sicherstellen, dass meine Stichprobe mich nicht täuscht?
 
 Hier hilft der Zufall!
 
@@ -336,7 +336,7 @@ pzsti
 ```
 
 In dieser zufälligen Stichprobe weicht der Anteil <purple>Bio-Käufer:innen</purple> bei $`r pdz`$ nicht mehr systematisch vom *wahren* Anteil in der Ziel-Population ab &ndash; nur noch zufällig. 
-Und je größer die Stichprobe desto weniger schwankt der Anteil bei unterschiedlichen Stichproben.
+Und je größer die Stichprobe ist, desto weniger schwankt der Anteil bei unterschiedlichen Stichproben.
 
 <br> 
 
@@ -403,7 +403,7 @@ plangkeinbio <- d2 %>%
 > Gesunde Wirkung von Bio-Lebensmitteln bewiesen: `r plangbio*100`-% der Bio-Lebensmittel Kund:innen haben eine hohe Lebenserwartung.
 
 ```{r beob1, echo=FALSE}
-message <- "Ohne Variation keine Korrelation. Es fehlt die Information wie viele der Nicht-Bio-Lebensmittel Kund:innen eine hohe Lebenserwartung haben."
+message <- "Ohne Variation keine Korrelation. Es fehlt die Information, wie viele der Nicht-Bio-Lebensmittel-Kund:innen eine hohe Lebenserwartung haben."
 question("Lassen die Daten der Schlagzeile den Schluss zu, dass Bio-Lebensmittel mit einer höheren Lebenserwartung zusammenhängen?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
@@ -415,9 +415,9 @@ question("Lassen die Daten der Schlagzeile den Schluss zu, dass Bio-Lebensmittel
 
 ##
 
-Zu wissen, wie viele der <purple>Bio-Lebensmittel</purple> Kund:innen ein hohe Lebenserwartung haben ist zwar schön, es fehlt aber mindestens noch der Vergleich zu den <orange>Nicht-Bio-Lebensmittel</orange> Kund:innen.
+Zu wissen, wie viele der <purple>Bio-Lebensmittel</purple>-Kund:innen ein hohe Lebenserwartung haben, ist zwar schön, es fehlt aber mindestens noch der Vergleich zu den <orange>Nicht-Bio-Lebensmittel</orange>-Kund:innen.
 
-Während in der fiktiven Studie dieser Anteil, wie in der Schlagzeile berichtet, bei <purple>Bio-Lebensmittel</purple> bei $\color{purple}{`r plangbio`}$ liegt, liegt er bei <orange>Nicht-Bio-Lebensmittel</orange> Kund:innen bei $\color{orange}{`r plangkeinbio`}$.
+Während in der fiktiven Studie dieser Anteil, wie in der Schlagzeile berichtet, bei <purple>Bio-Lebensmittel</purple>-Kund:innen bei $\color{purple}{`r plangbio`}$ liegt, liegt er bei <orange>Nicht-Bio-Lebensmittel</orange>-Kund:innen bei $\color{orange}{`r plangkeinbio`}$.
 
 Die Daten wurden im Rahmen einer **Beobachtungsstudie** erhoben, d. h., es wurde geguckt, ob die Teilnehmer:innen <green>Bio-Lebensmittel</green> <purple>kaufen</purple> oder <orange>nicht kaufen</orange>. Und es wurde die <blue>Lebenserwartung</blue> erhoben.
 
@@ -458,9 +458,9 @@ pbeob
 ```
 
 
-<purple>Bio Käufer:innen</purple> haben häufiger eine hohe Lebenserwartung als <orange>Nicht-Bio Käufer:innen</orange>.
+<purple>Bio-Käufer:innen</purple> haben häufiger eine hohe Lebenserwartung als <orange>Nicht-Bio-Käufer:innen</orange>.
 
-Aber: Frauen kaufen auch häufiger <purple>Bio</purple> als Männer - und haben öfter eine hohe Lebenserwartung.
+Aber: Frauen kaufen auch häufiger <purple>Bio</purple> als Männer &ndash; und haben öfter eine hohe Lebenserwartung.
 
 ##
 

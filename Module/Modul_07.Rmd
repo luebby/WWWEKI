@@ -111,7 +111,7 @@ $$\hat{\color{blue}{y}}_i = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[
 
 ```{r Steigung, echo=FALSE}
 message <- "Die anhand der Stichprobe im linearen Modell geschätzte Steigung liegt bei $\\hat{\\beta}_1= 22573$, der geschätzte Achsenabschnitt, also der Mittelwert des Preises bei $x=0$ Räumen, bei $\\hat{\\beta}_0=53016$."
-question("Im linearen Modell der Stichprobe: Um wieviel erhöht sich der Preis pro Raum?",
+question("Im linearen Modell der Stichprobe: Um wie viel erhöht sich der Preis pro Raum?",
          answer("53016"),
          answer("22573", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -143,7 +143,7 @@ Dann gilt gemäß des Modells:
 $$\hat{\color{blue}{y}} = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]` \cdot \color{green}{5}= \color{blue}{`r round(coef(erglm1))[1]+  round(coef(erglm1))[2]*5`}.$$
 
 ```{r Wertsteigerung, echo=FALSE}
-message <- "Das geschätzte lineare Modell der Stichprobe bezieht sich auf die Beobachtungsdaten ($X=x$), d. h. die Steigung beschreibt die beobachtete Änderung des Mittelwertes, nicht den Effekt einer Handlung $do(X=x)$."
+message <- "Das geschätzte lineare Modell der Stichprobe bezieht sich auf die Beobachtungsdaten ($X=x$), d. h., die Steigung beschreibt die beobachtete Änderung des Mittelwertes, nicht den Effekt einer Handlung $do(X=x)$."
 question("Erhöht diese Raumteilung den Preis der Immobilie im Mittel um $22573$?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
@@ -167,7 +167,7 @@ In den Module 4, 5 und 6 haben Sie die Grundelemente kausaler Diagramme kennenge
 
 
 **Grundidee**: Um die Änderung von $\color{blue}{y}$ zu schätzen, wenn $\color{green}{x}$ verändert wird, sollten nicht-kausale Pfade (*Gabeln*) unterbrochen werden, kausale Pfade(*Ketten*) aber nicht. Gleichzeitig sollten keine nicht-kausalen Pfade (*umgedrehte Gabeln*) aufgemacht werden. 
-Während also ein einer Gabel für $\color{violet}{Z}$ adjustiert werden sollte, sollte dies in einer Ketter oder umgedrehten Gabel nicht passieren.
+Während also in einer Gabel für $\color{violet}{Z}$ adjustiert werden sollte, sollte dies in einer Kette oder umgedrehten Gabel nicht passieren.
 
 <br>
 <br>
@@ -250,7 +250,7 @@ plot(DAG_Fork)
 ```
 
 ```{r adjustierung, echo=FALSE}
-message <- "Welche Variablen ins Modell aufgenommen werden sollen, hängt davon ab welcher kausale Effekt bestimmt werden soll. Hier würde das Modell `price ~ livingArea + rooms` den (indirekten) kausalen Pfad von Fläche über Zimmer zu Preis unterbrechen. Das korrekte Modell wäre daher  `price ~ livingArea`."
+message <- "Welche Variablen ins Modell aufgenommen werden sollen, hängt davon ab, welcher kausale Effekt bestimmt werden soll. Hier würde das Modell `price ~ livingArea + rooms` den (indirekten) kausalen Pfad von Fläche über Zimmer zu Preis unterbrechen. Das korrekte Modell wäre daher  `price ~ livingArea`."
 question("Angenommen, wir wollen die erwartete Änderung des Preises, wenn die Fläche erhöht wird, analysieren. Sollte dann für die Anzahl Zimmer adjustiert werden?",
          answer("Ja", message = "Welche Variablen ins Modell aufgenommen werden sollen, hängt davon ab welcher kausale Effekt bestimmt werden soll."),
          answer("Nein",correct = TRUE, message = message),
