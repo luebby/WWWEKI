@@ -57,7 +57,7 @@ DAG_ModellG <- dagify(X ~ Z,
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
   geom_text(label = "X - Kauf Bio\nY - Lebenserwartung\nZ - Geschlecht\nS - Stichprobe", 
             hjust = 1, vjust = 1,
-            x = 2, y = 1, size = 7, color = "darkgrey") 
+            x = 2, y = 1, size = 6, color = "darkgrey") 
 
 co <- data.frame(x=c(0,1,2,0,-1), y=c(0,1,0,1,1), name=c("X", "Z", "Y", "S", "D"))
 DAG_ModellS <- dagify(X ~ Z,
@@ -72,7 +72,7 @@ DAG_ModellS <- dagify(X ~ Z,
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
   geom_text(label = "X - Kauf Bio\nY - Lebenserwartung\nZ - Geschlecht\nS - Stichprobe\nD - Zufall", 
             hjust = 1, vjust = 1,
-            x = 2, y = 1, size = 7, color = "darkgrey") 
+            x = 2, y = 1, size = 6, color = "darkgrey") 
 
 co <- data.frame(x=c(0,1,2,0), y=c(0,1,0,1), name=c("X", "Z", "Y", "D"))
 DAG_ModellE <- dagify(X ~ D,
@@ -86,7 +86,7 @@ DAG_ModellE <- dagify(X ~ D,
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
   geom_text(label = "X - Kauf Bio\nY - Lebenserwartung\nZ - Geschlecht\nD - Zufall", 
             hjust = 1, vjust = 1,
-            x = 2, y = 1, size = 7, color = "darkgrey") 
+            x = 2, y = 1, size = 6, color = "darkgrey") 
 library(mosaic)
 
 options(scipen = 999)
