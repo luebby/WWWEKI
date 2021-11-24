@@ -37,7 +37,7 @@ Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https:
 
 10. Let’s do it - durch die Vorder- oder durch die Hintertür? (Grundlagen des do-Calculus, Backdoor und Frontdoor Kriterium)
 
-11. Schadet Rauchen bei Heranwachsenden?
+11. [Schadet Rauchen bei Heranwachsenden?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_11/) (Anwendungsbeispiel Kausale Inferenz in der Medizin.)
 
 12. Praktisches Daten hinterfragen (DAGs in der Anwendung, Ausblick)
 

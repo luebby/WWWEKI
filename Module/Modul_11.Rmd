@@ -1,0 +1,247 @@
+---
+title: "Modul 11: Schadet Rauchen bei Heranwachsenden?"
+output: 
+  learnr::tutorial:
+    language: 
+      de: js/tutorial_de.json
+    progressive: true
+    css: "css/style.css"
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(ggdag)
+theme.fom <- theme_classic(22*1.04)
+theme.fom <- theme.fom
+theme_set(
+  theme.fom  
+)
+
+# deutsche Version von random_praise
+source("random-praise_de/translation_random-praise_de.R")
+
+coordLV <- list(
+  x = c(Geschlecht = 0, Alter = 0, RaucherIn = 1, Groesse = 2, Lungenvolumen = 3),
+  y = c(Geschlecht = 1, Alter = 2, RaucherIn = 0, Groesse = 2, Lungenvolumen = 0))
+
+dagLV <- dagify(Groesse ~ Geschlecht + Alter + RaucherIn,
+                RaucherIn ~ Geschlecht + Alter,
+                Lungenvolumen ~ Groesse + Geschlecht + Alter + RaucherIn,
+                coords = coordLV,
+                exposure = "RaucherIn",
+                outcome = "Lungenvolumen")
+
+
+p1 <- ggdag(dagLV, text_col = "blue") + theme_dag_blank()
+
+
+library(learnr)
+library(mosaic)
+load("data/LV.Rdata")
+```
+
+## Lernziele
+
+In diesem Modul lernen Sie:
+
+- die Bestimmung eines kausalen Effekts mit Hilfe einer linearen Regression in `R` an einem realen Beispiel.
+
+
+## Rauchen bei Kindern und Jugendlichen
+
+Mittlerweile sind wir ziemlich sicher, dass Rauchen der Gesundheit schadet. Aber das war nicht immer so, und eine naive Datenanalyse kann auch zu einem gegenteiligen Ergebnis kommen.
+
+In einer Reihe von Papern (siehe z.B. [Kahn, 2005](https://doi.org/10.1080/10691898.2005.11910559)) wurde der Frage nachgegangen inwieweit Rauchen das sogenannte *forcierte exspiratorische Volumen* -- eine Kennzahl der Lungenfunktion -- bei Heranwachsenden beeinflusst.
+
+```{r ethik, echo=FALSE}
+question("Ist hier ein randomisiertes Experiment ethisch vertretbar?",
+  answer("Ja.", message = "Es können negative Folgen bei den Teilnehmer\\*innen, die im Experiment den Raucher\\*innen zugeordnet werden, befürchtet werden."),
+  answer("Nein.", correct = TRUE, message = "Negative Konsequenzen sind für die Raucher\\*innen zu erwarten."),
+  allow_retry = TRUE,
+  correct = random_praise(),
+  incorrect = random_encouragement()
+)
+```
+
+##
+
+Die hier verwendete Datentabelle `LV` hat folgende Struktur:
+
+```{r str}
+str(LV)
+```
+
+mit den Variablen:
+
+- `Alter`: Alter in Jahren
+- `Lungenvolumen`: forcierte exspiratorische Volumen in l
+- `Groesse`: Größe in cm
+- `Geschlecht`: `m` für männlich und `w` für weiblich
+- `RaucherIn`: Hat die Person geraucht? `ja` oder `nein`
+
+Übersicht der ersten Werte:
+
+```{r head}
+head(LV)
+```
+
+
+##
+
+Aus inhaltlichen Gründen wird dabei folgender Kausalzusammenhang angenommen:
+
+```{r, echo=FALSE}
+p1
+```
+
+
+## Rauchen und Lungenvolumen
+
+Ein Boxplot des Lungenvolumens in Abhängigkeit des Rauchverhaltens ergibt folgendes Ergebnis:
+
+```{r b1}
+gf_boxplot(Lungenvolumen ~ RaucherIn, data = LV)
+```
+
+```{r median, echo=FALSE}
+question("Welche Gruppe hat im Median das größere Lungenvolumen?",
+  answer("Die Nichtraucher:innen."),
+  answer("Die Raucher:innen.", correct = TRUE, message = "Während der Median bei den Nichtraucher\\*innen bei ca. 2.5 l liegt, liegt er bei den Raucher\\*innen bei ca. 3.2 l."),
+  allow_retry = TRUE,
+  correct = random_praise(),
+  incorrect = random_encouragement())
+```
+
+##
+
+Sowohl Rauchen als auch Lungenvolumen hängen vom Geschlecht ab. 
+
+Bedingt/ gefiltert nach `RaucherIn` ergibt sich folgende Abbildung:
+
+```{r bedingtn}
+gf_boxplot(Lungenvolumen ~ RaucherIn | Geschlecht, data = LV)
+```
+
+
+Das Bild hat sich nicht geändert, Raucher:innen scheinen das größere Lungenvolumen zu haben.
+
+Woran könnte das liegen?
+
+## Das Alter ...
+
+Wie zu erwarten war, gibt es einen Zusammenhang zwischen Alter und Größe:
+
+```{r, message=FALSE}
+gf_point(Groesse ~ Alter, data = LV) %>%
+  gf_smooth()
+```
+
+<br>
+
+Wenn wir den Code erweitern, so dass Sie die Punkte gemäß der Variable `RaucherIn` farbig markiert sind, sehen wir: Bei Heranwachsenden sind die Raucher:innen älter als die Nichtraucher:innen &ndash; und damit auch größer.
+
+```{r color, message=FALSE}
+gf_point(Groesse ~ Alter, color = ~ RaucherIn, data = LV) %>%
+  gf_smooth()
+```
+
+
+##
+
+Und natürlich gibt es auch einen Zusammenhang zwischen der Größe und dem Lungenvolumen:
+
+```{r, message=FALSE}
+gf_point(Lungenvolumen ~ Groesse, data = LV) %>%
+  gf_smooth()
+```
+
+## Kausale Modellierung Rauchen und Lungenvolumen 
+
+Hier noch einmal das angenommene Modell:
+
+```{r p12, echo=FALSE}
+p1
+```
+
+
+Eine naive Modellierung ergibt folgendes Ergebnis:
+
+```{r}
+lm(Lungenvolumen ~ RaucherIn, data = LV) %>%
+  summary()
+```
+
+Rauchen *scheint* das Lungenvolumen zu erhöhen:
+
+$$\widehat{\text{Lungenvolumen}} = 2.57 + 0.71 \cdot \begin{cases} 1 &: \text{RaucherIn = Ja} \\ 0&: \text{sonst} \end{cases}$$
+
+Warum?
+
+##
+
+Weil die nicht-kausalen Pfade durch die *Hintertür* (engl. backdoor, Gabel) offen sind:
+
+$$\text{RaucherIn} \leftarrow \text{Geschlecht} \rightarrow \text{Lungenvolumen}$$
+bzw.
+
+$$\text{RaucherIn} \leftarrow \text{Alter} \rightarrow \text{Lungenvolumen}$$
+Diese Pfade sollten also z.B. durch Adjustierung *blockiert* werden.
+
+
+```{r chain, echo=FALSE}
+question("Sollte über die Variable `Groesse` adjustiert werden?",
+  answer("Ja."),
+  answer("Nein.", correct = TRUE, message = "Die Variable `Groesse` liegt auf dem kausalen Pfad (*Kette*) zwischen `RaucherIn` und `Lungenvolumen` (Mediator)."),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement())
+```
+
+##
+
+Geben Sie, unter der Annahme eines linearen Modells die Formel an, die den (totalen) kausalen Effekt des Rauchens auf das Lungenvolumen schätzt:
+
+```{r model, exercise = TRUE, eval=FALSE}
+lm(Lungenvolumen ~ RaucherIn + ___ + ___, data = LV) %>%
+  summary()
+```
+
+```{r model-hint}
+"Ergänzen Sie im Modell die zu adjustierenden Variablen Geschlecht und Alter."
+```
+
+```{r model-solution}
+lm(Lungenvolumen ~ RaucherIn + Geschlecht + Alter, data = LV) %>%
+  summary()
+```
+
+
+```{r effekt, echo=FALSE}
+question("Hat in dem Modell Rauchen einen negativen Effekt auf das Lungenvolumen?",
+  answer("Ja.", correct = TRUE, message = "Der geschätzte Koeffizient ist mit $-0.153974$ negativ (`Estimate` für die Variable `RaucherInja `)."),
+  answer("Nein."),
+  allow_retry = TRUE,
+  correct = random_praise(),
+  incorrect = random_encouragement())
+```
+
+*Anmerkung*: Die Annahme eines linearen Modells ist aufgrund des nicht-linearen Zusammenhangs zwischen Alter und Größe sowie Größe und Lungenvolumen (siehe Abbildungen im Abschnitt *Das Alter ...*) eher nur eine Näherung.
+
+## Hinweis
+
+Dieses Modul orientiert sich am Projekt [Causal Inference in Introductory Statistics Courses](https://github.com/kfcaby/causalLab) von [LTC Kevin Cummiskey](https://westpoint.edu/mathematical-sciences/profile/kevin_cummiskey). 
+Siehe auch Cummiskey, K., Adams, B,. Pleuss, J.,  Turner, D., Clark, N. \& Watts, K. (2020). *Causal Inference in Introductory Statistics Courses*, Journal of Statistics Education, [https://doi.org/10.1080/10691898.2020.1713936](https://doi.org/10.1080/10691898.2020.1713936).
+
+Datengrundlage ist der Artikel von Kahn, M. (2005). *An exhalent problem for teaching statistics*. Journal of Statistics Education, 13(2), [https://doi.org/10.1080/10691898.2005.11910559](https://doi.org/10.1080/10691898.2005.11910559).
+
+***
+
+<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
+
+Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
+
+Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
+
+
+![](images/csm_Logo-BMBF.jpg)
