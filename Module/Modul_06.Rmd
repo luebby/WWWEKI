@@ -104,10 +104,11 @@ Das strukturelle kausale Modell besteht aus folgenden Zuweisungen:
 ```{r abhaengigkleit, echo=FALSE}
 message <- "Nach Konstruktion sind $X$ und $Y$ unabhängig voneinander. Kein kausaler Pfad führt von $X$ zu $Y$ &ndash; oder umgekehrt."
 question("Hängt Aussehen ($Y$) von Nettigkeit ($X$) ab?",
-         answer("Ja", message = message),
+         answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -119,9 +120,10 @@ In Fällen wie diesen: $$\color{green}{X} \rightarrow \color{violet}{Z} \leftarr
 message <- "Wenn es kein Glück oder Pech ($U_Z$) war, dann sieht die nicht-nette Person eher gut aus. Es gibt ja einen Grund dafür, dass Sie sie daten. Wenn es nicht die Nettigkeit ist, dann das Aussehen."
 question("Angenommen Sie haben jemanden gedatet ($Z$), der nicht besonders nett ($X$) ist. Wissen Sie dann etwas über das Aussehen ($Y$)?",
          answer("Ja", correct = TRUE, message = message),
-         answer("Nein", message = message),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         answer("Nein"),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -177,9 +179,10 @@ gf_point(y ~ x, data = SimData, color = ~z) %>%
 message <- "Die Regressionsgerade geht von links oben nach rechts unten. Dies zeigt eine negative Korrelation an. Tendenziell sind die Dates, die hübsch sind, nicht besonders nett &ndash; und umgekehrt."
 question("Für die, die Sie gedatet haben (`z = Ja`): Sehen Sie einen Zusammenhang zwischen Nettigkeit `x` und Aussehen `y`?", 
          answer("Ja", correct = TRUE, message = message),
-         answer("Nein", message = message),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         answer("Nein"),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 

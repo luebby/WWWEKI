@@ -92,10 +92,11 @@ Aber auch Verfahren wie Clusteranalyse oder Hauptkomponentenanalyse können hier
 
 ```{r beschreibung, echo=FALSE}
 question("Führen solche Datenanalysen automatisch zu adäquaten Beschreibungen des zu untersuchenden Phänomens?",
-         answer("Ja", message = "Daten sind in der Regel nur ein Teil der komplexen und dynamischen Realität. Beispielsweise könnten die Daten mit Messfehler behaftet sein, wenn beispielsweise das Rauchverhalten in der Vergangenheit nicht korrekt erinnert oder berichtet wird. Auch nicht-repräsentative Stichproben können ein Problem sein, wenn zum Beispiel gerade gesundheitsbewusste Frauen eher an Erhebungen teilnehmen. Weiterhin können fehlende Werte zu verzerrte Ergebnissen führen, wenn beispielsweise bestimmte Frauen auf einige der Fragen die Antwort verweigern. Auch bei der reinen Beschreibung können also Daten in die Irre führen, und wir müssen uns Gedanken darüber machen, wie die Daten entstanden sind."),
+         answer("Ja"),
          answer("Nein", correct = TRUE, message = "Daten sind in der Regel nur ein Teil der komplexen und dynamischen Realität. Beispielsweise könnten die Daten mit Messfehler behaftet sein, wenn beispielsweise das Rauchverhalten in der Vergangenheit nicht korrekt erinnert oder berichtet wird. Auch nicht-repräsentative Stichproben können ein Problem sein, wenn zum Beispiel gerade gesundheitsbewusste Frauen eher an Erhebungen teilnehmen. Weiterhin können fehlende Werte zu verzerrte Ergebnissen führen, wenn beispielsweise bestimmte Frauen auf einige der Fragen die Antwort verweigern. Auch bei der reinen Beschreibung können also Daten in die Irre führen, und wir müssen uns Gedanken darüber machen, wie die Daten entstanden sind."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -125,9 +126,10 @@ Das so geschätzte Modell kann dann genutzt werden, um Werte von $\color{blue}{Y
 ```{r vorhersage, echo=FALSE}
 question("Ein Unternehmen möchte diejenigen Kund:innen ermitteln, von denen es vermutet, dass diese sich für ein neues Angebot des Unternehmens interessieren. Handelt es sich hier um eine Datenanwendung mit dem Ziel der Vorhersage?",
          answer("Ja", correct = TRUE, message = "Hier wird auf Basis der im Unternehmen vorhandenen Information über den Kunden (*bestimmte Eigenschaften*) eine Wahrscheinlichkeit ermittelt, dass die Kundin das Produkt erwirbt. Kund:innen mit einer hohen Wahrscheinlichkeit können dann z. B. angeschrieben werden."),
-         answer("Nein", message = "Hier wird auf Basis der im Unternehmen vorhandenen Information über den Kunden (*bestimmte Eigenschaften*) eine Wahrscheinlichkeit ermittelt, dass die Kundin das Produkt erwirbt. Kund:innen mit einer hohen Wahrscheinlichkeit können dann z. B. angeschrieben werden."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         answer("Nein"),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -140,9 +142,10 @@ Es erfolgt also  keine Intervention, selbst wenn im nächsten Schritt die Vorher
 ```{r dox, echo=FALSE}
 question("Kann es einen Unterschied in der Verteilung von $Y$ geben, je nach dem, ob $X$ beobachtet wird ($X=x$) oder auf Grund einer Handlung $X$ gesetzt wird ($do(X=x)$)?",
          answer("Ja", correct = TRUE, message = "Es kann sein, dass eine weitere Variable ($Z$) Ursache für $X$ und $Y$ ist. Der beobachtete Zusammenhang zwischen $X$ und $Y$ liegt dann an $Z$. Wenn $X$ verändert wird, ändert sich $Y$ aber nicht. Würde $Z$ sich ändern, würde man andere Werte von $X$ und $Z$ beobachten."),
-         answer("Nein", message = "Es kann sein, dass eine weitere Variable ($Z$) Ursache für $X$ und $Y$ ist. Der beobachtete Zusammenhang zwischen $X$ und $Y$ liegt dann an $Z$. Wenn $X$ verändert wird, ändert sich $Y$ aber nicht. Würde $Z$ sich ändern, würde man andere Werte von $X$ und $Z$ beobachten."),
-		correct = "Klasse! Sie können sich gut an das 2. Modul dieses Kurses erinnern.",
-		incorrect = "Leider falsch. Vielleicht schauen Sie sich noch einmal das 2. Modul (Ein Pfeil zeigt die Richtung) an."
+         answer("Nein"),
+         allow_retry = TRUE,
+         correct = "Klasse! Sie können sich gut an das 2. Modul dieses Kurses erinnern.",
+         incorrect = "Leider falsch. Vielleicht schauen Sie sich noch einmal das 2. Modul (Ein Pfeil zeigt die Richtung) an."
          )
 ```
 
@@ -161,10 +164,11 @@ Grundlegende Überlegungen und Verfahren, die helfen können, solche Fragen zu b
 ```{r anwendung, echo=FALSE}
 question("Im Rahmen des Kundenbeziehungsmangements ist Kundenabwanderung ein wichtiges Thema. Was ist das Ziel der Datenanwendung bei der Fragestellung: *Welche Kund:innen haben eine hohe Abwanderungsrate?*",
          answer("Beschreibung", correct = TRUE, message = "Auf Basis der vorhandenen Daten werden die abgewanderten Kund:innen beschrieben. Beispiel siehe [Bojinov et al. (2020)](https://hdsr.mitpress.mit.edu/pub/wjhth9tr/release/1)"),
-         answer("Vorhersage", message = "Auf Basis der vorhandenen Daten werden die abgewanderten Kund:innen beschrieben. Beispiel siehe [Bojinov et al. (2020)](https://hdsr.mitpress.mit.edu/pub/wjhth9tr/release/1)"),
-         answer("Kausale Inferenz", message = "Auf Basis der vorhandenen Daten werden die abgewanderten Kund:innen beschrieben. Beispiel siehe [Bojinov et al. (2020)](https://hdsr.mitpress.mit.edu/pub/wjhth9tr/release/1)"),         
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         answer("Vorhersage"),
+         answer("Kausale Inferenz"),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -187,10 +191,11 @@ Diese unterscheidet sich i.d.R. von der unbedingten Wahrscheinlichkeit $Pr(y)$.
 
 ```{r do, echo=FALSE}
 question("Sind die Wahrscheinlichkeiten für $y$ bei Assoziation $Pr(y|x)$ und Intervention $Pr(y|do(x))$ immer identisch?",
-         answer("Ja",  message = "Die Wahrscheinlichkeit, dass jemand gesund ist ($y$), der eine Schwimmbrille hat ($x$), ist realtiv hoch (Assoziation). Vermutlich würde eine Verteilung von Schwimmbrillen (Intervention, $do(x)$), zu einer niedrigeren Wahrscheinlichkeit führen. Es sei denn, die Menschen gingen dann auch alle Schwimmen."),         
-         answer("Nein", correct = TRUE,  message = "Die Wahrscheinlichkeit, dass jemand gesund ist ($y$), der eine Schwimmbrille hat ($x$), ist realtiv hoch (Assoziation). Vermutlich würde eine Verteilung von Schwimmbrillen (Intervention, $do(x)$), zu einer niedrigeren Wahrscheinlichkeit führen. Es sei denn, die Menschen gingen dann auch alle Schwimmen."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         answer("Ja"),         
+         answer("Nein", correct = TRUE,  message = "Die Wahrscheinlichkeit, dass jemand gesund ist ($y$), der eine Schwimmbrille hat ($x$), ist realtiv hoch (Assoziation). Vermutlich würde eine Verteilung von Schwimmbrillen (Intervention, $do(x)$), zu einer niedrigeren Wahrscheinlichkeit führen. Es sei denn, die Menschen gingen dann auch alle Schwimmen. Lied dazu: [Monty Harper: Correlation Does Not Imply Causation](https://www.causeweb.org/cause/resources/fun/songs/correlation-does-not-imply-causation)"),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 

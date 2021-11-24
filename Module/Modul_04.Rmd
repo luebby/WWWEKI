@@ -115,10 +115,11 @@ Der Wert von <green>Lernen</green> ($\color{green}{X}$) kommt außerhalb des Mod
 
 ```{r kind, echo=FALSE}
 question("In der Sprache der Diagramme: Ist Verstehen ($Y$) ein Kind von Lernen ($X$)?",
-         answer("Ja", message = "Eltern von Verstehen ist Wissen ($Z$). Wissen ist ein Kind von Lernen. Verstehen *hört* unmittelbar nur auf Wissen, d. h., der Wert von Verstehen hängt direkt nur von Wissen ab &ndash; und nur über dieses von Lernen. $X$ ist aber ein Vorfahr von $Y$."),
+         answer("Ja"),
          answer("Nein", correct = TRUE, message = "Eltern von Verstehen ist Wissen ($Z$). Wissen ist ein Kind von Lernen. Verstehen *hört* unmittelbar nur auf Wissen, d. h., der Wert von Verstehen hängt direkt nur von Wissen ab &ndash; und nur über dieses von Lernen. $X$ ist aber ein Vorfahr von $Y$."),
-		correct = "Prima, Richtig!",
-		incorrect = "Leider falsch. Vielleicht schauen Sie noch einmal im Modul 2 nach."
+         allow_retry = TRUE,
+         correct = "Prima, Richtig!",
+         incorrect = "Leider falsch. Vielleicht schauen Sie noch einmal im Modul 2 nach."
          )
 ```
 
@@ -128,11 +129,12 @@ In Fällen wie diesen: $$\color{green}{X} \rightarrow \color{violet}{Z} \rightar
 
 ```{r mediator, echo=FALSE}
 question("Angenommen eine Beförderung hängt diskriminierenderweise ab vom Geschlecht der Kandidat:in und das Gehalt von der Beförderung. Welche Variable ist hier ein Mediator?",
-         answer("Geschlecht", message = "Das beschriebene Kausalmodell lautet $\\text{Geschlecht} \\rightarrow \\text{Beförderung} \\rightarrow \\text{Gehalt}$."),
+         answer("Geschlecht"),
          answer("Beförderung", correct = TRUE, message = "Das beschriebene Kausalmodell lautet $\\text{Geschlecht} \\rightarrow \\text{Beförderung} \\rightarrow \\text{Gehalt}$."),
          answer("Gehalt", message = "Das beschriebene Kausalmodell lautet $\\text{Geschlecht} \\rightarrow \\text{Beförderung} \\rightarrow \\text{Gehalt}$."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -169,10 +171,11 @@ cat("Wert y (Verstehen):", y, "\n")
 ```{r beobachtung, echo=FALSE}
 question("Was passiert, wenn Sie höhere Werte von Lernen (`x`) beobachten?",
          answer("Bei höheren Werten von Lernen (`x`) treten in der Regel auch höhere Werte von Verstehen (`y`) auf.", correct = TRUE, message = "Es lässt sich ein positiver Zusammenhang zwischen $X$ und $Y$ beobachten."),
-         answer("Bei höheren Werten von Lernen (`x`) treten in der Regel niedrigere Werte von Verstehen (`y`) auf.", message = "Es lässt sich ein positiver Zusammenhang zwischen $X$ und $Y$ beobachten."),
-         answer("Der Wert von Verstehen (`y`) scheint in keinem Zusammenhang mit dem Wert von Lernen (`x`) zu stehen.", message = "Es lässt sich ein positiver Zusammenhang zwischen $X$ und $Y$ beobachten."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         answer("Bei höheren Werten von Lernen (`x`) treten in der Regel niedrigere Werte von Verstehen (`y`) auf."),
+         answer("Der Wert von Verstehen (`y`) scheint in keinem Zusammenhang mit dem Wert von Lernen (`x`) zu stehen."),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -210,11 +213,12 @@ Während die Werte für $\color{blue}{Y}$) bei $do(\color{green}{X}=1)$ um die $
 
 ```{r intervention, echo=FALSE}
 question("Was wird mit mit den Zusammenhang zwischen Lernen (`x`) und Verstehen (`y`) passieren, wenn Sie Wissen festhalten, also z.B. `z <- 15` zuweisen?",
-         answer("Bei höheren Werten von Lernen (`x`) treten in der Regel auch höhere Werte von Verstehen (`y`) auf.", message = "Durch Fixierung von `z` wird die kausale Kette von $X$ nach $Y$ unterbrochen."),
-         answer("Bei höheren Werten von Lernen (`x`) treten in der Regel niedrigere Werte von Verstehen (`y`) auf.", message = "Durch Fixierung von `z` wird die kausale Kette von $X$ nach $Y$ unterbrochen."),
+         answer("Bei höheren Werten von Lernen (`x`) treten in der Regel auch höhere Werte von Verstehen (`y`) auf.",),
+         answer("Bei höheren Werten von Lernen (`x`) treten in der Regel niedrigere Werte von Verstehen (`y`) auf.",),
          answer("Bei bekannten Wissen (`z`) scheint der Wert von Verstehen (`y`) in keinem Zusammenhang mit dem Wert von Lernen (`x`) zu sein.", correct = TRUE, message = "Durch Fixierung von `z` wird die kausale Kette von $X$ nach $Y$ unterbrochen."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -318,9 +322,10 @@ Wenn <violet>Wissen</violet> Teil des Modell ist, wir also das <violet>Wissen</v
 ```{r adjustierung, echo=FALSE}
 question("Welcher Wert beschreibt den (totalen) kausalen Effekt von Lernen (`x`) auf Verstehen (`y`) richtig? Um wie viel Einheiten wird sich der Wert von Verstehen im Mittelwert ändern, wenn eine Einheit mehr gelernt wird?",
          answer("Das Modell ohne Wissen (`ModellA`), d. h. $14.86$.", correct = TRUE, message = "Durch Fixierung von `z` wird die kausale Kette von $X$ nach $Y$ unterbrochen."),
-         answer("Das Modell mit Wissen (`ModellB`), d. h. $0.86$.", message = "Durch Fixierung von `z` wird die kausale Kette von $X$ nach $Y$ unterbrochen."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         answer("Das Modell mit Wissen (`ModellB`), d. h. $0.86$."),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 

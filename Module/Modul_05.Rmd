@@ -115,10 +115,11 @@ Sie sehen: Es gibt Länder mit vielen Störchen &ndash; und gleichzeitig mit vie
 ```{r zusammenhang, echo=FALSE}
 question("Wie ist wird der Zusammenhang zwischen der Anzahl der Störche und der Anzahl der Geburten über die $17$ abgebildeten Länder eingeordnet?",
          answer("Es gibt einen positiven Zusammenhang zwischen der Anzahl Störche ($x$) und der Anzahl Geburten ($y$).", correct = TRUE, message = "In Ländern mit relativ vielen Geburten gibt es tendenziell auch relativ viele Störche. Dies ist auch an der eingezeichneten Regressionsgerade zu erkennen, die von links unten nach rechts oben verläuft."),
-         answer("Es gibt keinen erkennbaren Zusammenhang zwischen der Anzahl Störche ($x$) und der Anzahl Geburten ($y$).", message = "In Ländern mit relativ vielen Geburten gibt es tendenziell auch relativ viele Störche. Dies ist auch an der eingezeichneten Regressionsgerade zu erkennen, die von links unten nach rechts oben verläuft."),
-         answer("Es gibt einen negativen Zusammenhang zwischen der Anzahl Störche ($x$) und der Anzahl Geburten ($y$).", message = "In Ländern mit relativ vielen Geburten gibt es tendenziell auch relativ viele Störche. Dies ist auch an der eingezeichneten Regressionsgerade zu erkennen, die von links unten nach rechts oben verläuft."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         answer("Es gibt keinen erkennbaren Zusammenhang zwischen der Anzahl Störche ($x$) und der Anzahl Geburten ($y$)."),
+         answer("Es gibt einen negativen Zusammenhang zwischen der Anzahl Störche ($x$) und der Anzahl Geburten ($y$)."),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -143,20 +144,22 @@ plot(DAG_SG)
 message <- "Der Pfeil sagt, dass der Wert der Variable an der Pfeilspitze abhängt vom Wert der Variable am Pfeilende &ndash; und nicht umgekehrt. Siehe Modul 2."
 question("Welche kausale Annahme ist in dem Diagram dargestellt?",
          answer("Störche sind die Ursachen, Geburten die Wirkung.", correct = TRUE, message = message),
-         answer("Störche sind die Wirkung, Geburten die Ursache.", message = message),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         answer("Störche sind die Wirkung, Geburten die Ursache."),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
 ```{r korrelation, echo=FALSE}
 message <- "Der Korrelationskoeffizient ist symmetrisch, d.h., $r_{x,y} = r_{y,x}$."
 question("Der Korrelationskoeffizient zwischen der Anzahl Störche und der Anzahl Geburten liegt bei $r_{\\color{green}{x},\\color{blue}{y}} = +0.62$. Was gilt dann für den Korrelationskoeffizient zwischen der Anzahl Geburten und der Anzahl Störche?",
-         answer("$r_{\\color{blue}{y}, \\color{green}{x}} = -0.62$.", message = message),
-         answer("$r_{\\color{blue}{y}, \\color{green}{x}} = 1/0.62 = 0.62^{-1}$.", message = message),
+         answer("$r_{\\color{blue}{y}, \\color{green}{x}} = -0.62$."),
+         answer("$r_{\\color{blue}{y}, \\color{green}{x}} = 1/0.62 = 0.62^{-1}$."),
          answer("$r_{\\color{blue}{y}, \\color{green}{x}} = +0.62$.", correct = TRUE, message = paste(message, "Vielleicht bringen also die Kinder die Störche?")),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -218,10 +221,11 @@ Eine solche gemeinsame Ursache wird **Confounder** genannt.
 
 ```{r confounder, echo=FALSE}
 question("Hängt der Wert von Fläche ($\\color{violet}{Z}$) kausal von der Anzahl Störche ($\\color{green}{X}$) ab?",
-         answer("Ja", message = "Das beschriebene Kausalmodell lautet $\\text{Anzahl Störche} \\leftarrow \\text{Fläche}$. Die Anzahl Störche *hört* auf die Fläche, aber die Fläche **nicht** auf die Anzahl Störche. Mehr Störche können die Fläche nicht ändern, die Fläche aber die Anzahl Störche."),
+         answer("Ja"),
          answer("Nein", correct = TRUE, message = "Das beschriebene Kausalmodell lautet $\\text{Anzahl Störche} \\leftarrow \\text{Fläche}$. Die Anzahl Störche *hört* auf die Fläche, aber die Fläche **nicht** auf die Anzahl Störche. Mehr Störche können die Fläche nicht ändern, die Fläche aber die Anzahl Störche."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -243,10 +247,11 @@ Wird der Wert von $\color{violet}{Z}$ geändert ($do(z)$), ändert sich die Wert
 ```{r fork, echo=FALSE}
 message <- "Änderungen werden in Pfeilrichtung weitergegeben, eine Intervention von $\\color{green}{X}$ ändert *nicht* den Wert von $\\color{violet}{Z}$ &ndash; und als Folge auch nicht den von $\\color{blue}{Y}$."
 question("Ändert sich der Wert von $\\color{blue}{Y}$, wenn eine Intervention auf $\\color{green}{X}$ erfolgt ($do(x)$)? ",
-         answer("Ja", message = message),
+         answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 

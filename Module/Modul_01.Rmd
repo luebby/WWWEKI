@@ -168,10 +168,11 @@ gf_point(Gehalt ~ Schulung, data = Schulung_Long,
 
 ```{r ike, echo=FALSE}
 question("Können Sie diese individuellen kausalen Effekte in der Realität beobachten?",
-         answer("Ja", message = "Für jede Beobachtung $i$ liegt nur ein Gehaltswert vor: der mit Schulung oder der ohne Schulung, aber niemals beide gleichzeitig, da Personen entweder teilnehmen oder nicht. $\\Delta_i$ kann daher nicht beobachtet werden."),
+         answer("Ja"),
          answer("Nein", correct = TRUE, message = "Für jede Beobachtung $i$ liegt nur ein Gehaltswert vor: der mit Schulung oder der ohne Schulung, aber niemals beide gleichzeitig, da Personen entweder teilnehmen oder nicht. $\\Delta_i$ kann daher nicht beobachtet werden."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -191,17 +192,19 @@ Für jemanden, der nicht an der Schulung teilgenommen hat, ist das Counterfactua
 question("Kann das Counterfactual beobachtet werden?",
          answer("Ja", message = "Je Beobachtung $i$ liegt nur ein Wert vor: der mit Schulung oder der ohne Schulung, nicht beide gleichzeitig. Das Counterfactual ist das nicht beobachtete der Potential Outcomes."),
          answer("Nein", correct = TRUE, message = "Das Counterfactual ist das nicht beobachtete der Potential Outcomes."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
 ```{r cfi, echo=FALSE}
 question("Person $i$ nimmt an der Schulung teil. Was ist dann das Counterfactual?",
          answer("$\\color{blue}{Y}^{\\color{green}{X=0}}_i$", correct = TRUE, message = "Teilnahme an der Schulung bedeutet $X=1$."),
-         answer("$\\color{blue}{Y}^{\\color{green}{X=1}}_i$", message = "Teilnahme an der Schulung bedeutet $X=1$."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         answer("$\\color{blue}{Y}^{\\color{green}{X=1}}_i$"),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -270,10 +273,11 @@ Schulung %>%
 
 ```{r bias, echo=FALSE}
 question("Die Teilnahme an der Schulung war freiwillig. Können Sie davon ausgehen, dass, unabhängig von der Schulung, Teilnehmende und Nichtteilehmende eine ähnliche Gehaltsentwicklung erlebt hätten?",
-         answer("Ja", message = "Teilnehmende und Nichtteilnehmende könnten sich in vielerlei Hinsicht unterscheiden. Um nur ein Beispiel zu nennen: Personen, denen ihr Gehalt besonders wichtig ist, werden eher an der Schulung teilnehmen. Diese Personen werden aber vielleicht auch ohne Schulung anders in Gehaltsverhandlungen auftreten."),
+         answer("Ja"),
          answer("Nein", correct = TRUE, message = "Teilnehmende und Nichtteilnehmende könnten sich in vielerlei Hinsicht unterscheiden. Um nur ein Beispiel zu nennen: Personen, denen ihr Gehalt besonders wichtig ist, werden eher an der Schulung teilnehmen. Diese Personen werden aber vielleicht auch ohne Schulung anders in Gehaltsverhandlungen auftreten."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 

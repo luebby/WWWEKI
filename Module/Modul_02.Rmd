@@ -141,9 +141,10 @@ Diese Werte können mit unterschiedlichen *Wahrscheinlichkeiten* auftreten, welc
 ```{r ursache, echo=FALSE}
 question("Angenomen nach der Einnahme einer Tablette gehen die Schmerzen weg. Wie würden Sie hier Ursache und Wirkung zuordnen?",
          answer("Die Einnahme der Tablette ist die Ursache, der Schmerzrückgang die Wirkung.", correct = TRUE, message = "Die Tablette wurde zuerst eingenommen, danach folgte der Schmerzrückgang."),
-         answer("Der Schmerzrückgang ist die Ursache, die Einnahme der Tablette die Wirkung.", message = "Die Tablette wurde zuerst eingenommen, danach folgte der Schmerzrückgang."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         answer("Der Schmerzrückgang ist die Ursache, die Einnahme der Tablette die Wirkung."),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -248,10 +249,11 @@ Quelle: [https://pixabay.com/illustrations/switch-lightbulb-idea-inspiration-453
 
 ```{r modell, echo=FALSE}
 question("Welches kausale Diagramm beschreibt den Zusammenhang zwischen Lichtschalter und Glühlampe?",
-         answer("$\\text{Glühlampe} \\rightarrow \\text{Lichtschalter}$", message = "Lichtschalter an oder aus ist die Ursache für die Wirkung, ob die Glühlampe an oder aus ist. Bei kaputter Leitung oder Lampe ist diese nicht an, obwohl der Schalter an ist. Aber ohne Rückkopplung geht der Schalter nicht aus, wenn die Lampe aufgrund eines Schadens nicht an ist."),
+         answer("$\\text{Glühlampe} \\rightarrow \\text{Lichtschalter}$"),
          answer("$\\text{Lichtschalter} \\rightarrow \\text{Glühlampe}$", correct = TRUE, message = "Lichtschalter an oder aus ist die Ursache für die Wirkung, ob die Glühlampe an oder aus ist. Bei kaputter Leitung oder Lampe ist diese nicht an, obwohl der Schalter an ist. Aber ohne Rückkopplung geht der Schalter nicht aus, wenn die Lampe aufgrund eines Schadens nicht an ist."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -271,23 +273,25 @@ Quelle: [Mohan und Pearl (2012)](https://ftp.cs.ucla.edu/pub/stat_ser/uai12-moha
 
 ```{r eltern, echo=FALSE}
 question("Welche Variable ist bzw. welche Variablen sind Eltern von *Nass* (X4)?",
-         answer("Keine.", message = "Nass hängt ab von Wassersprenger und Regen."),
-         answer("Jahreszeit (X1).", message = "Nass hängt ab von Wassersprenger und Regen."),
+         answer("Keine."),
+         answer("Jahreszeit (X1)."),
          answer("Wassersprenger (X3) und Regen (X2).", correct = TRUE,  message = "Nass hängt ab von Wassersprenger und Regen."),
-         answer("Rutschig(X5).", message = "Nass hängt ab von Wassersprenger und Regen."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         answer("Rutschig(X5)."),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
 ```{r kinder, echo=FALSE}
 question("Welche Variable ist bzw. welche Variablen sind Kinder von *Nass* (X4)?",
-         answer("Keine.", message = "Rutschig hängt ab von Nass."),
-         answer("Jahreszeit (X1).", message = "Rutschig hängt ab von Nass."),
-         answer("Wassersprenger (X3) und Regen (X2).", message = "Rutschig hängt ab von Nass."),
+         answer("Keine."),
+         answer("Jahreszeit (X1)."),
+         answer("Wassersprenger (X3) und Regen (X2)."),
          answer("Rutschig (X5).", correct = TRUE , message = "Rutschig hängt ab von Nass."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -352,11 +356,12 @@ Insgesamt erwarten wir im Mittelwert, dass bei $40 + 20 = 60$ von $100$ Personen
 
 ```{r handeln, echo=FALSE}
 question("Was passiert, wenn wir **intervenieren**, d. h., die Tabletteneinnahme ist nicht zufällig, sondern wir legen fest, dass alle die Tablette einnehmen müssen?",
-         answer("Die Anzahl der Menschen mit Schmerzreduktion ändert sich nicht.", message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $80\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.8 = 80$ von $100$ Personen."),
+         answer("Die Anzahl der Menschen mit Schmerzreduktion ändert sich nicht."),
          answer("Die Anzahl der Menschen mit Schmerzreduktion erhöht sich.", correct = TRUE, message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $80\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.8 = 80$ von $100$ Personen."),
-         answer("Die Anzahl der Menschen mit Schmerzreduktion reduziert sich.", message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $80\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.8 = 80$ von $80$ Personen."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         answer("Die Anzahl der Menschen mit Schmerzreduktion reduziert sich."),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
@@ -376,9 +381,10 @@ Um den Unterschied zwischen Beobachtung und Intervention auch formal darzustelle
 ```{r do0, echo=FALSE}
 question("Welche Darstellung beschreibt die Intervention, die dazu führt, dass keine Tablette genommen wird?",
          answer("$do(\\color{green}{X} = 0)$", correct = TRUE,  message = "$do(\\cdot)$ zeigt die Handlung, $\\color{green}{X} = 0$ symbolisiert keine Tabletteneinnahme."),         
-         answer("$do(\\color{green}{X} = 1)$",  message = "$do(\\cdot)$ zeigt die Handlung, $\\color{green}{X} = 0$ symbolisiert keine Tabletteneinnahme."),
-		correct = random_praise(),
-		incorrect = random_encouragement()
+         answer("$do(\\color{green}{X} = 1)$"),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
          )
 ```
 
