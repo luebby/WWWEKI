@@ -127,6 +127,29 @@ question("Angenommen Sie haben jemanden gedatet ($Z$), der nicht besonders nett 
          )
 ```
 
+## Vergleich Gabel und umgedrehte Gabel
+
+Bei einer **Gabel** gibt es einen nicht-kausalen Pfad von $\color{green}{X}$ nach $\color{blue}{Y}$:
+$$\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
+Zwar *hört*  $\color{blue}{Y}$ auf $\color{violet}{Z}$, $\color{violet}{Z}$ aber nicht auf $\color{green}{X}$, sondern umgekehrt, $\color{green}{X}$ folgt aus $\color{violet}{Z}$. 
+
+Angenommen: Im Sommer wird bei <violet>Sonnenschein</violet> sowohl mehr <green>Eis</green> als auch mehr <blue>Sonnencreme</blue> verkauft.
+<green>Eis</green> und <blue>Sonnencreme</blue> sind (*unbedingt*, *marginal*) nicht unabhängig: Wenn ich weiß, dass viel <green>Eis</green> verkauft wurde, kann ich davon ausgehen, dass auch viel <blue>Sonnencreme</blue> verkauft wurde. Vermutlich führte <violet>Sonnenschein</violet> zu hohem <green>Eisverkauf</green> und so auch zu hohem <blue>Sonnencremeverkauf</blue>. 
+Über die Information <green>Eis</green> kann man über <violet>Sonnenschein</violet> etwas über <blue>Sonnencreme</blue> lernen.
+Wenn ich weiß, dass <violet>Sonnenschein</violet> ist, enhält die Information, dass viel <green>Eis</green> verkauft wurde, keine zusätzliche Information über <blue>Sonnencreme</blue>. *Bedingt* <violet>Sonnenschein</violet>, d. h., ich weiß es scheint die Sonne, sind <green>Eis</green> und <blue>Sonnencreme</blue> unabhängig.
+
+Bei einer **umgedrehten Gabel** gibt es keinen Zusammenhang von $\color{green}{X}$ und $\color{blue}{Y}$:
+$$\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$$
+$\color{violet}{Z}$ *hört* aber auf $\color{green}{X}$ und $\color{blue}{Y}$. 
+
+Angenommen: Sowohl am <green>Wochenende</green> als auch im <blue>Urlaub</blue> kann mensch <violet>ausschlafen</violet>.
+Gehen wir davon aus, dass im Urlaub genau so oft Wochenende wie sonst gibt. <green>Wochenende</green> und <blue>Urlaub</blue> sind (*unbedingt*, *marginal*) unabhängig: 
+Aus der Information <green>Wochenende</green> lerne ich nichts über <blue>Urlaub</blue>.
+Wenn ich weiß, dass ich <violet>ausschlafen</violet> kann, weiß ich, dass entweder <green>Wochenende</green> oder <blue>Urlaub</blue> (oder beides) ist. Bei <violet>Ausschlafen</violet> lerne ich aus der Information <blue>kein Urlaub</blue>, dass <green>Wochenende</green> ist.
+Einen Grund muss mein Ausschlafen ja haben.
+*Bedingt*, gegeben, <violet>Ausschlafen</violet> sind <green>Wochenende</green> und <blue>Urlaub</blue> nicht mehr unabhängig.
+
+
 ## Modell und Simulierte Daten
 
 Betrachten wir das folgende strukturelle kausale Modell:

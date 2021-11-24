@@ -303,6 +303,21 @@ $$\widehat{\color{blue}{\text{Verstehen}}} = `r round(coef(ModellA)[1],2)` + `r 
 
 Gemäß dieses Modells liegt der (totale) kausale Effekt von <green>Lernen</green> auf <blue>Verstehen</blue> bei $`r round(coef(ModellA)[2],2)`$: Wird <green> Lernen</green> um eine Einheit erhöht, erhöht sich der Mittelwert von <blue> Verstehen </blue> um $`r round(coef(ModellA)[2],2)`$ Einheiten.
 
+
+***
+
+*Anmerkung*: Der Fokus dieses Kurses liegt auf der Identifizierung von kausalen Effekten, nicht auf Schätzverfahren oder statistischer Inferenz. 
+Wenn Sie damit vertraut sind, können Sie über `summary()` auch die *übliche* Regressionstabelle inkl. Standardfehler, p-Werten usw. erhalten:
+
+```{r summary, exercise = TRUE}
+# Regression Rechnen
+ModellA <- lm(y ~ x, data = SimData)
+# Ergebnis
+summary(ModellA)
+```
+
+***
+
 ## Lineare Regression, Versuch 2
 
 Wenn der Mediator <violet> Wissen</violet>, $\color{violet}{Z}$, mit in das Modell aufgenommen wird, ändert sich das Ergebnis der Linearen Regression:

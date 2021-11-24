@@ -255,6 +255,19 @@ question("Ändert sich der Wert von $\\color{blue}{Y}$, wenn eine Intervention a
          )
 ```
 
+## Vergleich Kette und Gabel
+
+Der kausale Pfad bei einer **Kette** von $\color{green}{X}$ nach $\color{blue}{Y}$ sieht wie folgt aus: 
+$$\color{green}{X} \rightarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
+$\color{violet}{Z}$ *hört* auf $\color{green}{X}$ und $\color{blue}{Y}$ auf $\color{violet}{Z}$.
+Wird $\color{green}{X}$ geändert ($do(\color{green}{X}=\color{green}{x})$), ändert sich die Verteilung von $\color{violet}{Z}$ und damit auch die von $\color{blue}{Y}$.
+
+Bei einer **Gabel** gibt es hingegen **keinen** kausalen Pfad von $\color{green}{X}$ nach $\color{blue}{Y}$:
+$$\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
+Zwar *hört* immer noch $\color{blue}{Y}$ auf $\color{violet}{Z}$, $\color{violet}{Z}$ aber  nicht mehr auf $\color{green}{X}$, sondern umgekehrt, $\color{green}{X}$ folgt aus $\color{violet}{Z}$. 
+Wird $\color{green}{X}$ geändert ($do(\color{green}{X}=\color{green}{x})$), ändert sich die Verteilung von $\color{violet}{Z}$ nicht, und damit auch nicht die von $\color{blue}{Y}$.
+
+
 ## Adjustierung
 
 Was ist zu tun, um einen möglichen (totalen) kausalen Effekt von $\color{green}{X}$ auf $\color{blue}{Y}$ in einer Gabel ($\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$) zu bestimmen?
