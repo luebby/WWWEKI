@@ -19,25 +19,27 @@ Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https:
 
 1. [An der Weggabelung: Einen Weg gehen - und einen nicht](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_01/) (Potential Outcome und Counterfactual)
 
-2. [Ein Pfeil zeigt die Richtung](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_02/) (SCM und Graph)
+2. [Ein Pfeil zeigt die Richtung](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_02/) (Strukturelle kausale Modelle und Kausale Diagramme)
 
-3. [Daten analysieren - mit welchem Ziel?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_03/) (Data Science Tasks, Kausale Leiter)
+3. [Daten analysieren - mit welchem Ziel?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_03/) (Datenanwendungen (Beschreibung, Vorhersage, Kausale Inferenz), Kausale Leiter (Assoziation, Intervention, Counterfactual))
 
-4. [Es steht was zwischen uns](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_04/) (Chain)
+4. [Es steht was zwischen uns](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_04/) (Kette)
 
-5. [Von Störchen und Geburten](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_05/) (Fork)
+5. [Von Störchen und Geburten](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_05/) (Gabel)
 
-6. [Nett oder schön? &ndash; Warum nicht beides?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_06/) (Inverted-Fork)
+6. [Nett oder schön? &ndash; Warum nicht beides?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_06/) (Umgedrehte Gabel)
 
-7. [Warum Raumteilung keine gute Investition ist](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_07/) (Unterschied (do(x) vs. X=x am Beispiel)
+7. [Warum Raumteilung keine gute Investition ist](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_07/) (Wiederholung Grundelemente Kausaler Diagramme, Unterschied (do(x) vs. X=x am Beispiel)
 
-8. Magie durch Zufall (Random Sampling/ Allocation)
+8. Magie durch Zufall (Zufällige Stichprobe und zufällige Zuordnung im Rahmen eines Experiments und die Auswirkungen auf die Datenanwendungen (Beschreibung, Vorhersage, Kausale Inferenz) )
 
-9. Let’s do it - durch die Vorder- oder durch die Hintertür? (Basic do-calculus, Front-/ Backdoor)
+9. Graphen zeichnen und lesen
 
-10. Wissen kann alles verändern (Unbedingte vs. Bedingte (Un-)Abhängigkeit)
+10. Let’s do it - durch die Vorder- oder durch die Hintertür? (Grundlagen des do-Calculus, Backdoor und Frontdoor Kriterium)
 
-11. Praktisches Daten hinterfragen (DAGs in der Anwendung, Ausblick)
+11. Schadet Rauchen bei Heranwachsenden?
+
+12. Praktisches Daten hinterfragen (DAGs in der Anwendung, Ausblick)
 
 
 ## Lizenz
