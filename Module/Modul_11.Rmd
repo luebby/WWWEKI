@@ -183,6 +183,10 @@ Warum?
 
 ##
 
+```{r p123, echo=FALSE}
+p1
+```
+
 Weil nicht-kausale Pfade durch die *Hintertür* (engl. backdoor, Gabel) offen sind:
 
 $$\text{RaucherIn} \leftarrow \text{Geschlecht} \rightarrow \text{Lungenvolumen}$$

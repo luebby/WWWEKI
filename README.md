@@ -31,7 +31,7 @@ Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https:
 
 7. [Warum Raumteilung keine gute Investition ist](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_07/) (Wiederholung Grundelemente Kausaler Diagramme, Unterschied (do(x) vs. X=x am Beispiel)
 
-8. Magie durch Zufall (Zufällige Stichprobe und zufällige Zuordnung im Rahmen eines Experiments und die Auswirkungen auf die Datenanwendungen (Beschreibung, Vorhersage, Kausale Inferenz) )
+8. [Magie durch Zufall](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_08/) (Zufällige Stichprobe und zufällige Zuordnung im Rahmen eines Experiments und die Auswirkungen auf die Datenanwendungen (Beschreibung, Vorhersage, Kausale Inferenz) )
 
 9. Graphen zeichnen und lesen
 
