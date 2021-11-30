@@ -96,7 +96,7 @@ options(scipen = 999)
 
 In diesem Modul lernen Sie:
 
-- welche Vorteile eine zufällige Stichprobe hat;
+- welche Vorteile eine zufällig gezogene Stichprobe hat;
 
 - welche Vorteile eine zufällige Zuordnung im Rahmen eines Experiments hat.
 
@@ -149,21 +149,21 @@ Dies ist die Ebene **Beschreibung** (siehe Modul 3). Um die Ebenen *Vorhersage* 
 Erstellen wir zunächst ein stark vereinfachtes Modell, in dem wir die folgenden kausalen Zusammenhänge annehmen:
 
 
-- <blue>Allergie</blue> des Kindes im Alter von 6 Jahren hängt evtl. ab vom  vollständigen <green>Stillen</green> durch die Mutter bis zum 4. Monat (<purple>Ja</purple>, <orange>Nein</orange>).
+- <blue>Allergie</blue> des Kindes im Alter von 6 Jahren hängt eventuell ab vom vollständigen <green>Stillen</green> durch die Mutter bis zum 4. Monat (<purple>Ja</purple>, <orange>Nein</orange>).
 
-- <blue>Allergie</blue> hängt evtl. zusätzlich ab sozialen Status der Mutter, gemessen ob die Mutter <violet>Akademikerin</violet> ist.
+- <blue>Allergie</blue> hängt eventuell zusätzlich ab vom Bildungsgrad der Mutter, hier gemessen daran, ob die Mutter einen Hochschulabschluss hat und somit <violet>Akademikerin</violet> ist.
 
-- <green>Stillen</green> ( <purple>Ja</purple>, <orange>Nein</orange>) hängt evtl. vom <violet>Akademikerin</violet> ab.
+- <green>Stillen</green> (<purple>Ja</purple>, <orange>Nein</orange>) hängt eventuell davon ab, ob die Mutter <violet>Akademikerin</violet> ist.
 
-Das kausale Diagramm sind dann wie folgt aus:
+Das kausale Diagramm sieht dann wie folgt aus:
 
 ```{r DAG_Modell, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_Modell)
 ```
 
 ```{r graph1, echo=FALSE}
-message <- "Beim Teilgraph Kauf von Stillen $\\leftarrow$ Akademikerin $\\rightarrow$ Allergie handelt es sich um eine Gabel."
-question("Welche Rolle spielt hier Akademikerin zwischen Stillen und Allergie?",
+message <- "Beim Teilgraph Stillen $\\leftarrow$ Akademikerin $\\rightarrow$ Allergie handelt es sich um eine Gabel."
+question("Welche Rolle spielt hier die Variable Akademikerin zwischen Stillen und Allergie?",
          answer("Mediator"),
          answer("Confounder", correct = TRUE, message = message),
          answer("Collider"),
@@ -219,7 +219,8 @@ In der Regel kennen wir die *Population* gar nicht, sondern nur eine *Stichprobe
 
 <br>
 
-Nehmen wir an, bei der Datenerhebung gibt es einen Zusammenhang zwischen dem Akademikerin und der Stichprobe. Z. B. hier, dass Akademikerinnen eine höhere Wahrscheinlichkeit haben, Teil der Stichprobe zu sein, wie es das folgende kausale Diagramm verdeutlicht:
+Nehmen wir an, bei der Datenerhebung gibt es einen Zusammenhang zwischen dem Bildungsgrad der Mutter (<violet>Akademikerin</violet>) und ihrer Teilnahme an der Studie.
+Zum Beispiel sieht es in unseren Daten so aus, dass Akademikerinnen eine höhere Wahrscheinlichkeit haben, Teil der Stichprobe zu sein:
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_ModellG)
@@ -276,19 +277,19 @@ question("Ist diese Stichprobe *repräsentativ*, d. h., können gültige Schlüs
 
 In dieser *Gelegenheitsstichprobe* liegt der Anteil <purple>Stillen</purple> bei $`r round(pdgs,2)`$ &ndash; und ist damit systematisch zu hoch.
 
-Wir können zwar das Ergebnis der Stichprobe zur *Beschreibung* dieser verwenden, aber können das Ergebnis weder verallgemeinern noch zur *Vorhersage* verwenden.
-Wenn wir das Ergebnis verwenden würden, um z. B. vorherzusagen, ob eine Frau voll stillt oder nicht, wäre eine Wahrscheinlichkeit von  $Pr(\color{purple}{\text{Stillen}}) = `r round(pdgs,2)`$ zu hoch.
+Wir können zwar das Ergebnis der Stichprobe zur *Beschreibung* dieser verwenden, aber wir können die Ergebnisse weder verallgemeinern noch zur Vorhersage verwenden.
+Wollten wir anhand der Daten zum Beispiel vorhersagen, ob eine zufällig gewählte Frau stillt oder nicht, so läge unsere geschätzte Wahrscheinlich von $Pr(\color{purple}{\text{Stillen}}) = `r round(pdgs,2)`$ zu hoch.
 
 <br>
 
-Wir brauchen also *mehr* als nur die Daten ...
+Wir brauchen also *mehr* als nur die Daten der Stichprobe...
 
 ## Zufällige Stichprobe
 
-Das Problem ist, dass unsere Stichprobe von einer Variable abhängt, <violet>Akadmikerin</violet>, von dem wiederum die untersuchte Variable <green>Stillen</green> abhängt.
-Dadurch, dass hier Akademikerinnen eine höhere Wahrscheinlichkeit haben, Teil der Stichprobe zu sein, und häufiger Stillen, überschätze ich in Folge mit meiner Stichprobe den Anteil der Frauen, die mindestens 4 Monate voll stillen.
+Das Problem ist, dass unsere Stichprobe von einer Variable abhängt, <violet>Akademikerin</violet>, und von dieser wiederum hängt die untersuchte Variable <green>Stillen</green> ab.
+Akademikerinnen sind hier wahrscheinlicher Teil der Stichprobe, und Akademikerinnen stillen häufiger, also überschätzen wir anhand der Stichprobe den Anteil der Frauen, die mindestens 4 Monate voll stillen.
 
-Ein Problem, das ganz viele Umfragen u. ä. haben: Wie kann ich sicherstellen, dass meine Stichprobe mich nicht täuscht?
+Dieses Problem betrifft zahlreiche Umfragen. Wie können wir an der Stelle sicherstellen, dass unsere Stichprobe uns nicht hinters Licht führt?
 
 Hier hilft der Zufall!
 
@@ -298,9 +299,9 @@ Hier hilft der Zufall!
 Quelle: [https://pixabay.com/de/photos/w%c3%bcrfel-rot-fallen-zufall-635353/](Quelle: https://pixabay.com/de/photos/w%c3%bcrfel-rot-fallen-zufall-635353/)
 </span>
 
-Durch zufällige Auswahl der Stichprobe wird die Abhängigkeit der Stichprobe von Akademikerin gelöscht.
+Durch die zufällige Auswahl der Stichprobe wird die Abhängigkeit der Stichprobenzugehörigkeit von der Variable Akademikerin gelöscht.
 
-Die Stichprobe hängt dann vom Zufall ab.
+Die Stichprobe hängt dann nur noch vom Zufall ab.
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_ModellS)
@@ -342,17 +343,19 @@ pzsti <- ggplot(d, aes(x = x, y = y, color = stichprobe)) +
 pzsti
 ```
 
-In dieser zufälligen Stichprobe weicht der Anteil <purple>Stillen</purple> bei $`r round(pdz,2)`$ nicht mehr systematisch vom *wahren* Anteil in der Ziel-Population ab &ndash; nur noch zufällig. 
-Und je größer die Stichprobe ist, desto weniger schwankt der Anteil bei unterschiedlichen Stichproben.
+In dieser zufälligen Stichprobe weicht der Anteil <purple>Stillen</purple> bei $`r round(pdz,2)`$ nicht mehr systematisch vom *wahren* Anteil in der Ziel-Population ab. 
+Alle Abweichungen sind nur noch zufällig.
+Und je größer die Stichprobe ist, desto weniger schwankt der Anteil bei wiederholter Stichprobenziehung.
 
 <br> 
 
-Eine plausible **Vorhersage** ist jetzt möglich. Aber *Kausale Inferenz*? 
+Mithilfe von Zufallsstichproben werden also plausible **Vorhersagen** möglich. 
+Aber wie sieht es mit *Kausaler Inferenz* aus? 
 
 
 ```{r ki, echo=FALSE}
-message <- "Akademikerin ist hier ein Confounder und liegt auf einen nicht-kausalen Pfad von Stillen zu Allergie und verzerrt somit die Schätzung des kausalen Effekts."
-question("Kann der kausale Effekt von stillen auf Allergie durch einen Vergleich der Anteile der Kinder mit Allergie bei Frauen die stillen und nicht stillen geschätzt werden?",
+message <- "Akademikerin ist hier ein Confounder und liegt auf einem nicht-kausalen Pfad von Stillen zu Allergie. Damit wäre unsere Schätzung des kausalen Effekts verzerrt."
+question("Kann der kausale Effekt von Stillen auf Allergie durch einen direkten Vergleich von Kindern deren Mütter stillen vs. nicht stillen geschätzt werden?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -413,7 +416,7 @@ pallergiekstillen <- d2 %>%
 
 ```{r beob1, echo=FALSE}
 message <- "Ohne Variation keine Korrelation. Es fehlt die Information, wie viele Kinder, die nicht voll gestillt wurden, eine Allergie entwickelt haben."
-question("Lassen die Daten der Schlagzeile den Schluss zu, dass Stillen zu einer Reduktion des Allergierisikos führt?",
+question("Lassen alleine die Daten der Schlagzeile den Schluss zu, dass Stillen zu einer Reduktion des Allergierisikos führt?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -428,7 +431,7 @@ Zu wissen, wie viele bei <purple>Stillen</purple> keine Allergie entwickelt habe
 
 Während in der fiktiven Studie dieser Anteil, wie in der Schlagzeile berichtet, bei <purple>gestillten</purple> Kindern bei $\color{purple}{`r pallergiestillen`}$ liegt, liegt er bei <orange>nicht-gestillten</orange>-Kindern bei $\color{orange}{`r pallergiekstillen`}$.
 
-Die Daten wurden im Rahmen einer **Beobachtungsstudie** erhoben, d. h., es wurde geguckt, ob die Mütter <green>Stillen</green> <purple>Ja</purple> oder <orange>Nein</orange>. Und es wurde die <blue>Allergie</blue> erhoben.
+Die Daten wurden im Rahmen einer **Beobachtungsstudie** erhoben, das heißt es wurde erfragt, ob die Mütter <green>Stillen</green> (<purple>Ja</purple> oder <orange>Nein</orange>). Und es wurde die Variable <blue>Allergie</blue> erhoben.
 
 Ein Vergleich des Anteils <blue>Allergie</blue> je nach <green>Stillen</green> ergibt:
 
@@ -475,7 +478,9 @@ Aber: Akademikerinnen <purple>Stillen</purple> häufiger als Nicht-Akademikerinn
 
 Ein klassischer Lösungsansatz zur Bestimmung von durchschnittlichen kausalen Effekten sind **randomisierte Experimente** (engl. randomized controlled trial, RCT). Dabei werden Pfeile, die auf die Variable $\color{green}{X}$ zeigen eliminiert, und die Zuweisung $do(\color{green}{X}=\color{green}{x})$ erfolgt zufällig.
 
-*Hinweis*: On hier ein Randomisiertes Experiment ethisch vertretbar und umsetzbar ist, ist kritisch zu hinterfragen!
+*Hinweis*: Wäre an dieser Stelle ein randomisiertes Experiment überhaupt ethisch vertretbar und praktisch umsetzbar? 
+Im Interview mit der Ökonomin Anne Brenøe erfahren sie mehr zu Designs, mit denen die kausalen Effekte des Stillens in der Praxis untersucht werden können.
+
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_ModellE)
@@ -538,9 +543,13 @@ Ein Vergleich des Anteils <blue>Allergie</blue> je nach <green>Stillen</green> e
 
 $$\color{purple}{`r pallergiestillene`}-\color{orange}{`r pallergiekstillene`}=`r (pallergiestillene -pallergiekstillene)`.$$
 
-Der Zusammenhang mit <violet>Akademikerin</violet> lieferte in der Beobachtungsstudie ein verzerrtes Ergebnis bei der Schätzung der Wirkung von <green>Stillen</green> auf die <blue>Allergie</blue> &ndash; in unser <red>fiktiven</red> Studie.
+In der <red>fiktiven</red> Beobachtungsstudie war unsere Schätzung verzerrt gewesen aufgrund des Confounders <violet>Akademikerin</violet>. 
 
-Im Vergleich zur Vorhersage brauchen wir bei der **kausalen Inferenz** noch mehr Wissen über die Datenentstehung.
+In unserem <red>fiktiven</red> Experiment müssen wir uns um diese und andere Drittvariablen keine Sorgen mehr machen, weil sie nicht beeinflußen können, ob Mütter stillen oder nicht.
+
+Um von der reinen Vorhersage ("Wie wahrscheinlich ist es, dass eine zufällig gewählte Frau stillt?") zur **kausalen Inferenz** zu kommen ("Welchen Effekt hat das Stillen auf das Allergierisiko?") benötigt es mehr als nur die Daten.
+Wir benötigen zusätzlich wissen darüber, wie die Daten entstanden sind &ndash welche zusätzlichen Variablen die Variablen von Interesse beeinflußt haben, oder ob beispielsweise eine zufällige Intervention stattgefunden hat.
+
 
 ## Hinweis
 
