@@ -1,5 +1,5 @@
 ---
-title: "Modul 11: Schadet Rauchen bei Heranwachsenden?"
+title: "Modul 11: Schadet Rauchen Heranwachsenden?"
 output: 
   learnr::tutorial:
     language: 
@@ -45,14 +45,17 @@ load("data/LV.Rdata")
 
 In diesem Modul lernen Sie:
 
-- die Bestimmung eines kausalen Effekts mit Hilfe einer linearen Regression in `R` an einem realen Beispiel.
+- die Bestimmung eines kausalen Effekts mit Hilfe einer linearen Regression in `R` anhand eines realen Beispiels.
 
 
 ## Rauchen bei Kindern und Jugendlichen
 
-Mittlerweile sind wir ziemlich sicher, dass Rauchen der Gesundheit schadet. Aber das war nicht immer so, und eine naive Datenanalyse kann auch zu einem gegenteiligen Ergebnis kommen.
+Mittlerweile sind wir ziemlich sicher, dass Rauchen der Gesundheit schadet. 
+Aber das war nicht immer so, und eine naive Datenanalyse kann auch zu einem gegenteiligen Ergebnis kommen.
 
-In einer Reihe von Papern (siehe z.B. [Kahn, 2005](https://doi.org/10.1080/10691898.2005.11910559)) wurde der Frage nachgegangen inwieweit Rauchen das sogenannte *forcierte exspiratorische Volumen* -- eine Kennzahl der Lungenfunktion -- bei Heranwachsenden beeinflusst.
+In einer Reihe von Papern (siehe z.B. [Kahn, 2005](https://doi.org/10.1080/10691898.2005.11910559)) wurde der Frage nachgegangen inwieweit Rauchen das sogenannte *forcierte exspiratorische Volumen* bei Heranwachsenden beeinflusst.
+Hierbei handelt es sich um eine Kennzahl der Lungenfunktion, das Lungenvolumen beim forcierten Ausatmen.
+
 
 ```{r ethik, echo=FALSE}
 question("Ist hier ein randomisiertes Experiment ethisch vertretbar?",
@@ -80,7 +83,7 @@ mit den Variablen:
 - `Geschlecht`: `m` für männlich und `w` für weiblich
 - `RaucherIn`: Hat die Person geraucht? `ja` oder `nein`
 
-Übersicht der ersten Werte:
+Übersicht über die ersten Werte:
 
 ```{r head}
 head(LV)
@@ -89,7 +92,7 @@ head(LV)
 
 ##
 
-Aus inhaltlichen Gründen wird dabei folgender Kausalzusammenhang angenommen:
+Aus inhaltlichen Gründen werden folgende Kausalzusammenhänge zwischen den Variablen angenommen:
 
 ```{r, echo=FALSE}
 p1
@@ -117,7 +120,7 @@ question("Welche Gruppe hat im Median das größere Lungenvolumen?",
 
 Sowohl Rauchen als auch Lungenvolumen hängen vom Geschlecht ab. 
 
-Bedingt/ gefiltert nach `RaucherIn` ergibt sich folgende Abbildung:
+Wenn wir zusätzlich nach Geschlecht aufteilen ergibt sich folgende Abbildung:
 
 ```{r bedingtn}
 gf_boxplot(Lungenvolumen ~ RaucherIn | Geschlecht, data = LV)
@@ -165,7 +168,7 @@ p1
 ```
 
 
-Eine naive Modellierung ergibt folgendes Ergebnis:
+Eine naive Modellierung ohne Berücksichtigung von Drittvariablen ergibt folgendes Ergebnis:
 
 ```{r}
 lm(Lungenvolumen ~ RaucherIn, data = LV) %>%
@@ -180,7 +183,7 @@ Warum?
 
 ##
 
-Weil die nicht-kausalen Pfade durch die *Hintertür* (engl. backdoor, Gabel) offen sind:
+Weil nicht-kausale Pfade durch die *Hintertür* (engl. backdoor, Gabel) offen sind:
 
 $$\text{RaucherIn} \leftarrow \text{Geschlecht} \rightarrow \text{Lungenvolumen}$$
 bzw.
@@ -190,9 +193,9 @@ Diese Pfade sollten also z.B. durch Adjustierung *blockiert* werden.
 
 
 ```{r chain, echo=FALSE}
-question("Sollte über die Variable `Groesse` adjustiert werden?",
+question("Sollte auch für die Variable `Groesse` adjustiert werden?",
   answer("Ja."),
-  answer("Nein.", correct = TRUE, message = "Die Variable `Groesse` liegt auf dem kausalen Pfad (*Kette*) zwischen `RaucherIn` und `Lungenvolumen` (Mediator)."),
+  answer("Nein.", correct = TRUE, message = "Die Variable `Groesse` liegt auf dem kausalen Pfad (*Kette*) zwischen `RaucherIn` und `Lungenvolumen` (Mediator). Solche Mediatoren sollten nicht adjustiert werden."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement())
@@ -200,7 +203,9 @@ question("Sollte über die Variable `Groesse` adjustiert werden?",
 
 ##
 
-Geben Sie, unter der Annahme eines linearen Modells die Formel an, die den (totalen) kausalen Effekt des Rauchens auf das Lungenvolumen schätzt:
+Geben Sie, unter der Annahme eines linearen Modells die Formel an, die den (totalen) kausalen Effekt des Rauchens auf das Lungenvolumen schätzt.
+
+Zur Erinnerung, die Namen der Variablen im Datensatz waren `Alter`, `Lungenvolumen`, `Groesse`, `Geschlecht` und `RaucherIn`.
 
 ```{r model, exercise = TRUE, eval=FALSE}
 lm(Lungenvolumen ~ RaucherIn + ___ + ___, data = LV) %>%
@@ -226,7 +231,7 @@ question("Hat in dem Modell Rauchen einen negativen Effekt auf das Lungenvolumen
   incorrect = random_encouragement())
 ```
 
-*Anmerkung*: Die Annahme eines linearen Modells ist aufgrund des nicht-linearen Zusammenhangs zwischen Alter und Größe sowie Größe und Lungenvolumen (siehe Abbildungen im Abschnitt *Das Alter ...*) eher nur eine Näherung.
+*Anmerkung*: Das lineare Modell stellt hier nur eine Näherung da, weil es nicht-lineare Zusammenhänge zwischen Alter und Größe sowie Größe und Lungenvolumen gibt.
 
 ## Hinweis
 
