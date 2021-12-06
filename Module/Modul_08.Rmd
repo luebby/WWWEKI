@@ -37,12 +37,12 @@ DAG_Modell <- dagify(X ~ Z,
                      coords = co) %>% 
   ggdag() + 
   geom_dag_point(colour = c("#0F710B", "#DA70D6", "#0000FF")) + 
-  geom_dag_text(size = 8) +
+  geom_dag_text(size = 7) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
   geom_text(label = "X - Stillen\nY - Allergie\nZ - Akademikerin", 
             hjust = 1, vjust = 1,
-            x = 2, y = 1, size = 7, color = "darkgrey") 
+            x = 2, y = 1, size = 6, color = "darkgrey") 
 
 co <- data.frame(x=c(0,1,2,0), y=c(0,1,0,1), name=c("X", "Z", "Y", "S"))
 DAG_ModellG <- dagify(X ~ Z,
@@ -52,12 +52,12 @@ DAG_ModellG <- dagify(X ~ Z,
                      coords = co) %>% 
   ggdag() + 
   geom_dag_point(colour = c("#0F710B", "#DA70D6", "#0000FF", "Black")) + 
-  geom_dag_text(size = 8) +
+  geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
   geom_text(label = "X - Stillen\nY - Allergie\nZ - Akademikerin\nS - Stichprobe", 
             hjust = 1, vjust = 1,
-            x = 2, y = 1, size = 6, color = "darkgrey") 
+            x = 2, y = 1, size = 3.5, color = "darkgrey") 
 
 co <- data.frame(x=c(0,1,2,0,-1), y=c(0,1,0,1,1), name=c("X", "Z", "Y", "S", "D"))
 DAG_ModellS <- dagify(X ~ Z,
@@ -67,12 +67,12 @@ DAG_ModellS <- dagify(X ~ Z,
                      coords = co) %>% 
   ggdag() + 
   geom_dag_point(colour = c( "#808000", "#0F710B", "#DA70D6","Black","#0000FF")) + 
-  geom_dag_text(size = 8) +
+  geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
   geom_text(label = "X - Stillen\nY - Allergie\nZ - Akademikerin\nS - Stichprobe\nD - Zufall", 
             hjust = 1, vjust = 1,
-            x = 2, y = 1, size = 6, color = "darkgrey") 
+            x = 2, y = 1, size = 3.5, color = "darkgrey") 
 
 co <- data.frame(x=c(0,1,2,0), y=c(0,1,0,1), name=c("X", "Z", "Y", "D"))
 DAG_ModellE <- dagify(X ~ D,
@@ -81,12 +81,12 @@ DAG_ModellE <- dagify(X ~ D,
                       coords = co) %>% 
   ggdag() + 
   geom_dag_point(colour = c( "#808000","#0F710B", "#DA70D6", "#0000FF")) + 
-  geom_dag_text(size = 8) +
+  geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - KStillen\nY - Allergie\nZ - Akademikerin\nD - Zufall", 
+  geom_text(label = "X - Stillen\nY - Allergie\nZ - Akademikerin\nD - Zufall", 
             hjust = 1, vjust = 1,
-            x = 2, y = 1, size = 6, color = "darkgrey") 
+            x = 2, y = 1, size = 3.5, color = "darkgrey") 
 library(mosaic)
 
 options(scipen = 999)
@@ -123,26 +123,27 @@ for(i in 1:100)
 
 d <- crossing(x = 1:10,
               y = 1:10) %>%
-  mutate(allergie = allergie,
+  mutate(Allergie = allergie,
          akademikerin = akademikerin,
          stillen = stillen)
 
 d2 <- d %>%
-  mutate(allergie = ifelse(allergie, "Ja", "Nein")) %>%
+  mutate(Allergie = ifelse(Allergie, "Ja", "Nein")) %>%
   mutate(stillen = ifelse(stillen, "Stillen: Ja", "Stillen: Nein")) %>%
   mutate(akademikerin = ifelse(akademikerin, "Ja", "Nein")) 
 
 
-gf_bar(~ allergie | stillen , data = d2, 
-       fill = ~ allergie) + 
+gf_bar(~ Allergie | stillen , data = d2, 
+       fill = ~ Allergie) + 
   scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
   labs(title = "Studienergebnis", y="Häufigkeit") +
   theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
 ```
 
-Was Sie sehen: Kinder von Frauen, die mindestens 4 Monate voll <green>stillen</green> haben seltener im Alter von 6 Jahren eine <blue>Allergie</blue> als Kinder von Frauen, die nicht mindestens 4 Monate voll stillen &ndash; in dieser fiktiven Studie.
+Was Sie sehen: Kinder von Frauen, die mindestens 4 Monate voll <green>stillen</green> haben seltener im Alter von 6 Jahren eine <blue>Allergie</blue> als Kinder von Frauen, die nicht mindestens 4 Monate voll stillen &ndash; in <u>dieser</u> fiktiven Studie.
 
-Dies ist die Ebene **Beschreibung** (siehe Modul 3). Um die Ebenen *Vorhersage* und *Kausale Inferenz* zu erreichen brauchen wir mehr. Und Methoden dafür kennen Statistiker:innen schon lange.
+Dies ist die Ebene **Beschreibung** (siehe Modul 3).<br>
+Um die Ebenen ***Vorhersage*** und ***Kausale Inferenz*** zu erreichen brauchen wir mehr. Und Methoden dafür kennen Statistiker:innen schon lange.
 
 ##
 
@@ -177,7 +178,7 @@ question("Welche Rolle spielt hier die Variable Akademikerin zwischen Stillen un
 
 Angenommen in einer fiktiven Population sind 30% Akademikerinnen (<i class="fa fa-graduation-cap" aria-hidden="true"></i>).
 
-Mindestens 4 Monate voll stillen ist farblich durch <purple>Ja (lila)</purple> und <orange>Nein (orange)</orange> gekennzeichnet:
+Mindestens 4 Monate voll <green>stillen</green> ist farblich durch <purple>Ja (lila)</purple> und <orange>Nein (orange)</orange> gekennzeichnet:
 
 ```{r population, fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
 set.seed(2021)
@@ -211,15 +212,15 @@ ppop <- ggplot(d, aes(x = x, y = y)) +
 ppop
 ```
 
-In dieser Ziel-Population liegt der Anteil <purple>Stillen</purple> bei $`r pdp`$.
+In dieser Ziel-Population liegt der Anteil <purple>gestillt</purple> bei $`r pdp`$.
 
 ##
 
-In der Regel kennen wir die *Population* gar nicht, sondern nur eine *Stichprobe*. Nur die Daten der Stichprobe können wir nutzen.
+In der Regel kennen wir die *Population* gar nicht, sondern nur eine *Stichprobe*. Lediglich die Daten der *Stichprobe* können wir nutzen.
 
 <br>
 
-Nehmen wir an, bei der Datenerhebung gibt es einen Zusammenhang zwischen dem Bildungsgrad der Mutter (<violet>Akademikerin</violet>) und ihrer Teilnahme an der Studie.
+Nehmen wir an, bei der <u>Datenerhebung</u> gibt es einen Zusammenhang zwischen dem Bildungsgrad der Mutter (<violet>Akademikerin</violet>) und ihrer Teilnahme an der Studie.
 Zum Beispiel sieht es in unseren Daten so aus, dass Akademikerinnen eine höhere Wahrscheinlichkeit haben, Teil der Stichprobe zu sein:
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
@@ -246,14 +247,14 @@ d <- crossing(x = 1:10,
   mutate(stipro = stipro,
          akademikerin = akademikerin,
          stillen = stillen)  %>%
-  mutate(stichprobe = ifelse(stipro == 1, "Ja","Nein"))
+  mutate(Stichprobe = ifelse(stipro == 1, "Ja","Nein"))
 
 dd <- d %>%
   filter(stipro == 1)
 pdgs <- prop( ~ stillen, data = dd, success = "#7A378B")
 
-pgsti <- ggplot(d, aes(x = x, y = y, color = stichprobe)) +
-  geom_tile(color = "white", size = .5, aes(fill = stichprobe), alpha = .2) +
+pgsti <- ggplot(d, aes(x = x, y = y, color = Stichprobe)) +
+  geom_tile(color = "white", size = .5, aes(fill = Stichprobe), alpha = .2) +
   theme_void() +
   geom_text(family='fontawesome-webfont', size = 8, aes(label = akademikerin), colour = stillen) +
   scale_fill_manual(values = c("#00998A","grey80")) +
@@ -275,10 +276,10 @@ question("Ist diese Stichprobe *repräsentativ*, d. h., können gültige Schlüs
 
 ##
 
-In dieser *Gelegenheitsstichprobe* liegt der Anteil <purple>Stillen</purple> bei $`r round(pdgs,2)`$ &ndash; und ist damit systematisch zu hoch.
+In dieser *Gelegenheitsstichprobe* liegt der Anteil <purple>gestillt</purple> bei $`r round(pdgs,2)`$ &ndash; und ist damit systematisch zu hoch.
 
 Wir können zwar das Ergebnis der Stichprobe zur *Beschreibung* dieser verwenden, aber wir können die Ergebnisse weder verallgemeinern noch zur Vorhersage verwenden.
-Wollten wir anhand der Daten zum Beispiel vorhersagen, ob eine zufällig gewählte Frau stillt oder nicht, so läge unsere geschätzte Wahrscheinlich von $Pr(\color{purple}{\text{Stillen}}) = `r round(pdgs,2)`$ zu hoch.
+Wollten wir anhand der Daten zum Beispiel vorhersagen, ob eine zufällig gewählte Frau stillt oder nicht, so läge unsere geschätzte Wahrscheinlich von $Pr(\color{green}{\text{Stillen}} = \color{purple}{\text{Ja}}) = `r round(pdgs,2)`$ zu hoch.
 
 <br>
 
@@ -299,7 +300,7 @@ Hier hilft der Zufall!
 Quelle: [https://pixabay.com/de/photos/w%c3%bcrfel-rot-fallen-zufall-635353/](Quelle: https://pixabay.com/de/photos/w%c3%bcrfel-rot-fallen-zufall-635353/)
 </span>
 
-Durch die zufällige Auswahl der Stichprobe wird die Abhängigkeit der Stichprobenzugehörigkeit von der Variable Akademikerin gelöscht.
+Durch die zufällige Auswahl der Stichprobe wird die Abhängigkeit der Stichprobenzugehörigkeit von der Variable <violet>Akademikerin</violet> gelöscht.
 
 Die Stichprobe hängt dann nur noch vom Zufall ab.
 
@@ -327,14 +328,14 @@ d <- crossing(x = 1:10,
   mutate(stipro = stipro,
          akademikerin = akademikerin,
          stillen = stillen)  %>%
-  mutate(stichprobe = ifelse(stipro == 1, "Ja","Nein"))
+  mutate(Stichprobe = ifelse(stipro == 1, "Ja","Nein"))
 
 dd <- d %>%
   filter(stipro == 1)
 pdz <- prop( ~ stillen, data = dd, success = "#7A378B")
 
-pzsti <- ggplot(d, aes(x = x, y = y, color = stichprobe)) +
-  geom_tile(color = "white", size = .5, aes(fill = stichprobe), alpha = .2) +
+pzsti <- ggplot(d, aes(x = x, y = y, color = Stichprobe)) +
+  geom_tile(color = "white", size = .5, aes(fill = Stichprobe), alpha = .2) +
   theme_void() +
   geom_text(family='fontawesome-webfont', size = 8, aes(label = akademikerin), colour = stillen) +
   scale_fill_manual(values = c("#00998A", "grey80")) +
@@ -343,7 +344,7 @@ pzsti <- ggplot(d, aes(x = x, y = y, color = stichprobe)) +
 pzsti
 ```
 
-In dieser zufälligen Stichprobe weicht der Anteil <purple>Stillen</purple> bei $`r round(pdz,2)`$ nicht mehr systematisch vom *wahren* Anteil in der Ziel-Population ab. 
+In dieser zufälligen Stichprobe weicht der Anteil <purple>gestillt</purple> mit $`r round(pdz,2)`$ nicht mehr systematisch vom *wahren* Anteil in der Ziel-Population ab. 
 Alle Abweichungen sind nur noch zufällig.
 Und je größer die Stichprobe ist, desto weniger schwankt der Anteil bei wiederholter Stichprobenziehung.
 
@@ -392,7 +393,7 @@ d <- crossing(x = 1:10,
          akademikerins = akademikerins,
          stillen = stillen,
          stillen = stillen) %>%
-  mutate(allergie = ifelse(allergie == 1, "Ja","Nein"))
+  mutate(Allergie = ifelse(allergie == 1, "Ja","Nein"))
 
 d2 <- d %>%
   mutate(stillen = ifelse(stillen, "Ja", "Nein")) %>%
@@ -400,18 +401,18 @@ d2 <- d %>%
 
 pallergiestillen <- d2 %>%
   filter(stillen == "Ja") %>%
-  prop( ~ allergie, success = "Nein", .) %>% 
+  prop( ~ Allergie, success = "Nein", .) %>% 
   round(., digits = 2)
 
 pallergiekstillen <- d2 %>%
   filter(stillen == "Nein") %>%
-  prop( ~ allergie, success = "Nein", .) %>% 
+  prop( ~ Allergie, success = "Nein", .) %>% 
   round(., digits = 2)
 ```
 
 Über unsere fiktive Studie wird in den Medien berichtet. Eine mögliche Schlagzeile lautet:
 
-> Gesunde Wirkung von Stillen bewiesen: `r pallergiestillen*100`-% der Kinder von Frauen, die mindestens 4 Monate voll stillen,  haben im Alter von 6 Jahren keine Allergie entwickelt.
+> Gesunde Wirkung von Stillen bewiesen: `r pallergiestillen*100` % der Kinder von Frauen, die mindestens 4 Monate voll stillen, haben im Alter von 6 Jahren keine Allergie entwickelt.
 
 
 ```{r beob1, echo=FALSE}
@@ -427,9 +428,9 @@ question("Lassen alleine die Daten der Schlagzeile den Schluss zu, dass Stillen 
 
 ##
 
-Zu wissen, wie viele bei <purple>Stillen</purple> keine Allergie entwickelt haben, ist zwar schön, es fehlt aber mindestens noch der Vergleich zu den <orange>nicht-gestillten</orange>-Kindern.
+Zu wissen, wie viele <purple>gestillte</purple> Kinder keine Allergie entwickelt haben, ist zwar schön, es fehlt aber mindestens noch der Vergleich zu den <orange>nicht-gestillten</orange> Kindern.
 
-Während in der fiktiven Studie dieser Anteil, wie in der Schlagzeile berichtet, bei <purple>gestillten</purple> Kindern bei $\color{purple}{`r pallergiestillen`}$ liegt, liegt er bei <orange>nicht-gestillten</orange>-Kindern bei $\color{orange}{`r pallergiekstillen`}$.
+Während in der fiktiven Studie dieser Anteil, wie in der Schlagzeile berichtet, bei <purple>gestillten</purple> Kindern bei $\color{purple}{`r pallergiestillen`}$ liegt, liegt er bei <orange>nicht-gestillten</orange> Kindern bei $\color{orange}{`r pallergiekstillen`}$.
 
 Die Daten wurden im Rahmen einer **Beobachtungsstudie** erhoben, das heißt es wurde erfragt, ob die Mütter <green>Stillen</green> (<purple>Ja</purple> oder <orange>Nein</orange>). Und es wurde die Variable <blue>Allergie</blue> erhoben.
 
@@ -438,7 +439,7 @@ Ein Vergleich des Anteils <blue>Allergie</blue> je nach <green>Stillen</green> e
 $$\color{purple}{`r pallergiestillen`}-\color{orange}{`r pallergiekstillen`}=`r (pallergiestillen-pallergiekstillen)`.$$
 
 ```{r beob2, echo=FALSE}
-message <- "Akademikerin ist hier ein Confounder und liegt auf einen nicht-kausalen Pfad von Stillen zu Allergie."
+message <- "Akademikerin ist hier ein Confounder und liegt auf einem nicht-kausalen Pfad von Stillen zu Allergie."
 question("Lassen die Daten der Beobachtungsstudie den Schluss zu, dass der durchschnittliche kausale Effekt von Stillen auf die Wahrscheinlichkeit eine Allergie zu entwickeln bei $0.14$ liegt?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
@@ -452,15 +453,15 @@ question("Lassen die Daten der Beobachtungsstudie den Schluss zu, dass der durch
 
 Das angenommene Modell war folgendes:
 
-```{r DAG_Modell2, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
+```{r DAG_Modell2, echo=FALSE, fig.align='center', out.width='60%', fig.asp = .8}
 plot(DAG_Modell)
 ```
 
 Dies führt zu folgender fiktiver Verteilung in der Population:
 
 ```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
-pbeob <- ggplot(d, aes(x = x, y = y, color = allergie)) +
-  geom_tile(color = "white", size = .5, aes(fill = allergie), alpha = .2) +
+pbeob <- ggplot(d, aes(x = x, y = y, color = Allergie)) +
+  geom_tile(color = "white", size = .5, aes(fill = Allergie), alpha = .2) +
   theme_void() +
   geom_text(family='fontawesome-webfont', size = 8, aes(label = akademikerins), colour = stillens) +
   scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
@@ -470,21 +471,24 @@ pbeob
 ```
 
 
-Bei <purple>Stillen</purple> tritt seltener eine Allergie auf als bei <orange>Nicht-Stillen</orange>.
+Bei <purple>stillen</purple> tritt seltener eine Allergie auf als bei <orange>nicht-Stillen</orange>.
 
-Aber: Akademikerinnen <purple>Stillen</purple> häufiger als Nicht-Akademikerinnen &ndash; und Kinder von Akademikerinnen entwickeln seltener Allergien.
+Aber: Akademikerinnen <purple>stillen</purple> häufiger als Nicht-Akademikerinnen &ndash; und Kinder von Akademikerinnen entwickeln seltener Allergien.
 
-##
+
+## Randomisiertes Experiment
 
 Ein klassischer Lösungsansatz zur Bestimmung von durchschnittlichen kausalen Effekten sind **randomisierte Experimente** (engl. randomized controlled trial, RCT). Dabei werden Pfeile, die auf die Variable $\color{green}{X}$ zeigen eliminiert, und die Zuweisung $do(\color{green}{X}=\color{green}{x})$ erfolgt zufällig.
 
 *Hinweis*: Wäre an dieser Stelle ein randomisiertes Experiment überhaupt ethisch vertretbar und praktisch umsetzbar? 
-Im Interview mit der Ökonomin Anne Brenøe erfahren sie mehr zu Designs, mit denen die kausalen Effekte des Stillens in der Praxis untersucht werden können.
+Im Interview mit der Ökonomin Anne Brenøe erfahren Sie mehr zu Designs, mit denen die kausalen Effekte des Stillens in der Praxis untersucht werden können.
 
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_ModellE)
 ```
+
+##
 
 Mit einem möglichen Ergebnis wie folgt:
 
@@ -512,7 +516,7 @@ d <- crossing(x = 1:10,
          akademikerins = akademikerins,
          stillen = stillen,
          stillen = stillen) %>%
-  mutate(allergie = ifelse(allergie == 1, "Ja","Nein"))
+  mutate(Allergie = ifelse(allergie == 1, "Ja","Nein"))
 
 d2 <- d %>%
   mutate(stillen = ifelse(stillen, "Ja", "Nein")) %>%
@@ -520,16 +524,16 @@ d2 <- d %>%
 
 pallergiestillene <- d2 %>%
   filter(stillen == "Ja") %>%
-  prop( ~ allergie, success = "Nein", .) %>% 
+  prop( ~ Allergie, success = "Nein", .) %>% 
   round(., digits = 2)
 
 pallergiekstillene <- d2 %>%
   filter(stillen == "Nein") %>%
-  prop( ~ allergie, success = "Nein", .) %>% 
+  prop( ~ Allergie, success = "Nein", .) %>% 
   round(., digits = 2)
 
-pexp <- ggplot(d, aes(x = x, y = y, color = allergie)) +
-  geom_tile(color = "white", size = .5, aes(fill = allergie), alpha = .2) +
+pexp <- ggplot(d, aes(x = x, y = y, color = Allergie)) +
+  geom_tile(color = "white", size = .5, aes(fill = Allergie), alpha = .2) +
   theme_void() +
   geom_text(family='fontawesome-webfont', size = 8, aes(label = akademikerins), colour = stillens) +
   scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
@@ -545,10 +549,10 @@ $$\color{purple}{`r pallergiestillene`}-\color{orange}{`r pallergiekstillene`}=`
 
 In der <red>fiktiven</red> Beobachtungsstudie war unsere Schätzung verzerrt gewesen aufgrund des Confounders <violet>Akademikerin</violet>. 
 
-In unserem <red>fiktiven</red> Experiment müssen wir uns um diese und andere Drittvariablen keine Sorgen mehr machen, weil sie nicht beeinflußen können, ob Mütter stillen oder nicht.
+In unserem <red>fiktiven</red> Experiment müssen wir uns um diese und andere Drittvariablen keine Sorgen mehr machen, weil sie nicht beeinflussen können, ob Mütter stillen oder nicht.
 
 Um von der reinen Vorhersage ("Wie wahrscheinlich ist es, dass eine zufällig gewählte Frau stillt?") zur **kausalen Inferenz** zu kommen ("Welchen Effekt hat das Stillen auf das Allergierisiko?") benötigt es mehr als nur die Daten.
-Wir benötigen zusätzlich wissen darüber, wie die Daten entstanden sind &ndash welche zusätzlichen Variablen die Variablen von Interesse beeinflußt haben, oder ob beispielsweise eine zufällige Intervention stattgefunden hat.
+Wir benötigen zusätzlich wissen darüber, wie die Daten entstanden sind &ndash; welche zusätzlichen Variablen die Variablen von Interesse beeinflusst haben, oder ob beispielsweise eine zufällige Intervention stattgefunden hat.
 
 
 ## Hinweis

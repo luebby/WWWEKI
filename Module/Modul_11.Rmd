@@ -53,14 +53,14 @@ In diesem Modul lernen Sie:
 Mittlerweile sind wir ziemlich sicher, dass Rauchen der Gesundheit schadet. 
 Aber das war nicht immer so, und eine naive Datenanalyse kann auch zu einem gegenteiligen Ergebnis kommen.
 
-In einer Reihe von Papern (siehe z.B. [Kahn, 2005](https://doi.org/10.1080/10691898.2005.11910559)) wurde der Frage nachgegangen inwieweit Rauchen das sogenannte *forcierte exspiratorische Volumen* bei Heranwachsenden beeinflusst.
+In einer Reihe von Papern (siehe z. B. [Kahn, 2005](https://doi.org/10.1080/10691898.2005.11910559)) wurde der Frage nachgegangen inwieweit Rauchen das sogenannte *forcierte exspiratorische Volumen* bei Heranwachsenden beeinflusst.
 Hierbei handelt es sich um eine Kennzahl der Lungenfunktion, das Lungenvolumen beim forcierten Ausatmen.
 
 
 ```{r ethik, echo=FALSE}
 question("Ist hier ein randomisiertes Experiment ethisch vertretbar?",
-  answer("Ja.", message = "Es können negative Folgen bei den Teilnehmer\\*innen, die im Experiment den Raucher\\*innen zugeordnet werden, befürchtet werden."),
-  answer("Nein.", correct = TRUE, message = "Negative Konsequenzen sind für die Raucher\\*innen zu erwarten."),
+  answer("Ja."),
+  answer("Nein.", correct = TRUE, message = "Es sind negative Folgen bei den Teilnehmer:innen, die im Experiment den Raucher:innen zugeordnet werden, zu erwarten."),
   allow_retry = TRUE,
   correct = random_praise(),
   incorrect = random_encouragement()
@@ -110,7 +110,7 @@ gf_boxplot(Lungenvolumen ~ RaucherIn, data = LV)
 ```{r median, echo=FALSE}
 question("Welche Gruppe hat im Median das größere Lungenvolumen?",
   answer("Die Nichtraucher:innen."),
-  answer("Die Raucher:innen.", correct = TRUE, message = "Während der Median bei den Nichtraucher\\*innen bei ca. 2.5 l liegt, liegt er bei den Raucher\\*innen bei ca. 3.2 l."),
+  answer("Die Raucher:innen.", correct = TRUE, message = "Während der Median bei den Nichtraucher:innen bei ca. 2.5 l liegt, liegt er bei den Raucher:innen bei ca. 3.2 l."),
   allow_retry = TRUE,
   correct = random_praise(),
   incorrect = random_encouragement())
@@ -142,7 +142,7 @@ gf_point(Groesse ~ Alter, data = LV) %>%
 
 <br>
 
-Wenn wir den Code erweitern, so dass Sie die Punkte gemäß der Variable `RaucherIn` farbig markiert sind, sehen wir: Bei Heranwachsenden sind die Raucher:innen älter als die Nichtraucher:innen &ndash; und damit auch größer.
+Wenn wir den Code erweitern, so dass die Punkte gemäß der Variablen `RaucherIn` farbig markiert sind, sehen wir: Bei Heranwachsenden sind die Raucher:innen älter als die Nichtraucher:innen &ndash; und damit auch größer.
 
 ```{r color, message=FALSE}
 gf_point(Groesse ~ Alter, color = ~ RaucherIn, data = LV) %>%
@@ -193,7 +193,7 @@ $$\text{RaucherIn} \leftarrow \text{Geschlecht} \rightarrow \text{Lungenvolumen}
 bzw.
 
 $$\text{RaucherIn} \leftarrow \text{Alter} \rightarrow \text{Lungenvolumen}$$
-Diese Pfade sollten also z.B. durch Adjustierung *blockiert* werden.
+Diese Pfade sollten also z. B. durch Adjustierung *blockiert* werden.
 
 
 ```{r chain, echo=FALSE}
@@ -207,9 +207,10 @@ question("Sollte auch für die Variable `Groesse` adjustiert werden?",
 
 ##
 
-Geben Sie, unter der Annahme eines linearen Modells die Formel an, die den (totalen) kausalen Effekt des Rauchens auf das Lungenvolumen schätzt.
+Geben Sie &ndash; unter der Annahme eines linearen Modells &ndash; die Formel an, die den (totalen) kausalen Effekt des Rauchens auf das Lungenvolumen schätzt.
 
-Zur Erinnerung, die Namen der Variablen im Datensatz waren `Alter`, `Lungenvolumen`, `Groesse`, `Geschlecht` und `RaucherIn`.
+Zur Erinnerung: die Namen der Variablen im Datensatz waren <br> 
+`Alter`, `Lungenvolumen`, `Groesse`, `Geschlecht` und `RaucherIn`.
 
 ```{r model, exercise = TRUE, eval=FALSE}
 lm(Lungenvolumen ~ RaucherIn + ___ + ___, data = LV) %>%
@@ -228,7 +229,7 @@ lm(Lungenvolumen ~ RaucherIn + Geschlecht + Alter, data = LV) %>%
 
 ```{r effekt, echo=FALSE}
 question("Hat in dem Modell Rauchen einen negativen Effekt auf das Lungenvolumen?",
-  answer("Ja.", correct = TRUE, message = "Der geschätzte Koeffizient ist mit $-0.153974$ negativ (`Estimate` für die Variable `RaucherInja `)."),
+  answer("Ja.", correct = TRUE, message = "Der geschätzte Koeffizient (`Estimate`) ist mit $-0.153974$ negativ (für die Variable `RaucherInja `)."),
   answer("Nein."),
   allow_retry = TRUE,
   correct = random_praise(),
