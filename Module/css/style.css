@@ -59,7 +59,7 @@ h2 {
   border-radius: 0;
   border: solid 1px #400080;
 }
-.band{
+/*.band{
   margin-top: 8px;
   padding: 0;
   background-image: url("KIcampusLogo.png");
@@ -67,7 +67,7 @@ h2 {
   background-position: right top;
   background-size: 10%;
   background-color: #fff;
-}
+}*/
 .band .tutorialTitle {
   display: block;
   color: #fff;
