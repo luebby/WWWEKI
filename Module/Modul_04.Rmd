@@ -92,7 +92,7 @@ Das folgende Beispiel ist fiktiv &ndash; und eine sehr starke Vereinfachung. Au�
 
 ***
 
-*Anmerkung*: Siehe hierzu z. B. "Welche Information steckt in Daten?" aus dem KI-Campus Kurs [Stadt | Land | DatenFluss](https://ki-campus.org/datenfluss).]
+*Anmerkung*: Siehe hierzu z. B. "Welche Information steckt in Daten?" aus dem KI-Campus Kurs [Stadt | Land | DatenFluss](https://ki-campus.org/datenfluss).
 
 ***
 
@@ -212,7 +212,7 @@ F체r die Erl채uterung bitte auf `N채chstes Thema` klicken.
 
 ##
 
-W채hrend die Werte f체r $\color{blue}{Y}$) bei $do(\color{green}{X}=1)$ um die $\color{blue}{15}$ schwanken, liegen sie bei $do(\color{green}{X}=10)$ um die $\color{blue}{150}$.
+W채hrend die Werte f체r $\color{blue}{Y}$ bei $do(\color{green}{X}=1)$ um die $\color{blue}{15}$ schwanken, liegen sie bei $do(\color{green}{X}=10)$ um die $\color{blue}{150}$.
 
 ```{r intervention, echo=FALSE}
 question("Was wird mit mit den Zusammenhang zwischen Lernen (`x`) und Verstehen (`y`) passieren, wenn Sie Wissen festhalten, also z.B. `z <- 15` zuweisen?",

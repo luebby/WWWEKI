@@ -315,7 +315,7 @@ Nun könnte man versuchen, den durchschnittlichen kausalen Effekt mithilfe diese
 $$\bar{\color{blue}{y}}^{\color{green}{x=1}} - \bar{\color{blue}{y}}^{\color{green}{x=0}} = `r round(mean(gehalt ~ teilnahme, data = Schulung)[1],2)` - `r round(mean(gehalt ~ teilnahme, data = Schulung)[2],2)` = `r round(-diffmean(gehalt ~ teilnahme, data = Schulung),2)`$$
 
 Dieser Wert weicht aber substanziell vom wahren durchschnittlichen kausalen Effekt ab, den wir zuvor mithilfe der Potential Outcomes berechnet hatten: $\bar{\color{orange}{\Delta}} =`r round(mean(~ effekt, data = Schulung),2)`$ auf.
-Bei dieser Abweichung handelt es sich um eine systamtische Verzerrung, die auch als **Bias** bezeichnet wird.
+Bei dieser Abweichung handelt es sich um eine systematische Verzerrung, die auch als **Bias** bezeichnet wird.
 
 
 Der naive Vergleich der Mittelwerte überschätzt hier den wahren durchschnittlichen Effekt. In unserem fiktiven Beispiel liegt das daran, dass Personen mit einem höherem Gehaltsinteresse eher an der Schulung teilgenommen haben als die mit einem niedrigeren Interesse. Erstere hätten aber, aufgrund Ihres Gehaltsinteresses, so oder so, also unabhängig von der Schulung, ein höheres Gehalt erwartet. Natürlich sind hier auch andere inhaltliche Erklärungen denkbar.
@@ -344,7 +344,7 @@ Das fundamentale Problem der kausalen Inferenz ist universell. In vielen Situati
 
 Die Gefahr solcher Fehlschlüsse verringert sich aber, wenn wir uns darüber Gedanken machen, wie unsere Daten überhaupt entstanden sind. In unserem fiktiven Beispiel kann man die zusätzliche Information heranziehen, dass Personen sich frei auswählen konnten, ob sie teilnehmen oder nicht. Dann erkennt man schnell, dass der naive Mittelwertvergleich kein angemessener Weg ist, den durchschnittlichen kausalen Effekt zu schätzen. 
 
-In den folgenden Modulen werden werden Sie verschiedene datengenerierende Mechanismen auf abstrakter Ebene kennenlernen und erfahren, wie sie kausale Schlüsse beeinflussen.
+In den folgenden Modulen werden Sie verschiedene datengenerierende Mechanismen auf abstrakter Ebene kennenlernen und erfahren, wie sie kausale Schlüsse beeinflussen.
 
 ## Hinweis
 

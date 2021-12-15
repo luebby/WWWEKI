@@ -195,7 +195,7 @@ Diese unterscheidet sich i.d.R. von der unbedingten Wahrscheinlichkeit $Pr(y)$.
 ```{r do, echo=FALSE}
 question("Sind die Wahrscheinlichkeiten für $y$ bei Assoziation $Pr(y|x)$ und Intervention $Pr(y|do(x))$ immer identisch?",
          answer("Ja"),         
-         answer("Nein", correct = TRUE,  message = "Die Wahrscheinlichkeit, dass jemand gesund ist ($y$), der eine Schwimmbrille hat ($x$), ist realtiv hoch (Assoziation). Vermutlich würde eine Verteilung von Schwimmbrillen (Intervention, $do(x)$), zu einer niedrigeren Wahrscheinlichkeit führen. Es sei denn, die Menschen gingen dann auch alle Schwimmen. Lied dazu: [Monty Harper: Correlation Does Not Imply Causation](https://www.causeweb.org/cause/resources/fun/songs/correlation-does-not-imply-causation)"),
+         answer("Nein", correct = TRUE,  message = "Die Wahrscheinlichkeit, dass jemand gesund ist ($y$), der eine Schwimmbrille hat ($x$), ist relativ hoch (Assoziation). Vermutlich würde eine Verteilung von Schwimmbrillen (Intervention, $do(x)$), zu einer niedrigeren Wahrscheinlichkeit führen. Es sei denn, die Menschen gingen dann auch alle Schwimmen. Lied dazu: [Monty Harper: Correlation Does Not Imply Causation](https://www.causeweb.org/cause/resources/fun/songs/correlation-does-not-imply-causation)"),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()

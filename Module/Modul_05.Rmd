@@ -62,7 +62,7 @@ DAG_Fork <- dagify(X ~ Z,
 library(mosaic)
 
 StoercheGeburten <- tibble(
-  land = c("Albanien", "Österreich", "Belgien", "Bulgarien", "Dänemark", "Frankreiche", "Deutschland", "Griechenland", "Holland", "Ungarn", "Italien", "Polen", "Portugal", "Rumänien", "Spanien", "Schweiz", "Türkei"),
+  land = c("Albanien", "Österreich", "Belgien", "Bulgarien", "Dänemark", "Frankreich", "Deutschland", "Griechenland", "Holland", "Ungarn", "Italien", "Polen", "Portugal", "Rumänien", "Spanien", "Schweiz", "Türkei"),
   flaeche = c(28750, 83860, 30520, 111000, 43100, 544000, 357000, 132000, 41900, 93000, 301280, 312680, 92390, 237500, 504750, 41290, 779450),
   stoerche = c(100, 300, 1, 5000, 9, 140, 3300, 2500, 4, 5000, 5, 30000, 1500, 5000, 8000, 150, 25000),
   geburten = c(83, 87, 118, 117, 59, 774, 901, 106, 188, 124, 551, 610, 120, 367, 439, 82, 1576)
@@ -278,7 +278,7 @@ Was ist zu tun, um einen möglichen (totalen) kausalen Effekt von $\color{green}
 Der Wert des Confounders $\color{violet}{Z}$ muss berücksichtigt werden. Im Beispiel der <green>Störche</green> und <blue>Geburten</blue> sollten also z.B. nur Länder mit gleicher <violet>Fläche</violet> verglichen werden. 
 In einem linearen Regressionsmodell sollte anstelle des Modells `y ~ x` das Modell `y ~ x + z` verwendet werden.
 
-Die Variable <violet>Fläche</violet> heißt in der vorliegenden Datentabelle `flaeche`. Ändern Sie den Code entsprechend und gucken Sie, ob und wie sich der geschätzte Zusammenhang von `stoerchen` und `geburten` im Modell ändert.
+Die Variable <violet>Fläche</violet> heißt in der vorliegenden Datentabelle `flaeche`. Ändern Sie den Code entsprechend und gucken Sie, ob und wie sich der geschätzte Zusammenhang von `stoerche` und `geburten` im Modell ändert.
 
 ```{r lm, exercise=TRUE}
 lm(geburten ~ stoerche, data = StoercheGeburten)
