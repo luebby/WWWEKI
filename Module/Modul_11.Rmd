@@ -54,8 +54,9 @@ In diesem Modul lernen Sie:
 
 ## Rauchen bei Kindern und Jugendlichen
 
-Mittlerweile sind wir ziemlich sicher, dass Rauchen der Gesundheit schadet. 
-Aber das war nicht immer so, und eine naive Datenanalyse kann auch zu einem gegenteiligen Ergebnis kommen.
+Wie auch beim menschlichen Beitrag zum Klimawandel: Mittlerweile sind wir ziemlich sicher, dass Rauchen der Gesundheit schadet &ndash; so wie Industrialiserung dem Klima.
+
+Aber das war nicht immer so, und eine naive Datenanalyse sogar auch zu einem gegenteiligen Ergebnis kommen.
 
 In einer Reihe von Papern (siehe z. B. [Kahn, 2005](https://doi.org/10.1080/10691898.2005.11910559)) wurde der Frage nachgegangen inwieweit Rauchen das sogenannte *forcierte exspiratorische Volumen* bei Heranwachsenden beeinflusst.
 Hierbei handelt es sich um eine Kennzahl der Lungenfunktion, das Lungenvolumen beim forcierten Ausatmen.
@@ -240,7 +241,7 @@ question("Hat in dem Modell Rauchen einen negativen Effekt auf das Lungenvolumen
   incorrect = random_encouragement())
 ```
 
-*Anmerkung*: Das lineare Modell stellt hier nur eine Näherung da, weil es nicht-lineare Zusammenhänge zwischen Alter und Größe sowie Größe und Lungenvolumen gibt.
+*Anmerkung*: Das lineare Modell stellt hier nur eine Näherung da, weil es nicht-lineare Zusammenhänge zwischen Alter und Größe sowie Größe und Lungenvolumen gibt. Das ganze Modell ist eine *pragmatische* Annäherung.
 
 ## Hinweis
 
