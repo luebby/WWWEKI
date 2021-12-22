@@ -1,0 +1,223 @@
+---
+title: "Modul 12: Praktisches Daten Hinterfragen"
+output: 
+  learnr::tutorial:
+    language: 
+      de: js/tutorial_de.json
+    progressive: true
+    css: "css/style.css"
+runtime: shiny_prerendered
+---
+
+<a href="https://ki-campus.org/">
+<img border="0" alt="KICampusLogo" src="images/KIcampusLogo.png" width="100" height="30" style="float: right">
+</a>
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(ggdag)
+theme.fom <- theme_classic(22*1.04)
+theme.fom <- theme.fom
+theme_set(
+  theme.fom  
+)
+
+# deutsche Version von random_praise
+source("random-praise_de/translation_random-praise_de.R")
+
+coordCof <- list(
+  x = c(Kaffeekonsum = 0, Fehlgeburt = 2, Uebelkeit = 0.5, U = 1.5),
+  y = c(Kaffeekonsum = 1, Fehlgeburt = 1, Uebelkeit = 0, U = 0))
+
+dagCof <- dagify(Kaffeekonsum ~ Uebelkeit,
+                Uebelkeit ~ U,
+                Fehlgeburt ~ U + Kaffeekonsum,
+                coords = coordCof,
+                exposure = "Kaffeekonsum",
+                outcome = "Fehlgeburt")
+
+
+p1 <- ggdag(dagCof, text_col = "blue") + theme_dag_blank()
+
+
+
+coordLif <- list(
+  x = c(robust = 0, gesell = 0, fuenf = 1, siebzig = 2),
+  y = c(robust = 2, gesell = 0, fuenf = 1, siebzig = 1))
+
+dagLif <- dagify(fuenf ~ robust + gesell,
+                siebzig ~ fuenf + robust + gesell,
+                exposure = "gesell",
+                outcome = "siebzig",
+                labels = c("robust" = "Intrinsische Robustheit",
+            "gesell" = "Art der Gesellschaft",
+            "fuenf" = "Bis 5 Überleben",
+            "siebzig" = "Bis 70 Überleben"),
+                coords = coordLif)
+
+
+p2 <- ggdag(dagLif, text_col = "blue", use_labels = "label") + theme_dag_blank()
+
+
+library(learnr)
+library(mosaic)
+
+```
+
+## Lernziele
+
+In diesem Modul lernen Sie:
+
+- wie das praktische Hinterfragen von Daten in der Praxis aussehen kann;
+
+- was es noch Spannendes im Bereich Kausalinferenz zu lernen gibt.
+
+
+## Das Problem mit den vereinfachten Beispielen
+
+Im Rahmen dieses Kurses haben Sie gelernt, wie kausale Effekte definiert werden und wie man mithilfe von kausalen Graphen Annahmen abbilden und valide Schlußfolgerungen ablesen kann.
+
+Aber alle Graphen, die Sie gesehen haben, waren natürlich stark vereinfacht und enthielten nur wenige Variablen.
+In der Realität sieht es natürlich viel komplexer aus -- Graphen können hunderte Variablen beinhalten, oft auch unbeobachtbare.
+
+An vielen Stellen wissen wir schlicht und ergreifend nicht, wie das zugrundeliegende kausale Netz aussieht.
+
+
+```{r unsicher, echo=FALSE}
+question("Angenommen, wir kennen den wahren zugrundeliegenden kausalen Graphen nicht sicher und wollen trotzdem aus Beobachtungsdaten kausale Effekte schließen. 
+         Können wir immer noch voll überzeugt sein, dass unsere Schlußfolgerungen stimmen?",
+  answer("Ja."),
+  answer("Nein.", correct = TRUE, message = "Unsicherheit über den kausalen Graphen führt zu Unsicherheit darüber, ob unsere Schlußfolgerungen korrekt sind. 
+         Beispielsweise können wir oft nicht komplett ausschließen, dass zusätzliche unbeobachtete Confounder unsere Ergebnisse verzerren."),
+  allow_retry = TRUE,
+  correct = random_praise(),
+  incorrect = random_encouragement()
+)
+```
+
+##
+
+Das ist aber noch kein Grund, das Handtuch zu werfen!
+
+Schlußfolgerungen sind fast immer mit gewissen Unsicherheiten behaftet. 
+
+Und selbst wenn wir nicht den kompletten kausalen Graphen kennen, hilft uns das Wissen über die fundamentalen kausalen Strukturen, kausale Schlußfolgerungen kritisch zu hinterfragen.
+
+## Beispiel 1: Kaffeekonsum und Fehlgeburten
+
+Koffein kann bei Schwangeren die Plazenta durchqueren und mütterlicher Kaffeekonsum wurde mit Fehlgeburten in Verbindung gebracht.
+Deswegen wird oft empfohlen, Kaffee und andere koffeinhaltige Getränke in der Schwangerschaft ganz zu meiden.
+
+Der Kaffeekonsum in der Schwangerschaft hängt aber von vielen Faktoren ab.
+Beispielsweise leiden gerade im ersten Trimester viele unter Übelkeit, die ihnen den Lust auf Kaffee raubt.
+
+Unabhängig davon berichten Studien, dass Übelkeit und Erbrechen in der Schwangerschaft *negativ* mit dem Risiko für eine Fehlgeburt korrelieren.
+Das heißt also, dass Schwangere, denen besonders oft schlecht ist, weniger wahrscheinlich eine Fehlgeburt erleiden.
+
+```{r kaffee, echo=FALSE}
+question("Auf welche fundamentale kausale Struktur deutet diese Erklärung hin?",
+  answer("Eine Kette"),
+  answer("Eine Gabel", correct = TRUE, message = "Übelkeit beeinflußt den Kaffeekonsum, Übelkeit korreliert mit einem niedrigeren Risiko für eine Fehlgeburt.
+         Damit könnte Übelkeit ein Confounder sein, oder zumindest auf einem konfundieren Pfad liegen bei dem eine unbeobachtete Variable sowohl Übelkeit als auch das Fehlgeburtsrisiko beeinflußt."),
+  answer("Eine umgedrehte Gabel"),
+  allow_retry = TRUE,
+  correct = random_praise(),
+  incorrect = random_encouragement()
+)
+```
+
+## 
+
+```{r p1, echo=FALSE}
+p1
+```
+
+Studien, die für Übelkeit als potentiellen Confounder adjustieren, finden potentiell schwächere Zusammenhänge.
+
+Die Idee, dass Übelkeit ein Confounder ist, wird auch dadurch gestützt, dass Studien insgesamt weniger konsistente Zusammenhänge zwischen Fehlgeburten und dem Konsum anderer koffeinhaltige Getränke (z.B. Tee, Cola) finden.
+Diese enthalten zwar Koffein, werden aber oft bei Übelkeit in der Schwangerschaft als weniger abstoßend empfunden.
+
+Insgesamt schlußfolgert beispielsweise das [American College of Obstetricians and Gynecologist (2020)](https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2010/08/moderate-caffeine-consumption-during-pregnancy), dass moderater Koffeinkonsum (weniger als 200mg am Tag) kein Risikofaktor zu sein scheint.
+Für größere Mengen an Koffein kann zu diesem Zeitpunkt keine sichere Schlußfolgerung gezogen werden.
+
+***
+
+*Anmerkung:* Die Zusammenhänge zwischen Kaffeekonsum, Übelkeit und Fehlgeburten werden in dem Buch "Expecting Better" von der Ökonomin Emily Oster genauer diskutiert. (Deutscher Titel: "Das einzig wahre Baby-Handbuch")
+
+***
+
+
+## Beispiel 2: Lebenserwartung in Jäger- und Sammlergesellschaften
+
+Alle Evidenz deutet darauf hin, dass in prähistorischen Jäger- und Sammlergesellschaften die Lebenserwartung bei der Geburt mit etwa 25 Jahren sehr viel niedriger lag als sie es heutzutage ist.
+
+Allerdings wird immer wieder aufgebracht, dass diese niedrige Zahl vor allem mit der hohen Säuglings- und Kindersterblichkeit zusammenhängt.
+Wenn prähistorische Menschen es bis ins Jugendlichenalter schafften, so überlebten sie wahrscheinlich oft bis ins hohe Alter.
+
+Ähnliche Beobachtungen werden auch für noch existierende Jäger- und Sammlergesellschaften gemacht: Während die Sterblichkeit am Anfang des Lebens deutlich höher ist, so nimmt sie radikal ab sobald die ersten Jahre überstanden sind.
+Eine Lebensspanne von 70 Jahren ist dann nichts Ungewöhnliches.
+
+##
+
+Diese Beobachtungen werden manchmal aufgegriffen, um Argumente über verschiedenen Lebensstile zu machen.
+
+Wenn Jäger und Sammler trotz fehlender Gesundheitsversorgung oft so alt werden, spricht das nicht dafür, dass ihr Lebensstil besonders gesund ist?
+
+Oder könnte man am Ende sogar schlußfolgern, dass die moderne Medizin uns gar nicht so viel langlebiger macht?
+Dass sich die Situation für Komplikationen bei Geburt und in den jungen Jahren verbessert hat, ist klar.
+Aber was passiert danach?
+Vielleicht werden die Effekte, die uns die moderne Medizin bringt, komplett aufgehoben von dem gesteigerten Risiko, an sogenannten Zivilisationskrankheiten zu erliegen?
+
+
+## 
+
+Aber bevor wir mit solchen Spekulationen beginnen, sollten wir uns zuerst Gedanken darüber machen, wie diese Daten -- niedrige Lebenserwartung ab Geburt, recht hohe Lebenserwartung *nach überstandener Kindheit* -- zustande kommen.
+
+```{r p2, echo=FALSE}
+p2
+```
+
+Menschen unterscheiden sich von Geburt an in bestimmten Faktoren, welche von Genen beeinflußt sind.
+Beispielsweise sind manche Menschen besonders anfällig für Infekte, andere hatten mehr Glück und sehr fitte Immunsysteme.
+All solche Unterschiede haben wir hier unter Intrinsischer Robustheit zusammengefasst.
+Nun interessiert uns, wie sehr die Gesellschaft in der wir leben (Jäger und Sammler vs. modern) beeinflusst, ob wir unseren 70. Geburtstag erleben -- und zwar unabhängig von den Effekten auf das Überleben bis zum 5. Geburtstag.
+
+
+
+```{r chain, echo=FALSE}
+question("Welche Rolle spielt \"Bis 5 überleben\" im Teilgraphen mit \"Intrinsische Robustheit\" und \"Art der Gesellschaft\"",
+  answer("Mediator"),
+  answer("Confounder"),
+  answer("Collider", correct = TRUE, message = "Korrekte -- die beiden Pfeile zeigen beide auf die \"Bis 5 überleben\""),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement())
+```
+##
+
+Wenn wir für die beiden Arten von Gesellschaft jeweils berechnen, wie hoch die Lebenserwatung für eine Person ist, die das 5. Lebensjahr erreicht hat, dann sind unsere Analysen konditional auf die Variable "Bis 5 überleben."
+Diese ist jedoch ein Collider auf dem Pfad zwischen "Intrinsische Robustheit" und "Art der Gesellschaft."
+Somit führen unsere Analysen zu einer nicht-kausalen Korrelation zwischen intrinsischer Robustheit und der Art der Gesellschaft.
+
+Der Vergleich der beiden Lebenserwartungen konditional auf das Überleben bis ins 5. Lebensjahr ist damit ein verzerrter Schätzer für den direkten Effekt von der Art der Gesellschaft auf Bis 70 Überleben.
+
+Auf inhaltlicher Ebene ist das sogar recht intuitiv. 
+Wer in einer Gesellschaft mit zahlreichen Risiken für das Überleben einige Jahre übersteht, muss von Haus aus relativ tough sein.
+Wer in einer Gesellschaft mit wenigen Risiken und guter gesundheitlicher Versorgung lebt, kann auch überleben, wenn er oder sie bestimmte gesundheitliche Anfälligkeiten hat.
+
+Die Population der Menschen über 5 in Jäger- und Sammlergesellschaften ist damit von vornerein ganz anders als die Population der Menschen über 5 in modernen Gesellschaften.
+Ein naiver Vergleich dieser zwei Populationen vermischt Effekte der Art der Gesellschaft auf das Überleben mit Scheinkorrelationen, welche durch den "Selektionsfilter" des Überlebens bis in die Kindheit verzerrt werden.
+
+## Ausblick
+# HIER WEITER
+
+
+
+<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
+
+Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
+
+Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
+
+
+![](images/csm_Logo-BMBF.jpg)
