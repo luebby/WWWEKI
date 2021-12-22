@@ -1,5 +1,5 @@
 ---
-title: "Modul 09: Wie wäre es gewesen? Der nicht-gegangene Weg"
+title: "Modul 09: Was wäre gewesen, wenn?"
 output: 
   learnr::tutorial:
     language: 
@@ -93,7 +93,7 @@ Uns interessiert aber auch, wie das Ergebnis gewesen wäre, wenn wir den anderen
 <img src="images/Zweiwege.jpg" alt="Weggabel" width="50%" height="50%">
 <!-- style="padding-left:50px;" -->
 <span style="font-size: 10px;"><br>
-Quelle: [https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607631/]( https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607631/)
+Quelle: [https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607631/](https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607631/)
 </span>
 </center>
 
