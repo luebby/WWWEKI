@@ -98,7 +98,7 @@ Quelle: [https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607
 </center>
 
 
-Wir wissen was passiert ist, nachdem wir links abgebogen sind &#129042; wir wollen wissen was passiert wäre, wenn wir rechts abgebogen wären &ndash; mit dem Wissen des Ergebnisses nach der Abbiegung nach links.
+Wir wissen, was passiert ist, nachdem wir links abgebogen sind &#129042; wir wollen wissen, was passiert wäre, wenn wir rechts abgebogen wären &ndash; mit dem Wissen des Ergebnisses nach der Abbiegung nach links.
 
 Dies ist in der kausalen Leiter nach Pearl die höchste Stufe:
 
@@ -127,15 +127,16 @@ Das Phänomen kennen sicherlich viele: Sie lernen für eine Klausur, z. B. 10 St
 
 *Hätte ich mehr gelernt, z. B. 20 Stunden, dann hätte ich eine sehr gute Note erreicht.*
 
-Gehen wir - extrem stark vereinfacht - von folgendem kausalen Diagramm aus:
+Gehen wir &ndash; extrem stark vereinfacht &ndash; von folgendem kausalen Diagramm aus:
 
 ```{r DAG1, echo=FALSE, fig.align='center', out.width='60%'}
 plot(DAG1)
 ```
 
-Dann ist <green>Lernzeit</green> die Ursache $\color{green}{X}$, und <blue>Klasurerfolg</blue> der Effekt $\color{blue}{Y}$.
+Dann ist <green>Lernzeit</green> die Ursache $\color{green}{X}$ und <blue>Klasurerfolg</blue> der Effekt $\color{blue}{Y}$.
 
-**Hinweis**: In Wirklichkeit gibt es natürlich viele weitere Faktoren die hier eine Rolle spielen, dies Beispiel ist eine *Karikatur* der Wirklichkeit mit dem Ziel das Konzept zu illustrieren. Das Beispiel hat nicht den Anspruch die Wirklichkeit zu beschreiben!
+**Hinweis**: In Wirklichkeit gibt es natürlich viele weitere Faktoren, die hier eine Rolle spielen, dieses Beispiel ist eine *Karikatur* der Wirklichkeit mit dem Ziel das Konzept zu illustrieren. 
+Das Beispiel hat nicht den Anspruch die Wirklichkeit zu beschreiben!
 
 ##
 
@@ -188,7 +189,7 @@ Damit wissen wir hier:
 
 ## Aktion
 
-> Hätte ich mehr gelernt, z. B. 20 Stunden
+> Hätte ich mehr gelernt, z. B. 20 Stunden.
 
 Wir wollen also wissen, was wäre der Effekt einer Handlung im Sinne von $do(\color{green}{x}=20)$, also anstelle von 
 
@@ -215,7 +216,7 @@ für das Counterfactual:
 
 $$\color{blue}{y}=2\cdot\color{green}{x}+\underbrace{U_{\color{blue}{y}}}_{=U_{\color{blue}{y'}}}=2\cdot 20 + 30 = 70.$$
 
-<red>&#9888;</red> Dass die Bestimmung des Counterfactuals in diesem karrikierten Beispiel so einfach war, liegt daran, dass wir nur zwei Variablen und für diese auch noch ein lineares Modell angenommen haben.
+<red>&#9888;</red> Dass die Bestimmung des Counterfactuals in diesem karikierten Beispiel so einfach war, liegt daran, dass wir nur zwei Variablen und für diese auch noch ein lineares Modell angenommen haben.
 
 ```{r vorhersage, echo=FALSE}
 question("Wie lautet das Counterfactual $y$, wenn $x=10$ ist, sowie $x'=20$ und $y'=30$ beobachtet wurden?",
@@ -237,9 +238,9 @@ Die Berechnung eines Counterfactuals erfolgt in 3 Schritten:
 
 1. **Abduktion:** Nutzen der beobachteten Werte $x', y'$ um die Verteilung der externen, unbekannten Ursachen $U$ zu bestimmen.
 
-2. **Aktion:** Modifikation des Modell, so dass Pfeile in $X$ gelöscht werden und $X=x$ gilt.
+2. **Aktion:** Modifikation des Modells, so dass Pfeile in $X$ gelöscht werden und $X=x$ gilt.
 
-3. **Vorhersage:** Verwenden des Modifizierten Modells aus 2. und der Verteilung von $U$ aus 1., um den erwarteten Wert des Counterfactuals für $Y$ zu bestimmen.
+3. **Vorhersage:** Verwenden des modifizierten Modells aus 2. und der Verteilung von $U$ aus 1., um den erwarteten Wert des Counterfactuals für $Y$ zu bestimmen.
 ::: 
 
 ## Hinweis
