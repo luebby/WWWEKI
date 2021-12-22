@@ -71,7 +71,7 @@ Von was hängt der Wert einer Immobilie ab?
 <img src="images/Grundriss.jpg" alt="Grundriss" width="50%" height="50%">
 <!-- style="padding-left:50px;" -->
 <span style="font-size: 10px;"><br>
-Quelle: [https://pixabay.com/de/photos/bauplan-grundriss-architektenplan-354233/](Quelle: https://pixabay.com/de/photos/bauplan-grundriss-architektenplan-354233/)
+Quelle: [https://pixabay.com/de/photos/bauplan-grundriss-architektenplan-354233/](https://pixabay.com/de/photos/bauplan-grundriss-architektenplan-354233/)
 </span>
 
 
