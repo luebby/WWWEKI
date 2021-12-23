@@ -203,15 +203,52 @@ Der Vergleich der beiden Lebenserwartungen konditional auf das Überleben bis in
 
 Auf inhaltlicher Ebene ist das sogar recht intuitiv. 
 Wer in einer Gesellschaft mit zahlreichen Risiken für das Überleben einige Jahre übersteht, muss von Haus aus relativ tough sein.
-Wer in einer Gesellschaft mit wenigen Risiken und guter gesundheitlicher Versorgung lebt, kann auch überleben, wenn er oder sie bestimmte gesundheitliche Anfälligkeiten hat.
+Wer in einer Gesellschaft mit wenigen Risiken und guter gesundheitlicher Versorgung aufwächst, hat trotz bestimmter gesundheitliche Anfälligkeiten gute Überlebenschancen.
 
 Die Population der Menschen über 5 in Jäger- und Sammlergesellschaften ist damit von vornerein ganz anders als die Population der Menschen über 5 in modernen Gesellschaften.
 Ein naiver Vergleich dieser zwei Populationen vermischt Effekte der Art der Gesellschaft auf das Überleben mit Scheinkorrelationen, welche durch den "Selektionsfilter" des Überlebens bis in die Kindheit verzerrt werden.
 
+Alleine aus diesen Daten können wir also noch keine belastbaren Schlüße ziehen über die Vor- oder Nachteile bestimmter Lebensstile für die Langlebigkeit
+
+
 ## Ausblick
-# HIER WEITER
 
+Hoffentlich konnten wir Ihnen einige Werkzeuge an die Hand geben, um kausale Schlüße kritisch zu hinterfragen.
+Natürlich gibt es über die konzeptuellen Grundlagen hinaus noch viel zu lernen, beispielsweise in den folgenden Themenbereichen:
 
+### Methoden für die Adjustierung von Drittvariablen
+In diesem Kurs haben Sie gelernt, dass Drittvariablen manchmal in Analysen berücksichtigt werden sollten -- und manchmal nicht, je nach der Rolle, die sie im kausalen Graphen spielen.
+Eine solche Adjustierung kann auf unterschiedliche Arten vorgenommen werden.
+Im Kurs haben Sie beispielsweise gesehen, dass Variablen als Prädiktoren in einem linearen Regressionsmodel aufgenommen werden können.
+Aber auch andere statistische Vorgehensweisen sind möglich, zum Beispiel das Aufteilen der Stichprobe (Stratifizierung) oder die Berechnung von Propensity Scores (siehe Interview mit Dean Eckles zu sozialer Ansteckung).
+Auch Methoden des maschinellen Lernens finden hier Anwendung.
+
+LESETIPPS?
+
+### Natürliche Experimente
+In diesem Kurs Sie etwas über die Magie des Zufalls gelernt, die randomisierte Experimente zu so einem nützlichen Werkzeug in der Kausalinferenz macht.
+Zwischen randomisierte Experimente und "reine" Beobachtungsdaten liegen die sogenannten natürlichen Experimente.
+Hier macht man es sich zu Nutzen, dass im Alltag manchmal Dinge praktisch durch Zufall entschieden werden.
+Ein erstes Beispiel für ein natürliches Experiment haben Sie schon im Interview mit Anne Brenøe zum Thema Effekte des Stillens kennengelernt: Ob bei eine Schwangere unter der Woche oder am Wochenende entbindet ist praktisch zufällig, kann aber einen Einfluß darauf haben, ob und wie lange sie nach der Geburt stillen wird.
+
+LESETIPPS? Ich mag Thad Dunning's Natural Experiments in the Social Sciences, aber im Kontext dieses Kurses ist das ein bisschen eng von den inhaltlichen Beispielen her
+
+### Causal Discovery
+In diesem Kurs sind wir oft davon ausgegangen, dass der zugrundeliegende kausale Graph im Prinzip bekannt ist.
+Was aber, wenn das nicht der Fall ist?
+Dann bewegen wir uns in den Bereich Causal Discovery, in dem es das Ziel ist, untersützt durch Daten einen plausiblen kausalen Graphen herzuleiten.
+In den letzten drei Interviews mit Jakob Runge, Jonas Peters und Sebastian Weichwald haben Sie schon einen ersten Einblick in den Themenkomplex bekommen.
+
+LESETIPPS?
+
+### Data Fusion
+Aus der Vogelperspektive betrachtet gibt es viele Datenquellen, die herangezogen werden können, um mehr über Ursachen und Effekte zu lernen.
+In der Regel ist keine davon perfekt.
+Beobachtungsstudien leiden oft unter unbeobachteten Confoundern; in Experimenten machen nicht immer alle Personen das, was wir uns wünschen und manchmal müssen wir auf andere Populationen zurückgreifen -- zum Beispiel in den initialen Stadien der Medikamentenzulassung auf Zellkulturen und Tierversuche.
+Fehlende Daten und selektive Stichproben verkomplizieren die Situation weiter.
+Die Idee der Causal Fusion ist, dass wir trotzdem all diese Datenquellen *in Kombination* nutzen können, um zu den bestmöglichen kausalen Schlußfolgerungen zu gelangen.
+
+LESETIPPS? Hünermund und Bareinboim?
 
 <red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
 
