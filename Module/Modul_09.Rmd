@@ -44,7 +44,7 @@ DAG1 <- dagify(Y~ X,
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
   geom_text(label = "X - Lernzeit\nY - Klausurpunkte", 
             hjust = 1, vjust = 2,
-            x = 1, y = 0, size = 7, color = "darkgrey") 
+            x = 1, y = 0, size = 10, color = "darkgrey") 
 
 # DAG 2, mit Fehlerterm
 co <- data.frame(x=c(0,1,0,1), y=c(0,0,1,1), name=c("X", "Y", "U_X", "U_Y"))
@@ -54,12 +54,9 @@ DAG2 <- dagify(Y~ X,
                    coords = co) %>% 
   ggdag() + 
   geom_dag_point(colour = c( "darkgrey", "darkgrey","#0F710B", "#0000FF")) + 
-  geom_dag_text(size = 5) +
+  geom_dag_text(size = 8) +
   theme_dag_blank() +
-  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Lernzeit\nY - Klausurpunkte", 
-            hjust = 1, vjust = 2,
-            x = 1, y = 0, size = 7, color = "darkgrey")
+  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed"))
 ```
 
 ## Lernziele
@@ -97,8 +94,9 @@ Quelle: [https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607
 </span>
 </center>
 
+<br>
 
-Wir wissen, was passiert ist, nachdem wir links abgebogen sind &#129042; wir wollen wissen, was passiert wäre, wenn wir rechts abgebogen wären &ndash; mit dem Wissen des Ergebnisses nach der Abbiegung nach links.
+Wir wissen, was passiert ist, nachdem wir links abgebogen. Wir wollen wissen, was passiert wäre, wenn wir rechts abgebogen wären &ndash; mit dem Wissen des Ergebnisses nach der Abbiegung nach links.
 
 Dies ist in der kausalen Leiter nach Pearl die höchste Stufe:
 
@@ -176,7 +174,7 @@ Wir nehmen an:
 - $\color{green}{X} = U_{\color{green}{X}}$
 - $\color{blue}{Y} = f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}}) = 2 \cdot \color{green}{X} + U_{\color{blue}{Y}}$
 
-> Sie lernen für eine Klausur, z. B. 10 Stunden. Sie erreichen in der Klausur eine gute Note, sagen wir mit 50 Punkten.
+*"Sie lernen für eine Klausur, z. B. 10 Stunden. Sie erreichen in der Klausur eine gute Note, sagen wir mit 50 Punkten."*
 
 Wir wissen jetzt also, was wir für Sie beobachtet haben: $\color{green}{x'}=10$ und $\color{blue}{y'}=50$.
 
@@ -189,7 +187,7 @@ Damit wissen wir hier:
 
 ## Aktion
 
-> Hätte ich mehr gelernt, z. B. 20 Stunden.
+*"Hätte ich mehr gelernt, z. B. 20 Stunden."*
 
 Wir wollen also wissen, was wäre der Effekt einer Handlung im Sinne von $do(\color{green}{x}=20)$, also anstelle von 
 
@@ -200,6 +198,9 @@ lautet das aktualisierte, modifizierte kausale Modell
 $$do(\color{green}{x})=20.$$
 
 Der Rest bleibt aber unverändert &ndash; inbesondere gehen wir weiterhin davon aus, dass für *Sie* $U_{\color{blue}{Y}}=30$ ist.
+
+<red>&#9888;</red> Dies ist eine **Annahme**!
+
 
 ## Vorhersage
 
