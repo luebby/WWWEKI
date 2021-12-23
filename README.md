@@ -33,7 +33,7 @@ Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https:
 
 8. [Magie durch Zufall](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_08/) (Zufällige Stichprobe und zufällige Zuordnung im Rahmen eines Experiments und die Auswirkungen auf die Datenanwendungen (Beschreibung, Vorhersage, Kausale Inferenz) )
 
-9. Was wäre gewesen, wenn? (Counterfactual)
+9. [Was wäre gewesen, wenn?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_09/) (Counterfactual)
 
 10. Graphen zeichnen und lesen
 
