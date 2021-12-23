@@ -1,0 +1,258 @@
+---
+title: "Modul 09: Was wäre gewesen, wenn?"
+output: 
+  learnr::tutorial:
+    language: 
+      de: js/tutorial_de.json
+    progressive: true
+    css: "css/style.css"
+runtime: shiny_prerendered
+---
+
+<a href="https://ki-campus.org/">
+<img border="0" alt="KICampusLogo" src="images/KIcampusLogo.png" width="100" height="30" style="float: right">
+</a>
+
+```{r setup, include=FALSE}
+library(learnr)
+library(knitr)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(emojifont)
+
+theme.fom <- theme_classic(22*1.04)
+theme.fom <- theme.fom
+theme_set(
+  theme.fom  
+)
+
+# deutsche Version von random_praise
+source("random-praise_de/translation_random-praise_de.R")
+
+
+library(ggdag)
+
+# DAG1, ohne Fehlerterm
+co <- data.frame(x=c(0,1), y=c(0,0), name=c("X", "Y"))
+DAG1 <- dagify(Y~ X,
+                   coords = co) %>% 
+  ggdag() + 
+  geom_dag_point(colour = c("#0F710B", "#0000FF")) + 
+  geom_dag_text(size = 8) +
+  theme_dag_blank() +
+  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
+  geom_text(label = "X - Lernzeit\nY - Klausurpunkte", 
+            hjust = 1, vjust = 2,
+            x = 1, y = 0, size = 10, color = "darkgrey") 
+
+# DAG 2, mit Fehlerterm
+co <- data.frame(x=c(0,1,0,1), y=c(0,0,1,1), name=c("X", "Y", "U_X", "U_Y"))
+DAG2 <- dagify(Y~ X,
+               X ~ U_X,
+               Y ~ U_Y,
+                   coords = co) %>% 
+  ggdag() + 
+  geom_dag_point(colour = c( "darkgrey", "darkgrey","#0F710B", "#0000FF")) + 
+  geom_dag_text(size = 8) +
+  theme_dag_blank() +
+  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed"))
+```
+
+## Lernziele
+
+In diesem Modul lernen Sie:
+
+- wie Counterfactuals bestimmt werden können.
+
+
+## Der nicht-gegangene Weg
+
+Bei der (rückwirkenden) Beurteilung von Handlungen fragen wir uns häufig: *Wie wäre es gewesen, wenn ich mich anders entschieden hätte?*
+
+Z. B. bei der Beurteilung des menschlichen Einflusses auf den Klimawandel: Wie wäre die Erderwärmung, wenn es die Industialisierung nicht gegeben hätte?
+
+Oder z. B. bei Fragen einer möglichen Diskriminierung: Hätte ich den Kredit bekommen, wenn ich nicht einer ethnischen Minderheit angehören würde?
+
+##
+
+Entscheidend ist bei diesen Fragen und Überlegungen: Wir sind den einen Weg gegangen und kennen das Ergebnis. 
+
+Uns interessiert aber auch, wie das Ergebnis gewesen wäre, wenn wir den anderen Weg gegangen wären. Wir wollen das **Counterfactual** bestimmen. Dieser Wert ist kontrafaktisch in dem Sinne, dass er in der Realität nicht vorliegt, da ein anderes der **potenziellen Ergebnisse** vorliegt. 
+
+***
+
+*Hinweis*: Siehe Modul 1.
+
+***
+
+<center>
+<img src="images/Zweiwege.jpg" alt="Weggabel" width="50%" height="50%">
+<!-- style="padding-left:50px;" -->
+<span style="font-size: 10px;"><br>
+Quelle: [https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607631/](https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607631/)
+</span>
+</center>
+
+<br>
+
+Wir wissen, was passiert ist, nachdem wir links abgebogen. Wir wollen wissen, was passiert wäre, wenn wir rechts abgebogen wären &ndash; mit dem Wissen des Ergebnisses nach der Abbiegung nach links.
+
+Dies ist in der kausalen Leiter nach Pearl die höchste Stufe:
+
+3.  **Counterfactuals**: $Pr(y_x|x',y')$ &ndash; Vorstellung: *Was wäre gewesen*? Wie sieht $Pr(Y=y)$ aus, wenn ich nicht $X=x'$ und damit $Y=y'$ beobachtet hätte, sondern $X=x$ gesetzt hätte?
+
+***
+
+*Hinweis*: Siehe Modul 3.
+
+***
+
+```{r counterfactual, echo=FALSE}
+question("Was ist beim Klimawandel das Counterfactual?",
+         answer("Die Erderwärmung ohne Industrialisierung.", correct = TRUE, message = "Die Industrialisierung hat stattgefunden, die Erderwärmung in diesem Fall beobachten wir leider gerade."),
+         answer("Die Erderwärmung mit Industrialisierung."),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
+         )
+```
+
+
+## Lernen und Klausurerfolg
+
+Das Phänomen kennen sicherlich viele: Sie lernen für eine Klausur, z. B. 10 Stunden. Sie erreichen in der Klausur eine gute Note, sagen wir mit 50 Punkten.
+
+*Hätte ich mehr gelernt, z. B. 20 Stunden, dann hätte ich eine sehr gute Note erreicht.*
+
+Gehen wir &ndash; extrem stark vereinfacht &ndash; von folgendem kausalen Diagramm aus:
+
+```{r DAG1, echo=FALSE, fig.align='center', out.width='60%'}
+plot(DAG1)
+```
+
+Dann ist <green>Lernzeit</green> die Ursache $\color{green}{X}$ und <blue>Klasurerfolg</blue> der Effekt $\color{blue}{Y}$.
+
+**Hinweis**: In Wirklichkeit gibt es natürlich viele weitere Faktoren, die hier eine Rolle spielen, dieses Beispiel ist eine *Karikatur* der Wirklichkeit mit dem Ziel das Konzept zu illustrieren. 
+Das Beispiel hat nicht den Anspruch die Wirklichkeit zu beschreiben!
+
+##
+
+Das **kausale Modell** des  Graphen $\color{green}{X} \rightarrow \color{blue}{Y}$ besteht aus zwei Zuweisungen:
+
+- $\color{green}{X} = U_{\color{green}{X}}$
+- $\color{blue}{Y} = f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$
+
+Inklusive der externen Faktoren $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ sieht das kausale Diagram wie folgt aus:
+
+```{r DAG2, echo=FALSE, fig.align='center', out.width='60%'}
+plot(DAG2)
+```
+
+Treffen wir noch eine stark vereinfachende Annahme:
+
+$$f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}}) = 2 \cdot \color{green}{X} + U_{\color{blue}{Y}}$$
+
+Das bedeutet, dass der Mittelwert von $\color{blue}{Y}$ mit jeder Einheit von $\color{green}{X}$ um $2$ Einheiten steigt.
+
+```{r erwartung, echo=FALSE}
+question("Welchen Wert für $Y$ erwarten Sie, wenn jemand $x'=10$ Stunden lernt?",
+         answer("$0$"),
+         answer("$10$"),
+         answer("$20$",  correct = TRUE, message = "Wenn wir für $U_Y$ einen Wert von $0$ erwarten, dann liegt der erwartete Wert von $Y$, wenn $x'=10$ ist, bei $2\\cdot 10 = 20$."),
+         answer("$30$"),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
+         )
+```
+
+## Abduktion
+
+Wir nehmen an:
+
+- $\color{green}{X} = U_{\color{green}{X}}$
+- $\color{blue}{Y} = f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}}) = 2 \cdot \color{green}{X} + U_{\color{blue}{Y}}$
+
+*"Sie lernen für eine Klausur, z. B. 10 Stunden. Sie erreichen in der Klausur eine gute Note, sagen wir mit 50 Punkten."*
+
+Wir wissen jetzt also, was wir für Sie beobachtet haben: $\color{green}{x'}=10$ und $\color{blue}{y'}=50$.
+
+Damit wissen wir hier:
+
+- $U_{\color{green}{x'}}=10$
+- $U_{\color{blue}{y'}}=\color{blue}{y'}-2\cdot \color{green}{x'}= 50 - 2 \cdot 10 = 30$
+
+*Mit anderen Worten:* Wir haben die beobachteten Daten $\color{green}{x'}, \color{blue}{y'}$ genutzt, um unser Wissen über $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ zu aktualisieren.
+
+## Aktion
+
+*"Hätte ich mehr gelernt, z. B. 20 Stunden."*
+
+Wir wollen also wissen, was wäre der Effekt einer Handlung im Sinne von $do(\color{green}{x}=20)$, also anstelle von 
+
+$$\color{green}{X} = U_{\color{green}{X}}$$ 
+
+lautet das aktualisierte, modifizierte kausale Modell
+
+$$do(\color{green}{x})=20.$$
+
+Der Rest bleibt aber unverändert &ndash; inbesondere gehen wir weiterhin davon aus, dass für *Sie* $U_{\color{blue}{Y}}=30$ ist.
+
+<red>&#9888;</red> Dies ist eine **Annahme**!
+
+
+## Vorhersage
+
+Im modifizierten Modell gilt dann mit 
+
+$$do(\color{green}{x})=20$$
+
+und gegeben die Beobachtung $\color{green}{x'}=10, \color{blue}{y'}=50$
+
+- ($U_{\color{green}{x'}}=10$)
+- $U_{\color{blue}{y'}}=\color{blue}{y'}-2\cdot \color{green}{x'}= 50 - 2 \cdot 10 = 30$
+
+für das Counterfactual: 
+
+$$\color{blue}{y}=2\cdot\color{green}{x}+\underbrace{U_{\color{blue}{y}}}_{=U_{\color{blue}{y'}}}=2\cdot 20 + 30 = 70.$$
+
+<red>&#9888;</red> Dass die Bestimmung des Counterfactuals in diesem karikierten Beispiel so einfach war, liegt daran, dass wir nur zwei Variablen und für diese auch noch ein lineares Modell angenommen haben.
+
+```{r vorhersage, echo=FALSE}
+question("Wie lautet das Counterfactual $y$, wenn $x=10$ ist, sowie $x'=20$ und $y'=30$ beobachtet wurden?",
+         answer("$0$"),
+         answer("$10$",  correct = TRUE, message = "Aus $x'=20$ und $y'=30$ folgt über Abduktion, dass $U_{y'}=30-2\\cdot 20 = -10$ ist. Damit gilt: $y=2\\cdot 10 -10 = 10$."),
+         answer("$20$"),
+         answer("$40$"),
+         answer("$50$"),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
+         )
+```
+
+## Zusammenfassung
+
+:::{.box}
+Die Berechnung eines Counterfactuals erfolgt in 3 Schritten:
+
+1. **Abduktion:** Nutzen der beobachteten Werte $x', y'$ um die Verteilung der externen, unbekannten Ursachen $U$ zu bestimmen.
+
+2. **Aktion:** Modifikation des Modells, so dass Pfeile in $X$ gelöscht werden und $X=x$ gilt.
+
+3. **Vorhersage:** Verwenden des modifizierten Modells aus 2. und der Verteilung von $U$ aus 1., um den erwarteten Wert des Counterfactuals für $Y$ zu bestimmen.
+::: 
+
+## Hinweis
+
+<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
+
+Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
+
+Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
+
+
+![](images/csm_Logo-BMBF.jpg)
+
+
