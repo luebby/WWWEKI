@@ -34,11 +34,11 @@ dagCof <- dagify(Kaffeekonsum ~ Uebelkeit,
                 Fehlgeburt ~ U + Kaffeekonsum,
                 coords = coordCof,
                 exposure = "Kaffeekonsum",
-                outcome = "Fehlgeburt")
+                outcome = "Fehlgeburt") 
 
 
-p1 <- ggdag(dagCof, text_col = "blue") + 
-  theme_dag_blank()
+
+p1 <- ggdag(dagCof, text_col = "blue", node = FALSE) + theme_dag_blank() 
 
 
 
@@ -50,15 +50,14 @@ dagLif <- dagify(fuenf ~ robust + gesell,
                 siebzig ~ fuenf + robust + gesell,
                 exposure = "gesell",
                 outcome = "siebzig",
-                labels = c("robust" = "Intrinsische Robustheit",
+                labels = c("robust" = "Intrinsische\n Robustheit",
             "gesell" = "Art der Gesellschaft",
             "fuenf" = "Bis 5 Überleben",
             "siebzig" = "Bis 70 Überleben"),
-                coords = coordLif)
+                coords = coordLif)  
 
-
-p2 <- ggdag(dagLif, text_col = "blue", use_labels = "label") + theme_dag_blank()
-
+p2 <- ggdag(dagLif, text = FALSE, text_col = "blue", use_labels = "label", label_col = "blue") + 
+  theme_dag_blank()
 
 library(learnr)
 library(mosaic)
