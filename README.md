@@ -37,11 +37,11 @@ Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https:
 
 9. [Was wäre gewesen, wenn?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_09/) (Counterfactual)
 
-10. Graphen zeichnen und lesen
+10. [Graphen zeichnen und lesen](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_10/) (Beispiel Gender-Pay-Gap)
 
 11. [Schadet Rauchen bei Heranwachsenden?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_11/) (Anwendungsbeispiel Kausale Inferenz in der Medizin.)
 
-12. Praktisches Daten hinterfragen (DAGs in der Anwendung, Ausblick)
+12. [Praktisches Daten hinterfragen](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_12/) (DAGs in der Anwendung, Ausblick)
 
 
 ## Lizenz
