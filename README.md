@@ -4,7 +4,9 @@ Entwicklung eines MOOC für den [KI-Campus](https://ki-campus.org/) zum Einstieg
 
 Details siehe z.B. [FOM forscht Wissenschaftsblog](https://www.fom-blog.de/2021/07/einstiegskurs-kausale-inferenz-wird-gemeinsam-von-der-universitaet-leipzig-und-der-fom-hochschule-mit-einer-foerderung-durch-das-bmbf-entwickelt/).
 
-**Dieser Kurs ist aktuell noch in der Entwicklung!**
+**Dieser Kurs ist aktuell noch in der Entwicklung!** 
+
+Hier fehlen auch die begleitenden Interviews mit angesehen Expert:innen aus unterschiedlichen Fachgebieten, die ihre kausalen Fragestellungen und Lösungsansätze vorstellen.
 
 Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
 

@@ -1,0 +1,282 @@
+---
+title: "Modul 10: Graphen zeichnen und lesen"
+output: 
+  learnr::tutorial:
+    language: 
+      de: js/tutorial_de.json
+    progressive: true
+    css: "css/style.css"
+runtime: shiny_prerendered
+---
+
+<a href="https://ki-campus.org/">
+<img border="0" alt="KICampusLogo" src="images/KIcampusLogo.png" width="100" height="30" style="float: right">
+</a>
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(ggdag)
+theme.fom <- theme_classic(22*1.04)
+theme.fom <- theme.fom
+theme_set(
+  theme.fom  
+)
+
+# deutsche Version von random_praise
+source("random-praise_de/translation_random-praise_de.R")
+
+
+library(learnr)
+library(mosaic)
+
+
+set.seed(1896)
+
+# Stichprobenumfang
+n <- 1000
+# Faehigkeit N(100,15) verteilt
+faehigkeit <- rnorm(n, mean = 100, sd = 15)
+# Geschlecht B(0.5) verteilt
+geschlecht <- sample(c("w","m"), size = n, replace = TRUE)
+
+# "Aufstieg" ins Management ab einer faehigkeit von 115 für Männer, ab 130 für Frauen
+vorstand <- ifelse(((geschlecht == "m" & faehigkeit > 115) | 
+                      (geschlecht == "w" & faehigkeit > 130)),
+                   "j","n")
+
+# Gehalt: Faehigkeit * 10 * 2 (wenn Vorstand) * 1.05 (wenn Mann)
+gehalt <- faehigkeit * 10 * 
+  ifelse(vorstand == "j", 2, 1) * 
+  ifelse(geschlecht == "m", 1.05, 1)
+
+# Datentabelle zusammensetzen
+GPG <- data.frame(
+  geschlecht = geschlecht,
+  faehigkeit = faehigkeit,
+  vorstand = vorstand,
+  gehalt= gehalt)
+```
+
+## Lernziele
+
+In diesem Modul lernen Sie:
+
+- einen Graphen anhand einer angenommenen Kausalstruktur zu zeichnen;
+- daraus die Konsquenz für die kausale Schlussfolgerung zu ziehen;
+- eine Simulation für den Gender-Pay-Gap in R.
+
+## Eine Schlagzeile
+
+Eine Schlagzeile vom 16.11.2020 lautet ([Link](https://www.zeit.de/news/2020-11/16/frauen-im-vorstand-von-dax-firmen-verdienen-mehr-als-maenner)): 
+
+> Frauen in Firmen-Vorständen sind besser bezahlt als Männer
+
+Kann das sein? Mensch denkt doch immer eher, das Frauen im Job (und beim Gehalt) *benachteiligt* werden.
+
+Ja, beides kann gleichzeitig stimmen: Frauen können im Job benachteiligt werden *und* Frauen können als Vorstand ein höheres Gehalt erzielen als Männer. 
+
+Dies haben Sie in diesem Kurs gelernt.
+
+## Die Annahmen
+
+Und hier die qualitativen Annahmen des datengenerierenden Prozesses:
+
+1. Die *Fähigkeit* für den (Vorstands-)Job ist unabhängig vom *Geschlecht*.
+
+2. Ob jemand in den *Vorstand* kommt hängt ab von der *Fähigkeit* und dem *Geschlecht*.
+
+3. Das *Gehalt*, das eine Person bekommt, hängt ab von der *Fähigkeit*, von der Tätigkeit als *Vorstand* und vom *Geschlecht*.
+
+```{r pfeil1, echo=FALSE}
+question("Gibt es einen Pfeil zwischen *Fähigkeit* und *Geschlecht*?",
+  answer("Ja, in der Form *Fähigkeit* $\\rightarrow$ *Geschlecht*."),
+  answer("Ja, in der Form *Geschlecht* $\\rightarrow$ *Fähigkeit*."),
+  answer("Nein.", correct = TRUE, message = "Wir nehmen an, dass es keinen Zusammenhang zwischen *Fähigkeit* und *Geschlecht* gibt, daher gibt es auch keinen Pfeil."),
+  allow_retry = TRUE,
+  correct = random_praise(),
+  incorrect = random_encouragement()
+)
+```
+
+<br>
+
+```{r pfeil2, echo=FALSE}
+question("Gibt es einen Pfeil zwischen *Fähigkeit* und *Vorstand*?",
+  answer("Ja, in der Form *Fähigkeit* $\\rightarrow$ *Vorstand*." , correct = TRUE, message = "Wir nehmen an, dass die Vorstandstätigkeit von der Fähigkeit abhängt &ndash; und nicht umgekehrt."),
+    answer("Ja, in der Form *Vorstandt* $\\rightarrow$ *Fähigkeit*."),
+  answer("Nein."),
+  allow_retry = TRUE,
+  correct = random_praise(),
+  incorrect = random_encouragement()
+)
+```
+
+## DAGitty
+
+[DAGitty](http://dagitty.net/) ist ein einfach, auch im Browser, zu bedienendes Tool, mit dem Sie Kausale Diagramme zeichnen (und analysieren) können.
+
+*Hinweis*: Für die Diagramme innerhalb dieses Kurses wurde das Paket `ggdac` ([https://ggdag.malco.io/](https://ggdag.malco.io/)) verwendet.
+
+Zeichnen Sie dort - oder auf einem Blatt Papier - das Diagramm, dass die Annahmen
+
+1. Die *Fähigkeit* für den (Vorstands-)Job ist unabhängig vom *Geschlecht*.
+2. Ob jemand in den *Vorstand* kommt hängt ab von der *Fähigkeit* und dem *Geschlecht*.
+3. Das *Gehalt*, das eine Person bekommt, hängt ab von der *Fähigkeit*, von der Tätigkeit als *Vorstand* und vom *Geschlecht*.
+
+darstellt.
+
+*Klicken Sie erst danach zur Kontrolle auf `Nächstes Thema`*
+
+##
+
+<br>
+
+![](images/GPG-1.png){width="65%"}
+
+1. Die *Fähigkeit* für den (Vorstands-)Job ist unabhängig vom *Geschlecht*. Daher kein Pfeil zwischen diesen Variablen.
+2. Ob jemand in den *Vorstand* kommt hängt ab von der *Fähigkeit* und dem *Geschlecht*. Daher sowohl ein Pfeil von *Geschlecht* zu *Vorstand* als auch von *Fähigkeit* zu *Vorstand*.
+3. Das *Gehalt*, das eine Person bekommt, hängt ab von der *Fähigkeit*, von der Tätigkeit als *Vorstand* und vom *Geschlecht*. Daher jeweils ein Pfeil von *Fähigkeit*, *Vorstand* und *Geschlecht* zu *Gehalt*.
+
+
+```{r collider, echo=FALSE}
+question("Welche Rolle spielt *Vorstand* im Teilgraphen mit *Geschlecht* und *Fähigkeit*?",
+  answer("Mediator"),
+  answer("Confounder"),
+  answer("Collider", correct = TRUE, message = "Korrekt &ndash; die beiden Pfeile zeigen beide auf *Vorstand*."),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement())
+```
+
+## Eine Simulation
+
+Treffen wir zusätzlich noch quantitative Modellannahmen für das Beispiel:
+
+1. `faehigkeit` ist normalverteilt mit $\mu=1000$ und $\sigma=15$.
+
+2. `geschlecht` ist Bernoulliverteilt mit einer Wahrscheinlichkeit von $\pi=0.5$ für eine Frau.
+
+3. Ein Mann kommt ab einer `faehigkeit` größer als 115 in den Vorstand, eine Frau erst ab 130. Frauen müssen also fähiger sein als Männer um in den Vorstand zu kommmen &ndash; so hier die Annahme.
+
+4. Das `gehalt` setzt sich zusammen aus `faehigkeit` ($\cdot 10$). Es ist im `vorstand` doppelt so hoch und für Männer noch einmal $5\%$ höher. Fähigere Leute verdienen mehr, Mitglieder des Vorstands verdienen mehr und Männer verdienen mehr.
+$$\text{gehalt} = \text{faehigkeit} \cdot 10 \cdot \begin{cases}2, \,\text{ist Vorstand} \\ 1, \,\text{sonst} \end{cases} \cdot \begin{cases}1.05, \,\text{ist Mann} \\ 1, \,\text{sonst} \end{cases}.$$
+
+<red>&#9888;</red> Auch diese Annahmen sind stark vereinfacht!
+
+Um dies in `R` für z.B. $n=1000$ Mitarbeiter:innen zu simulieren kann folgender Code verwendet werden:
+
+```{r simData}
+# Paket aktivieren
+library(mosaic)
+# Zufallszahlengenerator initiieren
+set.seed(1896)
+
+# Stichprobenumfang
+n <- 1000
+# Faehigkeit N(100,15) verteilt
+faehigkeit <- rnorm(n, mean = 100, sd = 15)
+# Geschlecht B(0.5) verteilt
+geschlecht <- sample(c("w","m"), size = n, replace = TRUE)
+
+# "Aufstieg" ins Management ab einer faehigkeit von 115 für Männer, ab 130 für Frauen
+vorstand <- ifelse(((geschlecht == "m" & faehigkeit > 115) | 
+                      (geschlecht == "w" & faehigkeit > 130)),
+                   "j","n")
+
+# Gehalt: Faehigkeit * 10 * 2 (wenn Vorstand) * 1.05 (wenn Mann)
+gehalt <- faehigkeit * 10 * 
+  ifelse(vorstand == "j", 2, 1) * 
+  ifelse(geschlecht == "m", 1.05, 1)
+
+# Datentabelle zusammensetzen
+GPG <- data.frame(
+  geschlecht = geschlecht,
+  faehigkeit = faehigkeit,
+  vorstand = vorstand,
+  gehalt= gehalt)
+```
+
+## Analyse 1
+
+Wie konstruiert: Es gibt keine nennenswerten Unterschiede (hier: im arithmetischen Mittelwert, engl. mean, Funktion `mean()`) in der Fähigkeit zwischen den Geschlechtern:
+
+```{r meanf}
+mean(faehigkeit ~ geschlecht, data = GPG)
+```
+
+Und im Gehalt? 
+
+Ändern Sie den Code so, dass Sie den arithmetischen Mittelwert der Variable `gehalt` je Geschlecht ausgeben:
+
+```{r meang, exercise = TRUE}
+mean(faehigkeit ~ geschlecht, data = GPG)
+```
+
+```{r meang-solution}
+mean(gehalt ~ geschlecht, data = GPG)
+```
+
+##
+
+Wie konstruiert: Männer verdienen im Durchschnitt mit `r round(mean(gehalt ~ geschlecht, data = GPG))[1]` mehr als Frauen, deren Durchschnittsgehalt hier bei `r round(mean(gehalt ~ geschlecht, data = GPG))[2]` liegt.
+
+## Analyse 2
+
+Was passiert, wenn wir uns auf die Vorstandsmitglieder beschränken, d.h., wir wählen nur die Beobachtungen aus (`filter()`), die Bedingung erfüllen, dass sie im Vorstand sind (`vorstand == "j"`)):
+
+```{r meangvorstande, exercise = TRUE}
+GPG %>%
+  filter(vorstand == "j") %>%
+  mean(gehalt ~ geschlecht, data = .)
+```
+
+## 
+
+```{r meangvorstand}
+GPG %>%
+  filter(vorstand == "j") %>%
+  mean(gehalt ~ geschlecht, data = .)
+```
+
+Obwohl Männer insgesamt nach Konstruktion mehr verdienen, verdienen Frauen im Vorstand mehr.
+
+Warum?
+
+Weil sie fähiger sein mussten um in den Vorstand zu kommen.
+
+Kontrollieren Sie dies, indem Sie den Code so abändern, dass Sie den arithmetischen Mittelwert der Variable `faehigkeit` je Geschlecht für die Vorstandsmitglieder ausgeben.
+
+```{r meanfvorstand, exercise = TRUE}
+GPG %>%
+  filter(vorstand == "j") %>%
+  mean(gehalt ~ geschlecht, data = .)
+```
+
+```{r meanfvorstand-solution}
+GPG %>%
+  filter(vorstand == "j") %>%
+  mean(faehigkeit ~ geschlecht, data = .)
+```
+
+<br>
+
+Und das Gehalt hängt ja, neben dem Geschlecht und der Tätigkeit im Vorstand auch von der Fähigkeit ab &ndash; so die Annahme.
+
+## Verzerrung
+
+Wie in Modul 6 besprochen: Adjustierung eines Colliders erzeugt eine Verzerrung, es wird ein Scheinzusammenhang, der den Effekt des Geschlechts auf das Gehalt verzerrt. Mit [DAGitty](http://dagitty.net/) kann dies schön gezeigt werden:
+
+![](images/GPG-2.png){width="65%"}
+
+## Hinweis
+
+***
+
+<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
+
+Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
+
+Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
+
+
+![](images/csm_Logo-BMBF.jpg)
