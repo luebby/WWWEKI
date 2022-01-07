@@ -25,19 +25,36 @@ theme_set(
 # deutsche Version von random_praise
 source("random-praise_de/translation_random-praise_de.R")
 
-coordLV <- list(
-  x = c(Geschlecht = 0, Alter = 0, RaucherIn = 1, Groesse = 2, Lungenvolumen = 3),
-  y = c(Geschlecht = 1, Alter = 2, RaucherIn = 0, Groesse = 2, Lungenvolumen = 0))
+# coordLV <- list(
+#   x = c(Geschlecht = 0, Alter = 0, RaucherIn = 1, Groesse = 2, Lungenvolumen = 3),
+#   y = c(Geschlecht = 1, Alter = 2, RaucherIn = 0, Groesse = 2, Lungenvolumen = 0))
+# 
+# dagLV <- dagify(Groesse ~ Geschlecht + Alter + RaucherIn,
+#                 RaucherIn ~ Geschlecht + Alter,
+#                 Lungenvolumen ~ Groesse + Geschlecht + Alter + RaucherIn,
+#                 coords = coordLV,
+#                 exposure = "RaucherIn",
+#                 outcome = "Lungenvolumen")
+# 
+# 
+# p1 <- ggdag(dagLV, text_col = "blue") + theme_dag_blank()
 
-dagLV <- dagify(Groesse ~ Geschlecht + Alter + RaucherIn,
-                RaucherIn ~ Geschlecht + Alter,
-                Lungenvolumen ~ Groesse + Geschlecht + Alter + RaucherIn,
-                coords = coordLV,
-                exposure = "RaucherIn",
-                outcome = "Lungenvolumen")
-
-
-p1 <- ggdag(dagLV, text_col = "blue") + theme_dag_blank()
+p1 <- DiagrammeR::grViz("
+digraph {
+rankdir = LR;
+ graph []
+ node [shape = plaintext fontcolor = blue fontname = Poppins fontsize = 11]
+   A [label = 'Größe']
+   B [label = 'Geschlecht']
+   C [label = 'Alter']
+   D [label = 'RaucherIn' valign = 'bottom']
+   E [label = 'Lungenvolumen']
+ edge [minlen = 2]
+  {B; C} -> {A; E; D} [penwidth = .5]
+       D -> {A; E} [penwidth = .5]
+       A -> E [penwidth = .5]
+}
+")
 
 
 library(learnr)

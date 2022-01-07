@@ -16,6 +16,7 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 library(ggplot2)
 library(ggdag)
+library(ggraph)
 theme.fom <- theme_classic(22*1.04)
 theme.fom <- theme.fom
 theme_set(
@@ -25,43 +26,72 @@ theme_set(
 # deutsche Version von random_praise
 source("random-praise_de/translation_random-praise_de.R")
 
-coordCof <- list(
-  x = c(Kaffeekonsum = 0, Fehlgeburt = 2, Uebelkeit = 0.5, U = 1.5),
-  y = c(Kaffeekonsum = 1, Fehlgeburt = 1, Uebelkeit = 0, U = 0))
+# coordCof <- list(
+#   x = c(Kaffeekonsum = 0, Fehlgeburt = 2, Uebelkeit = 0.5, U = 1.5),
+#   y = c(Kaffeekonsum = 1, Fehlgeburt = 1, Uebelkeit = 0, U = 0))
+# 
+# dagCof <- dagify(Kaffeekonsum ~ Uebelkeit,
+#                 Uebelkeit ~ U,
+#                 Fehlgeburt ~ U + Kaffeekonsum,
+#                 coords = coordCof,
+#                 exposure = "Kaffeekonsum",
+#                 outcome = "Fehlgeburt") 
+# 
+# p1 <- ggdag(dagCof, text_col = "blue", node = FALSE) + theme_dag_blank() 
 
-dagCof <- dagify(Kaffeekonsum ~ Uebelkeit,
-                Uebelkeit ~ U,
-                Fehlgeburt ~ U + Kaffeekonsum,
-                coords = coordCof,
-                exposure = "Kaffeekonsum",
-                outcome = "Fehlgeburt") 
+p1 <- DiagrammeR::grViz("
+digraph {
+rankdir = LR;
+ranksep = 0.5;
+ graph []
+ node [shape = plaintext fontcolor = blue fontname = Poppins fontsize = 6]
+   A [label = 'Kaffeekonsum']
+   B [label = 'Fehlgeburt']
+   C [label = 'Übelkeit']
+   U
+ edge [minlen = 2]
+  A -> B      [penwidth = .2]
+  C -> A      [penwidth = .2]
+  U -> {B; C} [penwidth = .2]
+{rank = same; A; C}
+{rank = same; B; U}
+}
+")
 
 
+# coordLif <- list(
+#   x = c(robust = 0, gesell = 0, fuenf = 1, siebzig = 2),
+#   y = c(robust = 2, gesell = 0, fuenf = 1, siebzig = 1))
+# dagLif <- dagify(fuenf ~ robust + gesell,
+#                 siebzig ~ fuenf + robust + gesell,
+#                 exposure = "gesell",
+#                 outcome = "siebzig",
+#                 labels = c("robust" = "Intrinsische\n Robustheit",
+#             "gesell" = "Art der Gesellschaft",
+#             "fuenf" = "Bis 5 Überleben",
+#             "siebzig" = "Bis 70 Überleben"),
+#                 coords = coordLif)  
+# p2 <- ggdag(dagLif, text = FALSE, text_col = "blue", use_labels = "label", label_col = "blue") + 
+#   theme_dag_blank()
 
-p1 <- ggdag(dagCof, text_col = "blue", node = FALSE) + theme_dag_blank() 
+p2 <- DiagrammeR::grViz("
+digraph {
+rankdir = LR;
+ graph []
+ node [shape = plaintext fontcolor = blue fontname = Poppins fontsize = 11]
+   A [label = 'Intrinsische Robustheit']
+   B [label = 'Art der Gesellschaft']
+   C [label = 'Bis 5 Überleben']
+   D [label = 'Bis 70 Überleben']
+ edge [minlen = 2]
+   {A; B} -> {C; D} [penwidth = .5]
+        C -> D      [penwidth = .5]
+}
+")
 
-
-
-coordLif <- list(
-  x = c(robust = 0, gesell = 0, fuenf = 1, siebzig = 2),
-  y = c(robust = 2, gesell = 0, fuenf = 1, siebzig = 1))
-
-dagLif <- dagify(fuenf ~ robust + gesell,
-                siebzig ~ fuenf + robust + gesell,
-                exposure = "gesell",
-                outcome = "siebzig",
-                labels = c("robust" = "Intrinsische\n Robustheit",
-            "gesell" = "Art der Gesellschaft",
-            "fuenf" = "Bis 5 Überleben",
-            "siebzig" = "Bis 70 Überleben"),
-                coords = coordLif)  
-
-p2 <- ggdag(dagLif, text = FALSE, text_col = "blue", use_labels = "label", label_col = "blue") + 
-  theme_dag_blank()
 
 library(learnr)
 library(mosaic)
-
 ```
 
 ## Lernziele
@@ -145,9 +175,11 @@ question("Auf welche fundamentale kausale Struktur zwischen Kaffeekonsum, Übelk
 
 ## 
 
-```{r p1, echo=FALSE}
+<center>
+```{r p1, echo=FALSE, out.widht="40%"}
 p1
 ```
+</center>
 
 Studien, die für Übelkeit als potenziellen Confounder adjustieren, finden tendenziell schwächere Zusammenhänge.
 
@@ -191,9 +223,11 @@ Vielleicht werden die Effekte, die uns die moderne Medizin bringt, komplett aufg
 
 Aber bevor wir mit solchen Spekulationen beginnen, sollten wir uns zuerst Gedanken darüber machen, wie diese Daten - niedrige Lebenserwartung ab Geburt, recht hohe Lebenserwartung *nach überstandener Kindheit* - zustande kommen.
 
+<center>
 ```{r p2, echo=FALSE}
 p2
 ```
+</center>
 
 Menschen unterscheiden sich von Geburt an in bestimmten Faktoren, welche von Genen beeinflußt sind.
 Beispielsweise sind manche Menschen besonders anfällig für Infekte, andere hatten mehr Glück und sehr fitte Immunsysteme.
