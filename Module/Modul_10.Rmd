@@ -62,7 +62,7 @@ GPG <- data.frame(
 In diesem Modul lernen Sie:
 
 - einen Graphen anhand einer angenommenen Kausalstruktur zu zeichnen;
-- daraus die Konsquenz für die kausale Schlussfolgerung zu ziehen;
+- daraus die Konsequenz für die kausale Schlussfolgerung zu ziehen;
 - eine Simulation für den Gender-Pay-Gap in R.
 
 ## Eine Schlagzeile
@@ -83,7 +83,7 @@ Und hier die qualitativen Annahmen des datengenerierenden Prozesses:
 
 1. Die *Fähigkeit* für den (Vorstands-)Job ist unabhängig vom *Geschlecht*.
 
-2. Ob jemand in den *Vorstand* kommt hängt ab von der *Fähigkeit* und dem *Geschlecht*.
+2. Ob jemand in den *Vorstand* kommt, hängt ab von der *Fähigkeit* und dem *Geschlecht*.
 
 3. Das *Gehalt*, das eine Person bekommt, hängt ab von der *Fähigkeit*, von der Tätigkeit als *Vorstand* und vom *Geschlecht*.
 
@@ -117,13 +117,11 @@ question("Gibt es einen Pfeil zwischen *Fähigkeit* und *Vorstand*?",
 
 *Hinweis*: Für die Diagramme innerhalb dieses Kurses wurde das Paket `ggdag` ([https://ggdag.malco.io/](https://ggdag.malco.io/)) verwendet.
 
-Zeichnen Sie dort - oder auf einem Blatt Papier - das Diagramm, dass die Annahmen
+Zeichnen Sie dort &ndash; oder auf einem Blatt Papier &ndash; das Diagramm, dass folgende Annahmen darstellt:
 
 1. Die *Fähigkeit* für den (Vorstands-)Job ist unabhängig vom *Geschlecht*.
-2. Ob jemand in den *Vorstand* kommt hängt ab von der *Fähigkeit* und dem *Geschlecht*.
+2. Ob jemand in den *Vorstand* kommt, hängt ab von der *Fähigkeit* und dem *Geschlecht*.
 3. Das *Gehalt*, das eine Person bekommt, hängt ab von der *Fähigkeit*, von der Tätigkeit als *Vorstand* und vom *Geschlecht*.
-
-darstellt.
 
 *Klicken Sie erst danach zur Kontrolle auf `Nächstes Thema`*
 
@@ -134,7 +132,7 @@ darstellt.
 ![](images/GPG-1.png){width="65%"}
 
 1. Die *Fähigkeit* für den (Vorstands-)Job ist unabhängig vom *Geschlecht*. Daher kein Pfeil zwischen diesen Variablen.
-2. Ob jemand in den *Vorstand* kommt hängt ab von der *Fähigkeit* und dem *Geschlecht*. Daher sowohl ein Pfeil von *Geschlecht* zu *Vorstand* als auch von *Fähigkeit* zu *Vorstand*.
+2. Ob jemand in den *Vorstand* kommt, hängt ab von der *Fähigkeit* und dem *Geschlecht*. Daher sowohl ein Pfeil von *Geschlecht* zu *Vorstand* als auch von *Fähigkeit* zu *Vorstand*.
 3. Das *Gehalt*, das eine Person bekommt, hängt ab von der *Fähigkeit*, von der Tätigkeit als *Vorstand* und vom *Geschlecht*. Daher jeweils ein Pfeil von *Fähigkeit*, *Vorstand* und *Geschlecht* zu *Gehalt*.
 
 
@@ -154,7 +152,7 @@ Treffen wir zusätzlich noch quantitative Modellannahmen für das Beispiel:
 
 1. `faehigkeit` ist normalverteilt mit $\mu=1000$ und $\sigma=15$.
 
-2. `geschlecht` ist Bernoulliverteilt mit einer Wahrscheinlichkeit von $\pi=0.5$ für eine Frau.
+2. `geschlecht` ist bernoulliverteilt mit einer Wahrscheinlichkeit von $\pi=0.5$ für eine Frau.
 
 3. Ein Mann kommt ab einer `faehigkeit` größer als 115 in den Vorstand, eine Frau erst ab 130. Frauen müssen also fähiger sein als Männer um in den Vorstand zu kommmen &ndash; so hier die Annahme.
 
@@ -249,11 +247,11 @@ GPG %>%
   mean(gehalt ~ geschlecht, data = .)
 ```
 
-Obwohl Männer insgesamt nach Konstruktion mehr verdienen, verdienen Frauen im Vorstand mehr.
+Obwohl Männer nach Konstruktion insgesamt mehr verdienen, verdienen Frauen im Vorstand mehr.
 
 Warum?
 
-Weil sie fähiger sein mussten um in den Vorstand zu kommen.
+Weil sie fähiger sein mussten, um in den Vorstand zu kommen.
 
 Kontrollieren Sie dies, indem Sie den Code so abändern, dass Sie den arithmetischen Mittelwert der Variable `faehigkeit` je Geschlecht für die Vorstandsmitglieder ausgeben.
 

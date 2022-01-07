@@ -114,7 +114,7 @@ $$
 Beobachtete \, Korrelation = Kausaler\,Effekt + Verzerrung + Rauschen
 $$
 
-Wir hoffen, dass dieser Kurs mit seinen Beispielen Ihnen helfen kann systematische *Verzerrung* zu adressieren.
+Wir hoffen, dass dieser Kurs mit seinen Beispielen Ihnen helfen kann, systematische *Verzerrung* zu adressieren.
 
 *Rauschen* entsteht durch (zufällige) Stichprobenvariation.
 
@@ -165,7 +165,7 @@ Das heißt also, dass Schwangere, denen besonders oft schlecht ist, weniger wahr
 question("Auf welche fundamentale kausale Struktur zwischen Kaffeekonsum, Übelkeit und Fehlgeburt deutet diese Erklärung hin?",
   answer("Eine Kette"),
   answer("Eine Gabel", correct = TRUE, message = "Übelkeit beeinflußt den Kaffeekonsum, Übelkeit korreliert mit einem niedrigeren Risiko für eine Fehlgeburt.
-         Damit könnte Übelkeit ein Confounder sein, oder zumindest auf einem konfundierendem Pfad liegen bei dem eine unbeobachtete Variable sowohl Übelkeit als auch das Fehlgeburtsrisiko beeinflußt."),
+         Damit könnte Übelkeit ein Confounder sein oder zumindest auf einem konfundierendem Pfad liegen, bei dem eine unbeobachtete Variable sowohl Übelkeit als auch das Fehlgeburtsrisiko beeinflußt."),
   answer("Eine umgedrehte Gabel"),
   allow_retry = TRUE,
   correct = random_praise(),
@@ -198,12 +198,12 @@ Für größere Mengen an Koffein kann zu diesem Zeitpunkt keine sichere Schlußf
 
 ## Beispiel 2: Lebenserwartung in Jäger- und Sammlergesellschaften
 
-Alle Evidenz deutet darauf hin, dass in prähistorischen Jäger- und Sammlergesellschaften die Lebenserwartung bei der Geburt mit etwa 25 Jahren sehr viel niedriger lag als sie es heutzutage ist.
+Alle Evidenz deutet darauf hin, dass in prähistorischen Jäger- und Sammlergesellschaften die Lebenserwartung bei der Geburt mit etwa 25 Jahren sehr viel niedriger lag, als sie es heutzutage ist.
 
 Allerdings wird immer wieder das Argument angebracht, dass diese niedrige Zahl vor allem mit der hohen Säuglings- und Kindersterblichkeit zusammenhängt.
 Wenn prähistorische Menschen es bis ins Jugendlichenalter schafften, so überlebten sie wahrscheinlich oft bis ins hohe Alter.
 
-Ähnliche Beobachtungen werden auch für noch existierende Jäger- und Sammlergesellschaften gemacht: Während die Sterblichkeit am Anfang des Lebens deutlich höher ist, so nimmt sie radikal ab sobald die ersten Jahre überstanden sind.
+Ähnliche Beobachtungen werden auch für noch existierende Jäger- und Sammlergesellschaften gemacht: Während die Sterblichkeit am Anfang des Lebens deutlich höher ist, so nimmt sie radikal ab, sobald die ersten Jahre überstanden sind.
 Eine Lebensspanne von 70 Jahren ist dann nichts Ungewöhnliches.
 
 ##
@@ -221,7 +221,7 @@ Vielleicht werden die Effekte, die uns die moderne Medizin bringt, komplett aufg
 
 ## 
 
-Aber bevor wir mit solchen Spekulationen beginnen, sollten wir uns zuerst Gedanken darüber machen, wie diese Daten - niedrige Lebenserwartung ab Geburt, recht hohe Lebenserwartung *nach überstandener Kindheit* - zustande kommen.
+Aber bevor wir mit solchen Spekulationen beginnen, sollten wir uns zuerst Gedanken darüber machen, wie diese Daten &ndash; niedrige Lebenserwartung ab Geburt, recht hohe Lebenserwartung *nach überstandener Kindheit* &ndash; zustande kommen.
 
 <center>
 ```{r p2, echo=FALSE}
@@ -230,16 +230,16 @@ p2
 </center>
 
 Menschen unterscheiden sich von Geburt an in bestimmten Faktoren, welche von Genen beeinflußt sind.
-Beispielsweise sind manche Menschen besonders anfällig für Infekte, andere hatten mehr Glück und sehr fitte Immunsysteme.
-All solche Unterschiede haben wir hier unter Intrinsischer Robustheit zusammengefasst.
-Nun interessiert uns, wie sehr die Gesellschaft in der wir leben (Jäger und Sammler vs. modern) beeinflusst, ob wir unseren 70. Geburtstag erleben -- und zwar unabhängig von den Effekten auf das Überleben bis zum 5. Geburtstag.
+Beispielsweise sind manche Menschen besonders anfällig für Infekte, andere hatten mehr Glück und haben sehr fitte Immunsysteme.
+All solche Unterschiede haben wir hier unter *Intrinsischer Robustheit* zusammengefasst.
+Nun interessiert uns, wie sehr die Gesellschaft, in der wir leben (Jäger und Sammler vs. modern), beeinflusst, ob wir unseren 70. Geburtstag erleben &ndash; und zwar unabhängig von den Effekten auf das Überleben bis zum 5. Geburtstag.
 
 
 ```{r chain, echo=FALSE}
-question("Welche Rolle spielt \"Bis 5 überleben\" im Teilgraphen mit \"Intrinsische Robustheit\" und \"Art der Gesellschaft\"",
+question("Welche Rolle spielt \"Bis 5 Überleben\" im Teilgraphen mit \"Intrinsische Robustheit\" und \"Art der Gesellschaft\"",
   answer("Mediator"),
   answer("Confounder"),
-  answer("Collider", correct = TRUE, message = "Korrekt &ndash; die beiden Pfeile zeigen beide auf die \"Bis 5 überleben\""),
+  answer("Collider", correct = TRUE, message = "Korrekt &ndash; die beiden Pfeile zeigen beide auf die \"Bis 5 Überleben\""),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement())
@@ -247,7 +247,7 @@ question("Welche Rolle spielt \"Bis 5 überleben\" im Teilgraphen mit \"Intrinsi
 
 ##
 
-Wenn wir für die beiden Arten von Gesellschaft jeweils berechnen, wie hoch die Lebenserwatung für eine Person ist, die das 5. Lebensjahr erreicht hat, dann sind unsere Analysen bedingt auf die Variable "Bis 5 überleben."
+Wenn wir für die beiden Arten von Gesellschaft jeweils berechnen, wie hoch die Lebenserwatung für eine Person ist, die das 5. Lebensjahr erreicht hat, dann sind unsere Analysen bedingt auf die Variable "Bis 5 Überleben."
 Diese ist jedoch ein Collider auf dem Pfad zwischen "Intrinsische Robustheit" und "Art der Gesellschaft."
 Somit führen unsere Analysen zu einer nicht-kausalen Korrelation zwischen intrinsischer Robustheit und der Art der Gesellschaft.
 
@@ -260,18 +260,18 @@ Wer in einer Gesellschaft mit wenigen Risiken und guter gesundheitlicher Versorg
 Die Population der Menschen über 5 Jahre in Jäger- und Sammlergesellschaften ist damit von vornerein ganz anders als die Population der Menschen über 5 Jahre in modernen Gesellschaften.
 Ein naiver Vergleich dieser zwei Populationen vermischt Effekte der Art der Gesellschaft auf das Überleben mit Scheinkorrelationen, welche durch den "Selektionsfilter" des Überlebens bis in die Kindheit verzerrt werden.
 
-Alleine aus diesen Daten können wir also noch keine belastbaren Schlüsse ziehen über die Vor- oder Nachteile bestimmter Lebensstile für die Langlebigkeit
+Alleine aus diesen Daten können wir also noch keine belastbaren Schlüsse ziehen über die Vor- oder Nachteile bestimmter Lebensstile für die Langlebigkeit.
 
 
 ## Ausblick
 
 Hoffentlich konnten wir Ihnen einige Werkzeuge an die Hand geben, um kausale Schlüsse kritisch zu hinterfragen.
 
-Von Judea Pearl, Madelyn Glymour und Nicholas P. Jewell gibt es das Buch [Causal inference in statistics: A primer](http://bayes.cs.ucla.edu/PRIMER/), welches die hier vorgestellten Grundlagen ausführlicher behandelt. 
-Jonas Peters (den kennen Sie aus einem der Videos) hat zusammen mit Dominik Janzing und Bernhard Schölkopf auch ein Buch geschrieben: [Elements of causal inference: foundations and learning algorithms](https://mitpress.mit.edu/books/elements-causal-inference).
+Von Judea Pearl, Madelyn Glymour und Nicholas P. Jewell gibt es das Buch [Causal Inference in Statistics: A Primer](http://bayes.cs.ucla.edu/PRIMER/), welches die hier vorgestellten Grundlagen ausführlicher behandelt. 
+Jonas Peters (den kennen Sie aus einem der Videos) hat zusammen mit Dominik Janzing und Bernhard Schölkopf auch ein Buch geschrieben: [Elements of Causal Inference: Foundations and Learning Algorithms](https://mitpress.mit.edu/books/elements-causal-inference).
 Das Thema kausale Inferenz wird im Buch [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) im 6. Kapitel der zweiten Auflage von Richard McElreath behandelt &ndash; ihn kennen Sie auch aus den Videos.
 
-Weitere Bücher aus unterschiedlichen Perspektiven sind z. B. [Causal inference: the mixtape](https://mixtape.scunning.com/) von Scott Cunningham, [The effect: an introduction to research design and causality](https://theeffectbook.net/) von Nick Huntington-Klein oder [Causal Inference: What If](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) von Hernán und Robins.
+Weitere Bücher aus unterschiedlichen Perspektiven sind z. B. [Causal Inference: The Mixtape](https://mixtape.scunning.com/) von Scott Cunningham, [The Effect: An Introduction to Research Design and Causality](https://theeffectbook.net/) von Nick Huntington-Klein oder [Causal Inference: What If](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) von Hernán und Robins.
 
 <br>
 
@@ -292,10 +292,10 @@ Auch Methoden des maschinellen Lernens finden hier Anwendung.
 
 ### Natürliche Experimente
 In diesem Kurs haben Sie etwas über die Magie des Zufalls gelernt, die randomisierte Experimente zu so einem nützlichen Werkzeug in der Kausalinferenz macht.
-Zwischen randomisierte Experimente und "reine" Beobachtungsdaten liegen die sogenannten natürlichen Experimente.
+Zwischen randomisierte Experimenten und "reinen" Beobachtungsdaten liegen die sogenannten natürlichen Experimente.
 Hier macht man es sich zu Nutzen, dass im Alltag manchmal Dinge praktisch durch Zufall entschieden werden.
 
-Ein erstes Beispiel für ein natürliches Experiment haben Sie schon im Interview mit Anne Brenøe zum Thema *Effekte des Stillens* kennengelernt: Ob eine Schwangere unter der Woche oder am Wochenende entbindet ist im Prinzip zufällig, kann aber einen Einfluss darauf haben, ob und wie lange sie nach der Geburt stillen wird.
+Ein erstes Beispiel für ein natürliches Experiment haben Sie schon im Interview mit Anne Brenøe zum Thema *Effekte des Stillens* kennengelernt: Ob eine Schwangere unter der Woche oder am Wochenende entbindet, ist im Prinzip zufällig, kann aber einen Einfluss darauf haben, ob und wie lange sie nach der Geburt stillen wird.
 
 Zur Analyse können dabei häufig sogenannte **Instrumentvariablen** oder eine **Regressions-Diskontinuitäts-Analyse** angewendet werden. Oder es wird die **Differenz-von-Differenzen** betrachtet. 
 
@@ -313,7 +313,7 @@ Wie diese Methoden helfen wichtige Fragen zu beantworten hat die Schwedische Aka
 ### Causal Discovery
 In diesem Kurs sind wir oft davon ausgegangen, dass der zugrundeliegende kausale Graph im Prinzip bekannt ist.
 Was aber, wenn das nicht der Fall ist?
-Dann bewegen wir uns in den Bereich Causal Discovery, in dem es das Ziel ist, untersützt durch Daten einen plausiblen kausalen Graphen herzuleiten.
+Dann bewegen wir uns in den Bereich Causal Discovery, in dem es das Ziel ist, unterstützt durch Daten einen plausiblen kausalen Graphen herzuleiten.
 In den letzten drei Interviews mit Jakob Runge, Jonas Peters und Sebastian Weichwald haben Sie schon einen ersten Einblick in den Themenkomplex bekommen.
 
 *Lesetipp*: 
@@ -323,7 +323,7 @@ In den letzten drei Interviews mit Jakob Runge, Jonas Peters und Sebastian Weich
 ### Data Fusion
 Aus der Vogelperspektive betrachtet gibt es viele Datenquellen, die herangezogen werden können, um mehr über Ursachen und Effekte zu lernen.
 In der Regel ist keine davon perfekt.
-Beobachtungsstudien leiden oft unter unbeobachteten Confoundern; in Experimenten machen nicht immer alle Personen das, was wir uns wünschen und manchmal müssen wir auf andere Populationen zurückgreifen -- zum Beispiel in den initialen Stadien der Medikamentenzulassung auf Zellkulturen und Tierversuche.
+Beobachtungsstudien leiden oft unter unbeobachteten Confoundern; in Experimenten machen nicht immer alle Personen das, was wir uns wünschen, und manchmal müssen wir auf andere Populationen zurückgreifen -- zum Beispiel in den initialen Stadien der Medikamentenzulassung auf Zellkulturen und Tierversuche.
 Fehlende Daten und selektive Stichproben verkomplizieren die Situation weiter.
 Die Idee der Causal Fusion ist, dass wir trotzdem all diese Datenquellen *in Kombination* nutzen können, um zu den bestmöglichen kausalen Schlußfolgerungen zu gelangen.
 
