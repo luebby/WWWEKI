@@ -71,7 +71,7 @@ Eine Schlagzeile vom 16.11.2020 lautet ([Link](https://www.zeit.de/news/2020-11/
 
 > Frauen in Firmen-Vorständen sind besser bezahlt als Männer
 
-Kann das sein? Mensch denkt doch immer eher, das Frauen im Job (und beim Gehalt) *benachteiligt* werden.
+Kann das sein? Mensch denkt doch immer eher, dass Frauen im Job (und beim Gehalt) *benachteiligt* werden.
 
 Ja, beides kann gleichzeitig stimmen: Frauen können im Job benachteiligt werden *und* Frauen können als Vorstand ein höheres Gehalt erzielen als Männer. 
 
@@ -113,9 +113,9 @@ question("Gibt es einen Pfeil zwischen *Fähigkeit* und *Vorstand*?",
 
 ## DAGitty
 
-[DAGitty](http://dagitty.net/) ist ein einfach, auch im Browser, zu bedienendes Tool, mit dem Sie Kausale Diagramme zeichnen (und analysieren) können.
+[DAGitty](http://dagitty.net/) ist ein einfach, auch im Browser, zu bedienendes Tool, mit dem Sie kausale Diagramme zeichnen (und analysieren) können.
 
-*Hinweis*: Für die Diagramme innerhalb dieses Kurses wurde das Paket `ggdac` ([https://ggdag.malco.io/](https://ggdag.malco.io/)) verwendet.
+*Hinweis*: Für die Diagramme innerhalb dieses Kurses wurde das Paket `ggdag` ([https://ggdag.malco.io/](https://ggdag.malco.io/)) verwendet.
 
 Zeichnen Sie dort - oder auf einem Blatt Papier - das Diagramm, dass die Annahmen
 
@@ -163,7 +163,7 @@ $$\text{gehalt} = \text{faehigkeit} \cdot 10 \cdot \begin{cases}2, \,\text{ist V
 
 <red>&#9888;</red> Auch diese Annahmen sind stark vereinfacht!
 
-Um dies in `R` für z.B. $n=1000$ Mitarbeiter:innen zu simulieren kann folgender Code verwendet werden:
+Um dies in `R` für z. B. $n=1000$ Mitarbeiter:innen zu simulieren kann folgender Code verwendet werden:
 
 ```{r simData}
 # Paket aktivieren
@@ -173,12 +173,12 @@ set.seed(1896)
 
 # Stichprobenumfang
 n <- 1000
-# Faehigkeit N(100,15) verteilt
+# Faehigkeit: N(100,15) verteilt
 faehigkeit <- rnorm(n, mean = 100, sd = 15)
-# Geschlecht B(0.5) verteilt
+# Geschlecht: B(0.5) verteilt
 geschlecht <- sample(c("w","m"), size = n, replace = TRUE)
 
-# "Aufstieg" ins Management ab einer faehigkeit von 115 für Männer, ab 130 für Frauen
+# "Aufstieg" ins Management: ab einer faehigkeit von 115 für Männer, ab 130 für Frauen
 vorstand <- ifelse(((geschlecht == "m" & faehigkeit > 115) | 
                       (geschlecht == "w" & faehigkeit > 130)),
                    "j","n")
@@ -193,12 +193,21 @@ GPG <- data.frame(
   geschlecht = geschlecht,
   faehigkeit = faehigkeit,
   vorstand = vorstand,
-  gehalt= gehalt)
+  gehalt = gehalt)
 ```
+
+<br>
+<span style="color:#301a87;">&#10146;</span> Ein Einblick in die simulierten Daten:
+```{r, echo=FALSE}
+knitr::kable(head(GPG, 5))
+```
+
 
 ## Analyse 1
 
-Wie konstruiert: Es gibt keine nennenswerten Unterschiede (hier: im arithmetischen Mittelwert, engl. mean, Funktion `mean()`) in der Fähigkeit zwischen den Geschlechtern:
+Wie konstruiert: 
+
+Es gibt keine nennenswerten Unterschiede (hier: im arithmetischen Mittelwert, engl. mean; Funktion `mean()`) in der Fähigkeit zwischen den Geschlechtern:
 
 ```{r meanf}
 mean(faehigkeit ~ geschlecht, data = GPG)
@@ -218,11 +227,13 @@ mean(gehalt ~ geschlecht, data = GPG)
 
 ##
 
-Wie konstruiert: Männer verdienen im Durchschnitt mit `r round(mean(gehalt ~ geschlecht, data = GPG))[1]` mehr als Frauen, deren Durchschnittsgehalt hier bei `r round(mean(gehalt ~ geschlecht, data = GPG))[2]` liegt.
+Wie konstruiert: 
+
+Männer verdienen im Durchschnitt mit `r round(mean(gehalt ~ geschlecht, data = GPG))[1]` mehr als Frauen, deren Durchschnittsgehalt hier bei `r round(mean(gehalt ~ geschlecht, data = GPG))[2]` liegt.
 
 ## Analyse 2
 
-Was passiert, wenn wir uns auf die Vorstandsmitglieder beschränken, d.h., wir wählen nur die Beobachtungen aus (`filter()`), die Bedingung erfüllen, dass sie im Vorstand sind (`vorstand == "j"`)):
+Was passiert, wenn wir uns auf die Vorstandsmitglieder beschränken, d. h., wir wählen (`filter`) nur die Beobachtungen aus, die die Bedingung erfüllen, dass sie im Vorstand sind (`vorstand == "j"`):
 
 ```{r meangvorstande, exercise = TRUE}
 GPG %>%
@@ -264,7 +275,9 @@ Und das Gehalt hängt ja, neben dem Geschlecht und der Tätigkeit im Vorstand au
 
 ## Verzerrung
 
-Wie in Modul 6 besprochen: Adjustierung eines Colliders erzeugt eine Verzerrung, es wird ein Scheinzusammenhang, der den Effekt des Geschlechts auf das Gehalt verzerrt. Mit [DAGitty](http://dagitty.net/) kann dies schön gezeigt werden:
+Wie in Modul 6 besprochen: 
+
+Adjustierung eines Colliders erzeugt eine Verzerrung, es wird ein Scheinzusammenhang, der den Effekt des Geschlechts auf das Gehalt verzerrt. Mit [DAGitty](http://dagitty.net/) kann dies schön gezeigt werden:
 
 ![](images/GPG-2.png){width="65%"}
 
