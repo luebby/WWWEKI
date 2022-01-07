@@ -103,7 +103,7 @@ question("Gibt es einen Pfeil zwischen *Fähigkeit* und *Geschlecht*?",
 ```{r pfeil2, echo=FALSE}
 question("Gibt es einen Pfeil zwischen *Fähigkeit* und *Vorstand*?",
   answer("Ja, in der Form *Fähigkeit* $\\rightarrow$ *Vorstand*." , correct = TRUE, message = "Wir nehmen an, dass die Vorstandstätigkeit von der Fähigkeit abhängt &ndash; und nicht umgekehrt."),
-    answer("Ja, in der Form *Vorstandt* $\\rightarrow$ *Fähigkeit*."),
+    answer("Ja, in der Form *Vorstand* $\\rightarrow$ *Fähigkeit*."),
   answer("Nein."),
   allow_retry = TRUE,
   correct = random_praise(),
