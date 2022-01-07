@@ -39,6 +39,11 @@ source("random-praise_de/translation_random-praise_de.R")
 # 
 # p1 <- ggdag(dagLV, text_col = "blue") + theme_dag_blank()
 
+
+library(learnr)
+library(mosaic)
+load("data/LV.Rdata")
+
 p1 <- DiagrammeR::grViz("
 digraph {
 rankdir = LR;
@@ -55,11 +60,6 @@ rankdir = LR;
        A -> E [penwidth = .5]
 }
 ")
-
-
-library(learnr)
-library(mosaic)
-load("data/LV.Rdata")
 ```
 
 ## Lernziele
