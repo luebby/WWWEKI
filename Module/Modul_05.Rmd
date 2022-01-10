@@ -116,7 +116,7 @@ gf_point(geburten ~ stoerche, data = StoercheGeburten, size = 2, alpha = 0.7) %>
 Sie sehen: Es gibt Länder mit vielen Störchen &ndash; und gleichzeitig mit vielen Geburten. Und Länder mit vergleichsweise wenigen Störchen &ndash; und gleichzeitig wenigen Geburten.
 
 ```{r zusammenhang, echo=FALSE}
-question("Wie ist wird der Zusammenhang zwischen der Anzahl der Störche und der Anzahl der Geburten über die $17$ abgebildeten Länder eingeordnet?",
+question("Wie ist der Zusammenhang zwischen der Anzahl der Störche und der Anzahl der Geburten über die $17$ abgebildeten Länder?",
          answer("Es gibt einen positiven Zusammenhang zwischen der Anzahl Störche ($x$) und der Anzahl Geburten ($y$).", correct = TRUE, message = "In Ländern mit relativ vielen Geburten gibt es tendenziell auch relativ viele Störche. Dies ist auch an der eingezeichneten Regressionsgerade zu erkennen, die von links unten nach rechts oben verläuft."),
          answer("Es gibt keinen erkennbaren Zusammenhang zwischen der Anzahl Störche ($x$) und der Anzahl Geburten ($y$)."),
          answer("Es gibt einen negativen Zusammenhang zwischen der Anzahl Störche ($x$) und der Anzahl Geburten ($y$)."),

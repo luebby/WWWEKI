@@ -142,7 +142,7 @@ Diese Werte können mit unterschiedlichen *Wahrscheinlichkeiten* auftreten, welc
 
 
 ```{r ursache, echo=FALSE}
-question("Angenomen nach der Einnahme einer Tablette gehen die Schmerzen weg. Wie würden Sie hier Ursache und Wirkung zuordnen?",
+question("Angenommen nach der Einnahme einer Tablette gehen die Schmerzen weg. Wie würden Sie hier Ursache und Wirkung zuordnen?",
          answer("Die Einnahme der Tablette ist die Ursache, der Schmerzrückgang die Wirkung.", correct = TRUE, message = "Die Tablette wurde zuerst eingenommen, danach folgte der Schmerzrückgang."),
          answer("Der Schmerzrückgang ist die Ursache, die Einnahme der Tablette die Wirkung."),
          allow_retry = TRUE,

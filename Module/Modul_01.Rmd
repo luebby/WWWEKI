@@ -132,7 +132,7 @@ Der individuelle kausale Effekt $\color{orange}{\Delta}_i$ lässt sich dann in `
 
 ***
 
-*Anmerkung:* `R` ist eine freie Software für die Datenanalyse. Sie kann von der Seite [https://cran.r-project.org/](https://cran.r-project.org/) für gängige Betriebssysteme heruntergeladen werden. Ergänzend ist die Nutzung des `RStudio Desktop` empfehlenswert ([https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)). Im Rahmen dieser Module für außerdem u.a. das Paket `mosaic` ([https://cran.r-project.org/package=mosaic)](https://cran.r-project.org/package=mosaic)) verwendet.
+*Anmerkung:* `R` ist eine freie Software für die Datenanalyse. Sie kann von der Seite [https://cran.r-project.org/](https://cran.r-project.org/) für gängige Betriebssysteme heruntergeladen werden. Ergänzend ist die Nutzung des `RStudio Desktop` empfehlenswert ([https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)). Im Rahmen dieser Module wird außerdem u.a. das Paket `mosaic` ([https://cran.r-project.org/package=mosaic)](https://cran.r-project.org/package=mosaic)) verwendet.
 
 ***
 
