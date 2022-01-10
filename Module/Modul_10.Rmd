@@ -73,7 +73,7 @@ Eine Schlagzeile vom 16.11.2020 lautet ([Link](https://www.zeit.de/news/2020-11/
 
 Kann das sein? Mensch denkt doch immer eher, dass Frauen im Job (und beim Gehalt) *benachteiligt* werden.
 
-Ja, beides kann gleichzeitig stimmen: Frauen können im Job benachteiligt werden *und* Frauen können als Vorstand ein höheres Gehalt erzielen als Männer. 
+Aber beides kann gleichzeitig stimmen: Frauen können im Job benachteiligt werden *und* Frauen können als Vorstand ein höheres Gehalt erzielen als Männer. 
 
 Dies haben Sie in diesem Kurs gelernt.
 
@@ -150,7 +150,7 @@ question("Welche Rolle spielt *Vorstand* im Teilgraphen mit *Geschlecht* und *F�
 
 Treffen wir zusätzlich noch quantitative Modellannahmen für das Beispiel:
 
-1. `faehigkeit` ist normalverteilt mit $\mu=1000$ und $\sigma=15$.
+1. `faehigkeit` ist normalverteilt mit $\mu=100$ und $\sigma=15$.
 
 2. `geschlecht` ist bernoulliverteilt mit einer Wahrscheinlichkeit von $\pi=0.5$ für eine Frau.
 
