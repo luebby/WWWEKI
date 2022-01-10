@@ -181,9 +181,9 @@ p1
 ```
 </center>
 
-Studien, die für Übelkeit als potenziellen Confounder adjustieren, finden tendenziell schwächere Zusammenhänge.
+Studien, die für Übelkeit als Variable auf einem potentiellen konfundierenden Pfad adjustieren, finden tendenziell schwächere Zusammenhänge.
 
-Die Idee, dass Übelkeit ein Confounder ist, wird auch dadurch gestützt, dass Studien insgesamt weniger konsistente Zusammenhänge zwischen Fehlgeburten und dem Konsum anderer koffeinhaltiger Getränke (z. B. Tee oder Cola) finden.
+Die Idee, dass Übelkeit auf einem konfundierenden Pfad liegt, wird auch dadurch gestützt, dass Studien insgesamt weniger konsistente Zusammenhänge zwischen Fehlgeburten und dem Konsum anderer koffeinhaltiger Getränke (z. B. Tee oder Cola) finden.
 Diese enthalten zwar Koffein, werden aber oft bei Übelkeit in der Schwangerschaft als weniger abstoßend empfunden.
 
 Insgesamt schlußfolgert beispielsweise das [American College of Obstetricians and Gynecologist (2020)](https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2010/08/moderate-caffeine-consumption-during-pregnancy), dass moderater Koffeinkonsum (weniger als 200mg am Tag) kein Risikofaktor zu sein scheint.
@@ -208,7 +208,7 @@ Eine Lebensspanne von 70 Jahren ist dann nichts Ungewöhnliches.
 
 ##
 
-Diese Beobachtungen werden manchmal aufgegriffen, um Argumente zu verschiedenen Lebensstilen zu haben.
+Diese Beobachtungen werden manchmal aufgegriffen, um Argumente zu verschiedenen Lebensstilen zu machen.
 
 Wenn Jäger und Sammler trotz fehlender Gesundheitsversorgung oft so alt werden, spricht das etwa dafür, dass ihr Lebensstil besonders gesund ist?
 
@@ -268,10 +268,12 @@ Alleine aus diesen Daten können wir also noch keine belastbaren Schlüsse ziehe
 Hoffentlich konnten wir Ihnen einige Werkzeuge an die Hand geben, um kausale Schlüsse kritisch zu hinterfragen.
 
 Von Judea Pearl, Madelyn Glymour und Nicholas P. Jewell gibt es das Buch [Causal Inference in Statistics: A Primer](http://bayes.cs.ucla.edu/PRIMER/), welches die hier vorgestellten Grundlagen ausführlicher behandelt. 
-Jonas Peters (den kennen Sie aus einem der Videos) hat zusammen mit Dominik Janzing und Bernhard Schölkopf auch ein Buch geschrieben: [Elements of Causal Inference: Foundations and Learning Algorithms](https://mitpress.mit.edu/books/elements-causal-inference).
+Jonas Peters (den kennen Sie aus einem der Videos) hat zusammen mit Dominik Janzing und Bernhard Schölkopf auch ein Buch geschrieben: [Elements of Causal Inference: Foundations and Learning Algorithms*](https://mitpress.mit.edu/books/elements-causal-inference).
 Das Thema kausale Inferenz wird im Buch [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) im 6. Kapitel der zweiten Auflage von Richard McElreath behandelt &ndash; ihn kennen Sie auch aus den Videos.
 
-Weitere Bücher aus unterschiedlichen Perspektiven sind z. B. [Causal Inference: The Mixtape](https://mixtape.scunning.com/) von Scott Cunningham, [The Effect: An Introduction to Research Design and Causality](https://theeffectbook.net/) von Nick Huntington-Klein oder [Causal Inference: What If](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) von Hernán und Robins.
+Weitere Bücher aus unterschiedlichen Perspektiven sind z. B. [Causal Inference: The Mixtape*](https://mixtape.scunning.com/) von Scott Cunningham, [The Effect: An Introduction to Research Design and Causality*](https://theeffectbook.net/) von Nick Huntington-Klein oder [Causal Inference: What If*](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) von Hernán und Robins.
+
+Die mit einem Sternchen markierten Titel sind online frei verfügbar.
 
 <br>
 
