@@ -270,6 +270,7 @@ Hoffentlich konnten wir Ihnen einige Werkzeuge an die Hand geben, um kausale Sch
 Von Judea Pearl, Madelyn Glymour und Nicholas P. Jewell gibt es das Buch [Causal Inference in Statistics: A Primer](http://bayes.cs.ucla.edu/PRIMER/), welches die hier vorgestellten Grundlagen ausführlicher behandelt. 
 Jonas Peters (den kennen Sie aus einem der Videos) hat zusammen mit Dominik Janzing und Bernhard Schölkopf auch ein Buch geschrieben: [Elements of Causal Inference: Foundations and Learning Algorithms*](https://mitpress.mit.edu/books/elements-causal-inference).
 Das Thema kausale Inferenz wird im Buch [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) im 6. Kapitel der zweiten Auflage von Richard McElreath behandelt &ndash; ihn kennen Sie auch aus den Videos.
+Ethan Bueno de Mesquita und Anthony Fowler behandeln in ihrem Buch [Thinking Clearly with Data: A Guide to Quantitative Reasoning and Analysis](https://press.princeton.edu/books/paperback/9780691214351/thinking-clearly-with-data) auch das Thema Kausale Inferenz sehr gut &ndash; allerdings aus einem etwas anderen Blickwinkel.
 
 Weitere Bücher aus unterschiedlichen Perspektiven sind z. B. [Causal Inference: The Mixtape*](https://mixtape.scunning.com/) von Scott Cunningham, [The Effect: An Introduction to Research Design and Causality*](https://theeffectbook.net/) von Nick Huntington-Klein oder [Causal Inference: What If*](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) von Hernán und Robins.
 
