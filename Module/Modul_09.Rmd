@@ -103,8 +103,9 @@ Wir wollen nun wissen, was passiert wäre, wenn wir rechts abgebogen wären &nda
 
 Dies ist in der kausalen Leiter nach Pearl die höchste Stufe:
 
-3.  **Counterfactuals**: $Pr(y_x|x',y')$ &ndash; Vorstellung: *Was wäre gewesen*? Wie sieht $Pr(Y=y)$ aus, wenn ich nicht $X=x'$ und damit $Y=y'$ beobachtet hätte, sondern $X=x$ gesetzt hätte?
+3.  **Counterfactuals**:  &ndash; Vorstellung: *Was wäre gewesen*? 
 
+Wie haben $X=x'$ und als Folge $Y=y'$ beobachtet. Wie wahrscheinlich ist dann $Y=y$, wenn ich $X=x$ gesetzt hätte? Formal: $Pr(y_x|x',y')$
 
 ***
 
@@ -158,7 +159,7 @@ Treffen wir noch eine stark vereinfachende Annahme:
 
 $$f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}}) = 2 \cdot \color{green}{X} + U_{\color{blue}{Y}}$$
 
-Das bedeutet, dass der Mittelwert von $\color{blue}{Y}$ mit jeder Einheit von $\color{green}{X}$ um $2$ Einheiten steigt.
+Das bedeutet, dass der Mittelwert von $\color{blue}{Y}$ mit jeder Einheit von $\color{green}{X}$ um $2$ Einheiten steigt. Dabei liegt der Mittelwert von $U_{\color{blue}{Y}}$ bei Null.
 
 ```{r erwartung, echo=FALSE}
 question("Welchen Wert für $Y$ erwarten Sie, wenn jemand $x'=10$ Stunden lernt?",

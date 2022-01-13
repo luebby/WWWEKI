@@ -63,7 +63,7 @@ In diesem Modul lernen Sie:
 
 - einen Graphen anhand einer angenommenen Kausalstruktur zu zeichnen;
 - daraus die Konsequenz für die kausale Schlussfolgerung zu ziehen;
-- eine Simulation für den Gender-Pay-Gap in R.
+- eine Simulation für die Gender-Pay-Gap in R.
 
 ## Eine Schlagzeile
 
@@ -75,7 +75,10 @@ Kann das sein? Mensch denkt doch immer eher, dass Frauen im Job (und beim Gehalt
 
 Aber beides kann gleichzeitig stimmen: Frauen können im Job benachteiligt werden *und* Frauen können als Vorstand ein höheres Gehalt erzielen als Männer. 
 
-Dies haben Sie in diesem Kurs gelernt.
+Korrelation bedeutet nicht Kausalität. Verzerrungen durch Mediatoren, Confounder oder Collider lauern überall und können Verzerrungen (Bias) erzeugen.  
+Um Kausalität zu untersuchen müssen wir über den datengenerierenden Prozess nachdenken: Wie sind die Daten entstanden?
+
+Und dies haben Sie in diesem Kurs gelernt &#127942;
 
 ## Die Annahmen
 
@@ -154,7 +157,7 @@ Treffen wir zusätzlich noch quantitative Modellannahmen für das Beispiel:
 
 2. `geschlecht` ist bernoulliverteilt mit einer Wahrscheinlichkeit von $\pi=0.5$ für eine Frau.
 
-3. Ein Mann kommt ab einer `faehigkeit` größer als 115 in den Vorstand, eine Frau erst ab 130. Frauen müssen also fähiger sein als Männer um in den Vorstand zu kommmen &ndash; so hier die Annahme.
+3. Ob jemand im Vorstand ist, hängt ab `faehigkeit` und `geschlecht`. Dies modellieren wir indem ein Mann ab einer `faehigkeit` größer als 115 in den Vorstand kommt, eine Frau erst ab 130. Frauen müssen also fähiger sein als Männer um in den Vorstand zu kommmen &ndash; so hier die Annahme.
 
 4. Das `gehalt` setzt sich zusammen aus `faehigkeit` ($\cdot 10$). Es ist im `vorstand` doppelt so hoch und für Männer noch einmal $5\%$ höher. Fähigere Leute verdienen mehr, Mitglieder des Vorstands verdienen mehr und Männer verdienen mehr.
 $$\text{gehalt} = \text{faehigkeit} \cdot 10 \cdot \begin{cases}2, \,\text{ist Vorstand} \\ 1, \,\text{sonst} \end{cases} \cdot \begin{cases}1.05, \,\text{ist Mann} \\ 1, \,\text{sonst} \end{cases}.$$
