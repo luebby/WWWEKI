@@ -108,7 +108,7 @@ In diesem Modul lernen Sie:
 
 Korrelation bedeutet nicht Kausalität &ndash; und keine Korrelation bedeutet nicht keine Kausalität.
 
-Es gilt:
+[Bueno de Mesquita und Fowler (2020)](https://press.princeton.edu/books/paperback/9780691214351/thinking-clearly-with-data) bringen es auf den Punkt: Es gilt:
 
 $$
 Beobachtete \, Korrelation = Kausaler\,Effekt + Verzerrung + Rauschen

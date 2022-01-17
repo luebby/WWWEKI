@@ -557,6 +557,22 @@ In unserem <red>fiktiven</red> Experiment müssen wir uns um diese und andere Dr
 Um von der reinen Vorhersage ("Wie wahrscheinlich ist es, dass eine zufällig gewählte Frau stillt?") zur **kausalen Inferenz** zu kommen ("Welchen Effekt hat das Stillen auf das Allergierisiko?") benötigt es mehr als nur die Daten.
 Wir benötigen zusätzlich wissen darüber, wie die Daten entstanden sind &ndash; welche zusätzlichen Variablen die Variablen von Interesse beeinflusst haben, oder ob beispielsweise eine zufällige Intervention stattgefunden hat.
 
+## 
+
+Richard McElreath weist in seinem Vortrag [Causal Thinking for Descriptive Research](https://speakerdeck.com/rmcelreath/causal-thinking-for-descriptive-research) zu Recht darauf hin, dass wir *ehrliche Methoden für bescheidene Fragen* einsetzen sollen:
+
+1. Was soll analysiert werden?
+
+2. Welche Daten müssen wir dafür idealerweise haben?
+
+3. Welche Daten liegen tatsächlich vor?
+
+4. Was ist der Grund für mögliche Abweichungen zwischen (2) und (3)?
+
+In diesem Modul haben Sie statistische Methoden kennengelernt, wie Sie Datenerhebung, wenn möglich, optimal gestalten können, um in (4) keine Abweichungen festzustellen. Leider gelingt das nicht immer.
+
+
+
 
 ## Hinweis
 

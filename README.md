@@ -17,7 +17,7 @@ Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https:
 - Lübke, K., Gehrke, M., Horst, J., & Szepannek, G. (2020). Why we should teach causal inference: Examples in linear regression with simulated data. *Journal of Statistics Education*, 28(2), 133-139. [https://doi.org/10.1080/10691898.2020.1752859](https://doi.org/10.1080/10691898.2020.1752859)
 
 
-## Vorläufige Modulübersicht
+## Modulübersicht
 
 1. [An der Weggabelung: Einen Weg gehen - und einen nicht](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_01/) (Potential Outcome und Counterfactual)
 
