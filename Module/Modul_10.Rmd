@@ -280,9 +280,15 @@ Wie in Modul 6 besprochen:
 
 Adjustierung eines Colliders erzeugt eine Verzerrung, es wird ein Scheinzusammenhang, der den Effekt des Geschlechts auf das Gehalt verzerrt. Mit [DAGitty](http://dagitty.net/) kann dies schön gezeigt werden:
 
-![](images/GPG-2.png){width="65%"}
+![](images/GPG-2.png){width="75%"}
+
+Das folgende Vidoeo zeigt eine kurze Einführung in die Bedienung von DAGitty anhand dieses Beispiels:
+
+![](https://vimeo.com/666725243){width="75%"}
+
 
 ## Hinweis
+
 
 ***
 
