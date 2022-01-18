@@ -111,7 +111,7 @@ Ein weiteres Ziel der Datenanalyse kann die Vorhersage sein:
 Wie hoch ist die Wahrscheinlichkeit, dass eine Frau mit bestimmten Eigenschaften im nächsten Jahr einen Schlaganfall erleidet?
 :::
 
-Es gibt also ein konkretes Ereignis das auf Basis anderer Eigenschaften vorhergesagt werden soll. 
+Es gibt also ein konkretes Ereignis, das auf Basis anderer Eigenschaften vorhergesagt werden soll. 
 Viele Verfahren der künstlichen Intelligenz und des maschinellen Lernens versuchen diese Aufgabe zu lösen. 
 Gebräuchliche Verfahren sind hier Regressionsverfahren, aber auch künstliche neuronale Netze kommen zur Anwendung. 
 Eine solche Vorhersage ist häufig Bestandteil Algorithmischer Entscheidungssysteme.

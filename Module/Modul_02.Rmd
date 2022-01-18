@@ -266,7 +266,7 @@ Manche glauben ja, dass Kinder auf Ihre Eltern hören. Das schöne an abstrakten
 
 Variablen (Knoten), auf die eine Pfeilspitze zeigt, werden **Kinder** derjenigen Variablen genannt, von welchen die Pfeile ausgehen. Diese Variablen werden entsprechend **Eltern** genannt: $\text{Eltern} \rightarrow \text{Kinder}$. Im Beispiel von oben ist <blue> Schmerzrückgang </blue> ein Kind von <green> Tabletteneinnahme </green> &ndash; und dementsprechend <green> Tabletteneinnahme </green> Eltern von <blue> Schmerzrückgang</blue>. In kausalen Graphen höre Kinder also auf ihre Eltern.
 
-Ein Beispiel für ein kausales Diagramm das beschreibt, wie eine Straße rutschig werden kann:
+Ein Beispiel für ein kausales Diagramm welches beschreibt, wie eine Straße rutschig werden kann:
 
 ```{r DAG_Str, echo=FALSE, fig.align='center', out.width='85%'}
 plot(DAG_Str)
@@ -318,7 +318,7 @@ plot(DAG2)
 ```
 
 
-Angenommen Sie werfen eine Münze (`ux()`), ob Sie die Tablette nehmen oder nicht, und es gilt für den Schmerzrückgang (`fy()`):
+Angenommen, Sie werfen eine Münze (`ux()`), ob Sie die Tablette nehmen oder nicht, und es gilt für den Schmerzrückgang (`fy()`):
 
 - $Pr(\text{Schmerzrückgang, wenn Tablette eingenommen})=0.8$ 
 
@@ -355,12 +355,12 @@ Wenn $100$ Menschen eine Münze werfen, ob sie die Tablette einnehmen oder nicht
 plot(pd)
 ```
 
-Insgesamt erwarten wir im Mittelwert, dass bei $40 + 20 = 60$ von $100$ Personen eine Verbesserung eintrifft, wenn $U_{\color{green}{\text{Tabletteneinnahme}}}$ zufällig Ja oder Nein ist und $P(\color{green}{\text{Tabletteneinnahme}})=0.5$ ist. Wir **beobachten** nur, welchen Wert unsere Ursache $\color{green}{X}$ annimmt. 
+Insgesamt erwarten wir im Mittelwert, dass bei $40 + 20 = 60$ von $100$ Personen eine Verbesserung eintrifft, wenn $U_{\color{green}{\text{Tabletteneinnahme}}}$ zufällig Ja oder Nein ist und $Pr(\color{green}{\text{Tabletteneinnahme}})=0.5$ ist. Wir **beobachten** nur, welchen Wert unsere Ursache $\color{green}{X}$ annimmt. 
 
 ```{r handeln, echo=FALSE}
 question("Was passiert, wenn wir **intervenieren**, d. h., die Tabletteneinnahme ist nicht zufällig, sondern wir legen fest, dass alle die Tablette einnehmen müssen?",
          answer("Die Anzahl der Menschen mit Schmerzreduktion ändert sich nicht."),
-         answer("Die Anzahl der Menschen mit Schmerzreduktion erhöht sich.", correct = TRUE, message = "Durch die Intervention gilt nicht mehr $P(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $P(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $80\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.8 = 80$ von $100$ Personen."),
+         answer("Die Anzahl der Menschen mit Schmerzreduktion erhöht sich.", correct = TRUE, message = "Durch die Intervention gilt nicht mehr $Pr(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $Pr(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $80\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.8 = 80$ von $100$ Personen."),
          answer("Die Anzahl der Menschen mit Schmerzreduktion reduziert sich."),
          allow_retry = TRUE,
          correct = random_praise(),

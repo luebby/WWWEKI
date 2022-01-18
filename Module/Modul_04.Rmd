@@ -96,7 +96,7 @@ Das folgende Beispiel ist fiktiv &ndash; und eine sehr starke Vereinfachung. Au�
 
 ***
 
-Angenommen <green>Lernen</green> ($\color{green}{X}$) führt zu <violet>Wissen</violet> ($\color{violet}{Z}$), d. h., durch Lernen erwerben Sie Wissen. Außerdem führt <violet>Wissen</violet> ($\color{violet}{Z}$) zu <blue>Verstehen</blue> ($\color{blue}{Y}$), d. h., über Ihr Wissen kommen Sie zum Verstehen.
+Angenommen, <green>Lernen</green> ($\color{green}{X}$) führt zu <violet>Wissen</violet> ($\color{violet}{Z}$), d. h., durch Lernen erwerben Sie Wissen. Außerdem führt <violet>Wissen</violet> ($\color{violet}{Z}$) zu <blue>Verstehen</blue> ($\color{blue}{Y}$), d. h., über Ihr Wissen kommen Sie zum Verstehen.
 
 Wenn dieses stark vereinfachte Modell stimmt, dann lässt sich diese Annahme in einem kausalen Diagramm darstellen:
 
@@ -215,7 +215,7 @@ Für die Erläuterung bitte auf `Nächstes Thema` klicken.
 Während die Werte für $\color{blue}{Y}$ bei $do(\color{green}{X}=1)$ um die $\color{blue}{15}$ schwanken, liegen sie bei $do(\color{green}{X}=10)$ um die $\color{blue}{150}$.
 
 ```{r intervention, echo=FALSE}
-question("Was wird mit mit den Zusammenhang zwischen Lernen (`x`) und Verstehen (`y`) passieren, wenn Sie Wissen festhalten, also z.B. `z <- 15` zuweisen?",
+question("Was wird mit dem Zusammenhang zwischen Lernen (`x`) und Verstehen (`y`) passieren, wenn Sie Wissen festhalten, also z.B. `z <- 15` zuweisen?",
          answer("Bei höheren Werten von Lernen (`x`) treten in der Regel auch höhere Werte von Verstehen (`y`) auf.",),
          answer("Bei höheren Werten von Lernen (`x`) treten in der Regel niedrigere Werte von Verstehen (`y`) auf.",),
          answer("Bei bekannten Wissen (`z`) scheint der Wert von Verstehen (`y`) in keinem Zusammenhang mit dem Wert von Lernen (`x`) zu sein.", correct = TRUE, message = "Durch Fixierung von `z` wird die kausale Kette von $X$ nach $Y$ unterbrochen."),

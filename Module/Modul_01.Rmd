@@ -64,7 +64,7 @@ In diesem Modul lernen Sie:
 
 ## Individueller kausaler Effekt
 
-Stellen Sie sich folgende Situation vor: Am Ende Ihrer Ausbildungszeit wird Ihnen die Teilnahme an einer freiwillige Schulung zum Thema Gehaltsverhandlungen angeboten.
+Stellen Sie sich folgende Situation vor: Am Ende Ihrer Ausbildungszeit wird Ihnen die Teilnahme an einer freiwilligen Schulung zum Thema Gehaltsverhandlungen angeboten.
 
 Würden Sie teilnehmen?
 
@@ -181,7 +181,7 @@ question("Können Sie diese individuellen kausalen Effekte in der Realität beob
 
 ## Das fundamentale Problem der kausalen Inferenz
 
-Das fundamentale Problem der kausalen Inferenz ist, dass wir den individuelle kausale Effekt $\color{orange}{\Delta}_i = \color{blue}{Y}^{\color{green}{X=1}}_i - \color{blue}{Y}^{\color{green}{X=0}}_i$ **nicht** beobachten können. Es liegt je Beobachtung $i$ immer nur eines der beiden Potential Outcomes vor: Entweder $\color{blue}{Y}^{\color{green}{X=1}}$ (<blue>Gehalt</blue> mit <green>Schulung</green>) **oder** $\color{blue}{Y}^{\color{green}{X=0}}$ (<blue>Gehalt</blue> ohne <green>Schulung</green>).
+Das fundamentale Problem der kausalen Inferenz ist, dass wir den individuellen kausale Effekt $\color{orange}{\Delta}_i = \color{blue}{Y}^{\color{green}{X=1}}_i - \color{blue}{Y}^{\color{green}{X=0}}_i$ **nicht** beobachten können. Es liegt je Beobachtung $i$ immer nur eines der beiden Potential Outcomes vor: Entweder $\color{blue}{Y}^{\color{green}{X=1}}$ (<blue>Gehalt</blue> mit <green>Schulung</green>) **oder** $\color{blue}{Y}^{\color{green}{X=0}}$ (<blue>Gehalt</blue> ohne <green>Schulung</green>).
 
 - Wenn Person $i$ an der Schulung teilnimmt, liegt uns das Gehalt mit Schulung vor, $\color{blue}{Y}^{\color{green}{X=1}}_i$, und nicht $\color{blue}{Y}^{\color{green}{X=0}}_i$
 
@@ -194,7 +194,7 @@ Für jemanden, der nicht an der Schulung teilgenommen hat, ist das Counterfactua
 ```{r cf, echo=FALSE}
 question("Kann das Counterfactual beobachtet werden?",
          answer("Ja", message = "Je Beobachtung $i$ liegt nur ein Wert vor: der mit Schulung oder der ohne Schulung, nicht beide gleichzeitig. Das Counterfactual ist das nicht beobachtete der Potential Outcomes."),
-         answer("Nein", correct = TRUE, message = "Das Counterfactual ist das nicht beobachtete der Potential Outcomes."),
+         answer("Nein", correct = TRUE, message = "Das Counterfactual ist das nicht Beobachtete der Potential Outcomes."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -203,7 +203,7 @@ question("Kann das Counterfactual beobachtet werden?",
 
 ```{r cfi, echo=FALSE}
 question("Person $i$ nimmt an der Schulung teil. Was ist dann das Counterfactual?",
-         answer("$\\color{blue}{Y}^{\\color{green}{X=0}}_i$", correct = TRUE, message = "Teilnahme an der Schulung bedeutet $X=1$."),
+         answer("$\\color{blue}{Y}^{\\color{green}{X=0}}_i$", correct = TRUE, message = "Teilnahme an der Schulung bedeutet $X=1$, d. h. für das Counterfactual $X=0$."),
          answer("$\\color{blue}{Y}^{\\color{green}{X=1}}_i$"),
          allow_retry = TRUE,
          correct = random_praise(),
@@ -221,7 +221,7 @@ $$\bar{\color{orange}{\Delta}}=\frac{\sum_{i=1}^n \color{orange}{\Delta}_i}{n}=\
 
 Die `R`-Funktion, die diesen arithmetischen Mittelwert berechnet, lautet `mean()`.
 
-Klicken Sie auf `Ausführen` um den durchschnittlichen kausalen Effekt in unserem fiktiven Beispiel zu berechnen, in dem beide Potential Outcomes vorliegen.
+Klicken Sie auf `Ausführen`, um den durchschnittlichen kausalen Effekt in unserem fiktiven Beispiel zu berechnen, in dem beide Potential Outcomes vorliegen.
 
 ```{r ate, exercise=TRUE}
 mean( ~ effekt, data = Schulung)
@@ -247,7 +247,7 @@ analyse( ~ y, data = Daten)
 
 ##
 
-Das fundamentale Problem der kausalen Inferenz ist, dass nur eines der Potential Outcomes vorliegt und das nicht vorliegende ein Counterfactual ist. Daher kennen wir in der Praxis weder den individuellen noch den durchschnittlichen kausalen Effekt. Letzterer liegt in unserem Beispiel bei
+Das fundamentale Problem der kausalen Inferenz ist, dass nur eines der Potential Outcomes vorliegt und das nicht Vorliegende ein Counterfactual ist. Daher kennen wir in der Praxis weder den individuellen noch den durchschnittlichen kausalen Effekt. Letzterer liegt in unserem Beispiel bei
 
 
 $$\bar{\color{orange}{\Delta}}=\frac{\sum_{i=1}^n \color{orange}{\Delta}_i}{n}=`r mean(~ effekt, data = Schulung)`.$$
@@ -266,7 +266,7 @@ Schulung %>%
   kable()
 ```
 
-Was wir in unseren Daten also sehen ist das tatsächlich beobachtete `gehalt` und, ob am Seminar teilgenommen wurde (`teilnahme`).
+Was wir in unseren Daten also sehen, ist das tatsächlich beobachtete `gehalt` und, ob am Seminar teilgenommen wurde (`teilnahme`).
 
 ```{r gehalt, echo=FALSE}
 Schulung %>%
@@ -340,7 +340,7 @@ mean(gehalt1 ~ teilnahme, data = Schulung)
 
 ##
 
-Das fundamentale Problem der kausalen Inferenz ist universell. In vielen Situationen kann es dazu führen, dass die Daten uns in die Irre führe: Vielleicht vermuten wir einen kausalen Effekte wo es nicht wirklich einen gibt, oder wir erkennen real existierende Effekte nicht. 
+Das fundamentale Problem der kausalen Inferenz ist universell. In vielen Situationen kann es dazu führen, dass die Daten uns in die Irre führe: Vielleicht vermuten wir einen kausalen Effekt wo es nicht wirklich einen gibt, oder wir erkennen real existierende Effekte nicht. 
 
 Die Gefahr solcher Fehlschlüsse verringert sich aber, wenn wir uns darüber Gedanken machen, wie unsere Daten überhaupt entstanden sind. In unserem fiktiven Beispiel kann man die zusätzliche Information heranziehen, dass Personen sich frei auswählen konnten, ob sie teilnehmen oder nicht. Dann erkennt man schnell, dass der naive Mittelwertvergleich kein angemessener Weg ist, den durchschnittlichen kausalen Effekt zu schätzen. 
 
