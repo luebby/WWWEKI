@@ -393,7 +393,7 @@ question("Welche Darstellung beschreibt die Intervention, die dazu führt, dass 
          )
 ```
 
-## Abschluss
+## Ausblick
 
 Kausale Inferenz hilft die Unterschiede in den Verteilungen der Wirkung $\color{blue}{Y}$ zu untersuchen, je nachdem ob $\color{green}{X}$ beobachtet wurde &ndash; oder der Wert durch eine Handlung festgelegt wird ($do(\color{green}{X})$).
 
