@@ -96,7 +96,7 @@ Aber auch Verfahren wie Clusteranalyse oder Hauptkomponentenanalyse können hier
 ```{r beschreibung, echo=FALSE}
 question("Führen solche Datenanalysen automatisch zu adäquaten Beschreibungen des zu untersuchenden Phänomens?",
          answer("Ja"),
-         answer("Nein", correct = TRUE, message = "Daten sind in der Regel nur ein Teil der komplexen und dynamischen Realität. Beispielsweise könnten die Daten mit Messfehler behaftet sein, wenn beispielsweise das Rauchverhalten in der Vergangenheit nicht korrekt erinnert oder berichtet wird. Auch nicht-repräsentative Stichproben können ein Problem sein, wenn zum Beispiel gerade gesundheitsbewusste Frauen eher an Erhebungen teilnehmen. Weiterhin können fehlende Werte zu verzerrte Ergebnissen führen, wenn beispielsweise bestimmte Frauen auf einige der Fragen die Antwort verweigern. Auch bei der reinen Beschreibung können also Daten in die Irre führen, und wir müssen uns Gedanken darüber machen, wie die Daten entstanden sind."),
+         answer("Nein", correct = TRUE, message = "Daten sind in der Regel nur ein Teil der komplexen und dynamischen Realität. Beispielsweise könnten die Daten mit Messfehler behaftet sein, wenn beispielsweise das Rauchverhalten in der Vergangenheit nicht korrekt erinnert oder berichtet wird. Auch nicht-repräsentative Stichproben können ein Problem sein, wenn zum Beispiel gerade gesundheitsbewusste Frauen eher an Erhebungen teilnehmen. Weiterhin können fehlende Werte zu verzerrte Ergebnissen führen, wenn beispielsweise bestimmte Frauen auf einige der Fragen die Antwort verweigern. Auch bei der reinen Beschreibung können also Daten in die Irre führen, und wir müssen uns Gedanken darüber machen, wie die Daten entstanden sind. Mehr dazu lernen Sie in Modul 6 im Interview mit Richard McElreath."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -141,16 +141,7 @@ question("Ein Unternehmen möchte diejenigen Kund:innen ermitteln, von denen es 
 In den Anwendungen "Beschreibung" und "Vorhersage" wurden die Daten zunächst *nur* beobachtet. 
 Es erfolgt also  keine Intervention, selbst wenn im nächsten Schritt die Vorhersage als Grundlage für konkrete Handlungen genutzt wird.
 
-
-```{r dox, echo=FALSE}
-question("Kann es einen Unterschied in der Verteilung von $Y$ geben, je nach dem, ob $X$ beobachtet wird ($X=x$) oder auf Grund einer Handlung $X$ gesetzt wird ($do(X=x)$)?",
-         answer("Ja", correct = TRUE, message = "Es kann sein, dass eine weitere Variable ($Z$) Ursache für $X$ und $Y$ ist. Der beobachtete Zusammenhang zwischen $X$ und $Y$ liegt dann an $Z$. Wenn $X$ verändert wird, ändert sich $Y$ aber nicht. Würde $Z$ sich ändern, würde man andere Werte von $X$ und $Z$ beobachten."),
-         answer("Nein"),
-         allow_retry = TRUE,
-         correct = "Klasse! Sie können sich gut an das 2. Modul dieses Kurses erinnern.",
-         incorrect = "Leider falsch. Vielleicht schauen Sie sich noch einmal das 2. Modul (Ein Pfeil zeigt die Richtung) an."
-         )
-```
+In der kausalen Inferenz interessieren uns hingegen die Folgen von (hypothetischen) Interventionen.
 
 Eine Fragestellung der kausalen Inferenz lautet:
 
@@ -163,9 +154,10 @@ Grundlegende Überlegungen und Verfahren, die helfen können, solche Fragen zu b
 
 ##
 
+## Beschreibung, Vorhersage oder kausale Inferenz?
 
 ```{r anwendung, echo=FALSE}
-question("Im Rahmen des Kundenbeziehungsmangements ist Kundenabwanderung ein wichtiges Thema. Was ist das Ziel der Datenanwendung bei der Fragestellung: *Welche Kund:innen haben eine hohe Abwanderungsrate?*",
+question("Im Rahmen des Kundenbeziehungsmangements ist Kundenabwanderung ein wichtiges Thema. Was ist das Ziel der Datenanwendung bei der Fragestellung: *Welche Kund:innen hatten in der Vergangenheit eine hohe Abwanderungsrate?*",
          answer("Beschreibung", correct = TRUE, message = "Auf Basis der vorhandenen Daten werden die abgewanderten Kund:innen beschrieben. Beispiel siehe [Bojinov et al. (2020)](https://hdsr.mitpress.mit.edu/pub/wjhth9tr/release/1)"),
          answer("Vorhersage"),
          answer("Kausale Inferenz"),
@@ -177,13 +169,17 @@ question("Im Rahmen des Kundenbeziehungsmangements ist Kundenabwanderung ein wic
 
 ## Kausale Leiter
 
-[Judea Pearl](https://doi.org/10.1145/3241036) unterscheidet 3 Stufen der kausalen Modellierung:
+Neben dieser Unterscheidung zwischen den Analysezielen Beschreibung, Vorhersage und kausale Inferenz unterscheidet [Judea Pearl](https://doi.org/10.1145/3241036) zwischen 3 Stufen der kausalen Modellierung, die Sie bereits im Interview mit Stephan Poppe kennengelernt haben:
 
 1.  **Assoziation**: $Pr(y|x)$ &ndash; Beobachtung: *Was ist*? Wie wahrscheinlich ist $Y=y$, wenn ich $X=x$ beobachte? 
 
-2.  **Interventionen**: $Pr(y|do(x))$ &ndash; Tun: *Was wäre*? Wie wahrscheinlich ist $Y=y$, wenn ich $X=x$ setze, d.h. manipuliere?
+2.  **Intervention**: $Pr(y|do(x))$ &ndash; Tun: *Was wäre*? Wie wahrscheinlich ist $Y=y$, wenn ich $X=x$ setze, d.h. manipuliere?
 
-3.  **Counterfactuals**: $Pr(y_x|x',y')$ &ndash; Vorstellung: *Was wäre gewesen*? Wie sieht $Pr(Y=y)$ aus, wenn ich nicht $X=x'$ und damit $Y=y'$ beobachtet hätte, sondern $X=x$ gesetzt hätte?
+3.  **Counterfactuals**: $Pr(y_x|x',y')$ &ndash; Vorstellung: *Was wäre gewesen*? Wir haben $X=x'$ und als Folge $Y=y'$ beobachtet. Wie wahrscheinlich ist dann $Y=y$, wenn ich $X=x$ gesetzt hätte? (Mehr dazu in Modul 9)
+
+
+Die Stufe 1, Assoziation, ist relevant für die Analyseziele Beschreibung und Vorhersage.
+Bei den Stufen 2 und 3 befinden wir uns bereits bei dem Analyseziel Kausale Inferenz.
 
 ***
 
@@ -195,7 +191,7 @@ Diese unterscheidet sich i.d.R. von der unbedingten Wahrscheinlichkeit $Pr(y)$.
 ```{r do, echo=FALSE}
 question("Sind die Wahrscheinlichkeiten für $y$ bei Assoziation $Pr(y|x)$ und Intervention $Pr(y|do(x))$ immer identisch?",
          answer("Ja"),         
-         answer("Nein", correct = TRUE,  message = "Die Wahrscheinlichkeit, dass jemand gesund ist ($y$), der eine Schwimmbrille hat ($x$), ist relativ hoch (Assoziation). Vermutlich würde eine Verteilung von Schwimmbrillen (Intervention, $do(x)$), zu einer niedrigeren Wahrscheinlichkeit führen. Es sei denn, die Menschen gingen dann auch alle Schwimmen. Lied dazu: [Monty Harper: Correlation Does Not Imply Causation](https://www.causeweb.org/cause/resources/fun/songs/correlation-does-not-imply-causation)"),
+         answer("Nein", correct = TRUE,  message = "Ein simples Beispiel: Die Wahrscheinlichkeit, dass jemand gesund ist ($y$), der eine Schwimmbrille hat ($x$), ist relativ hoch (Assoziation, z.B. 70% der Schwimmbrillenbesitzer*innen sind gesund). Aber eine Intervention, bei der wir Personen Schwimmbrillen schenken (Intervention, $do(x)$), würde nicht dazu führen, dass 70% der Personen gesund sind. Lied dazu: [Monty Harper: Correlation Does Not Imply Causation](https://www.causeweb.org/cause/resources/fun/songs/correlation-does-not-imply-causation)"),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()

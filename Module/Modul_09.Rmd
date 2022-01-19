@@ -105,7 +105,7 @@ Dies ist in der kausalen Leiter nach Pearl die höchste Stufe:
 
 3.  **Counterfactuals**:  &ndash; Vorstellung: *Was wäre gewesen*? 
 
-Wie haben $X=x'$ und als Folge $Y=y'$ beobachtet. Wie wahrscheinlich ist dann $Y=y$, wenn ich $X=x$ gesetzt hätte? Formal: $Pr(y_x|x',y')$
+Wir haben $X=x'$ und als Folge $Y=y'$ beobachtet. Wie wahrscheinlich ist dann $Y=y$, wenn ich $X=x$ gesetzt hätte? Formal: $Pr(y_x|x',y')$
 
 ***
 
