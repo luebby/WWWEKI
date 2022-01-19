@@ -152,9 +152,9 @@ Kann die Gabe von cholesterinsenkenden Medikamenten das durchschnittliche Risiko
 Grundlegende Überlegungen und Verfahren, die helfen können, solche Fragen zu beantworten, lernen Sie im Rahmen dieses Kurses.
 
 
-##
-
 ## Beschreibung, Vorhersage oder kausale Inferenz?
+
+Zur Wiederholung noch eine Übung:
 
 ```{r anwendung, echo=FALSE}
 question("Im Rahmen des Kundenbeziehungsmangements ist Kundenabwanderung ein wichtiges Thema. Was ist das Ziel der Datenanwendung bei der Fragestellung: *Welche Kund:innen hatten in der Vergangenheit eine hohe Abwanderungsrate?*",
