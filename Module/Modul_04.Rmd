@@ -72,19 +72,17 @@ In diesem Modul lernen Sie:
 
 - was ein Mediator ist;
 
-- dass es manchmal besser ist, etwas nicht zu berücksichtigen.
+- dass es manchmal besser ist, bestimmte Variablen in der Analyse nicht zu berücksichtigen.
 
 ## Eins führt zum anderen
 
 Auch komplexe kausale Diagramme bestehen aus relativ einfachen Grundelementen. Eines davon ist die sog. **Kette** (engl.: chain). 
 
-Zur Erinnerung: Der kausale Fluss folgt den Pfeilen. $$A \rightarrow B$$ sagt aus, dass $B$ auf $A$ *hört*, aber nicht umgekehrt. Wenn ich den Rasen gieße ($A$), wird dieser nass ($B$), aber der Rasen kann auch nass sein, ohne dass ich ihn gegossen habe. Bei einer Kette kommt einfach eine dritte Variable dazu: $$A \rightarrow B \rightarrow C.$$ Das Drehen am Thermostat ($A$) führt zum Erwärmen der Heizung ($B$) und diese wiederum zu einem warmen Wohnraum ($C$).
+Zur Erinnerung: Der kausale Fluss folgt den Pfeilen. $$A \rightarrow B$$ sagt aus, dass $B$ auf $A$ *hört*. Wenn ich den Rasen gieße ($A$), wird dieser nass ($B$). 
 
-***
+Bei einer Kette kommt einfach eine dritte Variable dazu: $$A \rightarrow B \rightarrow C.$$ 
+Zum Beispiel: das Drehen am Thermostat ($A$) führt zum Erwärmen der Heizung ($B$) und diese wiederum zu einem warmen Wohnraum ($C$).
 
-*Anmerkung*: Siehe Modul 2.
-
-***
 
 ## Lernen und Verstehen
 
@@ -114,12 +112,12 @@ Das strukturelle kausale Modell besteht aus folgenden Zuweisungen:
 \color{blue}{Y} &=& f_{\color{blue}{Y}}(\color{violet}{Z},U_{\color{blue}{Y}}).
 \end{eqnarray*}
 
-Der Wert von <green>Lernen</green> ($\color{green}{X}$) kommt außerhalb des Modells zu Stande ($U_{\color{green}{X}}$). Der Wert von <violet>Wissen</violet> ($\color{violet}{Z}$) hängt ab vom Wert von <green>Lernen</green> ($\color{green}{X}$) &ndash; und weiteren Faktoren ($U_{\color{violet}{Z}}$). Letzlich hängt <blue>Verstehen</blue> ($\color{blue}{Y}$) von <violet>Wissen</violet> ($\color{violet}{Z}$) ab &ndash; und $U_{\color{blue}{Y}}$. Dabei sind die zufälligen Einflüsse $U_{\color{green}{X}}, U_{\color{violet}{Z}}, U_{\color{blue}{Y}}$ unabhängig voneinander.
+Der Wert von <green>Lernen</green> ($\color{green}{X}$) kommt außerhalb des Modells zu Stande ($U_{\color{green}{X}}$). Der Wert von <violet>Wissen</violet> ($\color{violet}{Z}$) hängt ab vom Wert von <green>Lernen</green> ($\color{green}{X}$) &ndash; und weiteren Faktoren ($U_{\color{violet}{Z}}$). Letzlich hängt <blue>Verstehen</blue> ($\color{blue}{Y}$) von <violet>Wissen</violet> ($\color{violet}{Z}$) ab &ndash; und $U_{\color{blue}{Y}}$. Hier machen wir wieder die (zugegebenermaßen unrealistische) Annahme, dass die zufälligen Einflüsse $U_{\color{green}{X}}, U_{\color{violet}{Z}}, U_{\color{blue}{Y}}$ voneinander unabhängig sind.
 
 ```{r kind, echo=FALSE}
 question("In der Sprache der Diagramme: Ist Verstehen ($Y$) ein Kind von Lernen ($X$)?",
          answer("Ja"),
-         answer("Nein", correct = TRUE, message = "Eltern von Verstehen ist Wissen ($Z$). Wissen ist ein Kind von Lernen. Verstehen *hört* unmittelbar nur auf Wissen, d. h., der Wert von Verstehen hängt direkt nur von Wissen ab &ndash; und nur über dieses von Lernen. $X$ ist aber ein Vorfahr von $Y$."),
+         answer("Nein", correct = TRUE, message = "Verstehen ist ein Kind von Wissen ($Z$). Wissen ist wiederum ein Kind von Lernen. Damit ist Verstehen kein Kind von Lernen, aber ein Nachkomme. Verstehen *hört* unmittelbar nur auf Wissen, d. h., der Wert von Verstehen hängt direkt nur von Wissen ab."),
          allow_retry = TRUE,
          correct = "Prima, Richtig!",
          incorrect = "Leider falsch. Vielleicht schauen Sie noch einmal im Modul 2 nach."
@@ -131,7 +129,7 @@ question("In der Sprache der Diagramme: Ist Verstehen ($Y$) ein Kind von Lernen 
 In Fällen wie diesen: $$\color{green}{X} \rightarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$ wird die Variable in der Mitte &ndash; hier $\color{violet}{Z}$ &ndash; **Mediator** genannt.
 
 ```{r mediator, echo=FALSE}
-question("Angenommen eine Beförderung hängt diskriminierenderweise ab vom Geschlecht der Kandidat:in und das Gehalt von der Beförderung. Welche Variable ist hier ein Mediator?",
+question("Angenommen eine Beförderung hängt diskriminierenderweise ab vom Geschlecht der Kandidat:in und das Gehalt wiederum von der Beförderung. Welche Variable ist hier ein Mediator?",
          answer("Geschlecht"),
          answer("Beförderung", correct = TRUE, message = "Das beschriebene Kausalmodell lautet $\\text{Geschlecht} \\rightarrow \\text{Beförderung} \\rightarrow \\text{Gehalt}$."),
          answer("Gehalt", message = "Das beschriebene Kausalmodell lautet $\\text{Geschlecht} \\rightarrow \\text{Beförderung} \\rightarrow \\text{Gehalt}$."),
@@ -141,17 +139,22 @@ question("Angenommen eine Beförderung hängt diskriminierenderweise ab vom Gesc
          )
 ```
 
-Um den (totalen) kausalen Effekt der Ursache ($\color{green}{X}$) auf die Wirkung ($\color{blue}{Y}$) zu untersuchen, müssen wir den Wert des Mediators ($\color{violet}{Z}$) nicht kennen. Wenn z. B. <green>Frauen</green> selterner <violet>befördert</violet> werden, habe ich ein falsches Bild von der Diskrimnierung bei dem <blue>Gehalt</blue> aufgrund des <green>Geschlechts</green>. Die (mögliche) Benachteiligung beginnt schon bei der <violet>Beförderung</violet>.
+Um den kausalen Effekt der Ursache ($\color{green}{X}$) auf die Wirkung ($\color{blue}{Y}$) zu untersuchen, müssen wir den Wert des Mediators ($\color{violet}{Z}$) nicht kennen. Wenn wir also zum Beispiel wissen wollen, wie sich das <green>Geschlechts</green> insgesamt auf das <blue>Gehalt</blue> auswirkt, brauchen wir keine Informationen über <violet>Beförderungen</violet>.
+
+Tatsächlich kann sogar die Berücksichtigung des Mediators dazu führen, dass der kausale Effekt verzerrt wird. Das werden wir im Folgenden mithilfe einer Simulation genauer betrachten. 
 
 ***
 
-*Anmerkung*: Wir können sogenannte *totale*, *direkte* und *indirekte* Effekte unterscheiden.
+*Anmerkung*: Im Kontext von Mediation wird zwischen *totalen*, *direkten* und *indirekten* Effekte unterscheiden. Im Beispiel interessiert und der gesamte Effekt von Geschlecht, der totale Effekt. 
+
+Würde uns stattdessen interessieren, inwiefern Geschlecht unabhängig von Beförderung einen Effekt auf das Gehalt hat, so wäre das Analyseziel der direkte Effekt. Und wenn uns interessieren würde, inwiefern die Effekte des Geschlechts über Beförderungen vermittelt würden, so wäre das Analyseziel der indirekte Effekt.
 
 ***
 
 
 ## Simulierte Daten
 
+Zurück zum Zusammenhang von Lernen, Wissen und Verstehen.
 In `R` sind Simulationen für das Modell 
 
 \begin{eqnarray*}
@@ -184,7 +187,7 @@ question("Was passiert, wenn Sie höhere Werte von Lernen (`x`) beobachten?",
 
 ## Intervention
 
-Durch Festsetzen von $\color{green}{X}$, also $do(\color{green}{X}=x)$ anstelle von $\color{green}{X} = U_{\color{green}{X}}$ kann eine Intervention simuliert werden.
+Statt nur zu beobachten ($\color{green}{X} = U_{\color{green}{X}}$) können wir auch eine Intervention simulieren, in der wir Werte festlegen ($do(\color{green}{X}=x)$).
 
 Im Code-Beispiel ist $do(\color{green}{X}=1)$. Drücken Sie zunächst ein paar Mal auf `Ausführen` um zu gucken, wie die Werte von Verstehen ($\color{blue}{Y}$) im Falls von $do(\color{green}{X}=1)$ aussehen. Ändern Sie anschließend den Code so, dass Sie $do(\color{green}{X}=10)$ simulieren können. Was passiert? 
 
@@ -212,13 +215,14 @@ Für die Erläuterung bitte auf `Nächstes Thema` klicken.
 
 ##
 
-Während die Werte für $\color{blue}{Y}$ bei $do(\color{green}{X}=1)$ um die $\color{blue}{15}$ schwanken, liegen sie bei $do(\color{green}{X}=10)$ um die $\color{blue}{150}$.
+Während die Werte für $\color{blue}{Y}$ bei $do(\color{green}{X}=1)$ um die $\color{blue}{15}$ schwanken, liegen sie bei $do(\color{green}{X}=10)$ um die $\color{blue}{150}$. Wir sehen also, dass eine Veränderung von $\color{green}{X}$ tatsächlich zu einer Veränderung von $\color{blue}{Y}$ führt. Dieser kausale Zusammenhang wird durch $\color{violet}{Wissen}$ vermittelt: Mehr Lernen führt zu mehr Wissen führt zu mehr Verstehen.
+
 
 ```{r intervention, echo=FALSE}
-question("Was wird mit dem Zusammenhang zwischen Lernen (`x`) und Verstehen (`y`) passieren, wenn Sie Wissen festhalten, also z.B. `z <- 15` zuweisen?",
-         answer("Bei höheren Werten von Lernen (`x`) treten in der Regel auch höhere Werte von Verstehen (`y`) auf.",),
-         answer("Bei höheren Werten von Lernen (`x`) treten in der Regel niedrigere Werte von Verstehen (`y`) auf.",),
-         answer("Bei bekannten Wissen (`z`) scheint der Wert von Verstehen (`y`) in keinem Zusammenhang mit dem Wert von Lernen (`x`) zu sein.", correct = TRUE, message = "Durch Fixierung von `z` wird die kausale Kette von $X$ nach $Y$ unterbrochen."),
+question("Überlegen Sie: Was wird passieren mit dem Zusammenhang zwischen Lernen (`x`) und Verstehen (`y`), wenn wir Wissen auf einen bestimmten Wert festlegen, also z.B. `z <- 15` zuweisen?",
+         answer("Bei höheren Werten von Lernen (`x`) treten weiterhin in der Regel auch höhere Werte von Verstehen (`y`) auf.",),
+         answer("Bei höheren Werten von Lernen (`x`) treten jetzt in der Regel niedrigere Werte von Verstehen (`y`) auf.",),
+         answer("Bei festem Wissen (`z`) steht der Wert von Verstehen (`y`) in keinem Zusammenhang mit dem Wert von Lernen (`x`).", correct = TRUE, message = "Durch Fixierung von `z` wird die kausale Kette von $X$ nach $Y$ unterbrochen. Wir hatten ja schon vorab gesagt, dass Verstehen nur direkt auf Wissen hört. Wenn sich Wissen nicht ändert, ändert sich hier also auch nicht das Verstehen. Das können Sie auch gleich noch mal in der Simulation testen."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -239,10 +243,11 @@ cat("Wert y (Verstehen):", y, "\n")
 ```
 
 Der Wert von `z` wird in Zeile 3 unabhängig vom Wert von `x` auf $15$ gesetzt.
+Jetzt schwanken `x` und `y` zwar noch zufällig, sind aber unabhängig voneinander.
 
 ## Kausales Modell
 
-Die zugrunde liegenden Gleichungen des kausalen Modells lauten:
+Die zugrunde liegenden Gleichungen des soeben simulierten kausalen Modells lauten:
 
 \begin{eqnarray*}
 \color{green}{X} &=& U_{\color{green}{X}}, \quad U_{\color{green}{X}} \sim \mathcal{G}(1,\,10), \\
@@ -257,7 +262,7 @@ Für $n=100$ simulierten Beobachtungen lautet der dazugehörige `R`-Code:
 ```{r RSim, eval = FALSE}
 ## Vorbereitungen 
 library(mosaic) # Paket laden
-set.seed(1896) # Zufallszahlengenerator setzen (Reproduzierbarkeit)
+set.seed(1896) # Zufallszahlengenerator setzen (für Reproduzierbarkeit)
 
 ## Funktionen
 U_X <- function(n = 1) runif(n, min = 1, max = 10)
@@ -273,6 +278,8 @@ SimData <- tibble(x = U_X(n)) %>%
 
 ## Lineare Regression, Versuch 1
 
+Natürlich wissen Sie in den meisten Anwendungsfällen nicht, welches System an Gleichungen Ihren Daten zugrundeliegen. 
+Stattdessen sammeln Sie Daten und untersuchen dann die Zusammenhänge, um Rückschlüsse über das zugrundeliegende System zu schließen.
 Ein Verfahren, um Zusammenhänge zwischen Variablen $\color{green}{X}$ und $\color{blue}{Y}$ anhand von beobachteten Daten zu schätzen, ist die **Lineare Regression**.
 
 ***
@@ -281,7 +288,7 @@ Ein Verfahren, um Zusammenhänge zwischen Variablen $\color{green}{X}$ und $\col
 
 ***
 
-Dabei wird angenommen, dass der Zusammenhang zwischen $\color{blue}{Y}$ und den weiteren Variablen im Modell linear ist, d. h., es müssen *nur* die jeweiligen Steigungen geschätzt werden, um den Zusammenhang zu beschreiben:
+Dabei wird angenommen, dass der Zusammenhang zwischen der zu erklärenden Variable $\color{blue}{Y}$ und den weiteren Variablen im Modell linear ist, d. h., es reicht *nur* die jeweiligen Steigungen zu schätzen, um den Zusammenhang zu beschreiben. So sieht es aus, wenn wir in unseren simulierten Daten den Zusammenhang zwischen Lernen und Verstehen berechnen:
 
 ```{r streu, out.width='80%', fig.align='center', echo = FALSE}
 gf_point(y ~ x, data = SimData) %>% # Streudiagramm
@@ -306,6 +313,8 @@ $$\widehat{\color{blue}{\text{Verstehen}}} = `r round(coef(ModellA)[1],2)` + `r 
 
 Gemäß dieses Modells liegt der (totale) kausale Effekt von <green>Lernen</green> auf <blue>Verstehen</blue> bei $`r round(coef(ModellA)[2],2)`$: Wird <green> Lernen</green> um eine Einheit erhöht, erhöht sich der Mittelwert von <blue> Verstehen </blue> um $`r round(coef(ModellA)[2],2)`$ Einheiten.
 
+Das deckt sich mir den Ergebnissen unserer simulierten Intervention: Während die Werte für $\color{blue}{Y}$ bei $do(\color{green}{X}=1)$ um die $\color{blue}{15}$ schwankten, lagen sie bei $do(\color{green}{X}=10)$ um die $\color{blue}{150}$. Die Ergebnisse der linearen Regression entsprechen tatsächlich dem kausalen Effekt von Interesse.
+
 
 ***
 
@@ -323,7 +332,8 @@ summary(ModellA)
 
 ## Lineare Regression, Versuch 2
 
-Wenn der Mediator <violet> Wissen</violet>, $\color{violet}{Z}$, mit in das Modell aufgenommen wird, ändert sich das Ergebnis der Linearen Regression:
+Aber was passiert, wenn der Mediator <violet> Wissen</violet>, $\color{violet}{Z}$, mit in das Modell aufgenommen wird?
+Jetzt ändert sich das Ergebnis der linearen Regression:
 
 ```{r lmmz}
 # Regression Rechnen
@@ -338,9 +348,9 @@ $$\widehat{\color{blue}{\text{Verstehen}}} = `r round(coef(ModellB)[1],2)` + `r 
 Wenn <violet>Wissen</violet> Teil des Modell ist, wir also das <violet>Wissen</violet> berücksichtigen, um den kausalen Effekt von <green>Lernen</green> auf <blue>Verstehen</blue> zu bestimmen, dann sagt unser Modell jetzt: Wird <green> Lernen</green> um eine Einheit erhöht, erhöht sich der Mittelwert von <blue> Verstehen </blue> um $`r round(coef(ModellB)[2],2)`$ Einheiten &ndash; ein viel kleinerer Wert als ohne die Berücksichtigung ($`r round(coef(ModellA)[2],2)`$).
 
 ```{r adjustierung, echo=FALSE}
-question("Welcher Wert beschreibt den (totalen) kausalen Effekt von Lernen (`x`) auf Verstehen (`y`) richtig? Um wie viel Einheiten wird sich der Wert von Verstehen im Mittelwert ändern, wenn eine Einheit mehr gelernt wird?",
-         answer("Das Modell ohne Wissen (`ModellA`), d. h. $14.86$.", correct = TRUE, message = "Durch Fixierung von `z` wird die kausale Kette von $X$ nach $Y$ unterbrochen."),
-         answer("Das Modell mit Wissen (`ModellB`), d. h. $0.86$."),
+question("Welcher Wert beschreibt den (totalen) kausalen Effekt von Lernen (`x`) auf Verstehen (`y`) richtig? Also: Um wie viel Einheiten wird sich der Wert von Verstehen im Mittelwert ändern, wenn eine Einheit mehr gelernt wird?",
+         answer("Der Wert aus dem Modell ohne Wissen (`ModellA`), d. h. $14.86$.", correct = TRUE, message = "Wie wir in der simulierten Intervention beobachtet hatten, ist dies der richtige Wert. Das Modell, das zusätzlich den Mediator enthält, fixiert seinen Wert und unterbricht damit die kausale Kette von $X$ nach $Y$."),
+         answer("Der Wert aus dem Modell mit Wissen (`ModellB`), d. h. $0.86$."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -350,7 +360,7 @@ question("Welcher Wert beschreibt den (totalen) kausalen Effekt von Lernen (`x`)
 ## Zusammenfassung
 
 :::{.box}
-Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer Kette $$X \rightarrow Z \rightarrow Y$$ zu bestimmen, sollte ein Mediator $Z$ **nicht** berücksichtigt werden. Bei festem $Z$ wird der kausale Zusammenhang zwischen $X$ und $Y$ unterbrochen.
+Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer Kette $$X \rightarrow Z \rightarrow Y$$ zu bestimmen, sollte ein Mediator $Z$ **nicht** berücksichtigt werden. Bei fixiertem $Z$ (z.B., wenn die Variable in einer Regression aufgenommen wird) wird der kausale Zusammenhang zwischen $X$ und $Y$ unterbrochen.
 ::: 
 
 ## Hinweis
