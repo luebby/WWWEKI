@@ -156,7 +156,7 @@ question("Welche kausale Annahme ist in dem Diagram dargestellt?",
 
 ```{r korrelation, echo=FALSE}
 message <- "Der Korrelationskoeffizient ist symmetrisch, d.h., $r_{x,y} = r_{y,x}$."
-question("Der Korrelationskoeffizient zwischen der Anzahl Störche und der Anzahl Geburten liegt bei $r_{\\color{green}{x},\\color{blue}{y}} = +0.62$. Was gilt dann für den Korrelationskoeffizient zwischen der Anzahl Geburten und der Anzahl Störche?",
+question("Der Korrelationskoeffizient zwischen der Anzahl Störche und der Anzahl Geburten liegt bei $r_{\\color{green}{x},\\color{blue}{y}} = +0.62$. Wissen Sie, was dann für den Korrelationskoeffizient zwischen der Anzahl Geburten und der Anzahl Störche gilt?",
          answer("$r_{\\color{blue}{y}, \\color{green}{x}} = -0.62$."),
          answer("$r_{\\color{blue}{y}, \\color{green}{x}} = 1/0.62 = 0.62^{-1}$."),
          answer("$r_{\\color{blue}{y}, \\color{green}{x}} = +0.62$.", correct = TRUE, message = paste(message, "Vielleicht bringen also die Kinder die Störche?")),
@@ -169,16 +169,17 @@ question("Der Korrelationskoeffizient zwischen der Anzahl Störche und der Anzah
 ***
 
 *Ergänzung*: Mit einem p-Wert von $0.008$ wird eine Korrelation wie die gefundene *signifikant* genannt &ndash; zum üblichen Signifikanzniveau $\alpha = 5\%$. 
-D.h., die Wahrscheinlichkeit in einer zufälligen Stichprobe einen mindestens so großen Korrelationskoeffizient wie den beobachteten von $|r_{\color{green}{x},\color{blue}{y}}| = `r round(cor(geburten ~ stoerche, data = StoercheGeburten),2)`$ zu erhalten, ist, wenn in der Grundgesamtheit keine Korrelation vorliegt ($H_0: \rho =0$), klein. 
-Das bedeutet jedoch nicht, dass die Wahrscheinlichkeit dafür, dass kein Zusammenhang vorliegt, bei $0.008$ liegt. 
-Es bedeutet auch nicht, dass die Wahrscheinlichkeit dafür, dass Störche nicht die Ursache der Geburten sind, bei $0.008$ liegt.
+Das heißt, die Wahrscheinlichkeit in einer zufälligen Stichprobe einen mindestens so großen Korrelationskoeffizient wie den beobachteten von $|r_{\color{green}{x},\color{blue}{y}}| = `r round(cor(geburten ~ stoerche, data = StoercheGeburten),2)`$ zu erhalten, ist, wenn in der Grundgesamtheit keine Korrelation vorliegt ($H_0: \rho =0$), klein.
+
+Um beliebte Fehlinterpretation des p-Wertes auszuschließen: Das bedeutet nicht, dass die Wahrscheinlichkeit dafür, dass kein Zusammenhang vorliegt, bei $0.008$ liegt. Es bedeutet auch nicht, dass die Wahrscheinlichkeit dafür, dass Störche nicht die Ursache der Geburten sind, bei $0.008$ liegt.
 
 ***
 
 
 ## Andere Erklärungen
 
-Wie sieht eigentlich der Zusammenhang zwischen der Fläche und der Anzahl Geburten aus?
+Überlegen wir uns mögliche Alternativerklärungen.
+Wie sieht eigentlich der Zusammenhang zwischen der Fläche des Landes und der Anzahl Geburten aus?
 
 ```{r scatterflaeche, echo=FALSE, fig.align='center', out.width='85%', warning=FALSE}
 gf_point(geburten ~ flaeche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
@@ -210,6 +211,7 @@ gf_point(stoerche ~ flaeche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
 
 ## Confounder
 
+Hieraus ergibt sich eine mögliche Alternatvierklärung.
 Die Größe eines Landes, die <violet>Fläche</violet> ($\color{violet}{Z}$), ist eine gemeinsame Ursache für die <green>Anzahl Störche</green> ($\color{green}{X}$) und die <blue>Anzahl Geburten</blue> ($\color{blue}{Y}$).
 Das kausale Diagramm sieht dann wie folgt aus:
 
@@ -225,7 +227,7 @@ Eine solche gemeinsame Ursache wird **Confounder** genannt.
 ```{r confounder, echo=FALSE}
 question("Hängt der Wert von Fläche ($\\color{violet}{Z}$) kausal von der Anzahl Störche ($\\color{green}{X}$) ab?",
          answer("Ja"),
-         answer("Nein", correct = TRUE, message = "Das beschriebene Kausalmodell lautet $\\text{Anzahl Störche} \\leftarrow \\text{Fläche}$. Die Anzahl Störche *hört* auf die Fläche, aber die Fläche **nicht** auf die Anzahl Störche. Mehr Störche können die Fläche nicht ändern, die Fläche aber die Anzahl Störche."),
+         answer("Nein", correct = TRUE, message = "Das beschriebene Kausalmodell lautet $\\text{Anzahl Störche} \\leftarrow \\text{Fläche}$. Die Anzahl Störche *hört* auf die Fläche, aber die Fläche **hört nicht** auf die Anzahl Störche. Mehr Störche können die Fläche nicht ändern, die Fläche aber die Anzahl Störche."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -245,11 +247,11 @@ Sowohl der Wert von $\color{green}{X}$ als auch der Wert von $\color{blue}{Y}$ h
 \end{eqnarray*}
 
 
-Wird der Wert von $\color{violet}{Z}$ geändert ($do(z)$), ändert sich die Wert von $\color{green}{X}$ und $\color{blue}{Y}$.
+Wird der Wert von $\color{violet}{Z}$ geändert ($do(z)$), ändern sich die Werte von $\color{green}{X}$ und $\color{blue}{Y}$.
 
 ```{r fork, echo=FALSE}
 message <- "Änderungen werden in Pfeilrichtung weitergegeben, eine Intervention von $\\color{green}{X}$ ändert *nicht* den Wert von $\\color{violet}{Z}$ &ndash; und als Folge auch nicht den von $\\color{blue}{Y}$."
-question("Ändert sich der Wert von $\\color{blue}{Y}$, wenn eine Intervention auf $\\color{green}{X}$ erfolgt ($do(x)$)? ",
+question("Ändert sich in der Kette der Wert von $\\color{blue}{Y}$, wenn eine Intervention auf $\\color{green}{X}$ erfolgt ($do(x)$)? ",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
          allow_retry = TRUE,
@@ -267,7 +269,7 @@ Wird $\color{green}{X}$ geändert ($do(\color{green}{X}=\color{green}{x})$), än
 
 Bei einer **Gabel** gibt es hingegen **keinen** kausalen Pfad von $\color{green}{X}$ nach $\color{blue}{Y}$:
 $$\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
-Zwar *hört* immer noch $\color{blue}{Y}$ auf $\color{violet}{Z}$, $\color{violet}{Z}$ aber  nicht mehr auf $\color{green}{X}$, sondern umgekehrt, $\color{green}{X}$ folgt aus $\color{violet}{Z}$. 
+Zwar *hört* immer noch $\color{blue}{Y}$ auf $\color{violet}{Z}$, $\color{violet}{Z}$ aber  nicht mehr auf $\color{green}{X}$, sondern umgekehrt, $\color{green}{X}$ hört auf $\color{violet}{Z}$. 
 Wird $\color{green}{X}$ geändert ($do(\color{green}{X}=\color{green}{x})$), ändert sich die Verteilung von $\color{violet}{Z}$ nicht, und damit auch nicht die von $\color{blue}{Y}$.
 
 
@@ -276,7 +278,7 @@ Wird $\color{green}{X}$ geändert ($do(\color{green}{X}=\color{green}{x})$), än
 Was ist zu tun, um einen möglichen (totalen) kausalen Effekt von $\color{green}{X}$ auf $\color{blue}{Y}$ in einer Gabel ($\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$) zu bestimmen?
 
 Der Wert des Confounders $\color{violet}{Z}$ muss berücksichtigt werden. Im Beispiel der <green>Störche</green> und <blue>Geburten</blue> sollten also z.B. nur Länder mit gleicher <violet>Fläche</violet> verglichen werden. 
-In einem linearen Regressionsmodell sollte anstelle des Modells `y ~ x` das Modell `y ~ x + z` verwendet werden.
+Einen möglichen Weg, so etwas umzusetzen, haben Sie schon kennengelernt: lineare Regression. In einem linearen Regressionsmodell sollte anstelle des Modells `y ~ x` das Modell `y ~ x + z` verwendet werden.
 
 Die Variable <violet>Fläche</violet> heißt in der vorliegenden Datentabelle `flaeche`. Ändern Sie den Code entsprechend und gucken Sie, ob und wie sich der geschätzte Zusammenhang von `stoerche` und `geburten` im Modell ändert.
 
@@ -291,7 +293,10 @@ lm(geburten ~ stoerche + flaeche, data = StoercheGeburten)
 ##
 
 Während ohne Berücksichtigung der <violet>Fläche</violet> die geschätzte Steigung der <blue>Anzahl Geburten</blue> in Richtung der <green>Anzahl Störche</green> bei $`r round(coef(lm_oA)[2],4)`$ liegt, liegt der Wert nach Berücksichtung der Fläche nur noch bei $`r round(coef(lm_mA)[2],4)`$. 
-Der im linearen Modell der Stichprobe geschätze Effekt ist also viel kleiner.
+Der im linearen Modell der Stichprobe geschätze Effekt ist also viel kleiner, und vermutlich näher an dem realen kausalen Effekt von Störchen auf Geburten.
+
+Tatsächlich ist er auch nicht mehr statistisch signifikant verschieden von 0.
+
 
 
 ## Zusammenfassung
