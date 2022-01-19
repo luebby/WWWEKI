@@ -151,7 +151,7 @@ question("Angenommen nach der Einnahme einer Tablette gehen die Schmerzen weg. W
          )
 ```
 
-##
+## Tablette und Schmerzrückgang
 
 <!-- Quelle: https://github.com/TabeaG/Uebungsheft-Apps/blob/master/EinfuehrungWkeitInferenz/02_EinfuehrungWkeitInferenz.Rmd -->
 
@@ -349,7 +349,7 @@ f_Y <- function(x) ifelse(x == "Ja",
 ```
 
 
-##
+## Beobachtung
 
 Wenn $100$ Menschen eine Münze werfen, ob sie die Tablette einnehmen oder nicht, erwarten wir im Mittelwert, dass $50$ von Ihnen die Tablette nehmen (grün hinterlegt) und von diesen $50 \times 0.8 = 40$ eine Schmerzreduktion erfahren (<i class="fa fa-check" aria-hidden="true"></i>) und die anderen $50-40=10$ nicht (<i class="fa fa-close" aria-hidden="true"></i>). Von den $50$ ohne Tabletteneinnahme (grau hinterlegt) erfahren $50 \times 0.4 = 20$ eine Schmerzreduktion (<i class="fa fa-check" aria-hidden="true"></i>) und die anderen $50-20=30$ nicht (<i class="fa fa-close" aria-hidden="true"></i>):
 
@@ -393,7 +393,7 @@ question("Welche Darstellung beschreibt die Intervention, die dazu führt, dass 
          )
 ```
 
-##
+## Ausblick
 
 Kausale Inferenz hilft die Unterschiede in den Verteilungen der Wirkung $\color{blue}{Y}$ zu untersuchen, je nachdem ob $\color{green}{X}$ beobachtet wurde &ndash; oder der Wert durch eine Handlung festgelegt wird ($do(\color{green}{X})$).
 
