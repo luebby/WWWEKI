@@ -229,7 +229,7 @@ mean( ~ effekt, data = Schulung)
 
 ***
 
-*Anmerkung:* In `mosaic` ist der `R` Syntax vereinheitlicht:
+*Anmerkung:* In `mosaic` ist die `R` Syntax vereinheitlicht:
 
 ```{r mosaic1, eval=FALSE}
 analyse(y ~ x, data = Daten)
@@ -237,7 +237,7 @@ analyse(y ~ x, data = Daten)
 
 Analysiere die Variable `y` in Abhängigkeit der Variable `x` aus der Datentabelle `Daten`. Welche Funktion `analyse()` zur Anwendung kommt, hängt vom Ziel unser Analyse ab. 
 
-Sollte es, wie im vorliegenden Fall, keine erklärende Variable geben, kann auch kurz geschrieben werden:
+Sollte es, wie im vorliegenden Fall, nur eine Variable geben, die zusammengefasst werden soll, kann auch kurz geschrieben werden:
 
 ```{r mosaic2, eval=FALSE}
 analyse( ~ y, data = Daten)
@@ -247,16 +247,16 @@ analyse( ~ y, data = Daten)
 
 ##
 
-Das fundamentale Problem der kausalen Inferenz ist, dass nur eines der Potential Outcomes vorliegt und das nicht Vorliegende ein Counterfactual ist. Daher kennen wir in der Praxis weder den individuellen noch den durchschnittlichen kausalen Effekt. Letzterer liegt in unserem Beispiel bei
+Das fundamentale Problem der kausalen Inferenz ist, dass nur eines der Potential Outcomes vorliegt und das nicht vorliegende ein Counterfactual ist. Daher kennen wir in der Praxis weder den individuellen noch den durchschnittlichen kausalen Effekt. Letzterer liegt in unserem Beispiel bei
 
 
 $$\bar{\color{orange}{\Delta}}=\frac{\sum_{i=1}^n \color{orange}{\Delta}_i}{n}=`r mean(~ effekt, data = Schulung)`.$$
 
 ## Fehlende Werte
 
-In der Praxis kennen wir zwar nicht beide Potential Outcomes, aber wir wissen, wer an der Schulung teilgenommen hat und wer nicht. Daraus ergibt sich, welches der beiden Potential Outcomes beobachtet ist und welches uns fehlt (das Counterfactual). Somit können wir unsere fiktive Gehaltstabelle aktualisieren, damit sie eine realistische Datensituation widerspiegelt.
+In der Praxis kennen wir zwar nicht beide Potential Outcomes, aber wir wissen, wer an der Schulung teilgenommen hat und wer nicht. Daraus ergibt sich, welches der beiden Potential Outcomes beobachtet ist und welches uns fehlt (das Counterfactual). 
 
-Fehlende Werte werden in `R` als `NA` (engl.: not available, nicht verfügbar) dargestellt.
+In der Praxis sähe unsere fiktive Gehaltstabelle also anders aus -- fehlende Werte würden in `R` als `NA` (engl.: not available, nicht verfügbar) dargestellt werden.
 
 ```{r teilnahme, echo=FALSE}
 Schulung %>%
@@ -266,7 +266,7 @@ Schulung %>%
   kable()
 ```
 
-Was wir in unseren Daten also sehen, ist das tatsächlich beobachtete `gehalt` und, ob am Seminar teilgenommen wurde (`teilnahme`).
+In der Regel strukturiert man die Daten so, dass nur eine Gehaltsvariable -- das beobachtete `gehalt` -- sowie eine Variable zur `teilnahme` existiert.
 
 ```{r gehalt, echo=FALSE}
 Schulung %>%
@@ -275,7 +275,7 @@ Schulung %>%
 ```
 
 ```{r bias, echo=FALSE}
-question("Die Teilnahme an der Schulung war freiwillig. Können Sie davon ausgehen, dass, unabhängig von der Schulung, Teilnehmende und Nichtteilehmende eine ähnliche Gehaltsentwicklung erlebt hätten?",
+question("Die Teilnahme an der Schulung war freiwillig. Können Sie davon ausgehen, dass, unabhängig von der Schulung, Teilnehmende und Nichtteilehmende ein ähnliches erstes Gehalt haben würden?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = "Teilnehmende und Nichtteilnehmende könnten sich in vielerlei Hinsicht unterscheiden. Um nur ein Beispiel zu nennen: Personen, denen ihr Gehalt besonders wichtig ist, werden eher an der Schulung teilnehmen. Diese Personen werden aber vielleicht auch ohne Schulung anders in Gehaltsverhandlungen auftreten."),
          allow_retry = TRUE,
@@ -318,11 +318,13 @@ Dieser Wert weicht aber substanziell vom wahren durchschnittlichen kausalen Effe
 Bei dieser Abweichung handelt es sich um eine systematische Verzerrung, die auch als **Bias** bezeichnet wird.
 
 
-Der naive Vergleich der Mittelwerte überschätzt hier den wahren durchschnittlichen Effekt. In unserem fiktiven Beispiel liegt das daran, dass Personen mit einem höherem Gehaltsinteresse eher an der Schulung teilgenommen haben als die mit einem niedrigeren Interesse. Erstere hätten aber, aufgrund Ihres Gehaltsinteresses, so oder so, also unabhängig von der Schulung, ein höheres Gehalt erwartet. Natürlich sind hier auch andere inhaltliche Erklärungen denkbar.
+Der naive Vergleich der Mittelwerte überschätzt hier den wahren durchschnittlichen Effekt. In unserem fiktiven Beispiel liegt das daran, dass Personen mit einem höherem Gehaltsinteresse eher an der Schulung teilgenommen haben als die mit einem niedrigeren Interesse. 
 
-Kontrollieren Sie diese Aussage, indem Sie den Code so abändern, dass Sie den Mittelwert der Potential Outcomes, `gehalt0` und `gehalt1`, berechnen:
+Erstere hätten aber so oder so, also unabhängig von der Schulung, ein höheres Gehalt erhalten. Hier sind unterschiedliche inhaltliche Erklärungen denkbar (z.B. ein höheres Interesse am Gehalt und damit auch ein anderes Auftreten in Gehaltsverhandlungen).
 
-*Tipp*: Einen Lösungshinweis erhalten Sie über `Hinweise`. Anschließend `Nächster Tipp` und Sie sehen die Lösung.
+Kontrollieren Sie diese Aussage, indem Sie den Code so abändern, dass Sie die Mittelwerte der Potential Outcomes berechnen. Diese befinden sich im gleichen Datensatz und tragen die Namen `gehalt0` und `gehalt1`:
+
+*Tipp*: Einen Lösungshinweis erhalten Sie über den `Hinweise`-Button über dem R Code. Anschließend `Nächster Tipp` und Sie sehen die Lösung.
 
 ```{r po, exercise = TRUE}
 mean(gehalt ~ teilnahme, data = Schulung)

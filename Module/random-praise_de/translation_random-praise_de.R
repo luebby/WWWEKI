@@ -1,6 +1,5 @@
 random_praises <- c(
   "Prima!",
-  ":D",
   "Genial!",
   "Herausragend!",
   "Sehr schön!",
@@ -21,8 +20,7 @@ random_praises <- c(
   "Das ist eine Eins-a-Antwort!",
   "Sie können stolz auf sich sein!",
   "Besser geht's nicht!",
-  "Perfekt!",
-  ":-)")
+  "Perfekt!")
 
 random_encouragements <- c(
   "Versuchen Sie es noch einmal!",
