@@ -121,7 +121,7 @@ In diesem Modul lernen Sie:
 
 - was unter einem Kausalen Modell verstanden werden kann;
 
-- den Unterschied zwischen Beobachten und Handeln im Kontext kausaler Inferenz gibt.
+- den Unterschied zwischen Beobachten und Handeln im Kontext kausaler Inferenz.
 
 
 ## Ursache und Wirkung
@@ -309,7 +309,9 @@ Dabei sind $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unbekannte Ursachen 
 
 Im Beispiel
 $$\color{green}{\text{Tabletteneinnahme}} \rightarrow \color{blue}{\text{Schmerzrückgang}}$$ 
-beinhaltet $U_{\color{green}{\text{Tabletteneinnahme}}}$ die unbekannten, vielleicht zufälligen Gründe, die zur Entscheidung führen, ob eine Tablette genommen wird oder nicht, und $U_{\color{blue}{\text{Schmerzrückgang}}}$ die unbekannten, vielleicht zufälligen Gründe, die den Schmerzrückgang mit oder ohne Tabletteneinahme zusätzlich beschreiben. Dabei gehen wir hier davon aus, dass $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unabhängig voneinander sind. 
+beinhaltet $U_{\color{green}{\text{Tabletteneinnahme}}}$ die unbekannten, vielleicht zufälligen Gründe, die zur Entscheidung führen, ob bei Schmerzen eine Tablette genommen wird oder nicht, und $U_{\color{blue}{\text{Schmerzrückgang}}}$ die unbekannten, vielleicht zufälligen Gründe, die den Schmerzrückgang mit oder ohne Tabletteneinahme zusätzlich beschreiben. 
+
+Wir gehen an dieser Stelle davon aus, dass $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unabhängig voneinander sind. 
 
 Diese sogenannten Fehler könnten in den Graphen mit aufgenommen werden, werden aber häufig aus Gründen der Übersichtlichkeit weggelassen. 
 
