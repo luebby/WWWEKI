@@ -173,6 +173,10 @@ question("Welchen Wert für $Y$ erwarten Sie, wenn jemand $x'=10$ Stunden lernt?
          )
 ```
 
+
+*Hinweis*: Wie Sie im Interview mit Jakob Runge am Beispiel der Klimasysteme erfahren haben, erfordert das Aufstellen dieser Gleichungen in der Praxis viel theoretisches Hintergrundwissen.
+
+
 ## Abduktion
 
 Wir nehmen an:
