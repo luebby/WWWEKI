@@ -179,6 +179,7 @@ Neben dieser Unterscheidung zwischen den Analysezielen Beschreibung, Vorhersage 
 
 
 Die Stufe 1, Assoziation, ist relevant für die Analyseziele Beschreibung und Vorhersage.
+(In Modul 8 werden Sie mehr darüber erfahren, wie sich Beschreibung und Vorhersage in ihren Anforderungen an die Daten unterscheiden.)
 Bei den Stufen 2 und 3 befinden wir uns bereits bei dem Analyseziel Kausale Inferenz.
 
 ***

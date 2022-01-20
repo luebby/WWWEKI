@@ -99,6 +99,8 @@ options(scipen = 999)
 
 In diesem Modul lernen Sie:
 
+- die unterschiedlichen Anforderungen von Beschreibung und Vorhersage; 
+
 - welche Vorteile eine zufällig gezogene Stichprobe hat;
 
 - welche Vorteile eine zufällige Zuordnung im Rahmen eines Experiments hat.
@@ -143,10 +145,11 @@ gf_bar(~ Allergie | stillen , data = d2,
   theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
 ```
 
-Was Sie sehen: Kinder von Frauen, die mindestens 4 Monate voll <green>stillen</green> haben seltener im Alter von 6 Jahren eine <blue>Allergie</blue> als Kinder von Frauen, die nicht mindestens 4 Monate voll stillen &ndash; in <u>dieser</u> fiktiven Studie.
+Was Sie sehen: Kinder von Frauen, die mindestens 4 Monate voll <green>stillen</green> haben seltener im Alter von 6 Jahren eine <blue>Allergie</blue> als Kinder von Frauen, die nicht mindestens 4 Monate voll stillen &ndash; in dieser fiktiven Studie.
 
 Dies ist die Ebene **Beschreibung** (siehe Modul 3).<br>
-Um die Ebenen ***Vorhersage*** und ***Kausale Inferenz*** zu erreichen brauchen wir mehr. Und Methoden dafür kennen Statistiker:innen schon lange.
+Um die Ebenen ***Vorhersage*** und ***Kausale Inferenz*** zu erreichen brauchen wir mehr. 
+Einen hilfreichen Kniff dafür kennen Statistiker:innen und Wissenschaftler:innen schon lange.
 
 ##
 
@@ -177,9 +180,15 @@ question("Welche Rolle spielt hier die Variable Akademikerin zwischen Stillen un
          )
 ```
 
+So weit, so gut. 
+Für die Arbeit mit realen Daten müssen wir aber noch zusätzlich etwas berücksichtigen: Wir haben natürlich nicht Daten für alle Frauen mit Kindern, sondern nur für eine Stichprobe.
+
 ##
 
-Angenommen in einer fiktiven Population sind 30% Akademikerinnen (<i class="fa fa-graduation-cap" aria-hidden="true"></i>).
+## Population und Stichprobe
+
+Angenommen in einer Population die uns interessiert sind 30% Akademikerinnen (<i class="fa fa-graduation-cap" aria-hidden="true"></i>).
+Eine relevante Population könnte zum Beispiel alle Mütter in einem bestimmten Land zu einem bestimmten Zeitpunkt sein.
 
 Mindestens 4 Monate voll <green>stillen</green> ist farblich durch <purple>Ja (lila)</purple> und <orange>Nein (orange)</orange> gekennzeichnet:
 
@@ -219,18 +228,18 @@ In dieser Ziel-Population liegt der Anteil <purple>gestillt</purple> bei $`r pdp
 
 ##
 
-In der Regel kennen wir die *Population* gar nicht, sondern nur eine *Stichprobe*. Lediglich die Daten der *Stichprobe* können wir nutzen.
+In der Regel kennen wir die Werte in der *Population* gar nicht, wir haben nur eine *Stichprobe* zur Verfügung für unsere Analysen.
 
 <br>
 
 Nehmen wir an, bei der <u>Datenerhebung</u> gibt es einen Zusammenhang zwischen dem Bildungsgrad der Mutter (<violet>Akademikerin</violet>) und ihrer Teilnahme an der Studie.
-Zum Beispiel sieht es in unseren Daten so aus, dass Akademikerinnen eine höhere Wahrscheinlichkeit haben, Teil der Stichprobe zu sein:
+Zum Beispiel sieht es in unseren fiktiven Daten so aus, dass Akademikerinnen eine höhere Wahrscheinlichkeit haben, Teil der Stichprobe zu werden:
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_ModellG)
 ```
 
-Eine mögliche Stichprobe sieht dann wie folgt aus:
+Ziehen wir jetzt eine mögliche Stichprobe, Frauen die in unseren Daten landen sind farblich hinterlegt:
 
 ```{r gsti, fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
 set.seed(2021)
@@ -268,7 +277,7 @@ pgsti
 
 ```{r stipro, echo=FALSE}
 message <- "Akademikerinnen sind in der Stichprobe überrepräsentiert."
-question("Ist diese Stichprobe *repräsentativ*, d. h., können gültige Schlüsse auf die Population getroffen werden?",
+question("Ist diese Stichprobe *repräsentativ* -- können gültige Schlüsse über die Population getroffen werden?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -293,7 +302,9 @@ Wir brauchen also *mehr* als nur die Daten der Stichprobe...
 Das Problem ist, dass unsere Stichprobe von einer Variable abhängt, <violet>Akademikerin</violet>, und von dieser wiederum hängt die untersuchte Variable <green>Stillen</green> ab.
 Akademikerinnen sind hier wahrscheinlicher Teil der Stichprobe, und Akademikerinnen stillen häufiger, also überschätzen wir anhand der Stichprobe den Anteil der Frauen, die mindestens 4 Monate voll stillen.
 
-Dieses Problem betrifft zahlreiche Umfragen. Wie können wir an der Stelle sicherstellen, dass unsere Stichprobe uns nicht hinters Licht führt?
+Dieses Problem betrifft zahlreiche Umfragen -- oft nehmen Personen mit bestimmten Eigenschaften lieber teil, und diese Eigenschaften wiederum hängen mit unserem Untersuchungsgegenstand zusammen.
+
+Wie können wir an der Stelle sicherstellen, dass unsere Stichprobe uns nicht hinters Licht führt?
 
 Hier hilft der Zufall!
 
@@ -314,7 +325,7 @@ plot(DAG_ModellS)
 <br>
 
 ```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
-set.seed(2021)
+set.seed(2022)
 stipro <- as.factor(sample(c(rep(1,30), rep(0,70))))
 akademikerin <- c(rep(0, 70), rep(1, 30))
 set.seed(2021)
@@ -348,13 +359,14 @@ pzsti
 ```
 
 In dieser zufälligen Stichprobe weicht der Anteil <purple>gestillt</purple> mit $`r round(pdz,2)`$ nicht mehr systematisch vom *wahren* Anteil in der Ziel-Population ab. 
-Alle Abweichungen sind nur noch zufällig.
+Alle Abweichungen sind nur noch zufällig -- mal werden wir den wahren Wert überschätzen, mal werden wir ihn unterschätzen.
 Und je größer die Stichprobe ist, desto weniger schwankt der Anteil bei wiederholter Stichprobenziehung.
 
 <br> 
 
-Mithilfe von Zufallsstichproben werden also plausible **Vorhersagen** möglich. 
-Aber wie sieht es mit *Kausaler Inferenz* aus? 
+Dank der Zufallsstichprobe können wir somit zuverlässige **Vorhersagen** machen darüber, ob eine zufällig gewählte Frau stillt oder nicht.
+
+Aber wie sieht es mit dem Analyseziel *Kausaler Inferenz* aus? 
 
 
 ```{r ki, echo=FALSE}
@@ -420,7 +432,7 @@ pallergiekstillen <- d2 %>%
 
 ```{r beob1, echo=FALSE}
 message <- "Ohne Variation keine Korrelation. Es fehlt die Information, wie viele Kinder, die nicht voll gestillt wurden, eine Allergie entwickelt haben."
-question("Lassen alleine die Daten der Schlagzeile den Schluss zu, dass Stillen zu einer Reduktion des Allergierisikos führt?",
+question("Lassen alleine die Daten der Schlagzeile den Schluss zu, dass Stillen zu mit einer Reduktion des Allergierisikos korreliert ist?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -474,7 +486,7 @@ pbeob
 ```
 
 
-Bei <purple>stillen</purple> tritt seltener eine Allergie auf als bei <orange>nicht-Stillen</orange>.
+Bei <purple>stillen</purple> tritt seltener eine Allergie auf als bei <orange>nicht-stillen</orange>.
 
 Aber: Akademikerinnen <purple>stillen</purple> häufiger als Nicht-Akademikerinnen &ndash; und Kinder von Akademikerinnen entwickeln seltener Allergien.
 
@@ -569,7 +581,8 @@ Richard McElreath weist in seinem Vortrag [Causal Thinking for Descriptive Resea
 
 4. Was ist der Grund für mögliche Abweichungen zwischen (2) und (3)?
 
-In diesem Modul haben Sie statistische Methoden kennengelernt, wie Sie Datenerhebung, wenn möglich, optimal gestalten können, um in (4) keine Abweichungen festzustellen. Leider gelingt das nicht immer.
+In diesem Modul haben Sie statistische Methoden kennengelernt, wie Sie Datenerhebung, wenn möglich, optimal gestalten können, um in (4) keine Abweichungen festzustellen. Optimalerweise haben wir eine Zufallsstichprobe; optimalerweise gibt es eine zufällige Zuordnung zu experimentellen Gruppen.
+Leider gelingt das in der Praxis nicht immer; in manchen Situationen ist es schlicht nicht möglich.
 
 
 
