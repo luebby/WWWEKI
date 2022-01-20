@@ -68,17 +68,17 @@ In diesem Modul lernen Sie:
 
 - was ein Collider ist;
 
-- dass wir manchmal ungewollt selber Zusammenhänge schaffen.
+- dass wir manchmal ungewollt selber Zusammenhänge schaffen wo eigentlich keine sind.
 
 ## Aller guten Dinge sind drei
 
-Auch komplexe kausale Diagramme bestehen aus relativ einfachen Grundelementen. Neben der Kette und der Gabel gibt es noch als drittes, die **umgedrehte Gabel** (engl.: inverted fork). 
+Auch komplexe kausale Diagramme bestehen aus relativ einfachen Grundelementen. Neben der Kette und der Gabel gibt es noch als drittes die **umgedrehte Gabel** (engl.: inverted fork). 
 
 Zur Erinnerung: $$A \rightarrow B$$ sagt aus, dass $B$ auf $A$ *hört*, aber nicht umgekehrt. 
 
 ## Dating
 
-Wieder stark vereinfacht: Nehmen wir an, dass beim Dating Nettigkeit und Aussehen eine Rolle spielen.
+Wieder stark vereinfacht: Nehmen wir an, dass Nettigkeit und Aussehen eine Rolle dafür spielen, ob wir mit jemandem auf ein Date gehen.
 
 Würden Sie jemanden daten, der weder nett ist noch gut aussieht? Vielleicht, aber wahrscheinlich eher nicht.
 
@@ -106,7 +106,7 @@ Das strukturelle kausale Modell besteht aus folgenden Zuweisungen:
 
 ```{r abhaengigkleit, echo=FALSE}
 message <- "Nach Konstruktion sind $X$ und $Y$ unabhängig voneinander. Kein kausaler Pfad führt von $X$ zu $Y$ &ndash; oder umgekehrt."
-question("Hängt Aussehen ($Y$) von Nettigkeit ($X$) ab?",
+question("Hängt Aussehen ($Y$) in diesem Beispiel von Nettigkeit ($X$) ab?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
          allow_retry = TRUE,
@@ -120,7 +120,7 @@ question("Hängt Aussehen ($Y$) von Nettigkeit ($X$) ab?",
 In Fällen wie diesen: $$\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$$ wird die Variable in der Mitte &ndash; hier $\color{violet}{Z}$ &ndash; **Collider** genannt. $\color{violet}{Z}$ ist eine  Wirkung von $\color{green}{X}$ und $\color{blue}{Y}$.
 
 ```{r collider, echo=FALSE}
-message <- "Wenn es kein Glück oder Pech ($U_Z$) war, dann sieht die nicht-nette Person eher gut aus. Es gibt ja einen Grund dafür, dass Sie sie daten. Wenn es nicht die Nettigkeit ist, dann das Aussehen."
+message <- "Wenn es kein Glück oder Pech ($U_Z$) war, dann sieht die nicht-nette Person eher gut aus. Es gibt ja einen Grund dafür, dass Sie sie überhaupt gedatet haben. Wenn es nicht die Nettigkeit war, dann wohl das Aussehen."
 question("Angenommen Sie haben jemanden gedatet ($Z$), der nicht besonders nett ($X$) ist. Wissen Sie dann etwas über das Aussehen ($Y$)?",
          answer("Ja", correct = TRUE, message = message),
          answer("Nein"),
@@ -132,25 +132,27 @@ question("Angenommen Sie haben jemanden gedatet ($Z$), der nicht besonders nett 
 
 ## Vergleich Gabel und umgedrehte Gabel
 
-Bei einer **Gabel** gibt es einen nicht-kausalen Pfad von $\color{green}{X}$ nach $\color{blue}{Y}$:
+Zur Erinnerung, bei einer **Gabel** gibt es einen nicht-kausalen Pfad von $\color{green}{X}$ nach $\color{blue}{Y}$:
 $$\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
-Zwar *hört*  $\color{blue}{Y}$ auf $\color{violet}{Z}$, $\color{violet}{Z}$ aber nicht auf $\color{green}{X}$, sondern umgekehrt, $\color{green}{X}$ folgt aus $\color{violet}{Z}$. 
 
 Angenommen: Im Sommer wird bei <violet>Sonnenschein</violet> sowohl mehr <green>Eis</green> als auch mehr <blue>Sonnencreme</blue> verkauft.
 <green>Eis</green> und <blue>Sonnencreme</blue> sind (*unbedingt*, *marginal*) nicht unabhängig: Wenn ich weiß, dass viel <green>Eis</green> verkauft wurde, kann ich davon ausgehen, dass auch viel <blue>Sonnencreme</blue> verkauft wurde. Vermutlich führte <violet>Sonnenschein</violet> zu hohem <green>Eisverkauf</green> und so auch zu hohem <blue>Sonnencremeverkauf</blue>. 
 Über die Information <green>Eis</green> kann man über <violet>Sonnenschein</violet> etwas über <blue>Sonnencreme</blue> lernen.
-Wenn ich weiß, dass <violet>Sonnenschein</violet> ist, enhält die Information, dass viel <green>Eis</green> verkauft wurde, keine zusätzliche Information über <blue>Sonnencreme</blue>. *Bedingt* <violet>Sonnenschein</violet>, d. h., ich weiß es scheint die Sonne, sind <green>Eis</green> und <blue>Sonnencreme</blue> unabhängig.
+Wenn ich weiß, dass <violet>Sonnenschein</violet> ist, enhält die Information, dass viel <green>Eis</green> verkauft wurde, keine zusätzliche Information über <blue>Sonnencreme</blue>. *Bedingt* <violet>Sonnenschein</violet>, das heißt wenn ich weiß, dass die Sonne scheint, sind <green>Eis</green> und <blue>Sonnencreme</blue> unabhängig.
+
+Zusammengefasst: Bei einer Gabel gibt es einen unbedingten Zusammenhang zwischen $\color{green}{X}$ nach $\color{blue}{Y}$; gegeben $\color{violet}{Z}$ -- also bedingt -- gibt es aber keine Zusammenhang.
 
 Bei einer **umgedrehten Gabel** gibt es keinen Zusammenhang von $\color{green}{X}$ und $\color{blue}{Y}$:
 $$\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$$
-$\color{violet}{Z}$ *hört* aber auf $\color{green}{X}$ und $\color{blue}{Y}$. 
-
 Angenommen: Sowohl am <green>Wochenende</green> als auch im <blue>Urlaub</blue> kann mensch <violet>ausschlafen</violet>.
 Gehen wir davon aus, dass im Urlaub genau so oft Wochenende wie sonst gibt. <green>Wochenende</green> und <blue>Urlaub</blue> sind (*unbedingt*, *marginal*) unabhängig: 
 Aus der Information <green>Wochenende</green> lerne ich nichts über <blue>Urlaub</blue>.
-Wenn ich weiß, dass ich <violet>ausschlafen</violet> kann, weiß ich, dass entweder <green>Wochenende</green> oder <blue>Urlaub</blue> (oder beides) ist. Bei <violet>Ausschlafen</violet> lerne ich aus der Information <blue>kein Urlaub</blue>, dass <green>Wochenende</green> ist.
+Wenn ich weiß, dass ich <violet>ausschlafen</violet> kann, weiß ich, dass entweder <green>Wochenende</green> oder <blue>Urlaub</blue> (oder beides) ist. Bei <violet>Ausschlafen</violet> lerne ich aus der Information <blue>kein Urlaub</blue>, dass wahrscheinlich <green>Wochenende</green> ist.
 Einen Grund muss mein Ausschlafen ja haben.
-*Bedingt*, gegeben, <violet>Ausschlafen</violet> sind <green>Wochenende</green> und <blue>Urlaub</blue> nicht mehr unabhängig.
+*Bedingt*, gegeben, <violet>Ausschlafen</violet> sind <green>Wochenende</green> und <blue>Urlaub</blue> damit nicht mehr unabhängig.
+
+Die umgedrehte Gabel verhält sich damit gerarde umgedreht wie die normale Gabel. 
+Es gibt keinen unbedingten Zusammenhang, aber bedingt gibt es einen Zusammenhang.
 
 
 ## Modell und Simulierte Daten
@@ -193,6 +195,9 @@ gf_point(y ~ x, data = SimData, color = ~z) +
 
 ## Zusammenhänge
 
+Diese Daten beschreiben die zuvor beschriebene Dating-Situation. Die Farbe der Punkte verrät uns, ob wir jemanden gedatet haben ($\color{violet}{Z}$). 
+$\color{green}{X}$ ist die Nettigkeit und $\color{blue}{Y}$ das Aussehen.
+
 Wenn wir, getrennt nach <violet>Date</violet> ($\color{violet}{Z}$), eine lineare Regression von <blue>Aussehen</blue> ($\color{blue}{Y}$) auf <green>Nettigkeit</green> ($\color{green}{X}$) bestimmen, so sehen die Ergebnisse wie folgt aus:
 
 ```{r scatterlm, echo=FALSE, fig.align='center', out.width='85%'}
@@ -214,7 +219,8 @@ question("Für die, die Sie gedatet haben (`z = Ja`): Sehen Sie einen Zusammenha
 
 ##
 
-Wenn wir <violet>Date</violet> ($\color{violet}{Z}$) berücksichtigen, sehen wir einen Zusammenhang zwischen <blue>Aussehen</blue> ($\color{blue}{Y}$) und <green>Nettigkeit</green> ($\color{green}{X}$), obwohl nach Konstruktion gar keiner da ist.
+Wenn wir <violet>Date</violet> ($\color{violet}{Z}$) berücksichtigen, sehen wir also einen Zusammenhang zwischen <blue>Aussehen</blue> ($\color{blue}{Y}$) und <green>Nettigkeit</green> ($\color{green}{X}$). Dabei haben wir unsere Daten so simuliert, dass die beiden Variablen voneinander unabhängig sind.
+
 Wenn wir uns hingegen den Zusammenhang zwischen $\color{green}{X}$ und $\color{blue}{Y}$ ohne Berücksichtigung von $\color{violet}{Z}$ angucken, erkennen wir, dass die Variablen eigentlich unabhängig sind:
 
 ```{r scatterlmub, echo=FALSE, fig.align='center', out.width='85%'}
@@ -228,7 +234,7 @@ gf_point(y ~ x, data = SimData) %>%
 
 ***
 
-Zu häufig lesen wir den Satz:
+Häufig lesen wir den Satz:
 
 > Ich traue keiner Statistik, die ich nicht selbst gefälscht habe.
 
@@ -244,7 +250,8 @@ Diese liefert ein verzerrtes Ergebnis mit Zusammenhängen an Stellen, an denen e
 :::{.box}
 Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer umgedrehten Gabel $$X \rightarrow Z \leftarrow Y$$ zu bestimmen, darf der Collider $Z$ nicht berücksichtigt werden. (Dies gilt auch für alle Nachfahren von $Z$.)
 Wird $Z$ berücksichtigt, wird ein scheinbarer Zusammenhang zwischen $X$ und $Y$ erzeugt und fließt in die Analyse ein. 
-Die Variable $Z$ sollte beispielsweise nicht als erklärende Variable in ein lineares Modell aufgenommen werden.
+Beispielsweise sollte man in einem linearen Modell nicht $Z$ als erklärende Variable aufnehmen.
+Man sollte auch nicht die Daten anhand von $Z$ in Gruppen einteilen, die man dann separat analysiert -- auch das verzerrt Zusammenhänge.
 ::: 
 
 ## Hinweis
