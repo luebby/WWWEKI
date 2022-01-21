@@ -276,7 +276,7 @@ pgsti
 
 ```{r stipro, echo=FALSE}
 message <- "Akademikerinnen sind in der Stichprobe überrepräsentiert."
-question("Ist diese Stichprobe *repräsentativ* -- können gültige Schlüsse über die Population getroffen werden?",
+question("Ist diese Stichprobe *repräsentativ* &ndash; können gültige Schlüsse über die Population getroffen werden?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -324,7 +324,7 @@ plot(DAG_ModellS)
 <br>
 
 ```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
-set.seed(2022)
+set.seed(2021)
 stipro <- as.factor(sample(c(rep(1,30), rep(0,70))))
 akademikerin <- c(rep(0, 70), rep(1, 30))
 set.seed(2021)
