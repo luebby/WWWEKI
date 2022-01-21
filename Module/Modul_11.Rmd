@@ -71,7 +71,9 @@ In diesem Modul lernen Sie:
 
 ## Rauchen bei Kindern und Jugendlichen
 
-Wie auch beim menschlichen Beitrag zum Klimawandel: Mittlerweile sind wir ziemlich sicher, dass Rauchen der Gesundheit schadet &ndash; so wie Industrialiserung dem Klima.
+Bisher haben wir oft mit simulierten Beispielen gearbeitet um die Grundlagen der Kausalinferenz herauszuarbeiten. Lassen Sie uns nun das Gelernte auf echte Daten anwenden.
+
+Wie auch beim menschlichen Beitrag zum Klimawandel gibt es inzwischen recht große Einigkeit bei der Frage, ob Rauchen der Gesundheit schadet.
 
 Aber das war nicht immer so, und eine naive Datenanalyse kann sogar zu einem gegenteiligen Ergebnis kommen.
 
@@ -82,7 +84,7 @@ Hierbei handelt es sich um eine Kennzahl der Lungenfunktion, das Lungenvolumen b
 ```{r ethik, echo=FALSE}
 question("Ist hier ein randomisiertes Experiment ethisch vertretbar?",
   answer("Ja."),
-  answer("Nein.", correct = TRUE, message = "Es sind negative Folgen bei den Teilnehmer:innen, die im Experiment den Raucher:innen zugeordnet werden, zu erwarten."),
+  answer("Nein.", correct = TRUE, message = "Es sind negative Folgen bei den Teilnehmer:innen, die im Experiment den Raucher:innen zugeordnet werden, zu erwarten. Wie Sie aber im Interview mit Anne Brenøe gehört haben, können Variationen von Manipulationen durchaus ethisch vertretbar sein -- beispielsweise könnte man randomisiert zuweisen, wer an einer Intervention zum Beendigen des Rauchens teilnehmen darf."),
   allow_retry = TRUE,
   correct = random_praise(),
   incorrect = random_encouragement()
@@ -91,7 +93,7 @@ question("Ist hier ein randomisiertes Experiment ethisch vertretbar?",
 
 ##
 
-Die hier verwendete Datentabelle `LV` hat folgende Struktur:
+Die hier verwendete Datentabelle `LV` enthält Beobachtungsdaten und hat folgende Struktur:
 
 ```{r str}
 str(LV)
@@ -120,6 +122,7 @@ Aus inhaltlichen Gründen werden folgende Kausalzusammenhänge zwischen den Vari
 p1
 ```
 
+Zu Erinnerung: Es handelt sich um Heranwachsende -- deswegen die Annahme, dass das Rauchen die Größe beeinflussen kann.
 
 ## Rauchen und Lungenvolumen
 
@@ -138,7 +141,7 @@ question("Welche Gruppe hat im Median das größere Lungenvolumen?",
   incorrect = random_encouragement())
 ```
 
-##
+## Die Rolle des Geschlecht
 
 Sowohl Rauchen als auch Lungenvolumen hängen vom Geschlecht ab. 
 
@@ -149,11 +152,11 @@ gf_boxplot(Lungenvolumen ~ RaucherIn | Geschlecht, data = LV)
 ```
 
 
-Das Bild hat sich nicht geändert, Raucher:innen scheinen das größere Lungenvolumen zu haben.
+Das Bild hat sich nicht geändert, Raucher:innen scheinen immer noch das größere Lungenvolumen zu haben.
 
 Woran könnte das liegen?
 
-## Das Alter ...
+## Die Rolle des Alters
 
 Wie zu erwarten war, gibt es einen Zusammenhang zwischen Alter und Größe:
 
@@ -164,7 +167,7 @@ gf_point(Groesse ~ Alter, data = LV) %>%
 
 <br>
 
-Wenn wir den Code erweitern, so dass die Punkte gemäß der Variablen `RaucherIn` farbig markiert sind, sehen wir: Bei Heranwachsenden sind die Raucher:innen älter als die Nichtraucher:innen &ndash; und damit auch größer.
+Wenn wir den Code erweitern, so dass die Punkte gemäß der Variablen `RaucherIn` farbig markiert sind, sehen wir: Die Raucher:innen sind älter als die Nichtraucher:innen und damit auch größer.
 
 ```{r color, message=FALSE}
 gf_point(Groesse ~ Alter, color = ~ RaucherIn, data = LV) %>%
@@ -190,18 +193,16 @@ p1
 ```
 
 
-Eine naive Modellierung ohne Berücksichtigung von Drittvariablen ergibt folgendes Ergebnis:
+Eine naive Modellierung ohne Berücksichtigung von Drittvariablen ergibt folgendes Ergebnis, das wir schon dem Boxplot entnehmen konnten:
 
 ```{r}
 lm(Lungenvolumen ~ RaucherIn, data = LV) %>%
   summary()
 ```
 
-Rauchen *scheint* das Lungenvolumen zu erhöhen:
+Raucher:innen haben *scheinbar* ein höheres Lungenvolumen:
 
 $$\widehat{\text{Lungenvolumen}} = 2.57 + 0.71 \cdot \begin{cases} 1 &: \text{RaucherIn = Ja} \\ 0&: \text{sonst} \end{cases}$$
-
-Warum?
 
 ##
 
@@ -209,19 +210,19 @@ Warum?
 p1
 ```
 
-Weil nicht-kausale Pfade durch die *Hintertür* (engl. backdoor, Gabel) offen sind:
+Dieser Zusammenhang ist verzerrt, weil nicht-kausale Pfade durch die *Hintertür* (engl. backdoor) offen sind:
 
 $$\text{RaucherIn} \leftarrow \text{Geschlecht} \rightarrow \text{Lungenvolumen}$$
-bzw.
+sowie
 
 $$\text{RaucherIn} \leftarrow \text{Alter} \rightarrow \text{Lungenvolumen}$$
-Diese Pfade sollten also z. B. durch Adjustierung *blockiert* werden.
+Diese Pfade sollten also durch Adjustierung *blockiert* werden.
 
 
 ```{r chain, echo=FALSE}
-question("Sollte auch für die Variable `Groesse` adjustiert werden?",
+question("Sollte darüber hinaus auch für die Variable `Groesse` adjustiert werden?",
   answer("Ja."),
-  answer("Nein.", correct = TRUE, message = "Die Variable `Groesse` liegt auf dem kausalen Pfad (*Kette*) zwischen `RaucherIn` und `Lungenvolumen` (Mediator). Solche Mediatoren sollten nicht adjustiert werden."),
+  answer("Nein.", correct = TRUE, message = "Die Variable `Groesse` liegt auf dem kausalen Pfad (*Kette*) zwischen `RaucherIn` und `Lungenvolumen` (*Mediator*). Solche Mediatoren sollten nicht adjustiert werden."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement())
@@ -250,7 +251,7 @@ lm(Lungenvolumen ~ RaucherIn + Geschlecht + Alter, data = LV) %>%
 
 
 ```{r effekt, echo=FALSE}
-question("Hat in dem Modell Rauchen einen negativen Effekt auf das Lungenvolumen?",
+question("Hat in dem Modell Rauchen den zu erwartenden negativen Effekt auf das Lungenvolumen?",
   answer("Ja.", correct = TRUE, message = "Der geschätzte Koeffizient (`Estimate`) ist mit $-0.153974$ negativ (für die Variable `RaucherInja `)."),
   answer("Nein."),
   allow_retry = TRUE,
@@ -258,7 +259,7 @@ question("Hat in dem Modell Rauchen einen negativen Effekt auf das Lungenvolumen
   incorrect = random_encouragement())
 ```
 
-*Anmerkung*: Das lineare Modell stellt hier nur eine Näherung da, weil es nicht-lineare Zusammenhänge zwischen Alter und Größe sowie Größe und Lungenvolumen gibt. Das ganze Modell ist eine *pragmatische* Annäherung.
+*Anmerkung*: Das lineare Modell stellt hier nur eine pragmatische Näherung da, weil es nicht-lineare Zusammenhänge zwischen Alter und Größe sowie Größe und Lungenvolumen gibt. Um den Effekt des Rauchens präzise zu schätzen, sollten diese nicht-linearen Zusammenhänge auch wirklich nicht-linear modelliert werden.
 
 ## Hinweis
 
