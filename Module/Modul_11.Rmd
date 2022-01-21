@@ -84,7 +84,7 @@ Hierbei handelt es sich um eine Kennzahl der Lungenfunktion, das Lungenvolumen b
 ```{r ethik, echo=FALSE}
 question("Ist hier ein randomisiertes Experiment ethisch vertretbar?",
   answer("Ja."),
-  answer("Nein.", correct = TRUE, message = "Es sind negative Folgen bei den Teilnehmer:innen, die im Experiment den Raucher:innen zugeordnet werden, zu erwarten. Wie Sie aber im Interview mit Anne Brenøe gehört haben, können Variationen von Manipulationen durchaus ethisch vertretbar sein -- beispielsweise könnte man randomisiert zuweisen, wer an einer Intervention zum Beendigen des Rauchens teilnehmen darf."),
+  answer("Nein.", correct = TRUE, message = "Es sind negative Folgen bei den Teilnehmer:innen, die im Experiment den Raucher:innen zugeordnet werden, zu erwarten. Wie Sie aber im Interview mit Anne Brenøe gehört haben, können Variationen von Manipulationen durchaus ethisch vertretbar sein &ndash; beispielsweise könnte man randomisiert zuweisen, wer an einer Intervention zum Beendigen des Rauchens teilnehmen darf."),
   allow_retry = TRUE,
   correct = random_praise(),
   incorrect = random_encouragement()
@@ -141,7 +141,7 @@ question("Welche Gruppe hat im Median das größere Lungenvolumen?",
   incorrect = random_encouragement())
 ```
 
-## Die Rolle des Geschlecht
+## Die Rolle des Geschlechts
 
 Sowohl Rauchen als auch Lungenvolumen hängen vom Geschlecht ab. 
 
