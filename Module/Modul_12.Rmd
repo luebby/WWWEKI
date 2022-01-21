@@ -116,15 +116,15 @@ $$
 
 Wir hoffen, dass dieser Kurs mit seinen Beispielen Ihnen helfen kann, systematische *Verzerrung* zu adressieren.
 
-*Rauschen* entsteht durch (zufällige) Stichprobenvariation.
+*Rauschen* entsteht darüber hinaus durch (zufällige, unsystematische) Stichprobenvariation.
 
 
 ## Das Problem mit den vereinfachten Beispielen
 
-Im Rahmen dieses Kurses haben Sie gelernt, wie kausale Effekte definiert werden und wie man mithilfe von kausalen Graphen Annahmen abbilden und unter diesen Annahmen valide Schlußfolgerungen ablesen kann.
+Im Rahmen dieses Kurses haben Sie gelernt, wie kausale Effekte definiert werden und wie man mithilfe von kausalen Graphen Annahmen abbilden und *unter diesen Annahmen* valide Schlußfolgerungen ablesen kann.
 
 Aber alle Graphen, die Sie gesehen haben, waren stark vereinfacht und enthielten nur wenige Variablen.
-In der Realität sieht es natürlich viel komplexer aus &ndash; Graphen können hunderte Variablen beinhalten, oft auch unbeobachtbare.
+In der Realität sieht es natürlich viel komplexer aus &ndash; Graphen können hunderte Variablen beinhalten, darunter oft auch solche die sich schlecht messen lassen oder sogar unbeobachtbar sind.
 
 An vielen Stellen wissen wir schlicht und ergreifend nicht, wie das zugrundeliegende kausale Netz aussieht.
 
@@ -141,11 +141,17 @@ question("Angenommen, wir kennen den wahren zugrundeliegenden kausalen Graphen n
 )
 ```
 
-##
+## Perfect is the enemy of good
 
 Das ist aber kein Grund, das Handtuch zu werfen!
 
-Schlußfolgerungen sind fast immer mit gewissen Unsicherheiten, z. B. aufgrund von Rauschen, behaftet und Modelle sind immer eine vereinfachte Darstellung der Realität.
+Schlußfolgerungen sind immer mit gewissen Unsicherheiten behaftet. Selbst wenn Sie das zugrundeliegende kausale Netz perfekt kennen, kann Zufallsrauschen immer noch zu falschen Ergebnissen führen. Und selbst komplexe wissenschaftliche Modelle sind immer eine vereinfachte Darstellung der Realität.
+
+***
+
+***Anmerkung:*** Die Wissenschaftsphilosophin Angela Potochnik beschäftigt sich in ihrem Buch [Idealization and the Aims of Science"](https://www.angelapotochnik.com/idealization.html) ausführlich mit der zentralen Rolle, die Vereinfachungen in der Wissenschaft spielen -- selbst in Grundlagenfächern wie der Physik. 
+
+***
 
 Selbst wenn wir nicht den kompletten kausalen Graphen kennen, hilft uns das Wissen über die fundamentalen kausalen Strukturen aber, kausale Schlußfolgerungen kritisch zu hinterfragen und mögliche Verzerrungen zu erkennen.
 
@@ -173,7 +179,7 @@ question("Auf welche fundamentale kausale Struktur zwischen Kaffeekonsum, Übelk
 )
 ```
 
-## 
+## Kaffee-Graph
 
 <center>
 ```{r p1, echo=FALSE, out.widht="40%"}
@@ -187,7 +193,7 @@ Die Idee, dass Übelkeit auf einem konfundierenden Pfad liegt, wird auch dadurch
 Diese enthalten zwar Koffein, werden aber oft bei Übelkeit in der Schwangerschaft als weniger abstoßend empfunden.
 
 Insgesamt schlußfolgert beispielsweise das [American College of Obstetricians and Gynecologist (2020)](https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2010/08/moderate-caffeine-consumption-during-pregnancy), dass moderater Koffeinkonsum (weniger als 200mg am Tag) kein Risikofaktor zu sein scheint.
-Für größere Mengen an Koffein kann zu diesem Zeitpunkt keine sichere Schlußfolgerung gezogen werden.
+Für größere Mengen an Koffein in der Schwangerschaft kann zu diesem Zeitpunkt keine sichere Schlußfolgerung gezogen werden.
 
 ***
 
@@ -198,6 +204,8 @@ Für größere Mengen an Koffein kann zu diesem Zeitpunkt keine sichere Schlußf
 
 ## Beispiel 2: Lebenserwartung in Jäger- und Sammlergesellschaften
 
+Hier ein Beispiel, das bereits im Interview mit Richard McElreath aufgekommen ist.
+
 Alle Evidenz deutet darauf hin, dass in prähistorischen Jäger- und Sammlergesellschaften die Lebenserwartung bei der Geburt mit etwa 25 Jahren sehr viel niedriger lag, als sie es heutzutage ist.
 
 Allerdings wird immer wieder das Argument angebracht, dass diese niedrige Zahl vor allem mit der hohen Säuglings- und Kindersterblichkeit zusammenhängt.
@@ -206,7 +214,7 @@ Wenn prähistorische Menschen es bis ins Jugendlichenalter schafften, so überle
 Ähnliche Beobachtungen werden auch für noch existierende Jäger- und Sammlergesellschaften gemacht: Während die Sterblichkeit am Anfang des Lebens deutlich höher ist, so nimmt sie radikal ab, sobald die ersten Jahre überstanden sind.
 Eine Lebensspanne von 70 Jahren ist dann nichts Ungewöhnliches.
 
-##
+## Zurück in die Steinzeit?
 
 Diese Beobachtungen werden manchmal aufgegriffen, um Argumente zu verschiedenen Lebensstilen zu machen.
 
@@ -219,7 +227,7 @@ Aber was passiert danach?
 Vielleicht werden die Effekte, die uns die moderne Medizin bringt, komplett aufgehoben von dem gesteigerten Risiko, sogenannten Zivilisationskrankheiten zu erliegen?
 
 
-## 
+## Überlebens-Graph
 
 Aber bevor wir mit solchen Spekulationen beginnen, sollten wir uns zuerst Gedanken darüber machen, wie diese Daten &ndash; niedrige Lebenserwartung ab Geburt, recht hohe Lebenserwartung *nach überstandener Kindheit* &ndash; zustande kommen.
 
@@ -231,6 +239,7 @@ p2
 
 Menschen unterscheiden sich von Geburt an in bestimmten Faktoren, welche von Genen beeinflußt sind.
 Beispielsweise sind manche Menschen besonders anfällig für Infekte, andere hatten mehr Glück und haben sehr fitte Immunsysteme.
+
 All solche Unterschiede haben wir hier unter *Intrinsischer Robustheit* zusammengefasst.
 Nun interessiert uns, wie sehr die Gesellschaft, in der wir leben (Jäger und Sammler vs. modern), beeinflusst, ob wir unseren 70. Geburtstag erleben &ndash; und zwar unabhängig von den Effekten auf das Überleben bis zum 5. Geburtstag.
 
@@ -262,14 +271,16 @@ Ein naiver Vergleich dieser zwei Populationen vermischt Effekte der Art der Gese
 
 Alleine aus diesen Daten können wir also noch keine belastbaren Schlüsse ziehen über die Vor- oder Nachteile bestimmter Lebensstile für die Langlebigkeit.
 
+Nur in Gedanken könnten wir hier Experimente durchführen und Kinder, die in einer der Gesellschaften ein bestimmtes Alter erreicht haben, zufällig einer der beiden Gesellschaften zuordnen. Um mit verfügbaren Beobachtungsdaten das Ergebnis eines solchen Experimentes anzunähern, reicht es nicht, bestimmte Lebenserwartungen zu vergleichen -- zusätzliche Variablen müssen berücksichtigt werden.
+
 
 ## Ausblick
 
-Hoffentlich konnten wir Ihnen einige Werkzeuge an die Hand geben, um kausale Schlüsse kritisch zu hinterfragen.
+Hoffentlich konnten wir Ihnen einige Werkzeuge an die Hand geben, um in der Praxis kausale Schlüsse kritisch zu hinterfragen.
 
 Von Judea Pearl, Madelyn Glymour und Nicholas P. Jewell gibt es das Buch [Causal Inference in Statistics: A Primer](http://bayes.cs.ucla.edu/PRIMER/), welches die hier vorgestellten Grundlagen ausführlicher behandelt. 
-Jonas Peters (den kennen Sie aus einem der Videos) hat zusammen mit Dominik Janzing und Bernhard Schölkopf auch ein Buch geschrieben: [Elements of Causal Inference: Foundations and Learning Algorithms*](https://mitpress.mit.edu/books/elements-causal-inference).
-Das Thema kausale Inferenz wird im Buch [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) im 6. Kapitel der zweiten Auflage von Richard McElreath behandelt &ndash; ihn kennen Sie auch aus den Videos.
+Jonas Peters (den Sie bereits aus dem Interview kennen) hat zusammen mit Dominik Janzing und Bernhard Schölkopf auch ein Buch geschrieben: [Elements of Causal Inference: Foundations and Learning Algorithms*](https://mitpress.mit.edu/books/elements-causal-inference).
+Das Thema kausale Inferenz wird im Buch [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) im 6. Kapitel der zweiten Auflage von Richard McElreath behandelt &ndash; auch ihn kennen Sie schon aus dem Interview.
 Ethan Bueno de Mesquita und Anthony Fowler behandeln in ihrem Buch [Thinking Clearly with Data: A Guide to Quantitative Reasoning and Analysis](https://press.princeton.edu/books/paperback/9780691214351/thinking-clearly-with-data) auch das Thema Kausale Inferenz sehr gut &ndash; allerdings aus einem etwas anderen Blickwinkel.
 
 Weitere Bücher aus unterschiedlichen Perspektiven sind z. B. [Causal Inference: The Mixtape*](https://mixtape.scunning.com/) von Scott Cunningham, [The Effect: An Introduction to Research Design and Causality*](https://theeffectbook.net/) von Nick Huntington-Klein oder [Causal Inference: What If*](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) von Hernán und Robins.
@@ -307,7 +318,7 @@ Für Arbeiten in diesem Bereich wurde übrigens im Jahre 2021 der Alfred-Nobel-G
 Wie diese Methoden helfen wichtige Fragen zu beantworten hat die Schwedische Akademie der Wissenschaften [hier](https://www.nobelprize.org/uploads/2021/10/popular-economicsciencesprize2021-3.pdf) beschrieben.
 
 
-*Lesetipp*:
+*Lesetipps*:
 
 - Thad Dunning, [Natural Experiments in the Social Sciences](https://www.cambridge.org/gb/academic/subjects/social-science-research-methods/qualitative-methods/natural-experiments-social-sciences-design-based-approach?format=PB&isbn=9781107698000)
 - Joshua D. Angrist und Jörn-Steffen Pischke, [Mastering 'Metrics: The Path from Cause to Effect](http://www.masteringmetrics.com/)
