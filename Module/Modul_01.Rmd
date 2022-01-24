@@ -104,7 +104,7 @@ $$\color{orange}{\Delta}_i = \color{blue}{Y}^{\color{green}{X=1}}_i - \color{blu
 
 Wobei
 
-- $i$ für die einzelne Beobachtung, hier die einzelne Person steht;
+- $i$ für die einzelne Beobachtung, hier die einzelne Person, steht;
 
 - $\color{blue}{Y}_i$ für das <blue> Gehalt </blue> von $i$;
 

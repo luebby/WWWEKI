@@ -20,6 +20,7 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(emojifont)
+library(shinyjs)
 
 theme.fom <- theme_classic(22*1.04)
 theme.fom <- theme.fom
@@ -186,20 +187,26 @@ htmlOutput("ergebnis")
 ```{r, context="server"}
 values <- reactiveValues()
 values$text <- ""
+values$versuch <- 0
+
 p.tablette <- observeEvent(input$Tablette, {
+  values$versuch <- values$versuch + 1
   heilung <- sample(c("Ja", "Nein"), 1, prob = c(0.8,0.2))
-  ergebnis <- ifelse(heilung == "Ja", "Sie haben die Tablette genommen und die Schmerzen sind zurückgegangen!", "Sie haben die Tablette genommen und die Schmerzen sind leider nicht zurückgegangen!")
-  output$ergebnis <- renderText({
-    ergebnis
-  })
+  ergebnis <- ifelse(heilung == "Ja", paste0("<span style='color: green'>", values$versuch, ". Versuch: </span> Sie haben die Tablette genommen und die Schmerzen sind zurückgegangen!"), paste0("<span style='color: green'>", values$versuch, ". Versuch: </span> Sie haben die Tablette genommen und die Schmerzen sind leider nicht zurückgegangen!"))
+  
+output$ergebnis <- renderText({
+          ergebnis
+        })
   
 })
 p.ktablette <- observeEvent(input$kTablette, {
+  values$versuch <- values$versuch + 1
   heilung <- sample(c("Ja", "Nein"), 1, prob = c(0.4,0.6))
-  ergebnis <- ifelse(heilung == "Ja", "Sie haben die Tablette nicht genommen und die Schmerzen sind trotzdem zurückgegangen!", "Sie haben die Tablette nicht genommen und die Schmerzen sind leider auch nicht zurückgegangen!")
-  output$ergebnis <- renderText({
-    ergebnis
-  })
+  ergebnis <- ifelse(heilung == "Ja", paste0("<span style='color: green'>", values$versuch, ". Versuch: </span> Sie haben die Tablette nicht genommen und die Schmerzen sind trotzdem zurückgegangen!"), paste0("<span style='color: green'>", values$versuch, ". Versuch: </span> Sie haben die Tablette nicht genommen und die Schmerzen sind leider auch nicht zurückgegangen!"))
+  
+output$ergebnis <- renderText({
+          ergebnis
+        })
   
 })
 ```
