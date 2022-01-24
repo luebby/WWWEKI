@@ -43,7 +43,7 @@ DAG_Modell <- dagify(X ~ Z,
   geom_dag_text(size = 7) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Stillen\nY - Allergie\nZ - Akademikerin", 
+  geom_text(label = "X - Stillen\nY - Übergewicht\nZ - Akademikerin", 
             hjust = 1, vjust = 1,
             x = 2, y = 1, size = 6, color = "darkgrey") 
 
@@ -58,7 +58,7 @@ DAG_ModellG <- dagify(X ~ Z,
   geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Stillen\nY - Allergie\nZ - Akademikerin\nS - Stichprobe", 
+  geom_text(label = "X - Stillen\nY - Übergewicht\nZ - Akademikerin\nS - Stichprobe", 
             hjust = 1, vjust = 1,
             x = 2, y = 1, size = 3.5, color = "darkgrey") 
 
@@ -73,7 +73,7 @@ DAG_ModellS <- dagify(X ~ Z,
   geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Stillen\nY - Allergie\nZ - Akademikerin\nS - Stichprobe\nD - Zufall", 
+  geom_text(label = "X - Stillen\nY - Übergewicht\nZ - Akademikerin\nS - Stichprobe\nD - Zufall", 
             hjust = 1, vjust = 1,
             x = 2, y = 1, size = 3.5, color = "darkgrey") 
 
@@ -87,7 +87,7 @@ DAG_ModellE <- dagify(X ~ D,
   geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Stillen\nY - Allergie\nZ - Akademikerin\nD - Zufall", 
+  geom_text(label = "X - Stillen\nY - Übergewicht\nZ - Akademikerin\nD - Zufall", 
             hjust = 1, vjust = 1,
             x = 2, y = 1, size = 3.5, color = "darkgrey") 
 library(mosaic)
@@ -99,12 +99,14 @@ options(scipen = 999)
 
 In diesem Modul lernen Sie:
 
+- die unterschiedlichen Anforderungen von Beschreibung und Vorhersage; 
+
 - welche Vorteile eine zufällig gezogene Stichprobe hat;
 
 - welche Vorteile eine zufällige Zuordnung im Rahmen eines Experiments hat.
 
 
-## Weniger Allergien durch Stillen?
+## Weniger Übergewicht durch Stillen?
 
 Eine <red>fiktive</red> Studie präsentiert Ihnen dieses Ergebnis:
 
@@ -112,50 +114,51 @@ Eine <red>fiktive</red> Studie präsentiert Ihnen dieses Ergebnis:
 akademikerin <- c(rep(0, 70), rep(1, 30))
 set.seed(2021)
 stillen <- numeric(100)
-pallergie <- numeric(100)
-allergie <- numeric(100)
+puebergewicht <- numeric(100)
+uebergewicht <- numeric(100)
 for(i in 1:100) 
   {
   stillen[i] <- ifelse(akademikerin[i], 
                     sample(c(0,1),1, prob = c(0.1, 0.9)), 
                     sample(c(0,1),1, prob = c(0.4, 0.6)))
-  pallergie[i] <- ifelse(akademikerin[i], 0.3, 0.5)
-  pallergie[i] <- pallergie[i] - ifelse(stillen[i], 0.2, 0)
-  allergie[i] <- sample(c(0,1),1, prob = c(1-pallergie[i], pallergie[i]))
+  puebergewicht[i] <- ifelse(akademikerin[i], 0.3, 0.5)
+  puebergewicht[i] <- puebergewicht[i] - ifelse(stillen[i], 0.2, 0)
+  uebergewicht[i] <- sample(c(0,1),1, prob = c(1-puebergewicht[i], puebergewicht[i]))
 }
 
 d <- crossing(x = 1:10,
               y = 1:10) %>%
-  mutate(Allergie = allergie,
+  mutate(Übergewicht = uebergewicht,
          akademikerin = akademikerin,
          stillen = stillen)
 
 d2 <- d %>%
-  mutate(Allergie = ifelse(Allergie, "Ja", "Nein")) %>%
+  mutate(Übergewicht = ifelse(Übergewicht, "Ja", "Nein")) %>%
   mutate(stillen = ifelse(stillen, "Stillen: Ja", "Stillen: Nein")) %>%
   mutate(akademikerin = ifelse(akademikerin, "Ja", "Nein")) 
 
 
-gf_bar(~ Allergie | stillen , data = d2, 
-       fill = ~ Allergie) + 
+gf_bar(~ Übergewicht | stillen , data = d2, 
+       fill = ~ Übergewicht) + 
   scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
   labs(title = "Studienergebnis", y="Häufigkeit") +
   theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
 ```
 
-Was Sie sehen: Kinder von Frauen, die mindestens 4 Monate voll <green>stillen</green> haben seltener im Alter von 6 Jahren eine <blue>Allergie</blue> als Kinder von Frauen, die nicht mindestens 4 Monate voll stillen &ndash; in <u>dieser</u> fiktiven Studie.
+Was Sie sehen: Kinder von Frauen, die mindestens 4 Monate voll <green>stillen</green> haben seltener im Alter von 6 Jahren  <blue>Übergewicht</blue> als Kinder von Frauen, die nicht mindestens 4 Monate voll stillen &ndash; in dieser fiktiven Studie.
 
 Dies ist die Ebene **Beschreibung** (siehe Modul 3).<br>
-Um die Ebenen ***Vorhersage*** und ***Kausale Inferenz*** zu erreichen brauchen wir mehr. Und Methoden dafür kennen Statistiker:innen schon lange.
+Um die Ebenen ***Vorhersage*** und ***Kausale Inferenz*** zu erreichen brauchen wir mehr. 
+Einen hilfreichen Kniff dafür kennen Statistiker:innen und Wissenschaftler:innen schon lange.
 
 ##
 
 Erstellen wir zunächst ein stark vereinfachtes Modell, in dem wir die folgenden kausalen Zusammenhänge annehmen:
 
 
-- <blue>Allergie</blue> des Kindes im Alter von 6 Jahren hängt eventuell ab vom vollständigen <green>Stillen</green> durch die Mutter bis zum 4. Monat (<purple>Ja</purple>, <orange>Nein</orange>).
+- <blue>Übergewicht</blue> des Kindes im Alter von 6 Jahren hängt eventuell ab vom vollständigen <green>Stillen</green> durch die Mutter bis zum 4. Monat (<purple>Ja</purple>, <orange>Nein</orange>).
 
-- <blue>Allergie</blue> hängt eventuell zusätzlich ab vom Bildungsgrad der Mutter, hier gemessen daran, ob die Mutter einen Hochschulabschluss hat und somit <violet>Akademikerin</violet> ist.
+- <blue>Übergewicht</blue> hängt eventuell zusätzlich ab vom Bildungsgrad der Mutter, hier gemessen daran, ob die Mutter einen Hochschulabschluss hat und somit <violet>Akademikerin</violet> ist.
 
 - <green>Stillen</green> (<purple>Ja</purple>, <orange>Nein</orange>) hängt eventuell davon ab, ob die Mutter <violet>Akademikerin</violet> ist.
 
@@ -166,8 +169,8 @@ plot(DAG_Modell)
 ```
 
 ```{r graph1, echo=FALSE}
-message <- "Beim Teilgraph Stillen $\\leftarrow$ Akademikerin $\\rightarrow$ Allergie handelt es sich um eine Gabel."
-question("Welche Rolle spielt hier die Variable Akademikerin zwischen Stillen und Allergie?",
+message <- "Beim Teilgraph Stillen $\\leftarrow$ Akademikerin $\\rightarrow$ Übergewicht handelt es sich um eine Gabel."
+question("Welche Rolle spielt hier die Variable Akademikerin zwischen Stillen und Übergewicht?",
          answer("Mediator"),
          answer("Confounder", correct = TRUE, message = message),
          answer("Collider"),
@@ -177,9 +180,14 @@ question("Welche Rolle spielt hier die Variable Akademikerin zwischen Stillen un
          )
 ```
 
-##
+So weit, so gut. 
+Für die Arbeit mit realen Daten müssen wir aber noch zusätzlich etwas berücksichtigen: Wir haben natürlich nicht Daten für alle Frauen mit Kindern, sondern nur für eine Stichprobe.
 
-Angenommen in einer fiktiven Population sind 30% Akademikerinnen (<i class="fa fa-graduation-cap" aria-hidden="true"></i>).
+
+## Population und Stichprobe
+
+Angenommen in einer Population die uns interessiert sind 30% Akademikerinnen (<i class="fa fa-graduation-cap" aria-hidden="true"></i>).
+Eine relevante Population könnte zum Beispiel alle Mütter in einem bestimmten Land zu einem bestimmten Zeitpunkt sein.
 
 Mindestens 4 Monate voll <green>stillen</green> ist farblich durch <purple>Ja (lila)</purple> und <orange>Nein (orange)</orange> gekennzeichnet:
 
@@ -219,18 +227,18 @@ In dieser Ziel-Population liegt der Anteil <purple>gestillt</purple> bei $`r pdp
 
 ##
 
-In der Regel kennen wir die *Population* gar nicht, sondern nur eine *Stichprobe*. Lediglich die Daten der *Stichprobe* können wir nutzen.
+In der Regel kennen wir die Werte in der *Population* gar nicht, wir haben nur eine *Stichprobe* zur Verfügung für unsere Analysen.
 
 <br>
 
 Nehmen wir an, bei der <u>Datenerhebung</u> gibt es einen Zusammenhang zwischen dem Bildungsgrad der Mutter (<violet>Akademikerin</violet>) und ihrer Teilnahme an der Studie.
-Zum Beispiel sieht es in unseren Daten so aus, dass Akademikerinnen eine höhere Wahrscheinlichkeit haben, Teil der Stichprobe zu sein:
+Zum Beispiel sieht es in unseren fiktiven Daten so aus, dass Akademikerinnen eine höhere Wahrscheinlichkeit haben, Teil der Stichprobe zu werden:
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_ModellG)
 ```
 
-Eine mögliche Stichprobe sieht dann wie folgt aus:
+Ziehen wir jetzt eine mögliche Stichprobe, Frauen die in unseren Daten landen sind farblich hinterlegt:
 
 ```{r gsti, fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
 set.seed(2021)
@@ -268,7 +276,7 @@ pgsti
 
 ```{r stipro, echo=FALSE}
 message <- "Akademikerinnen sind in der Stichprobe überrepräsentiert."
-question("Ist diese Stichprobe *repräsentativ*, d. h., können gültige Schlüsse auf die Population getroffen werden?",
+question("Ist diese Stichprobe *repräsentativ* &ndash; können gültige Schlüsse über die Population getroffen werden?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -293,7 +301,9 @@ Wir brauchen also *mehr* als nur die Daten der Stichprobe...
 Das Problem ist, dass unsere Stichprobe von einer Variable abhängt, <violet>Akademikerin</violet>, und von dieser wiederum hängt die untersuchte Variable <green>Stillen</green> ab.
 Akademikerinnen sind hier wahrscheinlicher Teil der Stichprobe, und Akademikerinnen stillen häufiger, also überschätzen wir anhand der Stichprobe den Anteil der Frauen, die mindestens 4 Monate voll stillen.
 
-Dieses Problem betrifft zahlreiche Umfragen. Wie können wir an der Stelle sicherstellen, dass unsere Stichprobe uns nicht hinters Licht führt?
+Dieses Problem betrifft zahlreiche Umfragen -- oft nehmen Personen mit bestimmten Eigenschaften lieber teil, und diese Eigenschaften wiederum hängen mit unserem Untersuchungsgegenstand zusammen.
+
+Wie können wir an der Stelle sicherstellen, dass unsere Stichprobe uns nicht hinters Licht führt?
 
 Hier hilft der Zufall!
 
@@ -348,18 +358,19 @@ pzsti
 ```
 
 In dieser zufälligen Stichprobe weicht der Anteil <purple>gestillt</purple> mit $`r round(pdz,2)`$ nicht mehr systematisch vom *wahren* Anteil in der Ziel-Population ab. 
-Alle Abweichungen sind nur noch zufällig.
+Alle Abweichungen sind nur noch zufällig -- mal werden wir den wahren Wert überschätzen, mal werden wir ihn unterschätzen.
 Und je größer die Stichprobe ist, desto weniger schwankt der Anteil bei wiederholter Stichprobenziehung.
 
 <br> 
 
-Mithilfe von Zufallsstichproben werden also plausible **Vorhersagen** möglich. 
-Aber wie sieht es mit *Kausaler Inferenz* aus? 
+Dank der Zufallsstichprobe können wir somit zuverlässige **Vorhersagen** machen darüber, ob eine zufällig gewählte Frau stillt oder nicht.
+
+Aber wie sieht es mit dem Analyseziel *Kausaler Inferenz* aus? 
 
 
 ```{r ki, echo=FALSE}
-message <- "Akademikerin ist hier ein Confounder und liegt auf einem nicht-kausalen Pfad von Stillen zu Allergie. Damit wäre unsere Schätzung des kausalen Effekts verzerrt."
-question("Kann der kausale Effekt von Stillen auf Allergie durch einen direkten Vergleich von Kindern deren Mütter stillen vs. nicht stillen geschätzt werden?",
+message <- "Akademikerin ist hier ein Confounder und liegt auf einem nicht-kausalen Pfad von Stillen zu Übergewicht. Damit wäre unsere Schätzung des kausalen Effekts verzerrt."
+question("Kann der kausale Effekt von Stillen auf Übergewicht durch einen direkten Vergleich von Kindern deren Mütter stillen vs. nicht stillen geschätzt werden?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -374,16 +385,16 @@ question("Kann der kausale Effekt von Stillen auf Allergie durch einen direkten 
 akademikerin <- c(rep(0, 70), rep(1, 30))
 set.seed(2021)
 stillen <- numeric(100)
-pallergie <- numeric(100)
-allergie <- numeric(100)
+puebergewicht <- numeric(100)
+uebergewicht <- numeric(100)
 for(i in 1:100) 
   {
   stillen[i] <- ifelse(akademikerin[i], 
                     sample(c(0,1),1, prob = c(0.1, 0.9)), 
                     sample(c(0,1),1, prob = c(0.4, 0.6)))
-  pallergie[i] <- ifelse(akademikerin[i], 0.3, 0.5)
-  pallergie[i] <- pallergie[i] - ifelse(stillen[i], 0.2, 0)
-  allergie[i] <- sample(c(0,1),1, prob = c(1-pallergie[i], pallergie[i]))
+  puebergewicht[i] <- ifelse(akademikerin[i], 0.3, 0.5)
+  puebergewicht[i] <- puebergewicht[i] - ifelse(stillen[i], 0.2, 0)
+  uebergewicht[i] <- sample(c(0,1),1, prob = c(1-puebergewicht[i], puebergewicht[i]))
 }
 
 akademikerins <- fontawesome(ifelse(akademikerin, "fa-graduation-cap", "fa-female"))
@@ -391,36 +402,37 @@ stillens <- ifelse(stillen, "#7A378B", "#FF8811")
 
 d <- crossing(x = 1:10,
               y = 1:10) %>%
-  mutate(allergie = allergie,
+  mutate(uebergewicht = uebergewicht,
          akademikerin = akademikerin,
          akademikerins = akademikerins,
          stillen = stillen,
          stillen = stillen) %>%
-  mutate(Allergie = ifelse(allergie == 1, "Ja","Nein"))
+  mutate(uebergewicht = ifelse(uebergewicht == 1, "Ja","Nein"))
+d$Übergewicht <- d$uebergewicht
 
 d2 <- d %>%
   mutate(stillen = ifelse(stillen, "Ja", "Nein")) %>%
   mutate(akademikerin = ifelse(akademikerin, "Ja", "Nein")) 
 
-pallergiestillen <- d2 %>%
+puebergewichtstillen <- d2 %>%
   filter(stillen == "Ja") %>%
-  prop( ~ Allergie, success = "Nein", .) %>% 
+  prop( ~ uebergewicht, success = "Nein", .) %>% 
   round(., digits = 2)
 
-pallergiekstillen <- d2 %>%
+puebergewichtkstillen <- d2 %>%
   filter(stillen == "Nein") %>%
-  prop( ~ Allergie, success = "Nein", .) %>% 
+  prop( ~ uebergewicht, success = "Nein", .) %>% 
   round(., digits = 2)
 ```
 
 Über unsere fiktive Studie wird in den Medien berichtet. Eine mögliche Schlagzeile lautet:
 
-> Gesunde Wirkung von Stillen bewiesen: `r pallergiestillen*100` % der Kinder von Frauen, die mindestens 4 Monate voll stillen, haben im Alter von 6 Jahren keine Allergie entwickelt.
+> Gesunde Wirkung von Stillen bewiesen: `r puebergewichtstillen*100` % der Kinder von Frauen, die mindestens 4 Monate voll stillen, sind im Alter von 6 Jahren nicht übergewichtig.
 
 
 ```{r beob1, echo=FALSE}
-message <- "Ohne Variation keine Korrelation. Es fehlt die Information, wie viele Kinder, die nicht voll gestillt wurden, eine Allergie entwickelt haben."
-question("Lassen alleine die Daten der Schlagzeile den Schluss zu, dass Stillen zu einer Reduktion des Allergierisikos führt?",
+message <- "Ohne Variation keine Korrelation. Es fehlt die Information, wie viele Kinder, die nicht voll gestillt wurden, Übergewicht haben."
+question("Lassen alleine die Daten der Schlagzeile den Schluss zu, dass Stillen mit Übergewicht korreliert ist?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -431,19 +443,19 @@ question("Lassen alleine die Daten der Schlagzeile den Schluss zu, dass Stillen 
 
 ##
 
-Zu wissen, wie viele <purple>gestillte</purple> Kinder keine Allergie entwickelt haben, ist zwar schön, es fehlt aber mindestens noch der Vergleich zu den <orange>nicht-gestillten</orange> Kindern.
+Zu wissen, wie viele <purple>gestillte</purple> Kinder kein Übergewicht entwickelt haben, ist zwar schön, es fehlt aber mindestens noch der Vergleich zu den <orange>nicht-gestillten</orange> Kindern.
 
-Während in der fiktiven Studie dieser Anteil, wie in der Schlagzeile berichtet, bei <purple>gestillten</purple> Kindern bei $\color{purple}{`r pallergiestillen`}$ liegt, liegt er bei <orange>nicht-gestillten</orange> Kindern bei $\color{orange}{`r pallergiekstillen`}$.
+Während in der fiktiven Studie dieser Anteil, wie in der Schlagzeile berichtet, bei <purple>gestillten</purple> Kindern bei $\color{purple}{`r puebergewichtstillen`}$ liegt, liegt er bei <orange>nicht-gestillten</orange> Kindern bei $\color{orange}{`r puebergewichtkstillen`}$.
 
-Die Daten wurden im Rahmen einer **Beobachtungsstudie** erhoben, das heißt es wurde erfragt, ob die Mütter <green>Stillen</green> (<purple>Ja</purple> oder <orange>Nein</orange>). Und es wurde die Variable <blue>Allergie</blue> erhoben.
+Die Daten wurden im Rahmen einer **Beobachtungsstudie** erhoben, das heißt es wurde erfragt, ob die Mütter <green>Stillen</green> (<purple>Ja</purple> oder <orange>Nein</orange>). Und es wurde die Variable <blue>Übergewicht</blue> erhoben.
 
-Ein Vergleich des Anteils <blue>Allergie</blue> je nach <green>Stillen</green> ergibt:
+Ein Vergleich des Anteils <blue>Übergewicht</blue> je nach <green>Stillen</green> ergibt:
 
-$$\color{purple}{`r pallergiestillen`}-\color{orange}{`r pallergiekstillen`}=`r (pallergiestillen-pallergiekstillen)`.$$
+$$\color{purple}{`r puebergewichtstillen`}-\color{orange}{`r puebergewichtkstillen`}=`r (puebergewichtstillen-puebergewichtkstillen)`.$$
 
 ```{r beob2, echo=FALSE}
-message <- "Akademikerin ist hier ein Confounder und liegt auf einem nicht-kausalen Pfad von Stillen zu Allergie."
-question("Lassen die Daten der Beobachtungsstudie den Schluss zu, dass der durchschnittliche kausale Effekt von Stillen auf die Wahrscheinlichkeit eine Allergie zu entwickeln bei $0.14$ liegt?",
+message <- "Akademikerin ist hier ein Confounder und liegt auf einem nicht-kausalen Pfad von Stillen zu Übergewicht."
+question("Lassen die Daten der Beobachtungsstudie den Schluss zu, dass der durchschnittliche kausale Effekt von Stillen auf die Wahrscheinlichkeit Übergewicht zu entwickeln bei $0.14$ liegt?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -463,8 +475,8 @@ plot(DAG_Modell)
 Dies führt zu folgender fiktiver Verteilung in der Population:
 
 ```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
-pbeob <- ggplot(d, aes(x = x, y = y, color = Allergie)) +
-  geom_tile(color = "white", size = .5, aes(fill = Allergie), alpha = .2) +
+pbeob <- ggplot(d, aes(x = x, y = y, color = Übergewicht)) +
+  geom_tile(color = "white", size = .5, aes(fill = Übergewicht), alpha = .2) +
   theme_void() +
   geom_text(family='fontawesome-webfont', size = 8, aes(label = akademikerins), colour = stillens) +
   scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
@@ -474,9 +486,9 @@ pbeob
 ```
 
 
-Bei <purple>stillen</purple> tritt seltener eine Allergie auf als bei <orange>nicht-Stillen</orange>.
+Bei <purple>stillen</purple> tritt seltener Übergewicht auf als bei <orange>nicht-stillen</orange>.
 
-Aber: Akademikerinnen <purple>stillen</purple> häufiger als Nicht-Akademikerinnen &ndash; und Kinder von Akademikerinnen entwickeln seltener Allergien.
+Aber: Akademikerinnen <purple>stillen</purple> häufiger als Nicht-Akademikerinnen &ndash; und Kinder von Akademikerinnen entwickeln seltener Übergewicht.
 
 
 ## Randomisiertes Experiment
@@ -484,6 +496,7 @@ Aber: Akademikerinnen <purple>stillen</purple> häufiger als Nicht-Akademikerinn
 Ein klassischer Lösungsansatz zur Bestimmung von durchschnittlichen kausalen Effekten sind **randomisierte Experimente** (engl. randomized controlled trial, RCT). Dabei werden Pfeile, die auf die Variable $\color{green}{X}$ zeigen eliminiert, und die Zuweisung $do(\color{green}{X}=\color{green}{x})$ erfolgt zufällig.
 
 *Hinweis*: Wäre an dieser Stelle ein randomisiertes Experiment überhaupt ethisch vertretbar und praktisch umsetzbar? 
+Können wir randomisieren, welche Mütter stillen und welche nicht?
 Im Interview mit der Ökonomin Anne Brenøe erfahren Sie mehr zu Designs, mit denen die kausalen Effekte des Stillens in der Praxis untersucht werden können.
 
 
@@ -499,14 +512,14 @@ Mit einem möglichen Ergebnis wie folgt:
 akademikerin <- c(rep(0, 70), rep(1, 30))
 set.seed(2021)
 stillen <- numeric(100)
-pallergie <- numeric(100)
-allergie <- numeric(100)
+puebergewicht <- numeric(100)
+uebergewicht <- numeric(100)
 for(i in 1:100) 
   {
   stillen[i] <- sample(c(0,1), 1)
-  pallergie[i] <- ifelse(akademikerin[i], 0.3, 0.5)
-  pallergie[i] <- pallergie[i] - ifelse(stillen[i], 0.2, 0)
-  allergie[i] <- sample(c(0,1),1, prob = c(1-pallergie[i], pallergie[i]))
+  puebergewicht[i] <- ifelse(akademikerin[i], 0.3, 0.5)
+  puebergewicht[i] <- puebergewicht[i] - ifelse(stillen[i], 0.2, 0)
+  uebergewicht[i] <- sample(c(0,1),1, prob = c(1-puebergewicht[i], puebergewicht[i]))
 }
 
 akademikerins <- fontawesome(ifelse(akademikerin, "fa-graduation-cap", "fa-female"))
@@ -514,29 +527,29 @@ stillens <- ifelse(stillen, "#7A378B", "#FF8811")
 
 d <- crossing(x = 1:10,
               y = 1:10) %>%
-  mutate(allergie = allergie,
+  mutate(uebergewicht = uebergewicht,
          akademikerin = akademikerin,
          akademikerins = akademikerins,
          stillen = stillen,
          stillen = stillen) %>%
-  mutate(Allergie = ifelse(allergie == 1, "Ja","Nein"))
+  mutate(Übergewicht = ifelse(uebergewicht == 1, "Ja","Nein"))
 
 d2 <- d %>%
   mutate(stillen = ifelse(stillen, "Ja", "Nein")) %>%
   mutate(akademikerin = ifelse(akademikerin, "Ja", "Nein")) 
 
-pallergiestillene <- d2 %>%
+puebergewichtstillene <- d2 %>%
   filter(stillen == "Ja") %>%
-  prop( ~ Allergie, success = "Nein", .) %>% 
+  prop( ~ Übergewicht, success = "Nein", .) %>% 
   round(., digits = 2)
 
-pallergiekstillene <- d2 %>%
+puebergewichtkstillene <- d2 %>%
   filter(stillen == "Nein") %>%
-  prop( ~ Allergie, success = "Nein", .) %>% 
+  prop( ~ Übergewicht, success = "Nein", .) %>% 
   round(., digits = 2)
 
-pexp <- ggplot(d, aes(x = x, y = y, color = Allergie)) +
-  geom_tile(color = "white", size = .5, aes(fill = Allergie), alpha = .2) +
+pexp <- ggplot(d, aes(x = x, y = y, color = Übergewicht)) +
+  geom_tile(color = "white", size = .5, aes(fill = Übergewicht), alpha = .2) +
   theme_void() +
   geom_text(family='fontawesome-webfont', size = 8, aes(label = akademikerins), colour = stillens) +
   scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
@@ -546,15 +559,15 @@ pexp
 
 ```
 
-Ein Vergleich des Anteils <blue>Allergie</blue> je nach <green>Stillen</green> ergibt jetzt als Schätzer für den durchschnittlichen kausalen Effekt:
+Ein Vergleich des Anteils <blue>Übergewicht</blue> je nach <green>Stillen</green> ergibt jetzt als Schätzer für den durchschnittlichen kausalen Effekt:
 
-$$\color{purple}{`r pallergiestillene`}-\color{orange}{`r pallergiekstillene`}=`r (pallergiestillene -pallergiekstillene)`.$$
+$$\color{purple}{`r puebergewichtstillene`}-\color{orange}{`r puebergewichtkstillene`}=`r (puebergewichtstillene -puebergewichtkstillene)`.$$
 
 In der <red>fiktiven</red> Beobachtungsstudie war unsere Schätzung verzerrt gewesen aufgrund des Confounders <violet>Akademikerin</violet>. 
 
 In unserem <red>fiktiven</red> Experiment müssen wir uns um diese und andere Drittvariablen keine Sorgen mehr machen, weil sie nicht beeinflussen können, ob Mütter stillen oder nicht.
 
-Um von der reinen Vorhersage ("Wie wahrscheinlich ist es, dass eine zufällig gewählte Frau stillt?") zur **kausalen Inferenz** zu kommen ("Welchen Effekt hat das Stillen auf das Allergierisiko?") benötigt es mehr als nur die Daten.
+Um von der reinen Vorhersage ("Wie wahrscheinlich ist es, dass eine zufällig gewählte Frau stillt?") zur **kausalen Inferenz** zu kommen ("Welchen Effekt hat das Stillen auf das Risiko von Übergewicht?") benötigt es mehr als nur die Daten.
 Wir benötigen zusätzlich wissen darüber, wie die Daten entstanden sind &ndash; welche zusätzlichen Variablen die Variablen von Interesse beeinflusst haben, oder ob beispielsweise eine zufällige Intervention stattgefunden hat.
 
 ## 
@@ -569,7 +582,8 @@ Richard McElreath weist in seinem Vortrag [Causal Thinking for Descriptive Resea
 
 4. Was ist der Grund für mögliche Abweichungen zwischen (2) und (3)?
 
-In diesem Modul haben Sie statistische Methoden kennengelernt, wie Sie Datenerhebung, wenn möglich, optimal gestalten können, um in (4) keine Abweichungen festzustellen. Leider gelingt das nicht immer.
+In diesem Modul haben Sie statistische Methoden kennengelernt, wie Sie Datenerhebung, wenn möglich, optimal gestalten können, um in (4) keine Abweichungen festzustellen. Optimalerweise haben wir eine Zufallsstichprobe; optimalerweise gibt es eine zufällige Zuordnung zu experimentellen Gruppen.
+Leider gelingt das in der Praxis nicht immer; in manchen Situationen ist es schlicht nicht möglich.
 
 
 

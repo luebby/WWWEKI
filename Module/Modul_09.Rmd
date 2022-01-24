@@ -68,7 +68,7 @@ In diesem Modul lernen Sie:
 
 ## Der nicht-gegangene Weg
 
-Bei der (rückwirkenden) Beurteilung von Handlungen fragen wir uns häufig: *Wie wäre es gewesen, wenn ich mich anders entschieden hätte?*
+Bei der (rückblickenden) Beurteilung von Handlungen fragen wir uns häufig: *Wie wäre es gewesen, wenn ich mich anders entschieden hätte?*
 
 Zum Beispiel bei der Beurteilung des menschlichen Einflusses auf den Klimawandel: Wie wäre die Erderwärmung, wenn es die Industialisierung nicht gegeben hätte?
 
@@ -78,13 +78,14 @@ Oder zum Beispiel bei Fragen einer möglichen Diskriminierung: Hätte ich den Kr
 
 Entscheidend ist bei diesen Fragen und Überlegungen: Wir sind den einen Weg gegangen und kennen das Ergebnis. 
 
-Uns interessiert aber auch, wie das Ergebnis gewesen wäre, wenn wir den anderen Weg gegangen wären. 
-Wir wollen das **Counterfactual** bestimmen. 
+Uns interessiert aber auch, wie das Ergebnis gewesen wäre, wenn wir den anderen Weg gegangen wären.
+
+Wir wollen also das sogenannte **Counterfactual** bestimmen. 
 Dieser Wert ist kontrafaktisch in dem Sinne, dass er in der Realität nicht vorliegt, da ein anderes der **potenziellen Ergebnisse** vorliegt. 
 
 ***
 
-*Hinweis*: Siehe Modul 1.
+*Hinweis*: Siehe auch Modul 1.
 
 ***
 
@@ -109,7 +110,7 @@ Wir haben $X=x'$ und als Folge $Y=y'$ beobachtet. Wie wahrscheinlich ist dann $Y
 
 ***
 
-*Hinweis*: Siehe Modul 3.
+*Hinweis*: Siehe Modul 3 für die kausale Leiter.
 
 ***
 
@@ -126,10 +127,10 @@ question("Was ist beim Klimawandel das Counterfactual?",
 
 ## Lernen und Klausurerfolg
 
-Das Phänomen kennen sicherlich viele: Sie lernen für eine Klausur, z. B. 10 Stunden. 
+Das Phänomen kennen sicherlich viele: Sie lernen für eine Klausur, zum Beispiel insgesamt 10 Stunden. 
 Sie erreichen in der Klausur eine gute Note, sagen wir mit 50 Punkten.
 
-*Hätte ich mehr gelernt, etwa 20 Stunden, dann hätte ich eine sehr gute Note erreicht.*
+*"Hätte ich mehr gelernt, etwa 20 Stunden, dann hätte ich eine sehr gute Note erreicht."*
 
 Gehen wir &ndash; extrem stark vereinfacht &ndash; von folgendem kausalen Diagramm aus:
 
@@ -139,8 +140,8 @@ plot(DAG1)
 
 Dann ist <green>Lernzeit</green> die Ursache $\color{green}{X}$ und <blue>Klausurerfolg</blue> der Effekt $\color{blue}{Y}$.
 
-**Hinweis**: In Wirklichkeit gibt es natürlich viele weitere Faktoren, die hier eine Rolle spielen, dieses Beispiel ist eine *Karikatur* der Wirklichkeit mit dem Ziel das Konzept zu illustrieren. 
-Das Beispiel hat nicht den Anspruch die Wirklichkeit zu beschreiben!
+**Hinweis**: Für die Berechnung von Counterfactuals müssen Sie das zugrundeliegende kausale Modell kennen -- deswegen steht dieser Schritt auch an der Spitze der kausalen Leiter. In unserem Beispiel hier wird es in Wirklichkeit natürlich viele weitere Faktoren geben und der Effekt der Lernzeit auf den Klausurerfolg ist empirisch nicht leicht zu bestimmen. Wir vereinfachen hier stark, um das Konzept und die Berechnung von Counterfactuals im simplen Fall zu illustrieren.
+
 
 ##
 
@@ -165,13 +166,17 @@ Das bedeutet, dass der Mittelwert von $\color{blue}{Y}$ mit jeder Einheit von $\
 question("Welchen Wert für $Y$ erwarten Sie, wenn jemand $x'=10$ Stunden lernt?",
          answer("$0$"),
          answer("$10$"),
-         answer("$20$",  correct = TRUE, message = "Wenn wir für $U_Y$ einen Wert von $0$ erwarten, dann liegt der erwartete Wert von $Y$, wenn $x'=10$ ist, bei $2\\cdot 10 = 20$."),
+         answer("$20$",  correct = TRUE, message = "Wenn wir für $U_Y$ im Schnitt einen Wert von $0$ erwarten, dann liegt der erwartete Wert von $Y$, wenn $x'=10$ ist, bei $2\\cdot 10 = 20$."),
          answer("$30$"),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
          )
 ```
+
+
+*Hinweis*: Wie Sie im Interview mit Jakob Runge am Beispiel der Klimasysteme erfahren haben, erfordert das Aufstellen dieser Gleichungen in der Praxis viel theoretisches Hintergrundwissen.
+
 
 ## Abduktion
 
@@ -193,7 +198,7 @@ Damit wissen wir hier:
 
 ## Aktion
 
-*"Hätte ich mehr gelernt, zum Beispiel 20 Stunden."*
+*"Hätte ich mehr gelernt, zum Beispiel 20 Stunden..."*
 
 Wir wollen also wissen, was wäre der Effekt einer Handlung im Sinne von $do(\color{green}{x}=20)$, also anstelle von 
 
@@ -223,10 +228,10 @@ für das Counterfactual:
 
 $$\color{blue}{y}=2\cdot\color{green}{x}+\underbrace{U_{\color{blue}{y}}}_{=U_{\color{blue}{y'}}}=2\cdot 20 + 30 = 70.$$
 
-<red>&#9888;</red> Dass die Bestimmung des Counterfactuals in diesem karikierten Beispiel so einfach war, liegt daran, dass wir nur zwei Variablen und für diese auch noch ein lineares Modell angenommen haben.
+<red>&#9888;</red> Dass die Bestimmung des Counterfactuals in diesem karikierten Beispiel so einfach war, liegt daran, dass wir nur zwei Variablen und für diese auch noch ein lineares datengenerierendes Modell angenommen haben.
 
 ```{r vorhersage, echo=FALSE}
-question("Wie lautet das Counterfactual $y$, wenn $x=10$ ist, sowie $x'=20$ und $y'=30$ beobachtet wurden?",
+question("Wie lautet das Counterfactual $y$, wenn $x=10$ ist, sowie $x'=20$ und $y'=30$ beobachtet wurden? Zur Erinnerung, Sie müssen zunächst aus den beobachteten Werten $U_{y'}$ bestimmen und diesen Wert dann im Counterfactual für $U_{y}$ einsetzen.",
          answer("$0$"),
          answer("$10$",  correct = TRUE, message = "Aus $x'=20$ und $y'=30$ folgt über Abduktion, dass $U_{y'}=30-2\\cdot 20 = -10$ ist. Damit gilt: $y=2\\cdot 10 -10 = 10$."),
          answer("$20$"),

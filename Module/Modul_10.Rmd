@@ -75,26 +75,27 @@ Kann das sein? Mensch denkt doch immer eher, dass Frauen im Job (und beim Gehalt
 
 Aber beides kann gleichzeitig stimmen: Frauen können im Job benachteiligt werden *und* Frauen können als Vorstand ein höheres Gehalt erzielen als Männer. 
 
-Korrelation bedeutet nicht Kausalität. Verzerrungen durch Mediatoren, Confounder oder Collider lauern überall und können Verzerrungen (Bias) erzeugen.  
-Um Kausalität zu untersuchen müssen wir über den datengenerierenden Prozess nachdenken: Wie sind die Daten entstanden?
+Korrelation bedeutet nicht Kausalität. Mediatoren, Confounder und Collider lauern überall und können Verzerrungen (Bias) erzeugen.  
+Um Kausalität zu untersuchen müssen wir über den datengenerierenden Prozess nachdenken: Wie sind die Daten entstanden? Hier: Wie kommen die Gehälter von Frauen und Männern in Vorstandspositionen zustande?
 
 Und dies haben Sie in diesem Kurs gelernt &#127942;
 
 ## Die Annahmen
 
-Und hier die qualitativen Annahmen des datengenerierenden Prozesses:
+Hier unsere qualitativen Annahmen des datengenerierenden Prozesses:
 
 1. Die *Fähigkeit* für den (Vorstands-)Job ist unabhängig vom *Geschlecht*.
 
-2. Ob jemand in den *Vorstand* kommt, hängt ab von der *Fähigkeit* und dem *Geschlecht*.
+2. Ob jemand in den *Vorstand* kommt, hängt ab von der *Fähigkeit* und dem *Geschlecht*. 
+(Für letzteres kann es unterschiedlichste Erklärungen geben: Beispielsweise kann es sein, dass Frauen weniger in solche Positionen befördert werden; es kann aber auch sein, dass sie sich weniger für solche Positionen interessieren.)
 
-3. Das *Gehalt*, das eine Person bekommt, hängt ab von der *Fähigkeit*, von der Tätigkeit als *Vorstand* und vom *Geschlecht*.
+3. Das *Gehalt*, das eine Person bekommt, hängt ab von der *Fähigkeit*, von der Tätigkeit als *Vorstand* und zumindest potentiell auch vom *Geschlecht*.
 
 ```{r pfeil1, echo=FALSE}
 question("Gibt es einen Pfeil zwischen *Fähigkeit* und *Geschlecht*?",
   answer("Ja, in der Form *Fähigkeit* $\\rightarrow$ *Geschlecht*."),
   answer("Ja, in der Form *Geschlecht* $\\rightarrow$ *Fähigkeit*."),
-  answer("Nein.", correct = TRUE, message = "Wir nehmen an, dass es keinen Zusammenhang zwischen *Fähigkeit* und *Geschlecht* gibt, daher gibt es auch keinen Pfeil."),
+  answer("Nein.", correct = TRUE, message = "Wir nehmen hier an, dass es keinen Zusammenhang zwischen *Fähigkeit* und *Geschlecht* gibt, daher gibt es auch keinen Pfeil."),
   allow_retry = TRUE,
   correct = random_praise(),
   incorrect = random_encouragement()
@@ -206,7 +207,7 @@ knitr::kable(head(GPG, 5))
 
 ## Analyse 1
 
-Wie konstruiert: 
+Wie konstruiert gemäß unserer Annahmen: 
 
 Es gibt keine nennenswerten Unterschiede (hier: im arithmetischen Mittelwert, engl. mean; Funktion `mean()`) in der Fähigkeit zwischen den Geschlechtern:
 
@@ -272,13 +273,13 @@ GPG %>%
 
 <br>
 
-Und das Gehalt hängt ja, neben dem Geschlecht und der Tätigkeit im Vorstand auch von der Fähigkeit ab &ndash; so die Annahme.
+Und das Gehalt hängt ja, neben dem Geschlecht und der Tätigkeit im Vorstand auch von der Fähigkeit ab &ndash; so hier die Annahme.
 
 ## Verzerrung
 
 Wie in Modul 6 besprochen: 
 
-Adjustierung eines Colliders erzeugt eine Verzerrung, es wird ein Scheinzusammenhang, der den Effekt des Geschlechts auf das Gehalt verzerrt. Mit [DAGitty](http://dagitty.net/) kann dies schön gezeigt werden:
+Adjustierung eines Colliders (Tätigkeit im Vorstand) erzeugt eine Verzerrung, es wird ein Scheinzusammenhang erzeugt, der den Effekt des Geschlechts auf das Gehalt verzerrt. Mit [DAGitty](http://dagitty.net/) kann dies schön gezeigt werden:
 
 ![](images/GPG-2.png){width="75%"}
 

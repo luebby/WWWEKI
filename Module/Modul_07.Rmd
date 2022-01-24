@@ -114,7 +114,7 @@ Also:
 $$\hat{\color{blue}{y}}_i = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]` \cdot \color{green}{x}_i $$
 
 ```{r Steigung, echo=FALSE}
-message <- "Die anhand der Stichprobe im linearen Modell geschätzte Steigung liegt bei $\\hat{\\beta}_1= 22573$, der geschätzte Achsenabschnitt, also der Mittelwert des Preises bei $x=0$ Räumen, bei $\\hat{\\beta}_0=53016$."
+message <- "Die anhand der Stichprobe im linearen Modell geschätzte Steigung liegt bei $\\hat{\\beta}_1= 22573$. Bei $\\hat{\\beta}_0=53016$ handelt es sich um den geschätzten Y-Achsenabschnitt, also der Mittelwert des Preises bei $x=0$ Räumen."
 question("Im linearen Modell der Stichprobe: Um wie viel erhöht sich im Mittel der Preis pro Raum?",
          answer("53016"),
          answer("22573", correct = TRUE, message = message),
@@ -140,7 +140,7 @@ $$\hat{\color{blue}{y}} = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]
 Quelle: [https://pixabay.com/de/vectors/idee-erfindung-erfinder-denken-152213/](Quelle: https://pixabay.com/de/vectors/idee-erfindung-erfinder-denken-152213/)
 </span>
 
-Nun könnte man einen genialen Einfall haben: Man teilt das Wohnzimmer einfach auf.
+Nun könnte man einen scheinbar genialen Einfall haben: Man teilt das Wohnzimmer einfach auf.
 Aus Eins mach Zwei, aus $4$ Zimmern werden $5$, $do(\color{green}{x}=\color{green}{5})$. 
 Dann gilt gemäß des Modells:
 
@@ -148,7 +148,7 @@ $$\hat{\color{blue}{y}} = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]
 
 ```{r Wertsteigerung, echo=FALSE}
 message <- "Das geschätzte lineare Modell der Stichprobe bezieht sich auf die Beobachtungsdaten ($X=x$), d. h., die Steigung beschreibt die beobachtete Änderung des Mittelwertes, nicht den Effekt einer Handlung $do(X=x)$ (vgl. Modul 2)."
-question("Erhöht diese Raumteilung den Preis der Immobilie im Mittel um $22573$?",
+question("Erhöht eine solche Raumteilung den Preis der Immobilie im Mittel um $22573$?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -167,10 +167,13 @@ In den Module 4, 5 und 6 haben Sie die Grundelemente kausaler Diagramme kennenge
 | Name                       | Kette                           | Gabel                           | Umgedrehte Gabel         
 | Verbindung $\color{green}{X}$ und $\color{blue}{Y}$     | Kausal                          | Nicht kausal                    | Keine                       
 | Rolle von $\color{violet}{Z}$              | Mediator                        | Confounder                      | Collider
-| Adjustierung $\color{violet}{Z}$           | Unterbricht kausalen Pfad       | Unterbricht nicht kausalen Pfad | Öffnet nicht-kausalen Pfad
+| Adjustierung $\color{violet}{Z}$           | Unterbricht kausalen Pfad       | Unterbricht nicht-kausalen Pfad | Öffnet nicht-kausalen Pfad
 
+Wie können wir nun aus Beobachtungsdaten kausale Effekte schätzen?
 
-**Grundidee**: Um die Änderung von $\color{blue}{y}$ zu schätzen, wenn $\color{green}{x}$ verändert wird, sollten nicht-kausale Pfade (*Gabeln*) unterbrochen werden, kausale Pfade(*Ketten*) aber nicht. Gleichzeitig sollten keine nicht-kausalen Pfade (*umgedrehte Gabeln*) aufgemacht werden. 
+**Die Grundidee**: Um die Änderung von $\color{blue}{y}$ zu schätzen, wenn $\color{green}{x}$ verändert wird, sollten alle nicht-kausale Pfade (*Gabeln*) unterbrochen werden. 
+Gleichzeitig sollten kausale Pfade(*Ketten*) nicht unterbrochen werden.
+Zudem sollten keine nicht-kausalen Pfade (*umgedrehte Gabeln*) aufgemacht werden. 
 Während also in einer Gabel für $\color{violet}{Z}$ adjustiert werden sollte, sollte dies in einer Kette oder umgedrehten Gabel nicht passieren.
 
 <br>
@@ -248,6 +251,7 @@ lm(price ~ rooms + livingArea, data = SaratogaHouses)
 Gegeben die <violet>Wohnfläche</violet> ist der Effekt der <green>Anzahl Räume</green> auf den <blue>Preis</blue> viel kleiner. Statt einer geschätzten Steigung von $\hat{\beta}_1=`r round(coef(erglm1))[2]`$ im Modell *ohne* Berücksichtigung der <violet>Wohnfläche</violet> haben wir *mit* Berücksichtigung nur noch eine Steigung von $\hat{\beta}_1=`r round(coef(erglm2))[2]`$.
 
 Auch wenn dies immer noch ein stark vereinfachtes Modell ist: Der geschätzte kausale Effekt der Anzahl Räume auf den Preis ist im Modell mit der Wohnfläche (`price ~ rooms + livingArea`) realistischer als der ohne (`price ~ rooms`).
+Natürlich kann es zusätzlich noch weitere Confounder geben, die berücksichtigt werden sollten.
 
 ##
 
