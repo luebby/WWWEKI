@@ -48,12 +48,12 @@ p1 <- DiagrammeR::grViz("
 digraph {
 rankdir = LR;
  graph []
- node [shape = plaintext fontcolor = blue fontname = Poppins fontsize = 11]
-   A [label = 'Größe']
-   B [label = 'Geschlecht']
-   C [label = 'Alter']
-   D [label = 'RaucherIn' valign = 'bottom']
-   E [label = 'Lungenvolumen']
+ node [shape = circle fontcolor = black fontname = Poppins fontsize = 11 style = filled]
+   A [label = '    Größe     ']
+   B [label = '  Geschlecht ']
+   C [label = '    Alter     ']
+   D [label = '  RaucherIn  ' fillcolor = '#0F710B', valign = 'bottom']
+   E [label = 'Lungenvolumen' fillcolor = '#0033cc']
  edge [minlen = 2]
   {B; C} -> {A; E; D} [penwidth = .5]
        D -> {A; E} [penwidth = .5]

@@ -42,13 +42,13 @@ source("random-praise_de/translation_random-praise_de.R")
 p1 <- DiagrammeR::grViz("
 digraph {
 rankdir = LR;
-ranksep = 0.5;
+ranksep = 0.7;
  graph []
- node [shape = plaintext fontcolor = blue fontname = Poppins fontsize = 6]
-   A [label = 'Kaffeekonsum']
-   B [label = 'Fehlgeburt']
-   C [label = 'Übelkeit']
-   U
+ node [shape = circle fontcolor = black fontname = Poppins fontsize = 6 style = filled]
+   A [label = 'Kaffeekonsum' fillcolor = '#0F710B']
+   B [label = '  Fehlgeburt  ' fillcolor = '#0033cc']
+   C [label = '    Übelkeit    ']
+   U [label = '         U        ']
  edge [minlen = 2]
   A -> B      [penwidth = .2]
   C -> A      [penwidth = .2]
@@ -78,11 +78,11 @@ p2 <- DiagrammeR::grViz("
 digraph {
 rankdir = LR;
  graph []
- node [shape = plaintext fontcolor = blue fontname = Poppins fontsize = 11]
+ node [shape = circle fontcolor = black fontname = Poppins fontsize = 11 style = filled]
    A [label = 'Intrinsische Robustheit']
-   B [label = 'Art der Gesellschaft']
-   C [label = 'Bis 5 Überleben']
-   D [label = 'Bis 70 Überleben']
+   B [label = '  Art der Gesellschaft  ' fillcolor = '#0F710B']
+   C [label = '    Bis 5 Überleben    ']
+   D [label = '    Bis 70 Überleben    ' fillcolor = '#0033cc']
  edge [minlen = 2]
    {A; B} -> {C; D} [penwidth = .5]
         C -> D      [penwidth = .5]
@@ -182,7 +182,7 @@ question("Auf welche fundamentale kausale Struktur zwischen Kaffeekonsum, Übelk
 ## Kaffee-Graph
 
 <center>
-```{r p1, echo=FALSE, out.widht="40%"}
+```{r p1, echo=FALSE, out.width="40%"}
 p1
 ```
 </center>
@@ -232,7 +232,7 @@ Vielleicht werden die Effekte, die uns die moderne Medizin bringt, komplett aufg
 Aber bevor wir mit solchen Spekulationen beginnen, sollten wir uns zuerst Gedanken darüber machen, wie diese Daten &ndash; niedrige Lebenserwartung ab Geburt, recht hohe Lebenserwartung *nach überstandener Kindheit* &ndash; zustande kommen.
 
 <center>
-```{r p2, echo=FALSE}
+```{r p2, echo=FALSE, out.width='60%'}
 p2
 ```
 </center>
