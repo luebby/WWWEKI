@@ -40,7 +40,7 @@ DAG_Fork <- dagify(X ~ Z,
                    Y ~ X,
                    coords = co) %>% 
   ggdag() + 
-  geom_dag_point(colour = c("#0000FF", "#DA70D6", "#0F710B")) + 
+  geom_dag_point(colour = c("#0F710B", "#DA70D6","#0000FF")) + 
   geom_dag_text(size = 8) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
