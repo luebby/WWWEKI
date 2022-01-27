@@ -72,7 +72,7 @@ In diesem Modul lernen Sie:
 
 ## Aller guten Dinge sind drei
 
-Auch komplexe kausale Diagramme bestehen aus relativ einfachen Grundelementen. Neben der Kette und der Gabel gibt es noch als drittes die **umgedrehte Gabel** (engl.: inverted fork). 
+Auch komplexe kausale Diagramme bestehen aus relativ einfachen Grundelementen. Neben der Kette und der Gabel gibt es noch als Drittes die **umgedrehte Gabel** (engl.: inverted fork). 
 
 Zur Erinnerung: $$A \rightarrow B$$ sagt aus, dass $B$ auf $A$ *hört*, aber nicht umgekehrt. 
 

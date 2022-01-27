@@ -145,7 +145,7 @@ Tatsächlich kann sogar die Berücksichtigung des Mediators dazu führen, dass d
 
 ***
 
-*Anmerkung*: Im Kontext von Mediation wird zwischen *totalen*, *direkten* und *indirekten* Effekte unterscheiden. Im Beispiel interessiert und der gesamte Effekt von Geschlecht, der totale Effekt. 
+*Anmerkung*: Im Kontext von Mediation wird zwischen *totalen*, *direkten* und *indirekten* Effekte unterscheiden. Im Beispiel interessiert uns der gesamte Effekt von Geschlecht, der totale Effekt. 
 
 Würde uns stattdessen interessieren, inwiefern Geschlecht unabhängig von Beförderung einen Effekt auf das Gehalt hat, so wäre das Analyseziel der direkte Effekt. Und wenn uns interessieren würde, inwiefern die Effekte des Geschlechts über Beförderungen vermittelt würden, so wäre das Analyseziel der indirekte Effekt.
 
