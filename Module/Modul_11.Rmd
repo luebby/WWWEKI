@@ -271,11 +271,12 @@ Tatsächlich gibt es manchmal Situationen, in denen selbst mit weniger Kontrolle
 Das liegt daran, dass manchmal einzelne Variablen auf mehreren konfundierenden Pfaden liegen.
 Somit kann das Berücksichtigen einer einzelnen Variable manchmal mehrere "Probleme" auf einmal lösen.
 
-Ob die Adjustierung für eine Menge an Variablen (für ein *Adjustment Set*) hinreichend ist, um einen kausalen Effekt von Interesse zu identifizieren, kann mithilfe des sogenannten *Back-Door Criterion* (Hintertür-Kriterium) bestimmt werden.
-Wenn Sie die präzise Formulierung dieses Kriteriums interessiert, können Sie es in Judea Pearls Artikel ["Causal Diagrams for Empirical Research"](http://bayes.cs.ucla.edu/R218-B.pdf) nachlesen.
+Ob die Adjustierung für eine Menge an Variablen (für ein *Adjustment Set*) hinreichend ist, um einen kausalen Effekt von Interesse zu identifizieren, kann u.a. mithilfe des sogenannten *Back-Door Criterion* (Hintertür-Kriterium) bestimmt werden.
+Wenn Sie die präzise Formulierung dieses Kriteriums interessiert, können Sie es in Judea Pearls Artikel ["Causal Diagrams for Empirical Research"](http://bayes.cs.ucla.edu/R218-B.pdf) nachlesen. 
+Exemplarische Beispiele für die Auswirkungen von Variablen bietet der ["A Crash Course in Good and Bad Controls"](https://ftp.cs.ucla.edu/pub/stat_ser/r493.pdf) von Cinelli et al..
 
 Hinreichende Adjustment Sets lassen sich praktischerweise algorithmisch bestimmten.
-Wenn Sie beispielsweise den angenommenen kausalen Graphen in [DAGitty](http://dagitty.net/) (siehe Modul 10) zeichnen, dann bestimmt die Software automatisch alle existierenden *minimal sufficient adjustment sets*, also die kleinstmöglichen Adjustment Sets, die ausreichen, um den kausalen Effekt zu identifizieren.
+Wenn Sie beispielsweise den angenommenen kausalen Graphen in [DAGitty](http://dagitty.net/) (siehe Modul 10) zeichnen, dann bestimmt die Software automatisch alle existierenden *minimal sufficient adjustment sets*, also die kleinstmöglichen Adjustment Sets, die ausreichen, um den kausalen Effekt zu identifizieren. 
 
 
 
