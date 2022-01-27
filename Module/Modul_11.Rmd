@@ -66,7 +66,8 @@ rankdir = LR;
 
 In diesem Modul lernen Sie:
 
-- die Bestimmung eines kausalen Effekts mit Hilfe einer linearen Regression in `R` anhand eines realen Beispiels.
+- die Bestimmung eines kausalen Effekts mit Hilfe einer linearen Regression in `R` anhand eines realen Beispiels;
+- wie Sie bestimmen können, welche Variablen in der Praxis adjustiert werden müssen.
 
 
 ## Rauchen bei Kindern und Jugendlichen
@@ -260,6 +261,23 @@ question("Hat in dem Modell Rauchen den zu erwartenden negativen Effekt auf das 
 ```
 
 *Anmerkung*: Das lineare Modell stellt hier nur eine pragmatische Näherung da, weil es nicht-lineare Zusammenhänge zwischen Alter und Größe sowie Größe und Lungenvolumen gibt. Um den Effekt des Rauchens präzise zu schätzen, sollten diese nicht-linearen Zusammenhänge auch wirklich nicht-linear modelliert werden.
+
+## Adjustment Sets
+Natürlich könnten Sie für den Zusammenhang zwischen Rauchen und Lungenvolumen noch einen viel komplexeren Graphen erstellen, der zahlreiche potentielle Konfundierende enthält.
+
+Müssten wir, wenn wir einen solchen Graphen annehmen, dann automatisch immer für alle Konfundierenden adjustieren?
+
+Tatsächlich gibt es manchmal Situationen, in denen selbst mit weniger Kontrolle unverzerrte Effekte geschätzt werden können.
+Das liegt daran, dass manchmal einzelne Variablen auf mehreren konfundierenden Pfaden liegen.
+Somit kann das Berücksichtigen einer einzelnen Variable manchmal mehrere "Probleme" auf einmal lösen.
+
+Ob die Adjustierung für eine Menge an Variablen (für ein *Adjustment Set*) hinreichend ist, um einen kausalen Effekt von Interesse zu identifizieren, kann mithilfe des sogenannten *Back-Door Criterion* (Hintertür-Kriterium) bestimmt werden.
+Wenn Sie die präzise Formulierung dieses Kriteriums interessiert, können Sie es in Judea Pearls Artikel ["Causal Diagrams for Empirical Research"](http://bayes.cs.ucla.edu/R218-B.pdf) nachlesen.
+
+Hinreichende Adjustment Sets lassen sich praktischerweise algorithmisch bestimmten.
+Wenn Sie beispielsweise den angenommenen kausalen Graphen in [DAGitty](http://dagitty.net/) (siehe Modul 10) zeichnen, dann bestimmt die Software automatisch alle existierenden *minimal sufficient adjustment sets*, also die kleinstmöglichen Adjustment Sets, die ausreichen, um den kausalen Effekt zu identifizieren.
+
+
 
 ## Hinweis
 
