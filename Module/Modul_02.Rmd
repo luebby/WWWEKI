@@ -403,7 +403,17 @@ question("Welche Darstellung beschreibt die Intervention, die dazu führt, dass 
 
 Wenn die angenommene Ursache in Wirklichkeit die Wirkung ist, und umgekehrt die Wirkung in Wirklichkeit die Ursache, haben wir das Problem der **Umgedrehten Kausalität**. Wir vermuten $A \rightarrow B$, aber in Wirklichkeit gilt $B \rightarrow A$.
 
-Die Unterscheidung zwischen Ursache und Wirkung erfolgt hier aus inhaltlichen, theoretischen Überlegungen. Dabei können z.B. zeitliche Überlegungen helfen (die Ursache erfolgt vor der Wirkung), aber insbesondere auch Experimente (siehe Modul 8). Beides ist auch Bestandteil der [Bradford-Hill-Kriterien](https://journals.sagepub.com/doi/pdf/10.1177/003591576505800503).
+Die Unterscheidung zwischen Ursache und Wirkung erfolgt hier aus inhaltlichen, theoretischen Überlegungen. Dabei können z.B. zeitliche Überlegungen helfen (die Ursache erfolgt vor der Wirkung), aber insbesondere auch Experimente (siehe Modul 8). Beides ist auch Bestandteil der [Bradford-Hill-Kriterien](https://journals.sagepub.com/doi/pdf/10.1177/003591576505800503):
+
+- Stärke: Eine Beziehung ist eher kausal, wenn der Zusammenhang groß und statistisch signifikant ist. 
+- Konsistenz: Eine Beziehung ist eher kausal, wenn sie wiederholt bestätigt werden kann. 
+- Spezifität: Eine Beziehung ist eher kausal, wenn es keine andere Erklärung gibt. 
+- Zeitlichkeit: Eine Beziehung ist eher kausal, wenn die Wirkung  nach der Ursache auftritt. 
+- Gradient: Eine Beziehung ist eher kausal, wenn eine größerer Wert in der Ursache zu einem größeren Wert in der Wirkung führt. 
+- Plausibilität: Eine Beziehung ist eher kausal, wenn es einen inhaltlich plausiblen Mechanismus zwischen Ursache und Wirkung gibt.
+- Kohärenz: Eine Beziehung ist eher kausal, wenn sie mit bekannten Fakten und Theorien vereinbar ist. 
+- Experiment: Eine Beziehung ist eher kausal, wenn sie experimentell verifiziert werden kann. 
+- Analogie: Eine Beziehung ist eher kausal, wenn es nachgewiesene Beziehungen zwischen ähnlichen Ursachen und Wirkungen gibt.
 
 ## Ausblick
 
