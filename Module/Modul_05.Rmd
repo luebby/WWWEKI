@@ -297,6 +297,53 @@ Der im linearen Modell der Stichprobe geschätze Effekt ist also viel kleiner, u
 
 Tatsächlich ist er auch nicht mehr statistisch signifikant verschieden von 0.
 
+## Ach du liebe Zeit
+
+Wird die gemeinsame Entwicklung von zwei Variablen über die Zeit betrachtet, so erzeugt die *liebe Zeit* häufig hohe Korrelationen. So z.B. zwischen der Scheidungsrate in Maine und dem Pro-Kopf-Verbrauch von Magarine:
+
+<img src="images/tv-sc.png" alt="Korrelation Scheidungsrate und Magarine" width="100%" height="100%">
+<!-- style="padding-left:50px;" -->
+<span style="font-size: 10px;"><br>
+Quelle: [Tyler Vigen: Spurious Correlations](https://tylervigen.com/spurious-correlations)
+</span>
+
+Grund für die hohe Korrelation ist einfach nur, beides, sowohl die Scheidungsrate als auch der Konsum von Magarine, sind im Laufe der Zeit zurückgegangen. Weder führten die weniger Scheidungen zu weniger Magarinekonsum, noch der Rückgang des Magarinekonsums zu weniger Scheidungen.
+
+Eine einfache Simulation eines *Random Walks mit Drift* verdeutlicht das Phänomen. Hier haben beide Variablen einen Trend &ndash; aber ansonsten haben sie nichts miteinander zu tun, also weder ist `x1` die Ursache von `x2` noch umgekehrt. 
+
+```{r rw, exercise=TRUE, exercise.lines=30}
+# Anzahl Zeitpunkte
+n <- 100
+zeitpunkte <- 1:n
+# Drift
+d1 <- 0.1
+d2 <- 0.2
+# Vektoren bereitstellen
+x1 <- numeric(n)
+x2 <- numeric(n)
+# Startwerte (Zeitpunkt 1)
+x1[1] <- 0
+x2[1] <- 0
+# Simulation Random Walk mit Drift über Schleife
+# Neue Beobachtung = Vorherige Beobachtung + Drift + Zufall
+for (i in 2:n)
+{
+  x1[i] <- x1[(i-1)] + d1 + rnorm(1, mean = 0, sd = 1)
+  x2[i] <- x2[(i-1)] + d2 + rnorm(1, mean = 0, sd = 1)
+}
+# Datentabelle
+RandomWalk <- data.frame(
+  zeitpunkte = zeitpunkte,
+  x1 = x1,
+  x2 = x2
+)
+# Abbildung
+gf_line(x1 ~ zeitpunkte, color = "orange", data = RandomWalk) %>%
+  gf_line(x2 ~ zeitpunkte, color = "purple", data = RandomWalk) %>%
+  gf_labs(y = "Entwicklung")
+# Korrelation (inkl. Test)
+cor.test(x1 ~ x2, data = RandomWalk)
+```
 
 
 ## Zusammenfassung
