@@ -399,6 +399,12 @@ question("Welche Darstellung beschreibt die Intervention, die dazu führt, dass 
          )
 ```
 
+## Umgedrehte Kausalität
+
+Wenn die angenommene Ursache in Wirklichkeit die Wirkung ist, und umgekehrt die Wirkung in Wirklichkeit die Ursache, haben wir das Problem der **Umgedrehten Kausalität**. Wir vermuten $A \rightarrow B$, aber in Wirklichkeit gilt $B \rightarrow A$.
+
+Die Unterscheidung zwischen Ursache und Wirkung erfolgt hier aus inhaltlichen, theoretischen Überlegungen. Dabei können z.B. zeitliche Überlegungen helfen (die Ursache erfolgt vor der Wirkung), aber insbesondere auch Experimente (siehe Modul 8). Beides ist auch Bestandteil der [Bradford-Hill-Kriterien](https://journals.sagepub.com/doi/pdf/10.1177/003591576505800503).
+
 ## Ausblick
 
 Kausale Inferenz hilft die Unterschiede in den Verteilungen der Wirkung $\color{blue}{Y}$ zu untersuchen, je nachdem ob $\color{green}{X}$ beobachtet wurde &ndash; oder der Wert durch eine Handlung festgelegt wird ($do(\color{green}{X})$).
