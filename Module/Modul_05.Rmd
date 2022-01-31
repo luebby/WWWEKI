@@ -300,7 +300,18 @@ Der beobachtete Mini-Zusammenhang kann also auch nur Zufallsschwankungen widersp
 Und natürlich könnte es darüber hinaus noch weitere Konfundierende geben.
 
 
-## Ach du liebe Zeit
+## Zusammenfassung
+
+:::{.box}
+Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer Gabel $$X \leftarrow Z \rightarrow Y$$ zu bestimmen, muss der Confounder $Z$ berücksichtigt werden. 
+Wird $Z$ nicht berücksichtigt, bleibt die Gabel offen und ein nicht-kausaler Zusammenhang zwischen $X$ und $Y$ fließt in die Analyse ein.
+Die Berücksichtigung kann beispielsweise erfolgen durch einen stratifizierten Vergleich oder durch Aufnahme der Variable in ein lineares Modell.
+Wird so korrekt adjustiert, dann ist die Gabel geschlossen und beeinträchtigt nicht mehr die Interpretierbarkeit der Analyse.
+::: 
+
+
+
+## Ausblick: Ach du liebe Zeit
 
 Wird die gemeinsame Entwicklung von zwei Variablen über die Zeit betrachtet, so erzeugt die *liebe Zeit* häufig hohe Korrelationen. So z.B. zwischen der Scheidungsrate in Maine und dem Pro-Kopf-Verbrauch von Magarine:
 
@@ -350,15 +361,6 @@ gf_line(x1 ~ zeitpunkte, color = "orange", data = RandomWalk) %>%
 cor.test(x1 ~ x2, data = RandomWalk)
 ```
 
-
-## Zusammenfassung
-
-:::{.box}
-Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer Gabel $$X \leftarrow Z \rightarrow Y$$ zu bestimmen, muss der Confounder $Z$ berücksichtigt werden. 
-Wird $Z$ nicht berücksichtigt, bleibt die Gabel offen und ein nicht-kausaler Zusammenhang zwischen $X$ und $Y$ fließt in die Analyse ein.
-Die Berücksichtigung kann beispielsweise erfolgen durch einen stratifizierten Vergleich oder durch Aufnahme der Variable in ein lineares Modell.
-Wird so korrekt adjustiert, dann ist die Gabel geschlossen und beeinträchtigt nicht mehr die Interpretierbarkeit der Analyse.
-::: 
 
 ## Hinweis
 
