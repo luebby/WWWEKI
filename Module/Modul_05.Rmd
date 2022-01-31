@@ -307,7 +307,7 @@ Wird die gemeinsame Entwicklung von zwei Variablen über die Zeit betrachtet, so
 Quelle: [Tyler Vigen: Spurious Correlations](https://tylervigen.com/spurious-correlations)
 </span>
 
-Grund für die hohe Korrelation ist einfach nur, beides, sowohl die Scheidungsrate als auch der Konsum von Magarine, sind im Laufe der Zeit zurückgegangen. Weder führten die weniger Scheidungen zu weniger Magarinekonsum, noch der Rückgang des Magarinekonsums zu weniger Scheidungen.
+Grund für die hohe Korrelation ist einfach nur, dass beides, sowohl die Scheidungsrate als auch der Konsum von Magarine, im Laufe der Zeit zurückgegangen ist. Weder führten die weniger Scheidungen zu weniger Magarinekonsum, noch der Rückgang des Magarinekonsums zu weniger Scheidungen.
 
 Eine einfache Simulation eines *Random Walks mit Drift* verdeutlicht das Phänomen. Hier haben beide Variablen einen Trend &ndash; aber ansonsten haben sie nichts miteinander zu tun, also weder ist `x1` die Ursache von `x2` noch umgekehrt. 
 
