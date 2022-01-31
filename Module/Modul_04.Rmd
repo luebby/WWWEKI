@@ -86,7 +86,7 @@ Zum Beispiel: das Drehen am Thermostat ($A$) führt zum Erwärmen der Heizung ($
 
 ## Lernen und Verstehen
 
-Das folgende Beispiel ist fiktiv &ndash; und eine sehr starke Vereinfachung. Außerdem werden die wichtigen Fragen, wie die Variablen jeweils gemessen werden, nicht behandelt.
+Das folgende Beispiel ist fiktiv &ndash; und eine sehr starke Vereinfachung. Außerdem wird die wichtige Frage, wie die Variablen jeweils gemessen werden, nicht behandelt.
 
 ***
 
@@ -163,7 +163,11 @@ In `R` sind Simulationen für das Modell
 \color{blue}{Y} &=& f_{\color{blue}{Y}}(\color{violet}{Z},U_{\color{blue}{Y}}).
 \end{eqnarray*}
 
-hinterlegt. Simulieren Sie Beobachtungen in dem Sie mehrfach auf `Ausführen` klicken:
+hinterlegt. 
+
+Zur Erinnerung (siehe auch Modul 2), $U$ bezeichnet jeweils unbekannte Ursachen; $f$ die Funktionen, anhand derer den Variablen Werte zugewiesen werden.
+
+Simulieren Sie Beobachtungen in dem Sie mehrfach auf `Ausführen` klicken und versuchen Sie zu erkennen, wie die Variablen miteinander zusammenhängen:
 
 ```{r sim, exercise=TRUE}
 x <- U_X()
@@ -192,7 +196,7 @@ Statt nur zu beobachten ($\color{green}{X} = U_{\color{green}{X}}$) können wir 
 Im Code-Beispiel ist $do(\color{green}{X}=1)$. Drücken Sie zunächst ein paar Mal auf `Ausführen` um zu gucken, wie die Werte von Verstehen ($\color{blue}{Y}$) im Falls von $do(\color{green}{X}=1)$ aussehen. Ändern Sie anschließend den Code so, dass Sie $do(\color{green}{X}=10)$ simulieren können. Was passiert? 
 
 ```{r simdo, exercise=TRUE}
- # do(X=1)
+ # Hier der Befehl fuer do(X=1)
 x <- 1
 cat("Wert x (Lernen):", x, "\n")
 z <- f_Z(x)
