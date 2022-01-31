@@ -295,7 +295,10 @@ lm(geburten ~ stoerche + flaeche, data = StoercheGeburten)
 Während ohne Berücksichtigung der <violet>Fläche</violet> die geschätzte Steigung der <blue>Anzahl Geburten</blue> in Richtung der <green>Anzahl Störche</green> bei $`r round(coef(lm_oA)[2],4)`$ liegt, liegt der Wert nach Berücksichtung der Fläche nur noch bei $`r round(coef(lm_mA)[2],4)`$. 
 Der im linearen Modell der Stichprobe geschätze Effekt ist also viel kleiner, und vermutlich näher an dem realen kausalen Effekt von Störchen auf Geburten.
 
-Tatsächlich ist er auch nicht mehr statistisch signifikant verschieden von 0.
+Tatsächlich ist schon in diesem Modell der Effekt nicht mehr statistisch signifikant verschieden von 0.
+Der beobachtete Mini-Zusammenhang kann also auch nur Zufallsschwankungen widerspiegeln.
+Und natürlich könnte es darüber hinaus noch weitere Konfundierende geben.
+
 
 ## Ach du liebe Zeit
 
