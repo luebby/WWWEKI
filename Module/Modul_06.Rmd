@@ -167,7 +167,7 @@ Betrachten wir das folgende strukturelle kausale Modell:
 \color{violet}{Z} &=& (1-U_{\color{violet}{Z}}) \cdot \tilde{\color{violet}{Z}} + U_{\color{violet}{Z}} \cdot (1- \tilde{\color{violet}{Z}}), \quad U_{\color{violet}{Z}} \sim \mathcal{B}(0.05),
 \end{eqnarray*}
 
-$\mathcal{N}(0,\,1)$ steht für eine eine Standardnormalverteilung, $\mathcal{B}(0.05)$ für eine Bernoulliverteilung mit $\pi=0.05$. $\tilde{\color{violet}{Z}}$ ist dabei eine Hilfsvariable, die den Wert $1$ annimmt, wenn $\color{green}{X}$ oder $\color{blue}{Y}$ größer als $1$ ist. Ansonsten ist $\tilde{\color{violet}{Z}}=0$.
+$\mathcal{N}(0,\,1)$ steht für eine eine Standardnormalverteilung, $\mathcal{B}(0.05)$ für eine Bernoulliverteilung mit $\pi=0.05$. $\tilde{\color{violet}{Z}}$ ist dabei eine Hilfsvariable, die den Wert $1$ annimmt, wenn $\color{green}{X}$ oder $\color{blue}{Y}$ größer als $1$ ist. Ansonsten ist $\tilde{\color{violet}{Z}}=0$. Ob $\color{violet}{Z}$ dann wirklich $0$ (kein Date) oder $1$ (Date) ist hängt dann auch noch ein Wenig vom zufälligen Glück ab.
 
 $\vee$ ist das logische *oder* (`|` in `R`). 
 
