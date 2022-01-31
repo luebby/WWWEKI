@@ -136,7 +136,8 @@ Zur Erinnerung, bei einer **Gabel** gibt es einen nicht-kausalen Pfad von $\colo
 $$\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
 
 Angenommen: Im Sommer wird bei <violet>Sonnenschein</violet> sowohl mehr <green>Eis</green> als auch mehr <blue>Sonnencreme</blue> verkauft.
-<green>Eis</green> und <blue>Sonnencreme</blue> sind (*unbedingt*, *marginal*) nicht unabhängig: Wenn ich weiß, dass viel <green>Eis</green> verkauft wurde, kann ich davon ausgehen, dass auch viel <blue>Sonnencreme</blue> verkauft wurde. Vermutlich führte <violet>Sonnenschein</violet> zu hohem <green>Eisverkauf</green> und so auch zu hohem <blue>Sonnencremeverkauf</blue>. 
+<green>Eis</green> und <blue>Sonnencreme</blue> sind nicht unabhängig: Wenn ich weiß, dass viel <green>Eis</green> verkauft wurde, kann ich davon ausgehen, dass auch viel <blue>Sonnencreme</blue> verkauft wurde. Vermutlich führte <violet>Sonnenschein</violet> zu hohem <green>Eisverkauf</green> und so auch zu hohem <blue>Sonnencremeverkauf</blue>. Der Zusammenhang wird beobachtet, wenn keine weiteren Variablen berücksichtigt werden -- man nennt ihn auch *unbedingt*, *marginal.*
+
 Über die Information <green>Eis</green> kann man über <violet>Sonnenschein</violet> etwas über <blue>Sonnencreme</blue> lernen.
 Wenn ich weiß, dass <violet>Sonnenschein</violet> ist, enhält die Information, dass viel <green>Eis</green> verkauft wurde, keine zusätzliche Information über <blue>Sonnencreme</blue>. *Bedingt* <violet>Sonnenschein</violet>, das heißt wenn ich weiß, dass die Sonne scheint, sind <green>Eis</green> und <blue>Sonnencreme</blue> unabhängig.
 
@@ -170,6 +171,8 @@ $\mathcal{N}(0,\,1)$ steht für eine eine Standardnormalverteilung, $\mathcal{B}
 
 $\vee$ ist das logische *oder* (`|` in `R`). 
 
+
+
 Folgender `R` Code simuliert diesen datengenerierenden Prozess:
 
 ```{r sim, eval=FALSE}
@@ -190,7 +193,9 @@ Worauf es in diesem Modul aber ankommt, sind die Daten, die dabei rauskommen:
 
 ```{r scatter, echo=FALSE, fig.align='center', out.width='85%'}
 gf_point(y ~ x, data = SimData, color = ~z) +
-  scale_color_colorblind()
+  scale_color_colorblind()  +
+  xlab("x (Nettigkeit)") +
+  ylab("y (Aussehen)")
 ```
 
 ## Zusammenhänge
@@ -203,7 +208,9 @@ Wenn wir, getrennt nach <violet>Date</violet> ($\color{violet}{Z}$), eine linear
 ```{r scatterlm, echo=FALSE, fig.align='center', out.width='85%'}
 gf_point(y ~ x, data = SimData, color = ~z) %>%
   gf_lm() +
-  scale_color_colorblind()
+  scale_color_colorblind() +
+  xlab("x (Nettigkeit)") +
+  ylab("y (Aussehen)")
 ```
 
 ```{r corb, echo=FALSE}
