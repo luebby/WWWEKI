@@ -163,20 +163,23 @@ Selbst wenn wir nicht den kompletten kausalen Graphen kennen, hilft uns das Wiss
 
 ## Beispiel 1: Kaffeekonsum und Fehlgeburten
 
-Koffein kann bei Schwangeren die Plazenta durchqueren und mütterlicher Kaffeekonsum wurde mit Fehlgeburten in Verbindung gebracht.
+Beobachtungsstudien berichten eine Korrelation zwischen Kaffeekonsum in der Schwangerschaft und Fehlgeburten.
+Ein kausaler Effekt ist hier nicht unbedingt unplausibel: Koffein kann bei Schwangeren die Plazenta durchqueren.
 Deswegen wird oft empfohlen, Kaffee und andere koffeinhaltige Getränke in der Schwangerschaft ganz zu meiden.
+Aber gibt es hier wirklich einen kausalen Effekt, der diese Empfehlung rechtfertigt?
 
-Der Kaffeekonsum in der Schwangerschaft hängt aber von vielen Faktoren ab.
+Der Kaffeekonsum in der Schwangerschaft hängt von vielen Faktoren ab.
 Beispielsweise leiden gerade im ersten Trimester viele unter Übelkeit, die ihnen die Lust auf Kaffee raubt.
 
 Unabhängig davon berichten Studien, dass Übelkeit und Erbrechen in der Schwangerschaft *negativ* mit dem Risiko für eine Fehlgeburt korrelieren.
-Das heißt also, dass Schwangere, denen besonders oft schlecht ist, weniger wahrscheinlich eine Fehlgeburt erleiden.
+Eine mögliche Erklärung ist, dass die Übelkeit von Hormonen verursacht wird, die in einer gesunden Schwangerschaft reichlich vorhanden sind.
+
 
 ```{r kaffee, echo=FALSE}
-question("Auf welche fundamentale kausale Struktur zwischen Kaffeekonsum, Übelkeit und Fehlgeburt deutet diese Erklärung hin?",
+question("Auf welche fundamentale kausale Struktur zwischen Kaffeekonsum, Übelkeit und Fehlgeburt deutet dies hin?",
   answer("Eine Kette"),
   answer("Eine Gabel", correct = TRUE, message = "Übelkeit beeinflußt den Kaffeekonsum, Übelkeit korreliert mit einem niedrigeren Risiko für eine Fehlgeburt.
-         Damit könnte Übelkeit ein Confounder sein oder zumindest auf einem konfundierendem Pfad liegen, bei dem eine unbeobachtete Variable sowohl Übelkeit als auch das Fehlgeburtsrisiko beeinflußt."),
+         Damit könnte Übelkeit ein Confounder sein oder zumindest auf einem konfundierendem Pfad liegen, bei dem eine unbeobachtete Variable (z.B. Hormone) sowohl Übelkeit als auch das Fehlgeburtsrisiko beeinflußt."),
   answer("Eine umgedrehte Gabel"),
   allow_retry = TRUE,
   correct = random_praise(),
@@ -192,7 +195,7 @@ p1
 ```
 </center>
 
-Studien, die für Übelkeit als Variable auf einem potentiellen konfundierenden Pfad adjustieren, finden tendenziell schwächere Zusammenhänge.
+Studien, die für Übelkeit als Variable auf einem potentiellen konfundierenden Pfad ($Kaffeekonsum \leftarrow Übelkeit \leftarrow U \rightarrow Fehlgeburt$) adjustieren, finden tendenziell schwächere Zusammenhänge.
 
 Die Idee, dass Übelkeit auf einem konfundierenden Pfad liegt, wird auch dadurch gestützt, dass Studien insgesamt weniger konsistente Zusammenhänge zwischen Fehlgeburten und dem Konsum anderer koffeinhaltiger Getränke (z. B. Tee oder Cola) finden.
 Diese enthalten zwar Koffein, werden aber oft bei Übelkeit in der Schwangerschaft als weniger abstoßend empfunden.
@@ -294,7 +297,7 @@ Die mit einem Sternchen markierten Titel sind online frei verfügbar.
 
 <br>
 
-Natürlich gibt es über die konzeptuellen Grundlagen hinaus noch viel zu lernen, beispielsweise in den folgenden Themenbereichen:
+Natürlich gibt es über die konzeptuellen Grundlagen hinaus noch viel zu lernen, beispielsweise in den auf den nächsten Seiten beschriebenen Themenbereichen.
 
 ##
 
