@@ -163,11 +163,11 @@ Betrachten wir das folgende strukturelle kausale Modell:
 \begin{eqnarray*}
 \color{green}{X} &=& U_{\color{green}{X}}, \quad U_{\color{green}{X}} \sim \mathcal{N}(0,\,1), \\
 \color{blue}{Y} &=& U_{\color{blue}{Y}}, \quad U_{\color{blue}{Y}} \sim \mathcal{N}(0,\,1), \\
-\tilde{\color{violet}{Z}} &=&\begin{cases} 1 &  \text{if } \{ \color{green}{X} > 1 \,\vee\, \color{blue}{Y} > 1\} \\ 0 &  \text{else} \end{cases}, \\
+\tilde{\color{violet}{Z}} &=&\begin{cases} 1 &  \text{wenn } \{ \color{green}{X} > 1 \,\vee\, \color{blue}{Y} > 1\} \\ 0 &  \text{sonst} \end{cases}, \\
 \color{violet}{Z} &=& (1-U_{\color{violet}{Z}}) \cdot \tilde{\color{violet}{Z}} + U_{\color{violet}{Z}} \cdot (1- \tilde{\color{violet}{Z}}), \quad U_{\color{violet}{Z}} \sim \mathcal{B}(0.05),
 \end{eqnarray*}
 
-$\mathcal{N}(0,\,1)$ steht für eine eine Standardnormalverteilung, $\mathcal{B}(0.05)$ für eine Bernoulliverteilung mit $\pi=0.05$. 
+$\mathcal{N}(0,\,1)$ steht für eine eine Standardnormalverteilung, $\mathcal{B}(0.05)$ für eine Bernoulliverteilung mit $\pi=0.05$. $\tilde{\color{violet}{Z}}$ ist dabei eine Hilfsvariable, die den Wert $1$ annimmt, wenn $\color{green}{X}$ oder $\color{blue}{Y}$ größer als $1$ ist. Ansonsten ist $\tilde{\color{violet}{Z}}=0$.
 
 $\vee$ ist das logische *oder* (`|` in `R`). 
 
