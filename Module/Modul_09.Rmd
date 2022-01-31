@@ -160,7 +160,7 @@ Treffen wir noch eine stark vereinfachende Annahme:
 
 $$f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}}) = 2 \cdot \color{green}{X} + U_{\color{blue}{Y}}$$
 
-Das bedeutet, dass der Mittelwert von $\color{blue}{Y}$ mit jeder Einheit von $\color{green}{X}$ um $2$ Einheiten steigt. Dabei liegt der Mittelwert von $U_{\color{blue}{Y}}$ bei Null.
+Das bedeutet, dass der Mittelwert von $\color{blue}{Y}$ (Klausurpunkte) mit jeder Einheit von $\color{green}{X}$ (gelernte Stunden) um $2$ Einheiten steigt. Dabei liegt der Mittelwert von $U_{\color{blue}{Y}}$ bei Null.
 
 ```{r erwartung, echo=FALSE}
 question("Welchen Wert für $Y$ erwarten Sie, wenn jemand $x'=10$ Stunden lernt?",
@@ -210,8 +210,6 @@ $$do(\color{green}{x})=20.$$
 
 Der Rest bleibt aber unverändert &ndash; inbesondere gehen wir weiterhin davon aus, dass für *Sie* $U_{\color{blue}{Y}}=30$ ist.
 
-<red>&#9888;</red> Dies ist eine **Annahme**!
-
 
 ## Vorhersage
 
@@ -228,7 +226,7 @@ für das Counterfactual:
 
 $$\color{blue}{y}=2\cdot\color{green}{x}+\underbrace{U_{\color{blue}{y}}}_{=U_{\color{blue}{y'}}}=2\cdot 20 + 30 = 70.$$
 
-<red>&#9888;</red> Dass die Bestimmung des Counterfactuals in diesem karikierten Beispiel so einfach war, liegt daran, dass wir nur zwei Variablen und für diese auch noch ein lineares datengenerierendes Modell angenommen haben.
+Dass die Bestimmung des Counterfactuals in diesem karikierten Beispiel so einfach war, liegt daran, dass wir nur zwei Variablen und für diese auch noch ein lineares datengenerierendes Modell angenommen haben.
 
 ```{r vorhersage, echo=FALSE}
 question("Wie lautet das Counterfactual $y$, wenn $x=10$ ist, sowie $x'=20$ und $y'=30$ beobachtet wurden? Zur Erinnerung, Sie müssen zunächst aus den beobachteten Werten $U_{y'}$ bestimmen und diesen Wert dann im Counterfactual für $U_{y}$ einsetzen.",
