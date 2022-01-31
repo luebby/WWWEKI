@@ -311,6 +311,8 @@ Grund für die hohe Korrelation ist einfach nur, dass beides, sowohl die Scheidu
 
 Eine einfache Simulation eines *Random Walks mit Drift* verdeutlicht das Phänomen. Hier haben beide Variablen einen Trend &ndash; aber ansonsten haben sie nichts miteinander zu tun, also weder ist `x1` die Ursache von `x2` noch umgekehrt. 
 
+*Hinweis*: Der Zufallszahlengenerator ist nicht gesetzt, d.h. kein `set.seed()`. Daher ergeben sich aufgrund zufälliger Variation (*Rauschen*) unterschiedliche Ergebnisse beim wiederholten `Ausführen`.
+
 ```{r rw, exercise=TRUE, exercise.lines=30}
 # Anzahl Zeitpunkte
 n <- 100
