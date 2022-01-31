@@ -230,7 +230,7 @@ Wenn die Wohnfläche ein Confounder ist, so sollten wir für diese Variable adju
 <violet>Wohnfläche</violet> liegt in der Datentabelle als Variable `livingArea` vor. Ergänzen Sie das Modell entsprechend.
 
 ```{r lm, exercise=TRUE, eval=FALSE}
-lm(price ~ rooms + ___, data = SaratogaHouses)
+lm(price ~ rooms, data = SaratogaHouses)
 ```
 
 ```{r lm-solution}
