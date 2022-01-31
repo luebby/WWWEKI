@@ -223,7 +223,7 @@ Diese Pfade sollten also durch Adjustierung *blockiert* werden.
 ```{r chain, echo=FALSE}
 question("Sollte darüber hinaus auch für die Variable `Groesse` adjustiert werden?",
   answer("Ja."),
-  answer("Nein.", correct = TRUE, message = "Die Variable `Groesse` liegt auf dem kausalen Pfad (*Kette*) zwischen `RaucherIn` und `Lungenvolumen` (*Mediator*). Solche Mediatoren sollten nicht adjustiert werden."),
+  answer("Nein.", correct = TRUE, message = "Die Variable `Groesse` liegt auf dem kausalen Pfad (*Kette*) zwischen `RaucherIn` und `Lungenvolumen` (*Mediator*). Solche Mediatoren sollten nicht adjustiert werden. Was würde hier passieren, wenn wir es trotzdem ins Modell aufnehmen würden? Wir würden reale, durch das Rauchen verursachte Unterschiede wegadjustieren und dadurch die Effekte des Rauchens auf das Lungenvolumen unterschätzen."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement())
@@ -262,7 +262,7 @@ question("Hat in dem Modell Rauchen den zu erwartenden negativen Effekt auf das 
 
 *Anmerkung*: Das lineare Modell stellt hier nur eine pragmatische Näherung da, weil es nicht-lineare Zusammenhänge zwischen Alter und Größe sowie Größe und Lungenvolumen gibt. Um den Effekt des Rauchens präzise zu schätzen, sollten diese nicht-linearen Zusammenhänge auch wirklich nicht-linear modelliert werden.
 
-## Adjustment Sets
+## Ausblick: Adjustment Sets
 Natürlich könnten Sie für den Zusammenhang zwischen Rauchen und Lungenvolumen noch einen viel komplexeren Graphen erstellen, der zahlreiche potentielle Konfundierende enthält.
 
 Müssten wir, wenn wir einen solchen Graphen annehmen, dann automatisch immer für alle Konfundierenden adjustieren?
