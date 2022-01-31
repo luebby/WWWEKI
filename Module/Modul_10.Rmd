@@ -158,12 +158,10 @@ Treffen wir zusätzlich noch quantitative Modellannahmen für das Beispiel:
 
 2. `geschlecht` ist bernoulliverteilt mit einer Wahrscheinlichkeit von $\pi=0.5$ für eine Frau.
 
-3. Ob jemand im Vorstand ist, hängt ab `faehigkeit` und `geschlecht`. Dies modellieren wir indem ein Mann ab einer `faehigkeit` größer als 115 in den Vorstand kommt, eine Frau erst ab 130. Frauen müssen also fähiger sein als Männer um in den Vorstand zu kommmen &ndash; so hier die Annahme.
+3. Ob jemand im Vorstand ist, hängt ab von `faehigkeit` und `geschlecht`. Dies modellieren wir indem ein Mann ab einer `faehigkeit` größer als 115 in den Vorstand kommt, eine Frau erst ab 130. Frauen müssen also fähiger sein als Männer um in den Vorstand zu kommmen &ndash; so hier die Annahme.
 
 4. Das `gehalt` setzt sich zusammen aus `faehigkeit` ($\cdot 10$). Es ist im `vorstand` doppelt so hoch und für Männer noch einmal $5\%$ höher. Fähigere Leute verdienen mehr, Mitglieder des Vorstands verdienen mehr und Männer verdienen mehr.
 $$\text{gehalt} = \text{faehigkeit} \cdot 10 \cdot \begin{cases}2, \,\text{ist Vorstand} \\ 1, \,\text{sonst} \end{cases} \cdot \begin{cases}1.05, \,\text{ist Mann} \\ 1, \,\text{sonst} \end{cases}.$$
-
-<red>&#9888;</red> Auch diese Annahmen sind stark vereinfacht!
 
 Um dies in `R` für z. B. $n=1000$ Mitarbeiter:innen zu simulieren kann folgender Code verwendet werden:
 
