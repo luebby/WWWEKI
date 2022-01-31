@@ -118,6 +118,11 @@ Wir hoffen, dass dieser Kurs mit seinen Beispielen Ihnen helfen kann, systematis
 
 *Rauschen* entsteht darüber hinaus durch (zufällige, unsystematische) Stichprobenvariation.
 
+## Simpson-Paradoxon
+
+In den Beispielen haben Sie gesehen, dass sich beobachtete Zusammenhängen deutlich von den wahren kausalen Zusammenhängen unterscheiden können &ndash; sogar so weit, dass insgesamt beispielsweise ein negativer Zusammenhang beobachtet wird, während in einer adjustierten Betrachtung ein postiver Zusammenhang vorliegt. Ein Beispiel für das **Simpson-Paradoxon**.
+
+![](https://youtu.be/nGqzoqXZch0){width="75%"}
 
 ## Das Problem mit den vereinfachten Beispielen
 
