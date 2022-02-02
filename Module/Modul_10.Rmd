@@ -127,7 +127,7 @@ Zeichnen Sie dort &ndash; oder auf einem Blatt Papier &ndash; das Diagramm, dass
 2. Ob jemand in den *Vorstand* kommt, hängt ab von der *Fähigkeit* und dem *Geschlecht*.
 3. Das *Gehalt*, das eine Person bekommt, hängt ab von der *Fähigkeit*, von der Tätigkeit als *Vorstand* und vom *Geschlecht*.
 
-*Klicken Sie erst danach zur Kontrolle auf `Nächstes Thema`*
+*Klicken Sie erst danach zur Kontrolle auf `Weiter`*
 
 ##
 
