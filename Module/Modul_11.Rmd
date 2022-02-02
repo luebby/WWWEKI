@@ -262,7 +262,14 @@ question("Hat in dem Modell Rauchen den zu erwartenden negativen Effekt auf das 
 
 *Anmerkung*: Das lineare Modell stellt hier nur eine pragmatische Näherung da, weil es nicht-lineare Zusammenhänge zwischen Alter und Größe sowie Größe und Lungenvolumen gibt. Um den Effekt des Rauchens präzise zu schätzen, sollten diese nicht-linearen Zusammenhänge auch wirklich nicht-linear modelliert werden.
 
+## Simpson-Paradoxon
+
+In diesem Beispiel haben Sie erfahren, dass sich beobachtete Zusammenhängen deutlich von den wahren kausalen Zusammenhängen unterscheiden können &ndash; sogar so weit, dass insgesamt ein positiver Zusammenhang beobachtet wird (Raucher:innen haben ein höheres Lungenvolumen), während in einer adjustierten Betrachtung ein negativer Zusammenhang vorliegt. Dies ist ein Beispiel für das **Simpson-Paradoxon**.
+
+![](https://youtu.be/nGqzoqXZch0){width="75%"}
+
 ## Ausblick: Adjustment Sets
+
 Natürlich könnten Sie für den Zusammenhang zwischen Rauchen und Lungenvolumen noch einen viel komplexeren Graphen erstellen, der zahlreiche potentielle Konfundierende enthält.
 
 Müssten wir, wenn wir einen solchen Graphen annehmen, dann automatisch immer für alle Konfundierenden adjustieren?
