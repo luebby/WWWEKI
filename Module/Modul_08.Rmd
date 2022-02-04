@@ -112,7 +112,7 @@ Eine <red>fiktive</red> Studie präsentiert Ihnen dieses Ergebnis:
 
 ```{r, out.width="90%", echo = FALSE}
 akademikerin <- c(rep(0, 70), rep(1, 30))
-set.seed(2022)
+set.seed(1954)
 stillen <- numeric(100)
 puebergewicht <- numeric(100)
 uebergewicht <- numeric(100)
@@ -192,10 +192,10 @@ Eine relevante Population könnte zum Beispiel alle Mütter in einem bestimmten 
 Mindestens 4 Monate voll <green>stillen</green> ist farblich durch <purple>Ja (lila)</purple> und <orange>Nein (orange)</orange> gekennzeichnet:
 
 ```{r population, fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
-set.seed(2022)
+set.seed(1954)
 stipro <- rep(1,100)
 akademikerin <- c(rep(0, 70), rep(1, 30))
-set.seed(2022)
+set.seed(1954)
 stillen <- numeric(100)
 for(i in 1:100) stillen[i] <- ifelse(akademikerin[i], 
                                      sample(c(0,1),1, prob = c(0.1, 0.9)), 
@@ -241,10 +241,10 @@ plot(DAG_ModellG)
 Ziehen wir jetzt eine mögliche Stichprobe, Frauen die in unseren Daten landen sind farblich hinterlegt:
 
 ```{r gsti, fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
-set.seed(2022)
+set.seed(1954)
 stipro <- c(sample(c(rep(1,10), rep(0,60))),sample(c(rep(1,20), rep(0,10))))
 akademikerin <- c(rep(0, 70), rep(1, 30))
-set.seed(2022)
+set.seed(1954)
 stillen <- numeric(100)
 for(i in 1:100) stillen[i] <- ifelse(akademikerin[i], 
                                      sample(c(0,1),1, prob = c(0.1, 0.9)), 
@@ -324,10 +324,10 @@ plot(DAG_ModellS)
 <br>
 
 ```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
-set.seed(2022)
+set.seed(1954)
 stipro <- as.factor(sample(c(rep(1,30), rep(0,70))))
 akademikerin <- c(rep(0, 70), rep(1, 30))
-set.seed(2022)
+set.seed(1954)
 stillen <- numeric(100)
 for(i in 1:100) stillen[i] <- ifelse(akademikerin[i], 
                                      sample(c(0,1),1, prob = c(0.1, 0.9)), 
@@ -383,7 +383,7 @@ question("Kann der kausale Effekt von Stillen auf Übergewicht durch einen direk
 
 ```{r simbeob, include=FALSE}
 akademikerin <- c(rep(0, 70), rep(1, 30))
-set.seed(2022)
+set.seed(1954)
 stillen <- numeric(100)
 puebergewicht <- numeric(100)
 uebergewicht <- numeric(100)
@@ -392,6 +392,10 @@ for(i in 1:100)
   stillen[i] <- ifelse(akademikerin[i], 
                     sample(c(0,1),1, prob = c(0.1, 0.9)), 
                     sample(c(0,1),1, prob = c(0.4, 0.6)))
+}
+
+for(i in 1:100) 
+  {
   puebergewicht[i] <- ifelse(akademikerin[i], 0.3, 0.5)
   puebergewicht[i] <- puebergewicht[i] - ifelse(stillen[i], 0.2, 0)
   uebergewicht[i] <- sample(c(0,1),1, prob = c(1-puebergewicht[i], puebergewicht[i]))
@@ -455,7 +459,7 @@ $$\color{purple}{`r puebergewichtstillen`}-\color{orange}{`r puebergewichtkstill
 
 ```{r beob2, echo=FALSE}
 message <- "Akademikerin ist hier ein Confounder und liegt auf einem nicht-kausalen Pfad von Stillen zu Übergewicht."
-question("Lassen die Daten der Beobachtungsstudie den Schluss zu, dass der durchschnittliche kausale Effekt von Stillen auf die Wahrscheinlichkeit Übergewicht zu entwickeln bei $0.14$ liegt?",
+question("Lassen die Daten der Beobachtungsstudie den Schluss zu, dass der durchschnittliche kausale Effekt von Stillen auf die Wahrscheinlichkeit Übergewicht zu entwickeln bei $0.36$ liegt?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -514,7 +518,7 @@ Mit einem möglichen Ergebnis wie folgt:
 
 ```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
 akademikerin <- c(rep(0, 70), rep(1, 30))
-set.seed(2022)
+set.seed(1954)
 stillen <- numeric(100)
 puebergewicht <- numeric(100)
 uebergewicht <- numeric(100)
