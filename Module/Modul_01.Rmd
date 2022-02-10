@@ -40,11 +40,11 @@ Schulung <- tibble(finteresse = rnorm(n)) %>%
   mutate(teilnahme = sample(c("Ja", "Nein"), 
                             size = 1, prob = c(pteilnahme, 1-pteilnahme))) %>%
   mutate(gehalt0 = 2000 * (1 + pnorm((finteresse + rnorm(1)))/10)) %>%
-  mutate(gehalt1 = gehalt0 * (1 + rbeta(1,1,10))) %>%
+  mutate(gehalt1 = gehalt0 * (0.95 + rbeta(1,1,10))) %>%
+  mutate(across(where(is.numeric), ~ round(.x, -2))) %>%
   mutate(effekt = gehalt1 - gehalt0) %>%
   mutate(gehalt = case_when(teilnahme == "Ja" ~ gehalt1,
                             teilnahme == "Nein" ~ gehalt0)) %>%
-  mutate(across(where(is.numeric), ~ round(.x,2))) %>%
   ungroup() %>%
   mutate(i=row_number()) %>%
   select(i, teilnahme, gehalt0, gehalt1, effekt, gehalt)
@@ -179,6 +179,8 @@ question("Können Sie diese individuellen kausalen Effekte in der Realität beob
          )
 ```
 
+Sie sehen: häufig sind die individuellen kausalen Effekte positiv &ndash; sie können aber auch neutral oder sogar negativ sein.
+
 ## Das fundamentale Problem der kausalen Inferenz
 
 Das fundamentale Problem der kausalen Inferenz ist, dass wir den individuellen kausalen Effekt $\color{orange}{\Delta}_i = \color{blue}{Y}^{\color{green}{X=1}}_i - \color{blue}{Y}^{\color{green}{X=0}}_i$ **nicht** beobachten können. Es liegt je Beobachtung $i$ immer nur eines der beiden Potential Outcomes vor: Entweder $\color{blue}{Y}^{\color{green}{X=1}}$ (<blue>Gehalt</blue> mit <green>Schulung</green>) **oder** $\color{blue}{Y}^{\color{green}{X=0}}$ (<blue>Gehalt</blue> ohne <green>Schulung</green>).
@@ -217,7 +219,7 @@ question("Person $i$ nimmt an der Schulung teil. Was ist dann das Counterfactual
 Mal angenommen, wir würden die individuellen kausalen Effekte $\color{orange}{\Delta}_i$ aber doch kennen (Variable `effekt` in unserem `R`-Beispiel).
 Dann könnten wir aus ihnen weitere Größen ableiten, beispielsweise den *durchschnittlichen* kausalen Effekt $\bar{\color{orange}{\Delta}}$, indem wir alle $i$ individuellen kausalen Effekte addieren und diese Summe ($\sum$) durch die Anzahl der Beobachtungen ($n$) dividieren: 
 
-$$\bar{\color{orange}{\Delta}}=\frac{\sum_{i=1}^n \color{orange}{\Delta}_i}{n}=\frac{\sum_{i=1}^n\color{blue}{Y}^{\color{green}{X=1}}_i - \sum_{i=1}^n\color{blue}{Y}^{\color{green}{X=0}}_i}{n}=\overline{\color{blue}{Y}}^{\color{green}{X=1}}-\overline{\color{blue}{Y}}^{\color{green}{X=0}}.$$
+$$\bar{\color{orange}{\Delta}}=\frac{\sum_{i=1}^n \color{orange}{\Delta}_i}{n}=\frac{\sum_{i=1}^n(\color{blue}{Y}^{\color{green}{X=1}}_i - \color{blue}{Y}^{\color{green}{X=0}}_i)}{n} =\frac{\sum_{i=1}^n\color{blue}{Y}^{\color{green}{X=1}}_i - \sum_{i=1}^n\color{blue}{Y}^{\color{green}{X=0}}_i}{n}=\overline{\color{blue}{Y}}^{\color{green}{X=1}}-\overline{\color{blue}{Y}}^{\color{green}{X=0}}.$$
 
 Die `R`-Funktion, die diesen arithmetischen Mittelwert berechnet, lautet `mean()`.
 
@@ -226,6 +228,7 @@ Klicken Sie auf `Ausführen`, um den durchschnittlichen kausalen Effekt in unser
 ```{r ate, exercise=TRUE}
 mean( ~ effekt, data = Schulung)
 ```
+
 
 ***
 
@@ -245,6 +248,8 @@ analyse( ~ y, data = Daten)
 
 ***
 
+Beachten Sie: Der durchschnittliche kausale Effekt ist positiv, auf Individualebene kann er aber auch negativ sein. $\bar{\color{orange}{\Delta}}$ ist eine aggegierte Datenzusammenfassung.
+
 ##
 
 Das fundamentale Problem der kausalen Inferenz ist, dass nur eines der Potential Outcomes vorliegt und das nicht vorliegende ein Counterfactual ist. Daher kennen wir in der Praxis weder den individuellen noch den durchschnittlichen kausalen Effekt. Letzterer liegt in unserem Beispiel bei
@@ -261,8 +266,8 @@ In der Praxis sähe unsere fiktive Gehaltstabelle also anders aus -- fehlende We
 ```{r teilnahme, echo=FALSE}
 Schulung %>%
   select(i, teilnahme, gehalt0, gehalt1) %>%
-  mutate(gehalt0 = ifelse(teilnahme=="ja", NA, gehalt0)) %>%
-  mutate(gehalt1 = ifelse(teilnahme=="nein", NA, gehalt1)) %>%
+  mutate(gehalt0 = ifelse(teilnahme=="Ja", NA, gehalt0)) %>%
+  mutate(gehalt1 = ifelse(teilnahme=="Nein", NA, gehalt1)) %>%
   kable()
 ```
 
