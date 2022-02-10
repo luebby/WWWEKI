@@ -28,7 +28,7 @@ source("random-praise_de/translation_random-praise_de.R")
 
 library(learnr)
 library(mosaic)
-
+library(DT)
 
 set.seed(1896)
 
@@ -52,9 +52,9 @@ gehalt <- faehigkeit * 10 *
 # Datentabelle zusammensetzen
 GPG <- data.frame(
   geschlecht = geschlecht,
-  faehigkeit = faehigkeit,
+  faehigkeit = round(faehigkeit),
   vorstand = vorstand,
-  gehalt= gehalt)
+  gehalt = round(gehalt,-2))
 ```
 
 ## Lernziele
@@ -160,8 +160,29 @@ Treffen wir zusätzlich noch quantitative Modellannahmen für das Beispiel:
 
 3. Ob jemand im Vorstand ist, hängt ab von `faehigkeit` und `geschlecht`. Dies modellieren wir indem ein Mann ab einer `faehigkeit` größer als 115 in den Vorstand kommt, eine Frau erst ab 130. Frauen müssen also fähiger sein als Männer um in den Vorstand zu kommmen &ndash; so hier die Annahme.
 
+
+```{r plot, echo=FALSE, fig.align='center', out.width="60%", message=FALSE}
+xpnorm(115, mean = 100, sd = 15, return = "plot") %>% gf_labs(title = "Vorstand  für Männer", x = "Fähigkeit", y = "Dichte")
+xpnorm(130, mean = 100, sd = 15, return = "plot") %>% gf_labs(title = "Vorstand  für Frauen", x = "Fähigkeit", y= "Dichte")
+```
+
+
 4. Das `gehalt` setzt sich zusammen aus `faehigkeit` ($\cdot 10$). Es ist im `vorstand` doppelt so hoch und für Männer noch einmal $5\%$ höher. Fähigere Leute verdienen mehr, Mitglieder des Vorstands verdienen mehr und Männer verdienen mehr.
 $$\text{gehalt} = \text{faehigkeit} \cdot 10 \cdot \begin{cases}2, \,\text{ist Vorstand} \\ 1, \,\text{sonst} \end{cases} \cdot \begin{cases}1.05, \,\text{ist Mann} \\ 1, \,\text{sonst} \end{cases}.$$
+```{r plot2, echo=FALSE, fig.align='center', out.width="60%", message=FALSE}
+mov <- data.frame(x1 = 50, x2 = 115, y1 = 50*10*1.05, y2=115*10*1.05)
+miv <-  data.frame(x1 = 115, x2 = 150, y1 = 115*10*2*1.05, y2=150*10*2*1.05)
+fov <- data.frame(x1 = 50, x2 = 130, y1 = 50*10*1, y2=115*10*1)
+fiv <-  data.frame(x1 = 130, x2 = 150, y1 = 115*10*2*1, y2=150*10*2*1)
+gf_segment(y1 + y2 ~ x1 + x2, data = mov, color = "purple") %>%
+  gf_segment(y1 + y2 ~ x1 + x2, data = miv, color = "purple") %>%
+  gf_segment(y1 + y2 ~ x1 + x2, data = fov, color = "orange") %>%
+  gf_segment(y1 + y2 ~ x1 + x2, data = fiv, color = "orange") %>%
+  gf_labs(x="Fähigkeit", y="Gehalt") +
+  annotate("text", label="Männer", x = 60, y= 3000, color = "purple")+
+  annotate("text", label="Frauen", x = 60, y= 2500, color = "orange")
+```
+
 
 Um dies in `R` für z. B. $n=1000$ Mitarbeiter:innen zu simulieren kann folgender Code verwendet werden:
 
@@ -188,18 +209,19 @@ gehalt <- faehigkeit * 10 *
   ifelse(vorstand == "j", 2, 1) * 
   ifelse(geschlecht == "m", 1.05, 1)
 
-# Datentabelle zusammensetzen
+# Datentabelle zusammensetzen, Werte runden
 GPG <- data.frame(
   geschlecht = geschlecht,
-  faehigkeit = faehigkeit,
+  faehigkeit = round(faehigkeit),
   vorstand = vorstand,
-  gehalt = gehalt)
+  gehalt = round(gehalt,-2))
 ```
 
 <br>
 <span style="color:#301a87;">&#10146;</span> Ein Einblick in die simulierten Daten:
+
 ```{r, echo=FALSE}
-knitr::kable(head(GPG, 5))
+datatable(GPG)
 ```
 
 
