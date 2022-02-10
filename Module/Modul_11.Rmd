@@ -42,6 +42,8 @@ source("random-praise_de/translation_random-praise_de.R")
 
 library(learnr)
 library(mosaic)
+library(DT)
+
 load("data/LV.Rdata")
 
 p1 <- DiagrammeR::grViz("
@@ -105,13 +107,13 @@ mit den Variablen:
 - `Alter`: Alter in Jahren
 - `Lungenvolumen`: forcierte exspiratorische Volumen in l
 - `Groesse`: Größe in cm
-- `Geschlecht`: `m` für männlich und `w` für weiblich
+- `Geschlecht`: `m` für männlich und `w` für weiblich (damals wurde kein diverses Geschlecht erhoben)
 - `RaucherIn`: Hat die Person geraucht? `ja` oder `nein`
 
-Übersicht über die ersten Werte:
+Übersicht über die Daten von [Kahn, 2005](https://doi.org/10.1080/10691898.2005.11910559) :
 
 ```{r head}
-head(LV)
+datatable(LV)
 ```
 
 
@@ -130,7 +132,8 @@ Zu Erinnerung: Es handelt sich um Heranwachsende -- deswegen die Annahme, dass d
 Ein Boxplot des Lungenvolumens in Abhängigkeit des Rauchverhaltens ergibt folgendes Ergebnis:
 
 ```{r b1}
-gf_boxplot(Lungenvolumen ~ RaucherIn, data = LV)
+gf_boxplot(Lungenvolumen ~ RaucherIn, data = LV) %>%
+  gf_jitter(width = 0.2, height = 0, alpha = 0.15) 
 ```
 
 ```{r median, echo=FALSE}
@@ -159,7 +162,14 @@ Woran könnte das liegen?
 
 ## Die Rolle des Alters
 
-Wie zu erwarten war, gibt es einen Zusammenhang zwischen Alter und Größe:
+Natürlich gibt es auch einen Zusammenhang zwischen der Größe und dem Lungenvolumen:
+
+```{r, message=FALSE}
+gf_point(Lungenvolumen ~ Groesse, data = LV) %>%
+  gf_smooth()
+```
+
+Aber auch zwischen Alter und Größe:
 
 ```{r, message=FALSE}
 gf_point(Groesse ~ Alter, data = LV) %>%
@@ -168,21 +178,12 @@ gf_point(Groesse ~ Alter, data = LV) %>%
 
 <br>
 
-Wenn wir den Code erweitern, so dass die Punkte gemäß der Variablen `RaucherIn` farbig markiert sind, sehen wir: Die Raucher:innen sind älter als die Nichtraucher:innen und damit auch größer.
+Und zwischen Rauchen und Alter:
 
-```{r color, message=FALSE}
-gf_point(Groesse ~ Alter, color = ~ RaucherIn, data = LV) %>%
-  gf_smooth()
-```
-
-
-##
-
-Und natürlich gibt es auch einen Zusammenhang zwischen der Größe und dem Lungenvolumen:
 
 ```{r, message=FALSE}
-gf_point(Lungenvolumen ~ Groesse, data = LV) %>%
-  gf_smooth()
+gf_boxplot(Alter ~ RaucherIn, data = LV) %>%
+  gf_jitter(width = 0.2, height = 0.2, alpha = 0.15) 
 ```
 
 ## Kausale Modellierung Rauchen und Lungenvolumen 
