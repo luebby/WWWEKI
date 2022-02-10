@@ -65,7 +65,7 @@ StoercheGeburten <- tibble(
   land = c("Albanien", "Österreich", "Belgien", "Bulgarien", "Dänemark", "Frankreich", "Deutschland", "Griechenland", "Holland", "Ungarn", "Italien", "Polen", "Portugal", "Rumänien", "Spanien", "Schweiz", "Türkei"),
   flaeche = c(28750, 83860, 30520, 111000, 43100, 544000, 357000, 132000, 41900, 93000, 301280, 312680, 92390, 237500, 504750, 41290, 779450),
   stoerche = c(100, 300, 1, 5000, 9, 140, 3300, 2500, 4, 5000, 5, 30000, 1500, 5000, 8000, 150, 25000),
-  geburten = c(83, 87, 118, 117, 59, 774, 901, 106, 188, 124, 551, 610, 120, 367, 439, 82, 1576)
+  geburten = c(83, 87, 118, 117, 59, 774, 901, 106, 188, 124, 551, 610, 120, 367, 439, 82, 1576)*1000
 )
 
 lm_oA <- lm(geburten ~ stoerche, data = StoercheGeburten)
@@ -104,12 +104,12 @@ Robert Matthews hat sich Anfang des Jahrtausend die Mühe gemacht Daten für die
 ```{r scatter, echo=FALSE, fig.align='center', out.width='85%'}
 gf_point(geburten ~ stoerche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
   gf_lm() %>%
-  gf_lims(x=c(0,35000), y=c(0,2000)) %>%
+  gf_lims(x=c(0,35000), y=c(0,2000000)) %>%
   gf_text(geburten ~ stoerche,
           label = ~land,
           hjust = 0, vjust = 2, alpha = 0.8, size = 7,
           check_overlap = TRUE) %>%
-  gf_labs(x="Anzahl Störche (Paare)", y="Geburten in 1000", caption="Datenquelle: Robert Matthews")
+  gf_labs(x="Anzahl Störche (Paare)", y="Geburten", caption="Datenquelle: Robert Matthews")
 ```
 
 
@@ -184,12 +184,12 @@ Wie sieht eigentlich der Zusammenhang zwischen der Fläche des Landes und der An
 ```{r scatterflaeche, echo=FALSE, fig.align='center', out.width='85%', warning=FALSE}
 gf_point(geburten ~ flaeche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
   gf_lm() %>%
-  gf_lims(x=c(0,900000), y=c(0,2000)) %>%
+  gf_lims(x=c(0,900000), y=c(0,2000000)) %>%
   gf_text(geburten ~ flaeche,
           label = ~land,
           hjust = 0, vjust = 2, alpha = 0.8, size = 7,
           check_overlap = TRUE) %>%
-  gf_labs(x=parse(text = paste0("'Fläche in '",'~ km^2')), y="Geburten in 1000", caption="Datenquelle: Robert Matthews")
+  gf_labs(x=parse(text = paste0("'Fläche in '",'~ km^2')), y="Geburten", caption="Datenquelle: Robert Matthews")
 ```
 
 Anscheinend gibt es auch einen Zusammenhang zwischen der Größe eines Landes und der Anzahl Geburten.
