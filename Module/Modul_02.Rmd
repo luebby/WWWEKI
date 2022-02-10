@@ -20,6 +20,7 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(emojifont)
+library(openintro)
 
 theme.fom <- theme_classic(22*1.04)
 theme.fom <- theme.fom
@@ -47,19 +48,19 @@ DAG1 <- dagify(Y~ X,
             x = 1, y = 0, size = 7, color = "darkgrey") 
 
 # Beispiel rutschige Straße
-co <- data.frame(x = c(0,1,1,2,4), y = c(0.5,0,1,0.5,0.5), name = c("X1", "X2", "X3","X4","X5")) 
-DAG_Str <- dagify(X3 ~ X1,
-                  X2 ~ X1,
-                  X4 ~ X2,
-                  X4 ~ X3,
-                  X5 ~ X4,
+co <- data.frame(x = c(0,1,1,2,4), y = c(0.5,0,1,0.5,0.5), name = c("JZ", "RE", "WS","NA","RU")) 
+DAG_Str <- dagify(WS ~ JZ,
+                  RE ~ JZ,
+                  NA ~ RE,
+                  NA ~ WS,
+                  RU ~ NA,
                   coords = co) %>%
     ggdag() + 
    geom_dag_point(colour = "#301a87") +
   geom_dag_text(size = 5) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X1 - Jahreszeit\nX2 - Regen\nX3 - Wassersprenger\nX4 - Nass\nX5 - Rutschig", 
+  geom_text(label = "JZ - Jahreszeit\nRE - Regen\nWS - Wassersprenger\nNA - Nass\nRU - Rutschig", 
             hjust = 1, vjust = 1,
             x = 4, y = 1, size = 5, color = "darkgrey") 
 
@@ -138,11 +139,11 @@ Dabei können wir entweder die Tablette nehmen &ndash; oder nicht; die Schmerzen
 
 Hier können also unterschiedliche Werte vorliegen, beispielsweise Ja oder Nein (z.B. Einnahme von Tabletten, Schmerzrückgang) oder $0$ &euro; oder $1000$ &euro; (z.B. Umsatzänderung, Gehaltsanstieg). 
 
-Diese Werte können mit unterschiedlichen *Wahrscheinlichkeiten* auftreten, welche mit $Pr$ abgekürzt werden (englisch für probability, Wahrscheinlichkeit). $Pr(\text{Tablette})$ bezeichnet also die Wahrscheinlichkeit, dass eine Tablette genommen wird, $Pr(\text{Schmerzrückgang})$ die Wahrscheinlichkeit, dass die Schmerzen zurückgehen.
+Diese Werte können mit unterschiedlichen *Wahrscheinlichkeiten* auftreten, welche mit $Pr$ abgekürzt werden (englisch für probability, Wahrscheinlichkeit). $Pr(\text{Tablette})$ bezeichnet also die Wahrscheinlichkeit, dass von einer Person eine Tablette genommen wird, $Pr(\text{Schmerzrückgang})$ die Wahrscheinlichkeit, dass die Schmerzen zurückgehen.
 
 
 ```{r ursache, echo=FALSE}
-question("Angenommen nach der Einnahme einer Tablette gehen die Schmerzen weg. Wie würden Sie hier Ursache und Wirkung zuordnen?",
+question("Angenommen durch die Einnahme einer Tablette gehen die Schmerzen weg. Wie würden Sie hier Ursache und Wirkung zuordnen?",
          answer("Die Einnahme der Tablette ist die Ursache, der Schmerzrückgang die Wirkung.", correct = TRUE, message = "Die Tablette wurde zuerst eingenommen, danach folgte der Schmerzrückgang."),
          answer("Der Schmerzrückgang ist die Ursache, die Einnahme der Tablette die Wirkung."),
          allow_retry = TRUE,
@@ -227,13 +228,25 @@ Eine Variable $X$ heißt hier **Ursache** von $Y$, wenn der Wert der **Wirkung**
 
 Wenn Sie eben mehrfach die Tablette genommen haben &ndash; oder nicht genommen haben &ndash; dann konnten Sie beobachten, dass die Tablette häufig zu einer Schmerzreduktion führte, aber nicht immer. Und manchmal sind die Schmerzen zurückgegangen, obwohl Sie keine Tablette genommen haben. Die (hinterlegten) Wahrscheinlichkeiten dabei waren:
 
-- $Pr(\text{Schmerzrückgang, wenn Tablette eingenommen})=0.8$<br>
+- $Pr(\text{Schmerzrückgang, wenn Tablette eingenommen})=0.8=80\%$<br>
   und damit:
-  $Pr(\text{Kein Schmerzrückgang, wenn Tablette eingenommen})=1-0.8=0.2$
+  $Pr(\text{Kein Schmerzrückgang, wenn Tablette eingenommen})=1-0.8=0.2=20\%$
 
-- $Pr(\text{Schmerzrückgang, wenn keine Tablette eingenommen})=0.4$ <br>
+- $Pr(\text{Schmerzrückgang, wenn keine Tablette eingenommen})=0.4=40\%$ <br>
   und damit:
-  $Pr(\text{Kein Schmerzrückgang, wenn keine Tablette eingenommen})=1-0.4=0.6$
+  $Pr(\text{Kein Schmerzrückgang, wenn keine Tablette eingenommen})=1-0.4=0.6=60\%$
+
+Als Wahrscheinlichkeitsbaum dargestellt, wobei wir annehmen, dass die Hälfte der Personen eine Tablette nimmt:
+
+```{r baum1, echo=FALSE, fig.align='center', out.width='80%'}
+treeDiag(c("Tabletteneinnahme?","Schmerzrückgang?"), 
+         c(0.5,0.5),
+         list(c(0.8,0.2), 
+              c(0.4,0.6)),
+         c("Ja", "Nein"),
+         c("Ja","Nein"), 
+         showSol = FALSE)
+```
 
 
 ## Kausales Diagramm
@@ -272,7 +285,7 @@ Manche glauben ja, dass Kinder auf Ihre Eltern hören. Das schöne an abstrakten
 
 Variablen (Knoten), auf die eine Pfeilspitze zeigt, werden **Kinder** derjenigen Variablen genannt, von welchen die Pfeile ausgehen. Diese Variablen werden entsprechend **Eltern** genannt: $\text{Eltern} \rightarrow \text{Kinder}$. Im Beispiel von oben ist <blue> Schmerzrückgang </blue> ein Kind von <green> Tabletteneinnahme </green> &ndash; und dementsprechend <green> Tabletteneinnahme </green> Eltern von <blue> Schmerzrückgang</blue>. In kausalen Graphen höre Kinder also auf ihre Eltern.
 
-Ein Beispiel für ein kausales Diagramm welches beschreibt, wie eine Straße rutschig werden kann:
+Ein Beispiel für ein kausales Diagramm welches beschreibt, wie eine Straße rutschig werden kann. Die Wahrscheinlichkeit von Regen hängt ab von der Jahreszeit. Die Jahreszeit beeinflusst aber auch, ob ein Wassersprenger zum Einsatz kommt. Sowohl Regen als auch Wassersprenger führen dazu, dass die Straße nass wird. Ist die Straße nass, kann es rutschig werden:
 
 ```{r DAG_Str, echo=FALSE, fig.align='center', out.width='85%'}
 plot(DAG_Str)
@@ -281,11 +294,11 @@ plot(DAG_Str)
 Quelle: [Mohan und Pearl (2012)](https://ftp.cs.ucla.edu/pub/stat_ser/uai12-mohan-pearl.pdf)
 
 ```{r eltern, echo=FALSE}
-question("Welche Variable ist bzw. welche Variablen sind Eltern von *Nass* (X4)?",
+question("Welche Variable ist bzw. welche Variablen sind Eltern von *Nass* (NA)?",
          answer("Keine."),
-         answer("Jahreszeit (X1)."),
-         answer("Wassersprenger (X3) und Regen (X2).", correct = TRUE,  message = "Nass hängt ab von Wassersprenger und Regen."),
-         answer("Rutschig(X5)."),
+         answer("Jahreszeit (JZ)."),
+         answer("Wassersprenger (WS) und Regen (RE).", correct = TRUE,  message = "Nass hängt ab von Wassersprenger und Regen."),
+         answer("Rutschig (RU)."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -293,11 +306,11 @@ question("Welche Variable ist bzw. welche Variablen sind Eltern von *Nass* (X4)?
 ```
 
 ```{r kinder, echo=FALSE}
-question("Welche Variable ist bzw. welche Variablen sind Kinder von *Nass* (X4)?",
+question("Welche Variable ist bzw. welche Variablen sind Kinder von *Nass* (NA)?",
          answer("Keine."),
-         answer("Jahreszeit (X1)."),
-         answer("Wassersprenger (X3) und Regen (X2)."),
-         answer("Rutschig (X5).", correct = TRUE , message = "Rutschig hängt ab von Nass."),
+         answer("Jahreszeit (JZ)."),
+         answer("Wassersprenger (WS) und Regen (RE)."),
+         answer("Rutschig (RU).", correct = TRUE , message = "Rutschig hängt ab von Nass."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -311,7 +324,7 @@ Das **kausale Modell** des simplen Graphen $\color{green}{X} \rightarrow \color{
 - $\color{green}{X} = U_{\color{green}{X}}$
 - $\color{blue}{Y} = f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$
 
-Dabei sind $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unbekannte Ursachen (in der Statistik häufig auch Fehler genannt, engl.: error) von $\color{green}{X}$ und $\color{blue}{Y}$, und $f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$ die Funktion, der Mechanismus, durch den $\color{blue}{Y}$ auf Basis von $\color{green}{X},U_{\color{blue}{Y}}$ zu seinem Wert kommt. 
+Dabei sind $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unbekannte Ursachen (in der Statistik häufig auch Rest genannt, engl.: error) von $\color{green}{X}$ und $\color{blue}{Y}$, und $f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$ die Funktion, der Mechanismus, durch den $\color{blue}{Y}$ auf Basis von $\color{green}{X},U_{\color{blue}{Y}}$ zu seinem Wert kommt. 
 
 Im Beispiel
 $$\color{green}{\text{Tabletteneinnahme}} \rightarrow \color{blue}{\text{Schmerzrückgang}}$$ 
