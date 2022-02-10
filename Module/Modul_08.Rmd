@@ -287,9 +287,10 @@ question("Ist diese Stichprobe *repräsentativ* &ndash; können gültige Schlüs
 
 ##
 
-In dieser *Gelegenheitsstichprobe* liegt der Anteil <purple>gestillt</purple> bei $`r round(pdgs,2)`$ &ndash; und ist damit systematisch zu hoch.
+In dieser *Gelegenheitsstichprobe* liegt der Anteil <purple>gestillt</purple> bei $`r round(pdgs,2)`=`r round(pdgs,2)*100`\%$ &ndash; und ist damit systematisch zu hoch.
 
 Wir können zwar das Ergebnis der Stichprobe zur *Beschreibung* dieser verwenden, aber wir können die Ergebnisse weder verallgemeinern noch zur Vorhersage verwenden.
+
 Wollten wir anhand der Daten zum Beispiel vorhersagen, ob eine zufällig gewählte Frau stillt oder nicht, so läge unsere geschätzte Wahrscheinlich von $Pr(\color{green}{\text{Stillen}} = \color{purple}{\text{Ja}}) = `r round(pdgs,2)`$ zu hoch.
 
 <br>
@@ -315,13 +316,12 @@ Quelle: [https://pixabay.com/de/photos/w%c3%bcrfel-rot-fallen-zufall-635353/](ht
 
 Durch die zufällige Auswahl der Stichprobe wird die Abhängigkeit der Stichprobenzugehörigkeit von der Variable <violet>Akademikerin</violet> gelöscht.
 
-Die Stichprobe hängt dann nur noch vom Zufall ab.
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_ModellS)
 ```
 
-<br>
+Die Stichprobe hängt dann nur noch vom Zufall ab, und dieser ergibt z.B. dieses Ergebnis:
 
 ```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
 set.seed(1954)
@@ -357,7 +357,8 @@ pzsti <- ggplot(d, aes(x = x, y = y, color = Stichprobe)) +
 pzsti
 ```
 
-In dieser zufälligen Stichprobe weicht der Anteil <purple>gestillt</purple> mit $`r round(pdz,2)`$ nicht mehr systematisch vom *wahren* Anteil in der Ziel-Population ab. 
+In dieser zufälligen Stichprobe weicht der Anteil <purple>gestillt</purple> mit $`r round(pdz,2)`=`r round(pdz,2)*10`\5$ nicht mehr systematisch vom *wahren* Anteil in der Ziel-Population ab. 
+
 Alle Abweichungen sind nur noch zufällig -- mal werden wir den wahren Wert überschätzen, mal werden wir ihn unterschätzen.
 Und je größer die Stichprobe ist, desto weniger schwankt der Anteil bei wiederholter Stichprobenziehung.
 
@@ -577,6 +578,10 @@ In unserem <red>fiktiven</red> Experiment müssen wir uns um diese und andere Dr
 
 Um von der reinen Vorhersage ("Wie wahrscheinlich ist es, dass eine zufällig gewählte Frau stillt?") zur **kausalen Inferenz** zu kommen ("Welchen Effekt hat das Stillen auf das Risiko von Übergewicht?") benötigt es mehr als nur die Daten.
 Wir benötigen zusätzlich wissen darüber, wie die Daten entstanden sind &ndash; welche zusätzlichen Variablen die Variablen von Interesse beeinflusst haben, oder ob beispielsweise eine zufällige Intervention stattgefunden hat.
+
+***
+
+*Anmerkung*: Aus Gründen der Präzision und der individuellen Unterschiede is es angemessen hier die Variable <violet>Akademikerin</violet> für die Analyse mit zu berücksichtigen.
 
 ## 
 
