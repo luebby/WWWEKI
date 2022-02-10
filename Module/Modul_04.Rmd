@@ -78,10 +78,10 @@ In diesem Modul lernen Sie:
 
 Auch komplexe kausale Diagramme bestehen aus relativ einfachen Grundelementen. Eines davon ist die sog. **Kette** (engl.: chain). 
 
-Zur Erinnerung: Der kausale Fluss folgt den Pfeilen. $$A \rightarrow B$$ sagt aus, dass $B$ auf $A$ *hört*. Wenn ich den Rasen gieße ($A$), wird dieser nass ($B$). 
+Zur Erinnerung: Der kausale Fluss folgt den Pfeilen. $$A \rightarrow B$$ sagt aus, dass $B$ auf $A$ *hört*. Im Modul zwei: Wenn es regenet, ($A$), wird die Straße nass ($B$). 
 
 Bei einer Kette kommt einfach eine dritte Variable dazu: $$A \rightarrow B \rightarrow C.$$ 
-Zum Beispiel: das Drehen am Thermostat ($A$) führt zum Erwärmen der Heizung ($B$) und diese wiederum zu einem warmen Wohnraum ($C$).
+Zum Beispiel: wenn es regenet, ($A$) wird die Straße nass ($B$) und es wird rutschig ($C$).
 
 
 ## Lernen und Verstehen
@@ -223,10 +223,10 @@ Während die Werte für $\color{blue}{Y}$ bei $do(\color{green}{X}=1)$ um die $\
 
 
 ```{r intervention, echo=FALSE}
-question("Überlegen Sie: Was wird passieren mit dem Zusammenhang zwischen Lernen (`x`) und Verstehen (`y`), wenn wir Wissen auf einen bestimmten Wert festlegen, also z.B. `z <- 15` zuweisen?",
+question("Überlegen Sie: Was wird passieren mit dem Zusammenhang zwischen Lernen (`x`) und Verstehen (`y`), wenn wir Wissen kennen, also z.B. `z <- 15`?",
          answer("Bei höheren Werten von Lernen (`x`) treten weiterhin in der Regel auch höhere Werte von Verstehen (`y`) auf.",),
          answer("Bei höheren Werten von Lernen (`x`) treten jetzt in der Regel niedrigere Werte von Verstehen (`y`) auf.",),
-         answer("Bei festem Wissen (`z`) steht der Wert von Verstehen (`y`) in keinem Zusammenhang mit dem Wert von Lernen (`x`).", correct = TRUE, message = "Durch Fixierung von `z` wird die kausale Kette von $X$ nach $Y$ unterbrochen. Wir hatten ja schon vorab gesagt, dass Verstehen nur direkt auf Wissen hört. Wenn sich Wissen nicht ändert, ändert sich hier also auch nicht das Verstehen. Das können Sie auch gleich noch mal in der Simulation testen."),
+         answer("Bei festem Wissen (`z`) steht der Wert von Verstehen (`y`) in keinem Zusammenhang mit dem Wert von Lernen (`x`).", correct = TRUE, message = "Durch Kenntnis von `z` wird die kausale Kette von $X$ nach $Y$ unterbrochen. Wir hatten ja schon vorab gesagt, dass Verstehen nur direkt auf Wissen hört. Wenn sich Wissen nicht ändert, ändert sich hier also auch nicht das Verstehen. Das können Sie auch gleich noch mal in der Simulation testen."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -246,7 +246,7 @@ y <- f_Y(z)
 cat("Wert y (Verstehen):", y, "\n")
 ```
 
-Der Wert von `z` wird in Zeile 3 unabhängig vom Wert von `x` auf $15$ gesetzt.
+Der bekannte Wert von `z` wird in Zeile 3 unabhängig vom Wert von `x` auf $15$ gesetzt.
 Jetzt schwanken `x` und `y` zwar noch zufällig, sind aber unabhängig voneinander.
 
 ## Kausales Modell
@@ -353,13 +353,20 @@ Wenn <violet>Wissen</violet> Teil des Modell ist, wir also das <violet>Wissen</v
 
 ```{r adjustierung, echo=FALSE}
 question("Welcher Wert beschreibt den (totalen) kausalen Effekt von Lernen (`x`) auf Verstehen (`y`) richtig? Also: Um wie viel Einheiten wird sich der Wert von Verstehen im Mittelwert ändern, wenn eine Einheit mehr gelernt wird?",
-         answer("Der Wert aus dem Modell ohne Wissen (`ModellA`), d. h. $14.86$.", correct = TRUE, message = "Wie wir in der simulierten Intervention beobachtet hatten, ist dies der richtige Wert. Das Modell, das zusätzlich den Mediator enthält, fixiert seinen Wert und unterbricht damit die kausale Kette von $X$ nach $Y$."),
+         answer("Der Wert aus dem Modell ohne Wissen (`ModellA`), d. h. $14.86$.", correct = TRUE, message = "Wie wir in der simulierten Intervention beobachtet hatten, ist dies der richtige Wert. Das Modell, das zusätzlich den Mediator enthält, berücksichtigt diesen Wert und unterbricht damit die kausale Kette von $X$ nach $Y$."),
          answer("Der Wert aus dem Modell mit Wissen (`ModellB`), d. h. $0.86$."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
          )
 ```
+
+
+***
+
+*Anmerkung*: Die geschätzten Werte in der Regression entprechen aufgrund von zufälligen Rauschen nicht den wahren Werten die wir für die Simulation verwendet haben.
+
+***
 
 ## Zusammenfassung
 
