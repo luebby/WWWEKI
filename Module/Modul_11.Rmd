@@ -112,7 +112,7 @@ mit den Variablen:
 
 Übersicht über die Daten von [Kahn, 2005](https://doi.org/10.1080/10691898.2005.11910559) :
 
-```{r head}
+```{r head, echo = FALSE}
 datatable(LV)
 ```
 
