@@ -90,9 +90,11 @@ zu definieren.
 
 Wenn Sie vor der Entscheidung stehen: *Nehme ich an der Schulung teil?* gibt es für Ihr Gehalt zwei **potenzielle Ergebnisse (englisch: Potential Outcomes)**:
 
-- <blue> Gehalt </blue> ohne <green> Schulung <green>: $\color{blue}{Y}^{\color{green}{X=0}}$
+- <blue> Gehalt </blue> ohne <green> Schulung </green>: $\color{blue}{Y}^{\color{green}{X=0}}$
 
-- <blue> Gehalt </blue> mit <green> Schulung <green>: $\color{blue}{Y}^{\color{green}{X=1}}$
+- <blue> Gehalt </blue> mit <green> Schulung </green>: $\color{blue}{Y}^{\color{green}{X=1}}$
+
+$\color{blue}{Y}$ ist die *Wirkung*, das Ergebnis, also hier das <blue> Gehalt </blue>. Das hochgestellte $\color{green}{X}$ soll symbolisieren für welche Wert der *Ursache* das Ergebnis betrachtet wird. Ohne <green> Schulung </green> nimmt $\color{green}{X}$ den Wert 0 an, mit <green> Schulung </green> den Wert 1. 
 
 ![](images/Weggabel.png){width="65%"}
 
@@ -336,7 +338,11 @@ mean(gehalt ~ teilnahme, data = Schulung)
 ```
 
 ```{r po-solution}
+cat("Potential Outcomes: Durchschnittliches Gehalt ohne Teilnahme:\n")
+cat("Für die, die teilnehmen ('Ja') das Counterfactual.\n")
 mean(gehalt0 ~ teilnahme, data = Schulung)
+cat("Potential Outcomes: Durchschnittliches Gehalt mit Teilnahme:\n")
+cat("Für die, die nicht teilnehmen ('Nein') das Counterfactual.\n")
 mean(gehalt1 ~ teilnahme, data = Schulung)
 ```
 

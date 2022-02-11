@@ -215,7 +215,7 @@ y <- f_Y(z)
 cat("Wert y (Verstehen):", y, "\n")
 ```
 
-Für die Erläuterung bitte auf `Nächstes Thema` klicken.
+Für die Erläuterung bitte auf `Weiter` klicken.
 
 ##
 
@@ -260,6 +260,9 @@ Die zugrunde liegenden Gleichungen des soeben simulierten kausalen Modells laute
 \end{eqnarray*}
 
 Dabei steht $\mathcal{G}(1,\,10)$ für eine *Gleichverteilung* auf den Bereich von $1$ bis $10$ und $\mathcal{N}(0,\,1)$ für eine *Normalverteilung* mit den Parametern $\mu=0$ und $\sigma=1$, also eine Standardnormalverteilung. Die konkreten Funktionen und Parameter sind hier willkürlich gewählt.
+
+Einsetzen von $f_{\color{violet}{Z}}$ in $f_{\color{blue}{Y}}$ ergibt 
+$\color{blue}{Y} = 3 \cdot (5 \cdot \color{green}{X} +  U_{\color{violet}{Z}}) + U_{\color{blue}{Y}}=15 \cdot \color{green}{X} + 5 \cdot U_{\color{violet}{Z}} + U_{\color{blue}{Y}}.$
 
 Für $n=100$ simulierten Beobachtungen lautet der dazugehörige `R`-Code:
 
