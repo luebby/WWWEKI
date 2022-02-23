@@ -1,0 +1,353 @@
+---
+title: "Modul 12: Praktisches Daten Hinterfragen"
+output: 
+  learnr::tutorial:
+    language: 
+      de: js/tutorial_de.json
+    progressive: true
+    css: "css/style.css"
+runtime: shiny_prerendered
+---
+
+<a href="https://ki-campus.org/">
+<img border="0" alt="KICampusLogo" src="images/KIcampusLogo.png" width="100" height="30" style="float: right">
+</a>
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(ggdag)
+library(ggraph)
+theme.fom <- theme_classic(22*1.04)
+theme.fom <- theme.fom
+theme_set(
+  theme.fom  
+)
+
+# deutsche Version von random_praise
+source("random-praise_de/translation_random-praise_de.R")
+
+# coordCof <- list(
+#   x = c(Kaffeekonsum = 0, Fehlgeburt = 2, Uebelkeit = 0.5, U = 1.5),
+#   y = c(Kaffeekonsum = 1, Fehlgeburt = 1, Uebelkeit = 0, U = 0))
+# 
+# dagCof <- dagify(Kaffeekonsum ~ Uebelkeit,
+#                 Uebelkeit ~ U,
+#                 Fehlgeburt ~ U + Kaffeekonsum,
+#                 coords = coordCof,
+#                 exposure = "Kaffeekonsum",
+#                 outcome = "Fehlgeburt") 
+# 
+# p1 <- ggdag(dagCof, text_col = "blue", node = FALSE) + theme_dag_blank() 
+
+p1 <- DiagrammeR::grViz("
+digraph {
+rankdir = LR;
+ranksep = 0.7;
+ graph []
+ node [shape = circle fontcolor = black fontname = Poppins fontsize = 6 style = filled]
+   A [label = 'Kaffeekonsum' fillcolor = '#0F710B' fontcolor = white]
+   B [label = '  Fehlgeburt  ' fillcolor = '#0033cc' fontcolor = white]
+   C [label = '    Übelkeit    ']
+   U [label = '         U        ']
+ edge [minlen = 2]
+  A -> B      [penwidth = .2]
+  C -> A      [penwidth = .2]
+  U -> {B; C} [penwidth = .2]
+{rank = same; A; C}
+{rank = same; B; U}
+}
+")
+
+
+# coordLif <- list(
+#   x = c(robust = 0, gesell = 0, fuenf = 1, siebzig = 2),
+#   y = c(robust = 2, gesell = 0, fuenf = 1, siebzig = 1))
+# dagLif <- dagify(fuenf ~ robust + gesell,
+#                 siebzig ~ fuenf + robust + gesell,
+#                 exposure = "gesell",
+#                 outcome = "siebzig",
+#                 labels = c("robust" = "Intrinsische\n Robustheit",
+#             "gesell" = "Art der Gesellschaft",
+#             "fuenf" = "Bis 5 Überleben",
+#             "siebzig" = "Bis 70 Überleben"),
+#                 coords = coordLif)  
+# p2 <- ggdag(dagLif, text = FALSE, text_col = "blue", use_labels = "label", label_col = "blue") + 
+#   theme_dag_blank()
+
+p2 <- DiagrammeR::grViz("
+digraph {
+rankdir = LR;
+ graph []
+ node [shape = circle fontcolor = black fontname = Poppins fontsize = 11 style = filled]
+   A [label = 'Intrinsische Robustheit']
+   B [label = '  Art der Gesellschaft  ' fillcolor = '#0F710B' fontcolor = white]
+   C [label = '    Bis 5 Überleben    ']
+   D [label = '    Bis 70 Überleben    ' fillcolor = '#0033cc' fontcolor = white]
+ edge [minlen = 2]
+   {A; B} -> {C; D} [penwidth = .5]
+        C -> D      [penwidth = .5]
+}
+")
+
+
+library(learnr)
+library(mosaic)
+```
+
+## Lernziele
+
+In diesem Modul lernen Sie:
+
+- wie das praktische Hinterfragen von Daten in der Anwendung aussehen kann;
+
+- was es noch Spannendes im Bereich Kausalinferenz zu lernen gibt.
+
+
+## Korrelation und Kausalität
+
+
+Korrelation bedeutet nicht Kausalität &ndash; und keine Korrelation bedeutet nicht keine Kausalität.
+
+[Bueno de Mesquita und Fowler (2021)](https://press.princeton.edu/books/paperback/9780691214351/thinking-clearly-with-data) bringen es auf den Punkt: Es gilt:
+
+$$
+Beobachtete \, Korrelation = Kausaler\,Effekt + Verzerrung + Rauschen
+$$
+
+Wir hoffen, dass dieser Kurs mit seinen Beispielen Ihnen helfen kann, systematische *Verzerrung* zu adressieren.
+
+*Rauschen* entsteht darüber hinaus durch (zufällige, unsystematische) Stichprobenvariation.
+
+## Das Problem mit den vereinfachten Beispielen
+
+Im Rahmen dieses Kurses haben Sie gelernt, wie kausale Effekte definiert werden und wie man mithilfe von kausalen Graphen Annahmen abbilden und *unter diesen Annahmen* valide Schlußfolgerungen ablesen kann.
+
+Aber alle Graphen, die Sie gesehen haben, waren stark vereinfacht und enthielten nur wenige Variablen.
+In der Realität sieht es natürlich viel komplexer aus &ndash; Graphen können hunderte Variablen beinhalten, darunter oft auch solche die sich schlecht messen lassen oder sogar unbeobachtbar sind.
+
+An vielen Stellen wissen wir schlicht und ergreifend nicht, wie das zugrundeliegende kausale Netz aussieht.
+
+
+```{r unsicher, echo=FALSE}
+question("Angenommen, wir kennen den wahren zugrundeliegenden kausalen Graphen nicht sicher und wollen trotzdem aus Beobachtungsdaten auf kausale Effekte schließen. 
+         Können wir immer noch voll überzeugt sein, dass unsere Schlußfolgerungen stimmen?",
+  answer("Ja."),
+  answer("Nein.", correct = TRUE, message = "Unsicherheit über den kausalen Graphen führt zu Unsicherheit darüber, ob unsere Schlußfolgerungen korrekt sind. 
+         Beispielsweise können wir oft nicht komplett ausschließen, dass zusätzliche unbeobachtete Confounder unsere Ergebnisse verzerren."),
+  allow_retry = TRUE,
+  correct = random_praise(),
+  incorrect = random_encouragement()
+)
+```
+
+## Perfect is the enemy of good
+
+Das ist aber kein Grund, das Handtuch zu werfen!
+
+Schlußfolgerungen sind immer mit gewissen Unsicherheiten behaftet. Selbst wenn Sie das zugrundeliegende kausale Netz perfekt kennen, kann Zufallsrauschen immer noch zu falschen Ergebnissen führen. Und selbst komplexe wissenschaftliche Modelle sind immer eine vereinfachte Darstellung der Realität.
+
+***
+
+***Anmerkung:*** Die Wissenschaftsphilosophin Angela Potochnik beschäftigt sich in ihrem Buch [Idealization and the Aims of Science"](https://www.angelapotochnik.com/idealization.html) ausführlich mit der zentralen Rolle, die Vereinfachungen in der Wissenschaft spielen -- selbst in Grundlagenfächern wie der Physik. 
+
+***
+
+Selbst wenn wir nicht den kompletten kausalen Graphen kennen, hilft uns das Wissen über die fundamentalen kausalen Strukturen aber, kausale Schlußfolgerungen kritisch zu hinterfragen und mögliche Verzerrungen zu erkennen.
+
+
+## Beispiel 1: Kaffeekonsum und Fehlgeburten
+
+Beobachtungsstudien berichten eine Korrelation zwischen Kaffeekonsum in der Schwangerschaft und Fehlgeburten.
+Ein kausaler Effekt ist hier nicht unbedingt unplausibel: Koffein kann bei Schwangeren die Plazenta durchqueren.
+Deswegen wird oft empfohlen, Kaffee und andere koffeinhaltige Getränke in der Schwangerschaft ganz zu meiden.
+Aber gibt es hier wirklich einen kausalen Effekt, der diese Empfehlung rechtfertigt?
+
+Der Kaffeekonsum in der Schwangerschaft hängt von vielen Faktoren ab.
+Beispielsweise leiden gerade im ersten Trimester viele unter Übelkeit, die ihnen die Lust auf Kaffee raubt.
+
+Unabhängig davon berichten Studien, dass Übelkeit und Erbrechen in der Schwangerschaft *negativ* mit dem Risiko für eine Fehlgeburt korrelieren.
+Eine mögliche Erklärung ist, dass die Übelkeit von Hormonen verursacht wird, die in einer gesunden Schwangerschaft reichlich vorhanden sind.
+
+
+```{r kaffee, echo=FALSE}
+question("Auf welche fundamentale kausale Struktur zwischen Kaffeekonsum, Übelkeit und Fehlgeburt deutet dies hin?",
+  answer("Eine Kette"),
+  answer("Eine Gabel", correct = TRUE, message = "Übelkeit beeinflußt den Kaffeekonsum, Übelkeit korreliert mit einem niedrigeren Risiko für eine Fehlgeburt.
+         Damit könnte Übelkeit ein Confounder sein oder zumindest auf einem konfundierendem Pfad liegen, bei dem eine unbeobachtete Variable (z.B. Hormone) sowohl Übelkeit als auch das Fehlgeburtsrisiko beeinflußt."),
+  answer("Eine umgedrehte Gabel"),
+  allow_retry = TRUE,
+  correct = random_praise(),
+  incorrect = random_encouragement()
+)
+```
+
+## Kaffee-Graph
+
+<center>
+```{r p1, echo=FALSE, out.width="40%"}
+p1
+```
+</center>
+
+Studien, die für Übelkeit als Variable auf einem potentiellen konfundierenden Pfad ($Kaffeekonsum \leftarrow Übelkeit \leftarrow U \rightarrow Fehlgeburt$) adjustieren, finden tendenziell schwächere Zusammenhänge.
+
+Die Idee, dass Übelkeit auf einem konfundierenden Pfad liegt, wird auch dadurch gestützt, dass Studien insgesamt weniger konsistente Zusammenhänge zwischen Fehlgeburten und dem Konsum anderer koffeinhaltiger Getränke (z. B. Tee oder Cola) finden.
+Diese enthalten zwar Koffein, werden aber oft bei Übelkeit in der Schwangerschaft als weniger abstoßend empfunden.
+
+Insgesamt schlußfolgert beispielsweise das [American College of Obstetricians and Gynecologist (2020)](https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2010/08/moderate-caffeine-consumption-during-pregnancy), dass moderater Koffeinkonsum (weniger als 200mg am Tag) kein Risikofaktor zu sein scheint.
+Für größere Mengen an Koffein in der Schwangerschaft kann zu diesem Zeitpunkt keine sichere Schlußfolgerung gezogen werden.
+
+***
+
+***Anmerkung:*** Die Zusammenhänge zwischen Kaffeekonsum, Übelkeit und Fehlgeburten werden in dem Buch "Expecting Better" von der Ökonomin Emily Oster genauer diskutiert. (Deutscher Titel: "Das einzig wahre Baby-Handbuch")
+
+***
+
+
+## Beispiel 2: Lebenserwartung in Jäger- und Sammlergesellschaften
+
+Hier ein Beispiel, das bereits im Interview mit Richard McElreath aufgekommen ist.
+
+Alle Evidenz deutet darauf hin, dass in prähistorischen Jäger- und Sammlergesellschaften die Lebenserwartung bei der Geburt mit etwa 25 Jahren sehr viel niedriger lag, als sie es heutzutage ist.
+
+Allerdings wird immer wieder das Argument angebracht, dass diese niedrige Zahl vor allem mit der hohen Säuglings- und Kindersterblichkeit zusammenhängt.
+Wenn prähistorische Menschen es bis ins Jugendlichenalter schafften, so überlebten sie wahrscheinlich oft bis ins hohe Alter.
+
+Ähnliche Beobachtungen werden auch für noch existierende Jäger- und Sammlergesellschaften gemacht: Während die Sterblichkeit am Anfang des Lebens deutlich höher ist, so nimmt sie radikal ab, sobald die ersten Jahre überstanden sind.
+Eine Lebensspanne von 70 Jahren ist dann nichts Ungewöhnliches.
+
+## Zurück in die Steinzeit?
+
+Diese Beobachtungen werden manchmal aufgegriffen, um Argumente zu verschiedenen Lebensstilen zu machen.
+
+Wenn Jäger und Sammler trotz fehlender Gesundheitsversorgung oft so alt werden, spricht das etwa dafür, dass ihr Lebensstil besonders gesund ist?
+
+Oder könnte man am Ende sogar schlußfolgern, dass die moderne Medizin uns gar nicht so viel langlebiger macht?
+
+Dass sich die Situation für Komplikationen bei Geburt und in den jungen Jahren verbessert hat, ist klar.
+Aber was passiert danach?
+Vielleicht werden die Effekte, die uns die moderne Medizin bringt, komplett aufgehoben von dem gesteigerten Risiko, sogenannten Zivilisationskrankheiten zu erliegen?
+
+
+## Überlebens-Graph
+
+Aber bevor wir mit solchen Spekulationen beginnen, sollten wir uns zuerst Gedanken darüber machen, wie diese Daten &ndash; niedrige Lebenserwartung ab Geburt, recht hohe Lebenserwartung *nach überstandener Kindheit* &ndash; zustande kommen.
+
+<center>
+```{r p2, echo=FALSE, out.width='60%'}
+p2
+```
+</center>
+
+Menschen unterscheiden sich von Geburt an in bestimmten Faktoren, welche von Genen beeinflußt sind.
+Beispielsweise sind manche Menschen besonders anfällig für Infekte, andere hatten mehr Glück und haben sehr fitte Immunsysteme.
+
+All solche Unterschiede haben wir hier unter *Intrinsischer Robustheit* zusammengefasst.
+Nun interessiert uns, wie sehr die Gesellschaft, in der wir leben (Jäger und Sammler vs. modern), beeinflusst, ob wir unseren 70. Geburtstag erleben &ndash; und zwar unabhängig von den Effekten auf das Überleben bis zum 5. Geburtstag.
+
+
+```{r chain, echo=FALSE}
+question("Welche Rolle spielt \"Bis 5 Überleben\" im Teilgraphen mit \"Intrinsische Robustheit\" und \"Art der Gesellschaft\"",
+  answer("Mediator"),
+  answer("Confounder"),
+  answer("Collider", correct = TRUE, message = "Korrekt &ndash; die beiden Pfeile zeigen beide auf die \"Bis 5 Überleben\""),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement())
+```
+
+##
+
+Wenn wir für die beiden Arten von Gesellschaft jeweils berechnen, wie hoch die Lebenserwatung für eine Person ist, die das 5. Lebensjahr erreicht hat, dann sind unsere Analysen bedingt auf die Variable "Bis 5 Überleben."
+Diese ist jedoch ein Collider auf dem Pfad zwischen "Intrinsische Robustheit" und "Art der Gesellschaft."
+Somit führen unsere Analysen zu einer nicht-kausalen Korrelation zwischen intrinsischer Robustheit und der Art der Gesellschaft.
+
+Der Vergleich der beiden Lebenserwartungen bedingt auf das Überleben bis ins 5. Lebensjahr ist damit ein verzerrter Schätzer für den direkten Effekt von der "Art der Gesellschaft" auf "Bis 70 Überleben".
+
+Auf inhaltlicher Ebene ist das sogar recht intuitiv. 
+Wer in einer Gesellschaft mit zahlreichen Risiken für das Überleben einige Jahre übersteht, muss von Haus aus relativ robust sein.
+Wer in einer Gesellschaft mit wenigen Risiken und guter gesundheitlicher Versorgung aufwächst, hat trotz bestimmter gesundheitlicher Anfälligkeiten gute Überlebenschancen.
+
+Die Population der Menschen über 5 Jahre in Jäger- und Sammlergesellschaften ist damit von vornerein ganz anders als die Population der Menschen über 5 Jahre in modernen Gesellschaften.
+Ein naiver Vergleich dieser zwei Populationen vermischt Effekte der Art der Gesellschaft auf das Überleben mit Scheinkorrelationen, welche durch den "Selektionsfilter" des Überlebens bis in die Kindheit verzerrt werden.
+
+Alleine aus diesen Daten können wir also noch keine belastbaren Schlüsse ziehen über die Vor- oder Nachteile bestimmter Lebensstile für die Langlebigkeit.
+
+Nur in Gedanken könnten wir hier Experimente durchführen und Kinder, die in einer der Gesellschaften ein bestimmtes Alter erreicht haben, zufällig einer der beiden Gesellschaften zuordnen. Um mit verfügbaren Beobachtungsdaten das Ergebnis eines solchen Experimentes anzunähern, reicht es nicht, bestimmte Lebenserwartungen zu vergleichen -- zusätzliche Variablen müssen berücksichtigt werden.
+
+
+## Ausblick
+
+Hoffentlich konnten wir Ihnen einige Werkzeuge an die Hand geben, um in der Praxis kausale Schlüsse kritisch zu hinterfragen.
+
+Von Judea Pearl, Madelyn Glymour und Nicholas P. Jewell gibt es das Buch [Causal Inference in Statistics: A Primer](http://bayes.cs.ucla.edu/PRIMER/), welches die hier vorgestellten Grundlagen ausführlicher behandelt. 
+Jonas Peters (den Sie bereits aus dem Interview kennen) hat zusammen mit Dominik Janzing und Bernhard Schölkopf auch ein Buch geschrieben: [Elements of Causal Inference: Foundations and Learning Algorithms*](https://mitpress.mit.edu/books/elements-causal-inference).
+Das Thema kausale Inferenz wird im Buch [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) im 6. Kapitel der zweiten Auflage von Richard McElreath behandelt &ndash; auch ihn kennen Sie schon aus dem Interview.
+Ethan Bueno de Mesquita und Anthony Fowler behandeln in ihrem Buch [Thinking Clearly with Data: A Guide to Quantitative Reasoning and Analysis](https://press.princeton.edu/books/paperback/9780691214351/thinking-clearly-with-data) auch das Thema Kausale Inferenz sehr gut &ndash; allerdings aus einem etwas anderen Blickwinkel.
+
+Weitere Bücher aus unterschiedlichen Perspektiven sind z. B. [Causal Inference: The Mixtape*](https://mixtape.scunning.com/) von Scott Cunningham, [The Effect: An Introduction to Research Design and Causality*](https://theeffectbook.net/) von Nick Huntington-Klein oder [Causal Inference: What If*](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) von Hernán und Robins.
+
+Die mit einem Sternchen markierten Titel sind online frei verfügbar.
+
+<br>
+
+Natürlich gibt es über die konzeptuellen Grundlagen hinaus noch viel zu lernen, beispielsweise in den auf den nächsten Seiten beschriebenen Themenbereichen.
+
+##
+
+### Methoden für die Adjustierung von Drittvariablen
+In diesem Kurs haben Sie gelernt, dass Drittvariablen manchmal in Analysen berücksichtigt werden sollten -- und manchmal nicht, je nach der Rolle, die sie im kausalen Graphen spielen.
+Eine solche Adjustierung kann auf unterschiedliche Arten vorgenommen werden.
+Im Kurs haben Sie beispielsweise gesehen, dass Variablen als Prädiktoren in einem linearen Regressionsmodel aufgenommen werden können.
+Aber auch andere statistische Vorgehensweisen sind möglich, zum Beispiel das Aufteilen der Stichprobe (Stratifizierung) oder die Berechnung von Propensity Scores (siehe Interview mit Dean Eckles zu sozialer Ansteckung).
+Auch Methoden des maschinellen Lernens finden hier Anwendung.
+
+*Lesetipp*: 
+
+- Stephen L. Morgan und Christopher Winship, [Counterfactuals and Causal Inference: Methods and Principles for Social Research](https://www.cambridge.org/core/books/counterfactuals-and-causal-inference/5CC81E6DF63C5E5A8B88F79D45E1D1B7)
+
+### Natürliche Experimente
+In diesem Kurs haben Sie etwas über die Magie des Zufalls gelernt, die randomisierte Experimente zu so einem nützlichen Werkzeug in der Kausalinferenz macht.
+Zwischen randomisierte Experimenten und "reinen" Beobachtungsdaten liegen die sogenannten natürlichen Experimente.
+Hier macht man es sich zu Nutzen, dass im Alltag manchmal Dinge praktisch durch Zufall entschieden werden.
+
+Ein erstes Beispiel für ein natürliches Experiment haben Sie schon im Interview mit Anne Brenøe zum Thema *Effekte des Stillens* kennengelernt: Ob eine Schwangere unter der Woche oder am Wochenende entbindet, ist im Prinzip zufällig, kann aber einen Einfluss darauf haben, ob und wie lange sie nach der Geburt stillen wird.
+
+Zur Analyse können dabei häufig sogenannte **Instrumentvariablen** oder eine **Regressions-Diskontinuitäts-Analyse** angewendet werden. Oder es wird die **Differenz-von-Differenzen** betrachtet. 
+
+Für Arbeiten in diesem Bereich wurde übrigens im Jahre 2021 der Alfred-Nobel-Gedächtnispreis für Wirtschaftswissenschaften an David Card, Joshua Angrist und Guido Imbens verliehen! Herzlichen Glückwunsch! <br>
+
+Wie diese Methoden helfen wichtige Fragen zu beantworten hat die Schwedische Akademie der Wissenschaften [hier](https://www.nobelprize.org/uploads/2021/10/popular-economicsciencesprize2021-3.pdf) beschrieben.
+
+
+*Lesetipps*:
+
+- Thad Dunning, [Natural Experiments in the Social Sciences](https://www.cambridge.org/gb/academic/subjects/social-science-research-methods/qualitative-methods/natural-experiments-social-sciences-design-based-approach?format=PB&isbn=9781107698000)
+- Joshua D. Angrist und Jörn-Steffen Pischke, [Mastering 'Metrics: The Path from Cause to Effect](http://www.masteringmetrics.com/)
+
+
+### Causal Discovery
+In diesem Kurs sind wir oft davon ausgegangen, dass der zugrundeliegende kausale Graph im Prinzip bekannt ist.
+Was aber, wenn das nicht der Fall ist?
+Dann bewegen wir uns in den Bereich Causal Discovery, in dem es das Ziel ist, unterstützt durch Daten einen plausiblen kausalen Graphen herzuleiten.
+In den letzten drei Interviews mit Jakob Runge, Jonas Peters und Sebastian Weichwald haben Sie schon einen ersten Einblick in den Themenkomplex bekommen.
+
+*Lesetipp*: 
+
+- Peter Spirtes, Clark Glymour und Richard Scheines, [Causation, Prediction, and Search](http://cognet.mit.edu/book/causation-prediction-and-search)
+
+### Data Fusion
+Aus der Vogelperspektive betrachtet gibt es viele Datenquellen, die herangezogen werden können, um mehr über Ursachen und Effekte zu lernen.
+In der Regel ist keine davon perfekt.
+Beobachtungsstudien leiden oft unter unbeobachteten Confoundern; in Experimenten machen nicht immer alle Personen das, was wir uns wünschen, und manchmal müssen wir auf andere Populationen zurückgreifen -- zum Beispiel in den initialen Stadien der Medikamentenzulassung auf Zellkulturen und Tierversuche.
+Fehlende Daten und selektive Stichproben verkomplizieren die Situation weiter.
+Die Idee der Causal Fusion ist, dass wir trotzdem all diese Datenquellen *in Kombination* nutzen können, um zu den bestmöglichen kausalen Schlußfolgerungen zu gelangen.
+
+*Lesetipp*: 
+
+- Paul Hünermund und Elias Bareinboim, [Causal Inference and Data-Fusion in Econometrics](https://arxiv.org/abs/1912.09104v2)
+
+
+## KI-Campus
+
+[Zurück zum Kurs](https://learn.ki-campus.org/courses/7c8012d9-8729-4462-9ad0-be7d71118f37/launch)

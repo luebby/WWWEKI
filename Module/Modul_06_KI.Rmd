@@ -1,0 +1,267 @@
+---
+title: "Modul 06: Nett oder schön? &ndash; Warum nicht beides?"
+output: 
+  learnr::tutorial:
+    language: 
+      de: js/tutorial_de.json
+    progressive: true
+    css: "css/style.css"
+runtime: shiny_prerendered
+---
+
+<a href="https://ki-campus.org/">
+<img border="0" alt="KICampusLogo" src="images/KIcampusLogo.png" width="100" height="30" style="float: right">
+</a>
+
+```{r setup, include=FALSE}
+library(learnr)
+library(knitr)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(emojifont)
+library(ggthemes)
+
+theme.fom <- theme_classic(22*1.04)
+theme.fom <- theme.fom
+theme_set(
+  theme.fom  
+)
+
+# deutsche Version von random_praise
+source("random-praise_de/translation_random-praise_de.R")
+
+
+library(ggdag)
+# DAG
+co <- data.frame(x=c(2,1,0), y=c(1,0,1), name=c("Y","Z","X"))
+
+DAG_Collider <- dagify(Z ~ Y,
+                  Z ~ X, coords = co) %>% 
+  ggdag() +
+  geom_dag_point(colour = c("#0F710B","#0000FF", "#DA70D6")) + 
+  geom_dag_text(size = 8) +
+  theme_dag_blank() +
+  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed"))  + 
+  geom_text(label = "Y - Aussehen\nX - Nettigkeit\nZ - Date",
+            hjust = 0.5, vjust = 1,
+            x = 1, y = 1, size = 7, color = "darkgrey")
+
+
+library(mosaic)
+
+# Daten und Funktion
+set.seed(1896)
+n <- 100
+
+SimData <- tibble(x = rnorm(n), y = rnorm(n), u_z = rbinom(n, size = 1, prob = 0.05)) %>%
+  mutate(z = (x > 1) | (y > 1)) %>%
+  mutate(z = (1-u_z) * z + u_z * (1-z)) %>%
+  mutate(z = ifelse(z, "Ja", "Nein"))
+```
+
+## Lernziele
+
+In diesem Modul lernen Sie:
+
+- was eine umgedrehte Gabel ist;
+
+- was ein Collider ist;
+
+- dass wir manchmal ungewollt selber Zusammenhänge schaffen wo eigentlich keine sind.
+
+## Aller guten Dinge sind drei
+
+Auch komplexe kausale Diagramme bestehen aus relativ einfachen Grundelementen. Neben der Kette und der Gabel gibt es noch als Drittes die **umgedrehte Gabel** (engl.: inverted fork). 
+
+Zur Erinnerung: $$A \rightarrow B$$ sagt aus, dass $B$ auf $A$ *hört*, aber nicht umgekehrt. 
+
+## Dating
+
+Wieder stark vereinfacht: Nehmen wir an, dass Nettigkeit und Aussehen eine Rolle dafür spielen, ob wir mit jemandem auf ein Date gehen.
+
+Würden Sie jemanden daten, der weder nett ist noch gut aussieht? Vielleicht, aber wahrscheinlich eher nicht.
+
+
+Angenommen <green>Nettigkeit</green> ($\color{green}{X}$) führt zu <violet>Date</violet> ($\color{violet}{Z}$). Außerdem führt (gutes) <blue>Aussehen</blue> ($\color{blue}{Y}$) zu einem <violet>Date</violet> ($\color{violet}{Z}$). 
+
+Sie daten also jemanden, der nett ist *und/oder* gut aussieht.
+
+Dieses angenommene Modell lässt sich als kausales Diagramm wie folgt darstellen:
+
+```{r DAG_Collider, echo=FALSE, fig.align='center', out.width='85%'}
+plot(DAG_Collider)
+```
+
+##
+
+Das strukturelle kausale Modell besteht aus folgenden Zuweisungen:
+
+\begin{eqnarray*}
+\color{green}{X} &=& U_{\color{green}{X}}\\
+\color{blau}{Y} &=& U_{\color{blue}{Y}}\\
+\color{violet}{Z} &=& f_{\color{violet}{Z}}(\color{green}{X}, \color{blue}{Y}, U_{\color{violet}{Z}})
+\end{eqnarray*}
+
+
+```{r abhaengigkleit, echo=FALSE}
+message <- "Nach Konstruktion sind $X$ und $Y$ unabhängig voneinander. Kein kausaler Pfad führt von $X$ zu $Y$ &ndash; oder umgekehrt."
+question("Hängt Aussehen ($Y$) in diesem Beispiel von Nettigkeit ($X$) ab?",
+         answer("Ja"),
+         answer("Nein", correct = TRUE, message = message),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
+         )
+```
+
+## Collider
+
+In Fällen wie diesen: $$\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$$ wird die Variable in der Mitte &ndash; hier $\color{violet}{Z}$ &ndash; **Collider** genannt. $\color{violet}{Z}$ ist eine  Wirkung von $\color{green}{X}$ und $\color{blue}{Y}$.
+
+```{r collider, echo=FALSE}
+message <- "Wenn es kein Glück oder Pech ($U_Z$) war, dann sieht die nicht-nette Person eher gut aus. Es gibt ja einen Grund dafür, dass Sie sie überhaupt gedatet haben. Wenn es nicht die Nettigkeit war, dann wohl das Aussehen."
+question("Angenommen Sie haben jemanden gedatet ($Z$), der nicht besonders nett ($X$) ist. Wissen Sie dann etwas über das Aussehen ($Y$)?",
+         answer("Ja", correct = TRUE, message = message),
+         answer("Nein"),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
+         )
+```
+
+## Vergleich Gabel und umgedrehte Gabel
+
+Zur Erinnerung, bei einer **Gabel** gibt es einen nicht-kausalen Pfad von $\color{green}{X}$ nach $\color{blue}{Y}$:
+$$\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
+
+Angenommen: Im Sommer wird bei <violet>Sonnenschein</violet> sowohl mehr <green>Eis</green> als auch mehr <blue>Sonnencreme</blue> verkauft.
+<green>Eis</green> und <blue>Sonnencreme</blue> sind nicht unabhängig: Wenn ich weiß, dass viel <green>Eis</green> verkauft wurde, kann ich davon ausgehen, dass auch viel <blue>Sonnencreme</blue> verkauft wurde. Vermutlich führte <violet>Sonnenschein</violet> zu hohem <green>Eisverkauf</green> und so auch zu hohem <blue>Sonnencremeverkauf</blue>. Der Zusammenhang wird beobachtet, wenn keine weiteren Variablen berücksichtigt werden -- man nennt ihn auch *unbedingt*, *marginal.*
+
+Über die Information <green>Eis</green> kann man über <violet>Sonnenschein</violet> etwas über <blue>Sonnencreme</blue> lernen.
+Wenn ich weiß, dass <violet>Sonnenschein</violet> ist, enhält die Information, dass viel <green>Eis</green> verkauft wurde, keine zusätzliche Information über <blue>Sonnencreme</blue>. *Bedingt* <violet>Sonnenschein</violet>, das heißt wenn ich weiß, dass die Sonne scheint, sind <green>Eis</green> und <blue>Sonnencreme</blue> unabhängig.
+
+Zusammengefasst: Bei einer Gabel gibt es einen unbedingten Zusammenhang zwischen $\color{green}{X}$ nach $\color{blue}{Y}$; gegeben $\color{violet}{Z}$ -- also bedingt -- gibt es aber keine Zusammenhang.
+
+Bei einer **umgedrehten Gabel** gibt es keinen Zusammenhang von $\color{green}{X}$ und $\color{blue}{Y}$:
+$$\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$$
+Angenommen: Sowohl am <green>Wochenende</green> als auch im <blue>Urlaub</blue> kann mensch <violet>ausschlafen</violet>.
+Gehen wir davon aus, dass im Urlaub genau so oft Wochenende wie sonst gibt. <green>Wochenende</green> und <blue>Urlaub</blue> sind (*unbedingt*, *marginal*) unabhängig: 
+Aus der Information <green>Wochenende</green> lerne ich nichts über <blue>Urlaub</blue>.
+Wenn ich weiß, dass ich <violet>ausschlafen</violet> kann, weiß ich, dass entweder <green>Wochenende</green> oder <blue>Urlaub</blue> (oder beides) ist. Bei <violet>Ausschlafen</violet> lerne ich aus der Information <blue>kein Urlaub</blue>, dass wahrscheinlich <green>Wochenende</green> ist.
+Einen Grund muss mein Ausschlafen ja haben.
+*Bedingt*, gegeben, <violet>Ausschlafen</violet> sind <green>Wochenende</green> und <blue>Urlaub</blue> damit nicht mehr unabhängig.
+
+Die umgedrehte Gabel verhält sich damit gerarde umgedreht wie die normale Gabel. 
+Es gibt keinen unbedingten Zusammenhang, aber bedingt gibt es einen Zusammenhang.
+
+
+## Modell und Simulierte Daten
+
+Betrachten wir das folgende strukturelle kausale Modell:
+
+\begin{eqnarray*}
+\color{green}{X} &=& U_{\color{green}{X}}, \quad U_{\color{green}{X}} \sim \mathcal{N}(0,\,1), \\
+\color{blue}{Y} &=& U_{\color{blue}{Y}}, \quad U_{\color{blue}{Y}} \sim \mathcal{N}(0,\,1), \\
+\tilde{\color{violet}{Z}} &=&\begin{cases} 1 &  \text{wenn } \{ \color{green}{X} > 1 \,\vee\, \color{blue}{Y} > 1\} \\ 0 &  \text{sonst} \end{cases}, \\
+\color{violet}{Z} &=& (1-U_{\color{violet}{Z}}) \cdot \tilde{\color{violet}{Z}} + U_{\color{violet}{Z}} \cdot (1- \tilde{\color{violet}{Z}}), \quad U_{\color{violet}{Z}} \sim \mathcal{B}(0.05),
+\end{eqnarray*}
+
+$\mathcal{N}(0,\,1)$ steht für eine eine Standardnormalverteilung, $\mathcal{B}(0.05)$ für eine Bernoulliverteilung mit $\pi=0.05$. $\tilde{\color{violet}{Z}}$ ist dabei eine Hilfsvariable, die den Wert $1$ annimmt, wenn $\color{green}{X}$ oder $\color{blue}{Y}$ größer als $1$ ist. Ansonsten ist $\tilde{\color{violet}{Z}}=0$. Ob $\color{violet}{Z}$ dann wirklich $0$ (kein Date) oder $1$ (Date) ist hängt dann auch noch ein Wenig vom zufälligen Glück ab.
+
+$\vee$ ist das logische *oder* (`|` in `R`). 
+
+
+
+Folgender `R` Code simuliert diesen datengenerierenden Prozess:
+
+```{r sim, eval=FALSE}
+library(mosaic) # Paket laden
+set.seed(1896) # Zufallszahlengenerator setzen
+n <- 100 # Anzahl Beobachtungen
+
+SimData <- tibble(x = rnorm(n),                               # X 
+                  y = rnorm(n),                               # Y
+                  u_z = rbinom(n, size = 1, prob = 0.05)) %>% # U_z
+  mutate(z = (x > 1) | (y > 1)) %>%                           # Z~
+  mutate(z = (1-u_z) * z + u_z * (1-z)) %>%                   # Z
+  mutate(z = ifelse(z, "Ja", "Nein"))
+```
+
+Sowohl die mathematische Darstellung als auch der `R` Code sind hier anspruchsvoll. 
+Worauf es in diesem Modul aber ankommt, sind die Daten, die dabei rauskommen:
+
+```{r scatter, echo=FALSE, fig.align='center', out.width='85%'}
+gf_point(y ~ x, data = SimData, color = ~z) +
+  scale_color_colorblind()  +
+  xlab("x (Nettigkeit)") +
+  ylab("y (Aussehen)")
+```
+
+## Zusammenhänge
+
+Diese Daten beschreiben die zuvor beschriebene Dating-Situation. Die Farbe der Punkte verrät uns, ob wir jemanden gedatet haben ($\color{violet}{Z}$). 
+$\color{green}{X}$ ist die Nettigkeit und $\color{blue}{Y}$ das Aussehen.
+
+Wenn wir, getrennt nach <violet>Date</violet> ($\color{violet}{Z}$), eine lineare Regression von <blue>Aussehen</blue> ($\color{blue}{Y}$) auf <green>Nettigkeit</green> ($\color{green}{X}$) bestimmen, so sehen die Ergebnisse wie folgt aus:
+
+```{r scatterlm, echo=FALSE, fig.align='center', out.width='85%'}
+gf_point(y ~ x, data = SimData, color = ~z) %>%
+  gf_lm() +
+  scale_color_colorblind() +
+  xlab("x (Nettigkeit)") +
+  ylab("y (Aussehen)")
+```
+
+```{r corb, echo=FALSE}
+message <- "Die Regressionsgerade geht von links oben nach rechts unten. Dies zeigt eine negative Korrelation an. Tendenziell sind die Dates, die hübsch sind, nicht besonders nett &ndash; und umgekehrt."
+question("Für die, die Sie gedatet haben (`z = Ja`): Sehen Sie einen Zusammenhang zwischen Nettigkeit `x` und Aussehen `y`?", 
+         answer("Ja", correct = TRUE, message = message),
+         answer("Nein"),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
+         )
+```
+
+##
+
+Wenn wir <violet>Date</violet> ($\color{violet}{Z}$) berücksichtigen, sehen wir also einen Zusammenhang zwischen <blue>Aussehen</blue> ($\color{blue}{Y}$) und <green>Nettigkeit</green> ($\color{green}{X}$). Dabei haben wir unsere Daten so simuliert, dass die beiden Variablen voneinander unabhängig sind.
+
+Wenn wir uns hingegen den Zusammenhang zwischen $\color{green}{X}$ und $\color{blue}{Y}$ ohne Berücksichtigung von $\color{violet}{Z}$ angucken, erkennen wir, dass die Variablen eigentlich unabhängig sind:
+
+```{r scatterlmub, echo=FALSE, fig.align='center', out.width='85%'}
+gf_point(y ~ x, data = SimData) %>%
+  gf_lm()
+```
+
+***
+
+*Anmerkung:* Dass die Gerade hier nicht ganz parallel zur x-Achse verläuft liegt an zufälliger Variation. Auch wenn es im datengenerierenden Prozess keine Korrelation zwischen den Variablen gibt ($\rho=0$), kann es in einer (simulierten) Stichprobe eine geben ($r\neq0$).
+
+***
+
+Häufig lesen wir den Satz:
+
+> Ich traue keiner Statistik, die ich nicht selbst gefälscht habe.
+
+Wenn wir als Stichprobe für die Analyse eines möglichen Zusammenhangs zwischen Aussehen und Nettigkeit unsere Dates heranziehen, sollten wir besser sagen:
+
+> Ich traue auch keiner Statistik, die ich selbst gefälscht habe.
+
+Natürlich sind unsere Dates nicht *gefälscht*, aber wir haben eine selbst gewählte Stichprobe als Grundlage. 
+Diese liefert ein verzerrtes Ergebnis mit Zusammenhängen an Stellen, an denen es eigentlich keine gibt.
+
+## Zusammenfassung
+
+:::{.box}
+Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer umgedrehten Gabel $$X \rightarrow Z \leftarrow Y$$ zu bestimmen, darf der Collider $Z$ nicht berücksichtigt werden. (Dies gilt auch für alle Nachfahren von $Z$.)
+Wird $Z$ berücksichtigt, wird ein scheinbarer Zusammenhang zwischen $X$ und $Y$ erzeugt und fließt in die Analyse ein. 
+Beispielsweise sollte man in einem linearen Modell nicht $Z$ als erklärende Variable aufnehmen.
+Man sollte auch nicht die Daten anhand von $Z$ in Gruppen einteilen, die man dann separat analysiert -- auch das verzerrt Zusammenhänge.
+::: 
+
+
+## KI-Campus
+
+[Zurück zum Kurs](https://learn.ki-campus.org/courses/7c8012d9-8729-4462-9ad0-be7d71118f37/launch)

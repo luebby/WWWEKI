@@ -1,0 +1,367 @@
+---
+title: "Modul 05: Von Störchen und Geburten"
+output: 
+  learnr::tutorial:
+    language: 
+      de: js/tutorial_de.json
+    progressive: true
+    css: "css/style.css"
+runtime: shiny_prerendered
+---
+
+<a href="https://ki-campus.org/">
+<img border="0" alt="KICampusLogo" src="images/KIcampusLogo.png" width="100" height="30" style="float: right">
+</a>
+
+```{r setup, include=FALSE}
+library(learnr)
+library(knitr)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(emojifont)
+
+theme.fom <- theme_classic(22*1.04)
+theme.fom <- theme.fom
+theme_set(
+  theme.fom  
+)
+
+# deutsche Version von random_praise
+source("random-praise_de/translation_random-praise_de.R")
+
+
+library(ggdag)
+# DAG
+co <- data.frame(x=c(0,1), y=c(0,0), name=c("X", "Y"))
+DAG_SG <- dagify(Y ~ X,
+                 coords = co) %>% 
+  ggdag() + 
+  geom_dag_point(colour = c("#0F710B", "#0000FF")) + 
+  geom_dag_text(size = 8) +
+  theme_dag_blank() +
+  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
+  geom_text(label = "X - Störche\nY - Geburten", 
+            hjust = 1, vjust = 2,
+            x = 1, y = 0, size = 7, color = "darkgrey") 
+
+co <- data.frame(x=c(0,1,2), y=c(0,1,0), name=c("X", "Z", "Y"))
+DAG_Fork <- dagify(X ~ Z,
+                    Y ~ Z,
+                   coords = co) %>% 
+  ggdag() + 
+  geom_dag_point(colour = c( "#DA70D6", "#0F710B", "#0000FF")) + 
+  geom_dag_text(size = 8) +
+  theme_dag_blank() +
+  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
+  geom_text(label = "X - Störche\nZ - Fläche\nY - Geburten", 
+            hjust = 1, vjust = 1,
+            x = 2, y = 1, size = 7, color = "darkgrey") 
+
+
+library(mosaic)
+
+StoercheGeburten <- tibble(
+  land = c("Albanien", "Österreich", "Belgien", "Bulgarien", "Dänemark", "Frankreich", "Deutschland", "Griechenland", "Holland", "Ungarn", "Italien", "Polen", "Portugal", "Rumänien", "Spanien", "Schweiz", "Türkei"),
+  flaeche = c(28750, 83860, 30520, 111000, 43100, 544000, 357000, 132000, 41900, 93000, 301280, 312680, 92390, 237500, 504750, 41290, 779450),
+  stoerche = c(100, 300, 1, 5000, 9, 140, 3300, 2500, 4, 5000, 5, 30000, 1500, 5000, 8000, 150, 25000),
+  geburten = c(83, 87, 118, 117, 59, 774, 901, 106, 188, 124, 551, 610, 120, 367, 439, 82, 1576)*1000
+)
+
+lm_oA <- lm(geburten ~ stoerche, data = StoercheGeburten)
+lm_mA <- lm(geburten ~ stoerche + flaeche, data = StoercheGeburten)
+```
+
+## Lernziele
+
+In diesem Modul lernen Sie:
+
+- was eine kausale Gabel ist;
+
+- was ein Confounder ist;
+
+- dass gemeinsame Ursachen häufig zu Verwirrung führen.
+
+
+## Herzlichen Glückwunsch!
+
+Ein häufiges Motiv auf Glückwunschkarten zur Geburt eines Kindes ist ein Storch.
+
+<img src="images/Storch.png" alt="Storch mit Baby" width="50%" height="50%">
+<!-- style="padding-left:50px;" -->
+<span style="font-size: 10px;"><br>
+Quelle: [https://pixabay.com/de/vectors/baby-vogel-lieferung-weiblich-1299514/](https://pixabay.com/de/vectors/baby-vogel-lieferung-weiblich-1299514/)
+</span>
+
+Aber in der Schule haben wir gelernt, dass Störche gar nicht die Kinder bringen.
+
+Oder etwa doch?
+
+## Die Datenlage
+
+Robert Matthews hat sich Anfang des Jahrtausend die Mühe gemacht Daten für die Fragestellung zu sammeln ([Quelle](https://doi.org/10.1111/1467-9639.00013)):
+
+```{r scatter, echo=FALSE, fig.align='center', out.width='85%'}
+gf_point(geburten ~ stoerche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
+  gf_lm() %>%
+  gf_lims(x=c(0,35000), y=c(0,2000000)) %>%
+  gf_text(geburten ~ stoerche,
+          label = ~land,
+          hjust = 0, vjust = 2, alpha = 0.8, size = 7,
+          check_overlap = TRUE) %>%
+  gf_labs(x="Anzahl Störche (Paare)", y="Geburten", caption="Datenquelle: Robert Matthews")
+```
+
+
+Sie sehen: Es gibt Länder mit vielen Störchen &ndash; und gleichzeitig mit vielen Geburten. Und Länder mit vergleichsweise wenigen Störchen &ndash; und gleichzeitig wenigen Geburten.
+
+```{r zusammenhang, echo=FALSE}
+question("Wie ist der Zusammenhang zwischen der Anzahl der Störche und der Anzahl der Geburten über die $17$ abgebildeten Länder?",
+         answer("Es gibt einen positiven Zusammenhang zwischen der Anzahl Störche ($x$) und der Anzahl Geburten ($y$).", correct = TRUE, message = "In Ländern mit relativ vielen Geburten gibt es tendenziell auch relativ viele Störche. Dies ist auch an der eingezeichneten Regressionsgerade zu erkennen, die von links unten nach rechts oben verläuft."),
+         answer("Es gibt keinen erkennbaren Zusammenhang zwischen der Anzahl Störche ($x$) und der Anzahl Geburten ($y$)."),
+         answer("Es gibt einen negativen Zusammenhang zwischen der Anzahl Störche ($x$) und der Anzahl Geburten ($y$)."),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
+         )
+```
+
+## Korrelation
+
+Der Korrelationskoeffizient zwischen der <green>Anzahl Störche</green> ($\color{green}{x}$) und der <blue>Anzahl Geburten</blue> ($\color{blue}{y}$) liegt hier bei
+
+$$r_{\color{green}{x},\color{blue}{y}} = `r round(cor(geburten ~ stoerche, data = StoercheGeburten),2)`.$$
+
+Der Korrelationskoeffizient liegt immer zwischen $-1$ und $+1$. Bei negativen Zusammenhängen (z.B. zwischen Preis und Absatzmenge) wird er kleiner als Null; bei positiven Zusammenhängen (z.B. zwischen Einkommen und Ausgaben) wird er größer als Null.
+
+
+$r_{\color{green}{x},\color{blue}{y}} = `r round(cor(geburten ~ stoerche, data = StoercheGeburten),2)`$ ist also ein relativ großer, positiver Zusammenhang. 
+
+Gilt also doch folgender Graph?
+
+```{r DAG_SG, echo=FALSE, fig.align='center', out.width='85%'}
+plot(DAG_SG)
+```
+
+```{r pfeil, echo=FALSE}
+message <- "Der Pfeil sagt, dass der Wert der Variable an der Pfeilspitze abhängt vom Wert der Variable am Pfeilende &ndash; und nicht umgekehrt. Siehe Modul 2."
+question("Welche kausale Annahme ist in dem Diagram dargestellt?",
+         answer("Störche sind die Ursachen, Geburten die Wirkung.", correct = TRUE, message = message),
+         answer("Störche sind die Wirkung, Geburten die Ursache."),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
+         )
+```
+
+```{r korrelation, echo=FALSE}
+message <- "Der Korrelationskoeffizient ist symmetrisch, d.h., $r_{x,y} = r_{y,x}$."
+question("Der Korrelationskoeffizient zwischen der Anzahl Störche und der Anzahl Geburten liegt bei $r_{\\color{green}{x},\\color{blue}{y}} = +0.62$. Wissen Sie, was dann für den Korrelationskoeffizient zwischen der Anzahl Geburten und der Anzahl Störche gilt?",
+         answer("$r_{\\color{blue}{y}, \\color{green}{x}} = -0.62$."),
+         answer("$r_{\\color{blue}{y}, \\color{green}{x}} = 1/0.62 = 0.62^{-1}$."),
+         answer("$r_{\\color{blue}{y}, \\color{green}{x}} = +0.62$.", correct = TRUE, message = paste(message, "Vielleicht bringen also die Kinder die Störche?")),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
+         )
+```
+
+***
+
+*Ergänzung*: Mit einem p-Wert von $0.008$ wird eine Korrelation wie die gefundene *signifikant* genannt &ndash; zum üblichen Signifikanzniveau $\alpha = 5\%$. 
+Das heißt, die Wahrscheinlichkeit in einer zufälligen Stichprobe einen mindestens so großen Korrelationskoeffizient wie den beobachteten von $|r_{\color{green}{x},\color{blue}{y}}| = `r round(cor(geburten ~ stoerche, data = StoercheGeburten),2)`$ zu erhalten, ist, wenn in der Grundgesamtheit keine Korrelation vorliegt ($H_0: \rho =0$), klein.
+
+Um beliebte Fehlinterpretation des p-Wertes auszuschließen: Das bedeutet nicht, dass die Wahrscheinlichkeit dafür, dass kein Zusammenhang vorliegt, bei $0.008$ liegt. Es bedeutet auch nicht, dass die Wahrscheinlichkeit dafür, dass Störche nicht die Ursache der Geburten sind, bei $0.008$ liegt.
+
+***
+
+
+## Andere Erklärungen
+
+Überlegen wir uns mögliche Alternativerklärungen.
+Wie sieht eigentlich der Zusammenhang zwischen der Fläche des Landes und der Anzahl Geburten aus?
+
+```{r scatterflaeche, echo=FALSE, fig.align='center', out.width='85%', warning=FALSE}
+gf_point(geburten ~ flaeche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
+  gf_lm() %>%
+  gf_lims(x=c(0,900000), y=c(0,2000000)) %>%
+  gf_text(geburten ~ flaeche,
+          label = ~land,
+          hjust = 0, vjust = 2, alpha = 0.8, size = 7,
+          check_overlap = TRUE) %>%
+  gf_labs(x=parse(text = paste0("'Fläche in '",'~ km^2')), y="Geburten", caption="Datenquelle: Robert Matthews")
+```
+
+Anscheinend gibt es auch einen Zusammenhang zwischen der Größe eines Landes und der Anzahl Geburten.
+
+##
+
+Aber nicht nur die Anzahl der Geburten steht mit der Fläche im Zusammenhang, sondern auch die Anzahl der Störche:
+
+```{r scatterstoerche, echo=FALSE, fig.align='center', out.width='85%', warning=FALSE}
+gf_point(stoerche ~ flaeche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
+  gf_lm() %>%
+  gf_lims(x=c(0,900000), y=c(0,35000)) %>%
+  gf_text(stoerche ~ flaeche,
+          label = ~land,
+          hjust = 0, vjust = 2, alpha = 0.8, size = 7,
+          check_overlap = TRUE) %>%
+  gf_labs(x=parse(text = paste0("'Fläche in '",'~ km^2')), y="Anzahl Störche (Paare)", caption="Datenquelle: Robert Matthews")
+```
+
+## Confounder
+
+Hieraus ergibt sich eine mögliche Alternatvierklärung.
+Die Größe eines Landes, die <violet>Fläche</violet> ($\color{violet}{Z}$), ist eine gemeinsame Ursache für die <green>Anzahl Störche</green> ($\color{green}{X}$) und die <blue>Anzahl Geburten</blue> ($\color{blue}{Y}$).
+Das kausale Diagramm sieht dann wie folgt aus:
+
+```{r DAG_Fork, echo=FALSE, fig.align='center', out.width='85%'}
+plot(DAG_Fork)
+```
+
+Die <green>Anzahl Störche</green> ($\color{green}{X}$) und die <blue>Anzahl Geburten</blue> ($\color{blue}{Y}$) korrelieren in den Daten deswegen, weil beide eine gemeinsame Ursache, die <violet>Fläche</violet> ($\color{violet}{Z}$) haben. 
+Eine solche gemeinsame Ursache wird **Confounder** genannt.
+
+(Natürlich gibt es potentiell noch zahlreiche weitere gemeinsame Ursachen der <green>Anzahl Störche</green> ($\color{green}{X}$) und der <blue>Anzahl Geburten</blue> ($\color{blue}{Y}$).)
+
+```{r confounder, echo=FALSE}
+question("Hängt der Wert von Fläche ($\\color{violet}{Z}$) kausal von der Anzahl Störche ($\\color{green}{X}$) ab?",
+         answer("Ja"),
+         answer("Nein", correct = TRUE, message = "Das beschriebene Kausalmodell lautet $\\text{Anzahl Störche} \\leftarrow \\text{Fläche}$. Die Anzahl Störche *hört* auf die Fläche, aber die Fläche **hört nicht** auf die Anzahl Störche. Mehr Störche können die Fläche nicht ändern, die Fläche aber die Anzahl Störche."),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
+         )
+```
+
+## Gabel
+
+Auch komplexe kausale Diagramme bestehen aus relativ einfachen Grundelementen. Neben der Kette aus Modul 4 kommt jetzt die **Gabel** (engl.: fork):
+
+$$\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
+Sowohl der Wert von $\color{green}{X}$ als auch der Wert von $\color{blue}{Y}$ hängen kausal ab von $\color{violet}{Z}$, das strukturelle kausale Modell sieht wie folgt aus:
+\begin{eqnarray*}
+\color{violet}{Z} &=& U_{\color{violet}{Z}},\\
+\color{green}{X} &=& f_{\color{blue}{X}}(\color{violet}{Z},U_{\color{green}{X}}),\\
+\color{blue}{Y} &=& f_{\color{blue}{Y}}(\color{violet}{Z},U_{\color{blue}{Y}}).
+\end{eqnarray*}
+
+
+Wird der Wert von $\color{violet}{Z}$ geändert ($do(z)$), ändern sich die Werte von $\color{green}{X}$ und $\color{blue}{Y}$.
+
+```{r fork, echo=FALSE}
+message <- "Änderungen werden in Pfeilrichtung weitergegeben, eine Intervention von $\\color{green}{X}$ ändert *nicht* den Wert von $\\color{violet}{Z}$ &ndash; und als Folge auch nicht den von $\\color{blue}{Y}$."
+question("Ändert sich in der Kette der Wert von $\\color{blue}{Y}$, wenn eine Intervention auf $\\color{green}{X}$ erfolgt ($do(x)$)? ",
+         answer("Ja"),
+         answer("Nein", correct = TRUE, message = message),
+         allow_retry = TRUE,
+         correct = random_praise(),
+         incorrect = random_encouragement()
+         )
+```
+
+## Vergleich Kette und Gabel
+
+Der kausale Pfad bei einer **Kette** von $\color{green}{X}$ nach $\color{blue}{Y}$ sieht wie folgt aus: 
+$$\color{green}{X} \rightarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
+$\color{violet}{Z}$ *hört* auf $\color{green}{X}$ und $\color{blue}{Y}$ auf $\color{violet}{Z}$.
+Wird $\color{green}{X}$ geändert ($do(\color{green}{X}=\color{green}{x})$), ändert sich die Verteilung von $\color{violet}{Z}$ und damit auch die von $\color{blue}{Y}$.
+
+Bei einer **Gabel** gibt es hingegen **keinen** kausalen Pfad von $\color{green}{X}$ nach $\color{blue}{Y}$:
+$$\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
+Zwar *hört* immer noch $\color{blue}{Y}$ auf $\color{violet}{Z}$, $\color{violet}{Z}$ aber  nicht mehr auf $\color{green}{X}$, sondern umgekehrt, $\color{green}{X}$ hört auf $\color{violet}{Z}$. 
+Wird $\color{green}{X}$ geändert ($do(\color{green}{X}=\color{green}{x})$), ändert sich die Verteilung von $\color{violet}{Z}$ nicht, und damit auch nicht die von $\color{blue}{Y}$.
+
+
+## Adjustierung
+
+Was ist zu tun, um einen möglichen (totalen) kausalen Effekt von $\color{green}{X}$ auf $\color{blue}{Y}$ in einer Gabel ($\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$) zu bestimmen?
+
+Der Wert des Confounders $\color{violet}{Z}$ muss berücksichtigt werden. Im Beispiel der <green>Störche</green> und <blue>Geburten</blue> sollten also z.B. nur Länder mit gleicher <violet>Fläche</violet> verglichen werden. 
+Einen möglichen Weg, so etwas umzusetzen, haben Sie schon kennengelernt: lineare Regression. In einem linearen Regressionsmodell sollte anstelle des Modells `y ~ x` das Modell `y ~ x + z` verwendet werden.
+
+Die Variable <violet>Fläche</violet> heißt in der vorliegenden Datentabelle `flaeche`. Ändern Sie den Code entsprechend und gucken Sie, ob und wie sich der geschätzte Zusammenhang von `stoerche` und `geburten` im Modell ändert.
+
+```{r lm, exercise=TRUE}
+lm(geburten ~ stoerche, data = StoercheGeburten)
+```
+
+```{r lm-solution}
+lm(geburten ~ stoerche + flaeche, data = StoercheGeburten)
+```
+
+##
+
+Während ohne Berücksichtigung der <violet>Fläche</violet> die geschätzte Steigung der <blue>Anzahl Geburten</blue> in Richtung der <green>Anzahl Störche</green> bei $`r round(coef(lm_oA)[2],4)`$ liegt, liegt der Wert nach Berücksichtung der Fläche nur noch bei $`r round(coef(lm_mA)[2],4)`$. 
+Der im linearen Modell der Stichprobe geschätze Effekt ist also viel kleiner, und vermutlich näher an dem realen kausalen Effekt von Störchen auf Geburten.
+
+Tatsächlich ist schon in diesem Modell der Effekt nicht mehr statistisch signifikant verschieden von 0.
+Der beobachtete Mini-Zusammenhang kann also auch nur Zufallsschwankungen widerspiegeln.
+Und natürlich könnte es darüber hinaus noch weitere Konfundierende geben.
+
+
+## Zusammenfassung
+
+:::{.box}
+Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer Gabel $$X \leftarrow Z \rightarrow Y$$ zu bestimmen, muss der Confounder $Z$ berücksichtigt werden. 
+Wird $Z$ nicht berücksichtigt, bleibt die Gabel offen und ein nicht-kausaler Zusammenhang zwischen $X$ und $Y$ fließt in die Analyse ein.
+Die Berücksichtigung kann beispielsweise erfolgen durch einen stratifizierten Vergleich oder durch Aufnahme der Variable in ein lineares Modell.
+Wird so korrekt adjustiert, dann ist die Gabel geschlossen und beeinträchtigt nicht mehr die Interpretierbarkeit der Analyse.
+::: 
+
+
+
+## Ausblick: Ach du liebe Zeit
+
+Wird die gemeinsame Entwicklung von zwei Variablen über die Zeit betrachtet, so erzeugt die *liebe Zeit* häufig hohe Korrelationen. So z.B. zwischen der Scheidungsrate in Maine und dem Pro-Kopf-Verbrauch von Magarine:
+
+<img src="images/tv-sc.png" alt="Korrelation Scheidungsrate und Magarine" width="100%" height="100%">
+<!-- style="padding-left:50px;" -->
+<span style="font-size: 10px;"><br>
+Quelle: [Tyler Vigen: Spurious Correlations](https://tylervigen.com/spurious-correlations)
+</span>
+
+Grund für die hohe Korrelation ist einfach nur, dass beides, sowohl die Scheidungsrate als auch der Konsum von Magarine, im Laufe der Zeit zurückgegangen ist. Weder führten die weniger Scheidungen zu weniger Magarinekonsum, noch der Rückgang des Magarinekonsums zu weniger Scheidungen.
+
+Eine einfache Simulation eines *Random Walks mit Drift* verdeutlicht das Phänomen. Hier haben beide Variablen einen Trend &ndash; aber ansonsten haben sie nichts miteinander zu tun, also weder ist `x1` die Ursache von `x2` noch umgekehrt. 
+
+*Hinweis*: Der Zufallszahlengenerator ist nicht gesetzt, d.h. kein `set.seed()`. Daher ergeben sich aufgrund zufälliger Variation (*Rauschen*) unterschiedliche Ergebnisse beim wiederholten `Ausführen`.
+
+```{r rw, exercise=TRUE, exercise.lines=30}
+# Anzahl Zeitpunkte
+n <- 100
+zeitpunkte <- 1:n
+# Drift
+d1 <- 0.1
+d2 <- 0.2
+# Vektoren bereitstellen
+x1 <- numeric(n)
+x2 <- numeric(n)
+# Startwerte (Zeitpunkt 1)
+x1[1] <- 0
+x2[1] <- 0
+# Simulation Random Walk mit Drift über Schleife
+# Neue Beobachtung = Vorherige Beobachtung + Drift + Zufall
+for (i in 2:n)
+{
+  x1[i] <- x1[(i-1)] + d1 + rnorm(1, mean = 0, sd = 1)
+  x2[i] <- x2[(i-1)] + d2 + rnorm(1, mean = 0, sd = 1)
+}
+# Datentabelle
+RandomWalk <- data.frame(
+  zeitpunkte = zeitpunkte,
+  x1 = x1,
+  x2 = x2
+)
+# Abbildung
+gf_line(x1 ~ zeitpunkte, color = "orange", data = RandomWalk) %>%
+  gf_line(x2 ~ zeitpunkte, color = "purple", data = RandomWalk) %>%
+  gf_labs(y = "Entwicklung")
+# Korrelation (inkl. Test)
+cor.test(x1 ~ x2, data = RandomWalk)
+```
+
+
+## KI-Campus
+
+[Zurück zum Kurs](https://learn.ki-campus.org/courses/7c8012d9-8729-4462-9ad0-be7d71118f37/launch)
