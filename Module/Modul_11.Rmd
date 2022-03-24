@@ -52,7 +52,8 @@ LV <- LV %>%
   mutate(Geschlecht = case_when(Geschlecht == 0 ~ "w",
                                 Geschlecht == 1 ~ "m"),
          RaucherIn = case_when(RaucherIn == 0 ~ "nein",
-                               RaucherIn == 1 ~ "ja"))
+                               RaucherIn == 1 ~ "ja")) %>%
+  mutate(Groesse = Groesse * 2.54)
 
 
 p1 <- DiagrammeR::grViz("
@@ -111,23 +112,21 @@ Vorbereitungen der Analyse mit `R`:
 ```{r str}
 # Paket laden
 library(mosaic)
-# Daten einlesen
+# Daten einlesen, siehe https://doi.org/10.1080/10691898.2005.11910559
 LV <- read.table("http://jse.amstat.org/datasets/fev.dat.txt", 
                  col.names = c("Alter", "Lungenvolumen", "Groesse", "Geschlecht",	"RaucherIn"))
-# Variablen umkodieren
+# Variablen umkodieren bzw. umrechnen
 LV <- LV %>%
   mutate(Geschlecht = case_when(Geschlecht == 0 ~ "w",
                                 Geschlecht == 1 ~ "m"),
          RaucherIn = case_when(RaucherIn == 0 ~ "nein",
-                               RaucherIn == 1 ~ "ja"))
+                               RaucherIn == 1 ~ "ja")) %>%
+  mutate(Groesse = Groesse * 2.54)
 # Datenstruktur
 str(LV)
 ```
 
 Die Datentabelle `LV` enthält $n=`r nrow(LV)`$ Beobachtungsdaten mit den $`r ncol(LV)`$ Variablen:
-
-
-mit den Variablen:
 
 - `Alter`: Alter in Jahren
 - `Lungenvolumen`: forcierte exspiratorische Volumen in l
