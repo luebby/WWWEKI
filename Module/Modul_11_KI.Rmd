@@ -44,7 +44,16 @@ library(learnr)
 library(mosaic)
 library(DT)
 
-load("data/LV.Rdata")
+# load("data/LV.Rdata")
+
+LV <- read.table("http://jse.amstat.org/datasets/fev.dat.txt", 
+                 col.names = c("Alter", "Lungenvolumen", "Groesse", "Geschlecht",	"RaucherIn"))
+LV <- LV %>%
+  mutate(Geschlecht = case_when(Geschlecht == 0 ~ "w",
+                                Geschlecht == 1 ~ "m"),
+         RaucherIn = case_when(RaucherIn == 0 ~ "nein",
+                               RaucherIn == 1 ~ "ja"))
+
 
 p1 <- DiagrammeR::grViz("
 digraph {
@@ -96,13 +105,26 @@ question("Ist hier ein randomisiertes Experiment ethisch vertretbar?",
 
 ##
 
-Die hier verwendete Datentabelle `LV` enthält Beobachtungsdaten und hat folgende Struktur:
+
+Vorbereitungen der Analyse mit `R`:
 
 ```{r str}
+# Paket laden
+library(mosaic)
+# Daten einlesen
+LV <- read.table("http://jse.amstat.org/datasets/fev.dat.txt", 
+                 col.names = c("Alter", "Lungenvolumen", "Groesse", "Geschlecht",	"RaucherIn"))
+# Variablen umkodieren
+LV <- LV %>%
+  mutate(Geschlecht = case_when(Geschlecht == 0 ~ "w",
+                                Geschlecht == 1 ~ "m"),
+         RaucherIn = case_when(RaucherIn == 0 ~ "nein",
+                               RaucherIn == 1 ~ "ja"))
+# Datenstruktur
 str(LV)
 ```
 
-mit den Variablen:
+Die Datentabelle `LV` enthält $n=`r nrow(LV)`$ Beobachtungsdaten mit den $`r ncol(LV)`$ Variablen:
 
 - `Alter`: Alter in Jahren
 - `Lungenvolumen`: forcierte exspiratorische Volumen in l
