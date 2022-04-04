@@ -72,12 +72,13 @@ DAG2 <- dagify(Y~ X,
                    coords = co) %>% 
   ggdag() + 
   geom_dag_point(colour = c( "darkgrey", "darkgrey","#0F710B", "#0000FF")) + 
-  geom_dag_text(size = 5) +
+  geom_dag_text(size = 7, label =  c(expression(U[X]), expression(U[Y]), "X", "Y"), parse = TRUE) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
   geom_text(label = "X - Tablette\nY - Schmerzrückgang", 
             hjust = 1, vjust = 2,
-            x = 1, y = 0, size = 7, color = "darkgrey")
+            x = 1, y = 1, size = 7, color = "darkgrey")
+
 
 # Funktionen für Beispiel
 
@@ -334,7 +335,7 @@ Wir gehen an dieser Stelle davon aus, dass $U_{\color{green}{X}}$ und $U_{\color
 
 Diese sogenannten Fehler könnten in den Graphen mit aufgenommen werden, werden aber häufig aus Gründen der Übersichtlichkeit weggelassen. 
 
-```{r DAG2, echo=FALSE, fig.align='center', out.width='60%'}
+```{r DAG2, echo=FALSE, fig.align='center', out.width='60%', warning=FALSE}
 plot(DAG2)
 ```
 
