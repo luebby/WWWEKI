@@ -7,7 +7,7 @@ Details siehe z.B. [FOM forscht Wissenschaftsblog](https://www.fom-blog.de/2021/
  
 **Videos**:
 
-Hier fehlen auch die begleitenden Interviews mit angesehen Expert:innen aus unterschiedlichen Fachgebieten, die ihre kausalen Fragestellungen und Lösungsansätze vorstellen. Diese finden Sie unter [https://wwweki.gitlab.io/interviews/](https://wwweki.gitlab.io/interviews/)
+Hier fehlen auch die begleitenden Interviews mit angesehen Expert:innen aus unterschiedlichen Fachgebieten, die ihre kausalen Fragestellungen und Lösungsansätze vorstellen. Diese finden Sie unter [https://wwweki.gitlab.io/interviews/](https://wwweki.gitlab.io/interviews/).
 
 **Literatur**:
 
