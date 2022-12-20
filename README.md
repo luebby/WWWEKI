@@ -4,6 +4,7 @@ Entwicklung eines MOOC für den [KI-Campus](https://ki-campus.org/) zum Einstieg
 
 Details siehe z.B. [FOM forscht Wissenschaftsblog](https://www.fom-blog.de/2021/07/einstiegskurs-kausale-inferenz-wird-gemeinsam-von-der-universitaet-leipzig-und-der-fom-hochschule-mit-einer-foerderung-durch-das-bmbf-entwickelt/).
 
+Link zum Kurs auf den KI-Campus: [https://ki-campus.org/courses/wwweki](https://ki-campus.org/courses/wwweki)
  
 **Videos**:
 

@@ -250,7 +250,7 @@ analyse( ~ y, data = Daten)
 
 ***
 
-Beachten Sie: Der durchschnittliche kausale Effekt ist positiv, auf Individualebene kann er aber auch negativ sein. $\bar{\color{orange}{\Delta}}$ ist eine aggegierte Datenzusammenfassung.
+Beachten Sie: Der durchschnittliche kausale Effekt ist positiv, auf Individualebene kann er aber auch negativ sein. $\bar{\color{orange}{\Delta}}$ ist eine aggregierte Datenzusammenfassung.
 
 ##
 
@@ -353,7 +353,7 @@ mean(gehalt1 ~ teilnahme, data = Schulung)
 
 ##
 
-Das fundamentale Problem der kausalen Inferenz ist universell. In vielen Situationen kann es dazu führen, dass die Daten uns in die Irre führen: Vielleicht vermuten wir einen kausalen Effekt wo es nicht wirklich einen gibt, oder wir erkennen real existierende Effekte nicht. 
+Das fundamentale Problem der kausalen Inferenz ist universell. In vielen Situationen kann es dazu führen, dass die Daten uns in die Irre führen: Vielleicht vermuten wir einen kausalen Effekt, wo es nicht wirklich einen gibt, oder wir erkennen real existierende Effekte nicht. 
 
 Die Gefahr solcher Fehlschlüsse verringert sich aber, wenn wir uns darüber Gedanken machen, wie unsere Daten überhaupt entstanden sind. In unserem fiktiven Beispiel kann man die zusätzliche Information heranziehen, dass Personen sich frei auswählen konnten, ob sie teilnehmen oder nicht. Dann erkennt man schnell, dass der naive Mittelwertvergleich kein angemessener Weg ist, den durchschnittlichen kausalen Effekt zu schätzen. 
 
