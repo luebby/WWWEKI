@@ -101,7 +101,7 @@ Oder etwa doch?
 
 Robert Matthews hat sich Anfang des Jahrtausend die Mühe gemacht Daten für die Fragestellung zu sammeln ([Quelle](https://doi.org/10.1111/1467-9639.00013)):
 
-```{r scatter, echo=FALSE, fig.align='center', out.width='85%'}
+```{r scatter, echo=FALSE, fig.align='center', out.width='85%', warning=FALSE}
 gf_point(geburten ~ stoerche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
   gf_lm() %>%
   gf_lims(x=c(0,35000), y=c(0,2000000)) %>%
@@ -117,9 +117,9 @@ Sie sehen: Es gibt Länder mit vielen Störchen &ndash; und gleichzeitig mit vie
 
 ```{r zusammenhang, echo=FALSE}
 question("Wie ist der Zusammenhang zwischen der Anzahl der Störche und der Anzahl der Geburten über die $17$ abgebildeten Länder?",
-         answer("Es gibt einen positiven Zusammenhang zwischen der Anzahl Störche ($x$) und der Anzahl Geburten ($y$).", correct = TRUE, message = "In Ländern mit relativ vielen Geburten gibt es tendenziell auch relativ viele Störche. Dies ist auch an der eingezeichneten Regressionsgerade zu erkennen, die von links unten nach rechts oben verläuft."),
-         answer("Es gibt keinen erkennbaren Zusammenhang zwischen der Anzahl Störche ($x$) und der Anzahl Geburten ($y$)."),
-         answer("Es gibt einen negativen Zusammenhang zwischen der Anzahl Störche ($x$) und der Anzahl Geburten ($y$)."),
+         answer("Es gibt einen positiven Zusammenhang zwischen der Anzahl Störche $x$  und der Anzahl Geburten $y$.", correct = TRUE, message = "In Ländern mit relativ vielen Geburten gibt es tendenziell auch relativ viele Störche. Dies ist auch an der eingezeichneten Regressionsgerade zu erkennen, die von links unten nach rechts oben verläuft."),
+         answer("Es gibt keinen erkennbaren Zusammenhang zwischen der Anzahl Störche $x$ und der Anzahl Geburten $y$."),
+         answer("Es gibt einen negativen Zusammenhang zwischen der Anzahl Störche $x$ und der Anzahl Geburten $y$."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -225,7 +225,7 @@ Eine solche gemeinsame Ursache wird **Confounder** genannt.
 (Natürlich gibt es potentiell noch zahlreiche weitere gemeinsame Ursachen der <green>Anzahl Störche</green> ($\color{green}{X}$) und der <blue>Anzahl Geburten</blue> ($\color{blue}{Y}$).)
 
 ```{r confounder, echo=FALSE}
-question("Hängt der Wert von Fläche ($\\color{violet}{Z}$) kausal von der Anzahl Störche ($\\color{green}{X}$) ab?",
+question("Hängt der Wert von Fläche $\\color{violet}{Z}$ kausal von der Anzahl Störche $\\color{green}{X}$ ab?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = "Das beschriebene Kausalmodell lautet $\\text{Anzahl Störche} \\leftarrow \\text{Fläche}$. Die Anzahl Störche *hört* auf die Fläche, aber die Fläche **hört nicht** auf die Anzahl Störche. Mehr Störche können die Fläche nicht ändern, die Fläche aber die Anzahl Störche."),
          allow_retry = TRUE,
@@ -251,7 +251,7 @@ Wird der Wert von $\color{violet}{Z}$ geändert ($do(z)$), ändern sich die Wert
 
 ```{r fork, echo=FALSE}
 message <- "Änderungen werden in Pfeilrichtung weitergegeben, eine Intervention von $\\color{green}{X}$ ändert *nicht* den Wert von $\\color{violet}{Z}$ &ndash; und als Folge auch nicht den von $\\color{blue}{Y}$."
-question("Ändert sich in der Kette der Wert von $\\color{blue}{Y}$, wenn eine Intervention auf $\\color{green}{X}$ erfolgt ($do(x)$)? ",
+question("Ändert sich in der Gabel der Wert von $\\color{blue}{Y}$, wenn eine Intervention auf $\\color{green}{X}$ erfolgt - $do(x)$? ",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
          allow_retry = TRUE,
