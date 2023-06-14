@@ -283,9 +283,9 @@ question("Welches kausale Diagramm beschreibt den Zusammenhang zwischen Lichtsch
 
 Manche glauben ja, dass Kinder auf Ihre Eltern hören. Das schöne an abstrakten, gedanklichen Welten ist, dass das dort realisiert werden kann. 
 
-Variablen (Knoten), auf die eine Pfeilspitze zeigt, werden **Kinder** derjenigen Variablen genannt, von welchen die Pfeile ausgehen. Diese Variablen werden entsprechend **Eltern** genannt: $\text{Eltern} \rightarrow \text{Kinder}$. Im Beispiel von oben ist <blue> Schmerzrückgang </blue> ein Kind von <green> Tabletteneinnahme </green> &ndash; und dementsprechend <green> Tabletteneinnahme </green> Eltern von <blue> Schmerzrückgang</blue>. In kausalen Graphen höre Kinder also auf ihre Eltern.
+Variablen (Knoten), auf die eine Pfeilspitze zeigt, werden **Kinder** derjenigen Variablen genannt, von welchen die Pfeile ausgehen. Diese Variablen werden entsprechend **Eltern** genannt: $\text{Eltern} \rightarrow \text{Kinder}$. Im Beispiel von oben ist <blue> Schmerzrückgang </blue> ein Kind von <green> Tabletteneinnahme </green> &ndash; und dementsprechend <green> Tabletteneinnahme </green> Eltern von <blue> Schmerzrückgang</blue>. In kausalen Graphen hören Kinder also auf ihre Eltern.
 
-Ein Beispiel für ein kausales Diagramm welches beschreibt, wie eine Straße rutschig werden kann. Die Wahrscheinlichkeit von Regen hängt ab von der Jahreszeit. Die Jahreszeit beeinflusst aber auch, ob ein Wassersprenger zum Einsatz kommt. Sowohl Regen als auch Wassersprenger führen dazu, dass die Straße nass wird. Ist die Straße nass, kann es rutschig werden:
+Ein Beispiel für ein kausales Diagramm, welches beschreibt, wie eine Straße rutschig werden kann. Die Wahrscheinlichkeit von Regen hängt ab von der Jahreszeit. Die Jahreszeit beeinflusst aber auch, ob ein Wassersprenger zum Einsatz kommt. Sowohl Regen als auch Wassersprenger führen dazu, dass die Straße nass wird. Ist die Straße nass, kann es rutschig werden:
 
 ```{r DAG_Str, echo=FALSE, fig.align='center', out.width='85%'}
 plot(DAG_Str)
