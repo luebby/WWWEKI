@@ -83,7 +83,7 @@ Er enthält Daten zu Häusern in Saratoga County, New York, USA, im Jahr 2006.
 
 Schauen wir uns dort den Zusammenhang zwischen Anzahl Zimmer (`rooms`) und Preis (`price`) einmal an:
 
-```{r desi}
+```{r desi, warning=FALSE}
 # Vorbereitungen: Paket und Daten laden
 library(mosaic)
 data(SaratogaHouses)
@@ -198,7 +198,7 @@ In diesem simplen Graphen können wir uns jetzt auf spezifische Aspekte konzentr
 ```{r graph2, echo=FALSE}
 message <- "Neben dem direkten Effekt über $X \\rightarrow Y$ gibt es auch den nicht-kausalen $X \\leftarrow Z \\rightarrow Y$. Hier ist die **Fläche** ein **Confounder**."
 question("Angenommen, uns interessiert der Zusammenhang zwischen der Anzahl der Zimmer und dem Preis, unter Berücksichtigung der Fläche.
-Welcher Struktur enstpricht der Teilgraph?",
+Welcher Struktur entspricht der Teilgraph?",
          answer("Kette"),
          answer("Gabel", correct = TRUE, message = message),
          answer("Umgedrehte Gabel"),
