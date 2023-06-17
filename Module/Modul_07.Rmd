@@ -40,7 +40,7 @@ DAG_Fork <- dagify(X ~ Z,
                    Y ~ X,
                    coords = co) %>% 
   ggdag() + 
-  geom_dag_point(colour = c("#0F710B", "#DA70D6","#0000FF")) + 
+  geom_dag_point(colour = c("#0F710B","#0000FF","#DA70D6")) + 
   geom_dag_text(size = 8) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
@@ -147,7 +147,7 @@ Dann gilt gemäß des Modells:
 $$\hat{\color{blue}{y}} = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]` \cdot \color{green}{5}= \color{blue}{`r round(coef(erglm1))[1]+  round(coef(erglm1))[2]*5`}.$$
 
 ```{r Wertsteigerung, echo=FALSE}
-message <- "Das geschätzte lineare Modell der Stichprobe bezieht sich auf die Beobachtungsdaten ($X=x$), d. h., die Steigung beschreibt die beobachtete Änderung des Mittelwertes, nicht den Effekt einer Handlung $do(X=x)$ (vgl. Modul 2)."
+message <- "Das geschätzte lineare Modell der Stichprobe bezieht sich auf die Beobachtungsdaten, also $X=x$, d. h., die Steigung beschreibt die beobachtete Änderung des Mittelwertes, nicht den Effekt einer Handlung $do(X=x)$ (vgl. Modul 2)."
 question("Erhöht eine solche Raumteilung den Preis der Immobilie im Mittel um $22573$?",
          answer("Ja"),
          answer("Nein", correct = TRUE, message = message),
