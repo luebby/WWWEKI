@@ -77,7 +77,7 @@ In der [Data-Literacy-Charta](https://www.stifterverband.org/charta-data-literac
 - Was darf ich mit Daten machen? 
 - Was soll ich mit Daten machen?
 
-In diesem Modul behandeln wir die Frage: ***Was will ich mich mit Daten machen?*** Welches Ziel verfolge ich mit der Datenanalyse? Nutze ich die Daten um ein Phänomen zu beschreiben? Oder nutze ich die Daten um etwas vorherzusagen? Geht es am Ende um kausale Inferenz? Je nach Ziel der Datenanalyse sind unterschiedliche Methoden angemessen.
+In diesem Modul behandeln wir die Frage: ***Was will ich mit Daten machen?*** Welches Ziel verfolge ich mit der Datenanalyse? Nutze ich die Daten um ein Phänomen zu beschreiben? Oder nutze ich die Daten um etwas vorherzusagen? Geht es am Ende um kausale Inferenz? Je nach Ziel der Datenanalyse sind unterschiedliche Methoden angemessen.
 
 Die folgenden Beispiele stammen aus [Hernán et al. (2019)](https://doi.org/10.1080/09332480.2019.1579578).
 
