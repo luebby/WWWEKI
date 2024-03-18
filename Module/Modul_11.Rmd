@@ -228,7 +228,7 @@ lm(Lungenvolumen ~ RaucherIn, data = LV) %>%
 
 Raucher:innen haben *scheinbar* ein höheres Lungenvolumen:
 
-$$\widehat{\text{Lungenvolumen}} = 2.57 + 0.71 \cdot \begin{cases} 1 &: \text{RaucherIn = Ja} \\ 0&: \text{sonst} \end{cases}$$
+$$\widehat{\text{Lungenvolumen}} = 3.28 - 0.71 \cdot \begin{cases} 1 &: \text{RaucherIn = Nein} \\ 0&: \text{sonst} \end{cases}$$
 
 ##
 
@@ -277,8 +277,8 @@ lm(Lungenvolumen ~ RaucherIn + Geschlecht + Alter, data = LV) %>%
 
 
 ```{r effekt, echo=FALSE}
-question("Hat in dem Modell Rauchen den zu erwartenden negativen Effekt auf das Lungenvolumen?",
-  answer("Ja.", correct = TRUE, message = "Der geschätzte Koeffizient (`Estimate`) ist mit $-0.153974$ negativ (für die Variable `RaucherInja `)."),
+question("Hat in dem Modell Nicht-Rauchen den zu erwartenden positiven Effekt auf das Lungenvolumen?",
+  answer("Ja.", correct = TRUE, message = "Der geschätzte Koeffizient (`Estimate`) ist mit $0.153974$ positiv (für die Variable `RaucherInnein `)."),
   answer("Nein."),
   allow_retry = TRUE,
   correct = random_praise(),
