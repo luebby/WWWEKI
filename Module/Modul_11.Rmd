@@ -115,7 +115,7 @@ library(mosaic)
 # Daten einlesen, siehe https://doi.org/10.1080/10691898.2005.11910559
 LV <- read.table("http://jse.amstat.org/datasets/fev.dat.txt", 
                  col.names = c("Alter", "Lungenvolumen", "Groesse", "Geschlecht",	"RaucherIn"))
-# Variablen umkodieren bzw. umrechnen
+# Variablen umkodieren und umrechnen
 LV <- LV %>%
   mutate(Geschlecht = case_when(Geschlecht == 0 ~ "w",
                                 Geschlecht == 1 ~ "m"),
@@ -226,7 +226,7 @@ lm(Lungenvolumen ~ RaucherIn, data = LV) %>%
   summary()
 ```
 
-Raucher:innen haben *scheinbar* ein höheres Lungenvolumen:
+Nicht-Raucher:innen haben *scheinbar* ein geringeres Lungenvolumen:
 
 $$\widehat{\text{Lungenvolumen}} = 3.28 - 0.71 \cdot \begin{cases} 1 &: \text{RaucherIn = Nein} \\ 0&: \text{sonst} \end{cases}$$
 
