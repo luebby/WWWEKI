@@ -329,7 +329,7 @@ Der naive Vergleich der Mittelwerte überschätzt hier den wahren durchschnittli
 
 Erstere hätten aber so oder so, also unabhängig von der Schulung, ein höheres Gehalt erhalten. Hier sind unterschiedliche inhaltliche Erklärungen denkbar (z.B. ein höheres Interesse am Gehalt und damit auch ein anderes Auftreten in Gehaltsverhandlungen).
 
-Kontrollieren Sie diese Aussage, indem Sie den Code so abändern, dass Sie die Mittelwerte der Potential Outcomes berechnen. Diese befinden sich im gleichen Datensatz und tragen die Namen `gehalt0` und `gehalt1`:
+Kontrollieren Sie diese Aussage, indem Sie den Code so abändern, dass Sie die Mittelwerte der, auch unbeobachteten, Potential Outcomes berechnen. Diese befinden sich in der gleichen Datentabelle und tragen die Namen `gehalt0` und `gehalt1`:
 
 *Tipp*: Einen Lösungshinweis erhalten Sie über den `Hinweise`-Button über dem R Code. Anschließend `Nächster Tipp` und Sie sehen die Lösung.
 
