@@ -38,7 +38,7 @@ Die Interviews und Tutorials sind teilweise inhaltlich aufeinander abgestimmt, k
 11. [Schadet Rauchen bei Heranwachsenden?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_11/) (Anwendungsbeispiel Kausale Inferenz in der Medizin.)
 - [Interview mit Jakob Runge: Kausalinferenz in komplexen Klimasystemen](https://www.youtube.com/watch?v=HFoDVJOqFZw&list=PL4puIg9yEU6w_2RT-OK64Pb6QdQpvaH_r&index=3&ab_channel=KI-Campus)
 12. [Praktisches Daten hinterfragen](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_12/) (DAGs in der Anwendung, Ausblick)
-- [Interview mit Jonas Peters: Causal Discovery](https://www.youtube.com/watch?v=YvhuYONl1o0&list=PL4puIg9yEU6w_2RT-OK64Pb6QdQpvaH_r&index=9&ab_channel=KI-Campus)
+- [Interview mit Jonas Peters: Causal Discovery](https://www.youtube.com/watch?v=Dy6CutsvMbY&ab_channel=KI-Campus)
 
 Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
 
