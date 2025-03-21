@@ -6,6 +6,7 @@ Für Hintergründe zum Kurs siehe [FOM forscht Wissenschaftsblog](https://www.fo
 
 Der Kurs setzt sich zusammen aus Interviews mit Expert:innen aus unterschiedlichen Fachgebieten sowie interaktiven Tutorials.
 Alle Interviews auf einen Blick finden Sie unter [https://wwweki.gitlab.io/interviews/](https://wwweki.gitlab.io/interviews/).
+
 Die Interviews und Tutorials sind teilweise inhaltlich aufeinander abgestimmt, können aber auch problemlos in Isolation verwendet werden.
 
 **Literatur**:
