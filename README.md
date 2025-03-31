@@ -18,27 +18,32 @@ Die Interviews und Tutorials sind teilweise inhaltlich aufeinander abgestimmt, k
 
 ## Modulübersicht
 
+
+
 1. [An der Weggabelung: Einen Weg gehen - und einen nicht](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_01/) (Potential Outcome und Counterfactual)
-- [Interview mit David Lagnado: Wie wir kausal danken](https://www.youtube.com/watch?v=Um0lkCA6Evk&ab_channel=KI-Campus)
+- [Kurzes Video: Willkommen im Kurs](https://youtu.be/AthXheSZhXE)
 2. [Ein Pfeil zeigt die Richtung](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_02/) (Strukturelle kausale Modelle und Kausale Diagramme)
-3. [Daten analysieren - mit welchem Ziel?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_03/) (Datenanwendungen (Beschreibung, Vorhersage, Kausale Inferenz), Kausale Leiter (Assoziation, Intervention, Counterfactual))
+ - [Interview mit David Lagnado: Wie wir kausal danken](https://www.youtube.com/watch?v=Um0lkCA6Evk&ab_channel=KI-Campus)
+4. [Daten analysieren - mit welchem Ziel?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_03/) (Datenanwendungen (Beschreibung, Vorhersage, Kausale Inferenz), Kausale Leiter (Assoziation, Intervention, Counterfactual))
 - [Interview mit Stephan Poppe: Die kausale Leiter](https://www.youtube.com/watch?v=2uHLEgdvZt4&ab_channel=KI-Campus)
-4. [Es steht was zwischen uns](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_04/) (Kette)  
+4. [Es steht was zwischen uns](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_04/) (Kette)
+- [Kurzes Video: Gabel, Kette, umgedrehte Gabel -- fundamentale kausale Strukturen](https://www.youtube.com/watch?v=A8kMmDd_qR8&ab_channel=JuliaRohrer)  
 5. [Von Störchen und Geburten](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_05/) (Gabel)
 - [Interview mit Anne: Wie beeinflusst das Stillen die kindliche Entwicklung?](https://www.youtube.com/watch?v=x7o4pjpcuxo&ab_channel=KI-Campus)
 6. [Nett oder schön? &ndash; Warum nicht beides?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_06/) (Umgedrehte Gabel)
-7. [Warum Raumteilung keine gute Investition ist](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_07/) (Wiederholung Grundelemente Kausaler Diagramme, Unterschied (do(x) vs. X=x am Beispiel)
 - [Interview mit Carla Schmitt: Kausalinferenz im Unternehmenskontext](https://www.youtube.com/watch?v=VZcwxd9fG10&list=PL4puIg9yEU6w_2RT-OK64Pb6QdQpvaH_r&index=4&ab_channel=KI-Campus)
+7. [Warum Raumteilung keine gute Investition ist](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_07/) (Wiederholung Grundelemente Kausaler Diagramme, Unterschied (do(x) vs. X=x am Beispiel)
+- [Interview mit Dean Eckles: Soziale Ansteckung](https://www.youtube.com/watch?v=Tr9TfyR19h8&list=PL4puIg9yEU6w_2RT-OK64Pb6QdQpvaH_r&index=9&ab_channel=KI-Campus)
 8. [Magie durch Zufall](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_08/) (Zufällige Stichprobe und zufällige Zuordnung im Rahmen eines Experiments und die Auswirkungen auf die Datenanwendungen (Beschreibung, Vorhersage, Kausale Inferenz))
 - [Interview mit Richard McElreath: Kausales Denken für alle Datenanwendungen](https://www.youtube.com/watch?v=YvhuYONl1o0&list=PL4puIg9yEU6w_2RT-OK64Pb6QdQpvaH_r&index=9&ab_channel=KI-Campus)
 9. [Was wäre gewesen, wenn?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_09/) (Counterfactual)
-- [Interview mit Dean Eckles: Soziale Ansteckung](https://www.youtube.com/watch?v=Tr9TfyR19h8&list=PL4puIg9yEU6w_2RT-OK64Pb6QdQpvaH_r&index=9&ab_channel=KI-Campus)
-10. [Graphen zeichnen und lesen](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_10/) (Beispiel Gender-Pay-Gap)
 - [Interview mit Sebastian Weichwald: Pragmatische Kausalinferenz](https://www.youtube.com/watch?v=0hDrxbpJsvY&list=PL4puIg9yEU6w_2RT-OK64Pb6QdQpvaH_r&index=5&ab_channel=KI-Campus)
-11. [Schadet Rauchen bei Heranwachsenden?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_11/) (Anwendungsbeispiel Kausale Inferenz in der Medizin.)
+10. [Graphen zeichnen und lesen](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_10/) (Beispiel Gender-Pay-Gap)
 - [Interview mit Jakob Runge: Kausalinferenz in komplexen Klimasystemen](https://www.youtube.com/watch?v=HFoDVJOqFZw&list=PL4puIg9yEU6w_2RT-OK64Pb6QdQpvaH_r&index=3&ab_channel=KI-Campus)
-12. [Praktisches Daten hinterfragen](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_12/) (DAGs in der Anwendung, Ausblick)
+11. [Schadet Rauchen bei Heranwachsenden?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_11/) (Anwendungsbeispiel Kausale Inferenz in der Medizin.)
 - [Interview mit Jonas Peters: Causal Discovery](https://www.youtube.com/watch?v=Dy6CutsvMbY&ab_channel=KI-Campus)
+12. [Praktisches Daten hinterfragen](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_12/) (DAGs in der Anwendung, Ausblick)
+- [Kurzes Video zum Abschied](https://youtu.be/UZwlsbEf2P0)
 
 Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
 
