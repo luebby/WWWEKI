@@ -196,6 +196,8 @@ question("Sind die Wahrscheinlichkeiten für $y$ bei Assoziation $Pr(y|x)$ und I
          )
 ```
 
+<a href="https://github.com/luebby/WWWEKI?tab=readme-ov-file#modul%C3%BCbersicht" class="btn btn-primary">Zur Modulübersicht (auf GitHub)</a>
+
 ## Hinweis
 
 <red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>

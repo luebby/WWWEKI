@@ -436,6 +436,8 @@ Diese *Kausale Leiter* ist Teil des folgenden Moduls 3.
 Quelle: [https://pixabay.com/vectors/good-girls-cloud-star-ladder-2204244/](Quelle: https://pixabay.com/vectors/good-girls-cloud-star-ladder-2204244/)
 </span>
 
+<a href="https://github.com/luebby/WWWEKI?tab=readme-ov-file#modul%C3%BCbersicht" class="btn btn-primary">Zur Modulübersicht (auf GitHub)</a>
+
 ## Hinweis
 
 <red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>

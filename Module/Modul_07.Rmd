@@ -266,7 +266,7 @@ question("Angenommen, wir wollen die erwartete Änderung des Preises, wenn die F
          )
 ```
 
-
+<a href="https://github.com/luebby/WWWEKI?tab=readme-ov-file#modul%C3%BCbersicht" class="btn btn-primary">Zur Modulübersicht (auf GitHub)</a>
 
 ## Hinweis
 

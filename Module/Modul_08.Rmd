@@ -595,7 +595,7 @@ In diesem Modul haben Sie statistische Methoden kennengelernt, wie Sie Datenerhe
 Leider gelingt das in der Praxis nicht immer; in manchen Situationen ist es schlicht nicht möglich.
 
 
-
+<a href="https://github.com/luebby/WWWEKI?tab=readme-ov-file#modul%C3%BCbersicht" class="btn btn-primary">Zur Modulübersicht (auf GitHub)</a>
 
 ## Hinweis
 

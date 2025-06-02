@@ -257,6 +257,8 @@ Beispielsweise sollte man in einem linearen Modell nicht $Z$ als erklärende Var
 Man sollte auch nicht die Daten anhand von $Z$ in Gruppen einteilen, die man dann separat analysiert -- auch das verzerrt Zusammenhänge.
 ::: 
 
+<a href="https://github.com/luebby/WWWEKI?tab=readme-ov-file#modul%C3%BCbersicht" class="btn btn-primary">Zur Modulübersicht (auf GitHub)</a>
+
 ## Hinweis
 
 <red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>

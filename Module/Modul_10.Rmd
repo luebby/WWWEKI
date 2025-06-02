@@ -303,6 +303,7 @@ Das folgende Vidoeo zeigt eine kurze Einführung in die Bedienung von DAGitty an
 
 ![](https://vimeo.com/666725243){width="75%"}
 
+<a href="https://github.com/luebby/WWWEKI?tab=readme-ov-file#modul%C3%BCbersicht" class="btn btn-primary">Zur Modulübersicht (auf GitHub)</a>
 
 ## Hinweis
 

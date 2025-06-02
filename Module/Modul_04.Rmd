@@ -373,6 +373,8 @@ question("Welcher Wert beschreibt den (totalen) kausalen Effekt von Lernen (`x`)
 Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer Kette $$X \rightarrow Z \rightarrow Y$$ zu bestimmen, sollte ein Mediator $Z$ **nicht** berücksichtigt werden. Bei fixiertem $Z$ (z.B., wenn die Variable in einer Regression aufgenommen wird) wird der kausale Zusammenhang zwischen $X$ und $Y$ unterbrochen.
 ::: 
 
+<a href="https://github.com/luebby/WWWEKI?tab=readme-ov-file#modul%C3%BCbersicht" class="btn btn-primary">Zur Modulübersicht (auf GitHub)</a>
+
 ## Hinweis
 
 <red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
