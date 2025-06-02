@@ -249,6 +249,8 @@ Die Berechnung eines Counterfactuals erfolgt in 3 Schritten:
 3. **Vorhersage:** Verwenden des modifizierten Modells aus 2. und der Verteilung von $U$ aus 1., um den erwarteten Wert des Counterfactuals für $Y$ zu bestimmen.
 ::: 
 
+<a href="https://github.com/luebby/WWWEKI?tab=readme-ov-file#modul%C3%BCbersicht" class="btn btn-primary">Zur Modulübersicht (auf GitHub)</a>
+
 ## Hinweis
 
 <red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>

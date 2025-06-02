@@ -306,7 +306,7 @@ Exemplarische Beispiele für die Auswirkungen von Variablen bietet der ["A Crash
 Hinreichende Adjustment Sets lassen sich praktischerweise algorithmisch bestimmten.
 Wenn Sie beispielsweise den angenommenen kausalen Graphen in [DAGitty](http://dagitty.net/) (siehe Modul 10) zeichnen, dann bestimmt die Software automatisch alle existierenden *minimal sufficient adjustment sets*, also die kleinstmöglichen Adjustment Sets, die ausreichen, um den kausalen Effekt zu identifizieren. 
 
-
+<a href="https://github.com/luebby/WWWEKI?tab=readme-ov-file#modul%C3%BCbersicht" class="btn btn-primary">Zur Modulübersicht (auf GitHub)</a>
 
 ## Hinweis
 

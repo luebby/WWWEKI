@@ -357,6 +357,7 @@ gf_line(x1 ~ zeitpunkte, color = "orange", data = RandomWalk) %>%
 cor.test(x1 ~ x2, data = RandomWalk)
 ```
 
+<a href="https://github.com/luebby/WWWEKI?tab=readme-ov-file#modul%C3%BCbersicht" class="btn btn-primary">Zur Modulübersicht (auf GitHub)</a>
 
 ## Hinweis
 

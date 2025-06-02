@@ -343,6 +343,7 @@ Die Idee der Causal Fusion ist, dass wir trotzdem all diese Datenquellen *in Kom
 
 - Paul Hünermund und Elias Bareinboim, [Causal Inference and Data-Fusion in Econometrics](https://arxiv.org/abs/1912.09104v2)
 
+<a href="https://github.com/luebby/WWWEKI?tab=readme-ov-file#modul%C3%BCbersicht" class="btn btn-primary">Zur Modulübersicht (auf GitHub)</a>
 
 ## Hinweis
 
