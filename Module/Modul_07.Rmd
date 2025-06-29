@@ -79,14 +79,14 @@ Er enthält Daten zu Häusern in Saratoga County, New York, USA, im Jahr 2006.
 
 Schauen wir uns dort den Zusammenhang zwischen Anzahl Zimmer (`rooms`) und Preis (`price`) einmal an:
 
-```{r desi, warning=FALSE}
+```{r desi}
 # Vorbereitungen: Paket und Daten laden
 library(mosaic)
 data(SaratogaHouses)
 
-# Streudiagramm
-gf_point(price ~ rooms, data = SaratogaHouses) %>%
-  gf_lm() # Regressionsgerade ergänzt
+ggplot(SaratogaHouses, aes(x = rooms, y = price)) +
+  geom_point() + # Streudiagramm
+  geom_smooth(formula = y ~ x, method = "lm") # Regressionsgerade ergänzt
 ```
 
 Wir sehen: Je mehr Zimmer, desto höher der Preis im Mittel.

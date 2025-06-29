@@ -188,10 +188,10 @@ Sowohl die mathematische Darstellung als auch der `R` Code sind hier anspruchsvo
 Worauf es in diesem Modul aber ankommt, sind die Daten, die dabei rauskommen:
 
 ```{r scatter, echo=FALSE, fig.align='center', out.width='85%'}
-gf_point(y ~ x, data = SimData, color = ~z) +
-  scale_color_colorblind()  +
-  xlab("x (Nettigkeit)") +
-  ylab("y (Aussehen)")
+ggplot(SimData, aes(x = x, y = y, colour = z)) +
+  geom_point() +
+  scale_color_colorblind() +
+  labs(x = "x (Nettigkeit)", y = "y (Aussehen)", colour = "z (Date)")
 ```
 
 ## Zusammenhänge
@@ -202,11 +202,11 @@ $\color{green}{X}$ ist die Nettigkeit und $\color{blue}{Y}$ das Aussehen.
 Wenn wir, getrennt nach <violet>Date</violet> ($\color{violet}{Z}$), eine lineare Regression von <blue>Aussehen</blue> ($\color{blue}{Y}$) auf <green>Nettigkeit</green> ($\color{green}{X}$) bestimmen, so sehen die Ergebnisse wie folgt aus:
 
 ```{r scatterlm, echo=FALSE, fig.align='center', out.width='85%'}
-gf_point(y ~ x, data = SimData, color = ~z) %>%
-  gf_lm() +
+ggplot(SimData, aes(x = x, y = y, colour = z)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method = "lm", se = FALSE) +
   scale_color_colorblind() +
-  xlab("x (Nettigkeit)") +
-  ylab("y (Aussehen)")
+  labs(x = "x (Nettigkeit)", y = "y (Aussehen)", colour = "z (Date)")
 ```
 
 ```{r corb, echo=FALSE}
@@ -227,8 +227,9 @@ Wenn wir <violet>Date</violet> ($\color{violet}{Z}$) berücksichtigen, sehen wir
 Wenn wir uns hingegen den Zusammenhang zwischen $\color{green}{X}$ und $\color{blue}{Y}$ ohne Berücksichtigung von $\color{violet}{Z}$ angucken, erkennen wir, dass die Variablen eigentlich unabhängig sind:
 
 ```{r scatterlmub, echo=FALSE, fig.align='center', out.width='85%'}
-gf_point(y ~ x, data = SimData) %>%
-  gf_lm()
+ggplot(SimData, aes(x = x, y = y)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method = "lm", se = FALSE)
 ```
 
 ***
