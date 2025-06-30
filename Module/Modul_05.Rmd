@@ -97,15 +97,13 @@ Oder etwa doch?
 
 Robert Matthews hat sich Anfang des Jahrtausend die Mühe gemacht Daten für die Fragestellung zu sammeln ([Quelle](https://doi.org/10.1111/1467-9639.00013)):
 
-```{r scatter, echo=FALSE, fig.align='center', out.width='85%', warning=FALSE}
-gf_point(geburten ~ stoerche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
-  gf_lm() %>%
-  gf_lims(x=c(0,35000), y=c(0,2000000)) %>%
-  gf_text(geburten ~ stoerche,
-          label = ~land,
-          hjust = 0, vjust = 2, alpha = 0.8, size = 7,
-          check_overlap = TRUE) %>%
-  gf_labs(x="Anzahl Störche (Paare)", y="Geburten", caption="Datenquelle: Robert Matthews")
+```{r scatter, echo=FALSE, fig.align='center', out.width='85%'}
+ggplot(StoercheGeburten, aes(x = stoerche, y = geburten)) +
+  geom_point(size = 2, alpha = 0.7) +
+  geom_smooth(formula = y ~ x, method = "lm", se = FALSE) +
+  coord_cartesian(xlim = c(0, 35000), y = c(0, 2000000)) +
+  geom_text(aes(label = land), hjust = 0, vjust = 2, alpha = 0.8, size = 7, check_overlap = TRUE) +
+  labs(x="Anzahl Störche (Paare)", y="Geburten", caption="Datenquelle: Robert Matthews")
 ```
 
 
@@ -177,15 +175,13 @@ Um beliebte Fehlinterpretation des p-Wertes auszuschließen: Das bedeutet nicht,
 Überlegen wir uns mögliche Alternativerklärungen.
 Wie sieht eigentlich der Zusammenhang zwischen der Fläche des Landes und der Anzahl Geburten aus?
 
-```{r scatterflaeche, echo=FALSE, fig.align='center', out.width='85%', warning=FALSE}
-gf_point(geburten ~ flaeche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
-  gf_lm() %>%
-  gf_lims(x=c(0,900000), y=c(0,2000000)) %>%
-  gf_text(geburten ~ flaeche,
-          label = ~land,
-          hjust = 0, vjust = 2, alpha = 0.8, size = 7,
-          check_overlap = TRUE) %>%
-  gf_labs(x=parse(text = paste0("'Fläche in '",'~ km^2')), y="Geburten", caption="Datenquelle: Robert Matthews")
+```{r scatterflaeche, echo=FALSE, fig.align='center', out.width='85%'}
+ggplot(StoercheGeburten, aes(x = flaeche, y = geburten)) +
+  geom_point(size = 2, alpha = 0.7) +
+  geom_smooth(formula = y ~ x, method = "lm", se = FALSE) +
+  coord_cartesian(xlim = c(0, 900000), ylim = c(0, 2000000)) +
+  geom_text(aes(label = land), hjust = 0, vjust = 2, alpha = 0.8, size = 7, check_overlap = TRUE) +
+  labs(x=parse(text = paste0("'Fläche in '",'~ km^2')), y="Geburten", caption="Datenquelle: Robert Matthews")
 ```
 
 Anscheinend gibt es auch einen Zusammenhang zwischen der Größe eines Landes und der Anzahl Geburten.
@@ -194,15 +190,13 @@ Anscheinend gibt es auch einen Zusammenhang zwischen der Größe eines Landes un
 
 Aber nicht nur die Anzahl der Geburten steht mit der Fläche im Zusammenhang, sondern auch die Anzahl der Störche:
 
-```{r scatterstoerche, echo=FALSE, fig.align='center', out.width='85%', warning=FALSE}
-gf_point(stoerche ~ flaeche, data = StoercheGeburten, size = 2, alpha = 0.7) %>%
-  gf_lm() %>%
-  gf_lims(x=c(0,900000), y=c(0,35000)) %>%
-  gf_text(stoerche ~ flaeche,
-          label = ~land,
-          hjust = 0, vjust = 2, alpha = 0.8, size = 7,
-          check_overlap = TRUE) %>%
-  gf_labs(x=parse(text = paste0("'Fläche in '",'~ km^2')), y="Anzahl Störche (Paare)", caption="Datenquelle: Robert Matthews")
+```{r scatterstoerche, echo=FALSE, fig.align='center', out.width='85%'}
+ggplot(StoercheGeburten, aes(x = flaeche, y = stoerche)) +
+  geom_point(size = 2, alpha = 0.7) +
+  geom_smooth(formula = y ~ x, method = "lm", se = FALSE) +
+  coord_cartesian(xlim = c(0, 900000), ylim = c(0, 35000)) +
+  geom_text(aes(label = land), hjust = 0, vjust = 2, alpha = 0.8, size = 7, check_overlap = TRUE) +
+  labs(x=parse(text = paste0("'Fläche in '",'~ km^2')), y="Anzahl Störche (Paare)", caption="Datenquelle: Robert Matthews")
 ```
 
 ## Confounder

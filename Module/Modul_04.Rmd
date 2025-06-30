@@ -294,9 +294,10 @@ Ein Verfahren, um Zusammenhänge zwischen Variablen $\color{green}{X}$ und $\col
 Dabei wird angenommen, dass der Zusammenhang zwischen der zu erklärenden Variable $\color{blue}{Y}$ und den weiteren Variablen im Modell linear ist, d. h., es reicht *nur* die jeweiligen Steigungen zu schätzen, um den Zusammenhang zu beschreiben. So sieht es aus, wenn wir in unseren simulierten Daten den Zusammenhang zwischen Lernen und Verstehen berechnen:
 
 ```{r streu, out.width='80%', fig.align='center', echo = FALSE}
-gf_point(y ~ x, data = SimData) %>% # Streudiagramm
-  gf_lm() %>% # Regressionsgerade
-  gf_labs(x = "x: Lernen", y = "y: Verstehen") # Achsenbeschriftung 
+ggplot(SimData, aes(x = x, y = y)) +
+  geom_point() + # Streudiagramm
+  geom_smooth(formula = y ~ x, method = "lm") + # Regressionsgerade
+  labs(x = "x: Lernen", y = "y: Verstehen") # Achsenbeschriftung
 ```
 
 In `R` kann eine lineare Regression über die Funktion `lm()` berechnet werden.
