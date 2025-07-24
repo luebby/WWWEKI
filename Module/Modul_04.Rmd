@@ -276,7 +276,7 @@ f_Y <- function(z) 3 * z + rnorm(length(z))
 n <- 100 # Anzahl Beobachtungen
 SimData <- tibble(x = U_X(n)) %>%
   mutate(z = f_Z(x)) %>%
-  mutate(y = f_Y(z)
+  mutate(y = f_Y(z))
 ```
 
 ## Lineare Regression, Versuch 1
